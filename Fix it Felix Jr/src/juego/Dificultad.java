@@ -8,19 +8,19 @@ public class Dificultad {
 	private static final int cantObstaculos=3;
 	private static final int tiempo=400;
 	
-	public int getPanelesRotos(int mult) {
+	public static int getPanelesRotos(int mult) {
 		return panelesRotos*mult;
 	}
-	public int getVelocidadLadrillos(int mult) {
+	public static int getVelocidadLadrillos(int mult) {
 		return velocidadLadrillos*mult;
 	}
-	public int getFrecuenciaGolpeo(int mult) {
+	public static int getFrecuenciaGolpeo(int mult) {
 		return frecuenciaGolpeo*mult;
 	}
-	public int getCantObstaculos(int mult) {
+	public static int getCantObstaculos(int mult) {
 		return cantObstaculos*mult;
 	}
-	public int getTiempo(int nivel) {
+	public static int getTiempo(int nivel) {
 		return tiempo-10*nivel;
 	}
 	

@@ -12,5 +12,10 @@ public class Seccion {
 		this.ventanasRestantes = ventanasRestantes;
 	}
 	
+	public Seccion (int ventanasRestantes, Ventana[][] ventanas) {
+		this.ventanasRestantes= ventanasRestantes;
+		this.ventanas=ventanas;
+	}
+	
 	
 }
