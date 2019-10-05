@@ -23,14 +23,17 @@ public class ConHojas extends Ventana {
 
 	@Override
 	public void repararse() {
-		// TODO Auto-generated method stub
-
+		if (paneles[0].getEstado()!=EstadoPanel.SANO) {
+			paneles[0].repararse();
+		}
+		else if (paneles[1].getEstado()!=EstadoPanel.SANO)  
+			paneles[1].repararse();
 	}
 
 	@Override
 	public boolean estoySana() {
-		// TODO Auto-generated method stub
-		return false;
+		return (paneles[0].getEstado()==EstadoPanel.SANO &&
+				paneles[1].getEstado()==EstadoPanel.SANO);
 	}
 	
 	public boolean getAbierta() {

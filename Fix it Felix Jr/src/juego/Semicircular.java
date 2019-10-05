@@ -1,25 +1,20 @@
 package juego;
 
-public class Semicircular extends Ventana {
+public abstract class Semicircular extends Ventana {
 
 	
 	
+	public Semicircular(int nroFila, int nroCol, boolean tieneMacetero, boolean tieneMoldura) {
+		super(nroFila, nroCol, tieneMacetero, tieneMoldura);
+	}
+
 	@Override
 	public boolean puedoGenerarPastel() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
-	public void repararse() {
-		// TODO Auto-generated method stub
+	public abstract void repararse();
 
-	}
-
-	@Override
-	public boolean estoySana() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public abstract boolean estoySana();
 
 }
