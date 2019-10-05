@@ -4,13 +4,11 @@ public class Nivel {
 	
 	private int nroNivel;
 	
-	private int multDificultad;
-	
 	private int tiempoMax;
 	
 	public Edificio generarEdificio() {
-		Seccion seccion1= generarSeccion(Dificultad.getPanelesRotos(multDificultad),
-				Dificultad.getCantObstaculos(multDificultad));
+		Seccion seccion1= generarSeccion(Dificultad.getProbPanelesRotos(nroNivel),
+				Dificultad.getProbObstaculos(nroNivel), Dificultad.getProbVemtAbierta(nroNivel));
 		//hacer metodo generarPlantaBaja
 		
 		
@@ -18,35 +16,39 @@ public class Nivel {
 		return ed;
 	}
 
-	private Seccion generarSeccion(int cantPanelesRotos, int cantObstaculos) {
-		int posicion;
-		double probRoto = cantPanelesRotos / 30;
-		double probObstaculo = cantObstaculos;
+	private Seccion generarSeccion(double probPanelRoto, double probObstaculo,
+			double probVentAbierta) {
+		Ventana v;
 		EstadoPanel inferior, superior;
 		boolean moldura= false;
 		boolean macetero= false;
-		boolean vAbieta= false;
 		inferior = EstadoPanel.SANO;
 		superior = EstadoPanel.SANO;
-
 		for (int m = 0; m < 3; m++) {
 			for (int n = 0; n < 5; n++) {
-				if (Math.random() <= probRoto / 2) {
+				if (Math.random() <= probPanelRoto/ 4) {
 					inferior = EstadoPanel.ROTO;
-				} else if (Math.random() <= probRoto / 2) {
+				} else if (Math.random() <= probPanelRoto / 4) {
 					inferior = EstadoPanel.MEDIO_ROTO;
 				}
-				if (Math.random() <= probRoto / 2) {
+				if (Math.random() <= probPanelRoto / 4) {
 					superior = EstadoPanel.ROTO;
-				} else if (Math.random() <= probRoto / 2) {
+				} else if (Math.random() <= probPanelRoto/ 4) {
 					superior = EstadoPanel.MEDIO_ROTO;
 				}
-				Ventana v = new Comun(m, n, true, false, inferior, superior);
+				if (Math.random()<= probObstaculo /2) {
+					macetero=true;
+				}
+				if (Math.random()<= probObstaculo /2) {
+					moldura=true;
+				}
+				if (Math.random()<=probVentAbierta) {
+					v= new ConHojas(m, n, macetero, moldura, inferior, superior, true);
+				}
+				v = new Comun(m, n, true, false, inferior, superior);
 
 			}
-
 		}
-
 	}
 		
 		
@@ -114,19 +116,14 @@ public class Nivel {
 	*/
 	}
 	public int getNroNivel() {
+		boolean macetero=false;
 		return nroNivel;
-	}
-	public int getMultDificultad() {
-		return multDificultad;
 	}
 	public int getTiempoMax() {
 		return tiempoMax;
 	}
 	public void setNroNivel(int nroNivel) {
 		this.nroNivel = nroNivel;
-	}
-	public void setMultDificultad(int multDificultad) {
-		this.multDificultad = multDificultad;
 	}
 	public void setTiempoMax(int tiempoMax) {
 		this.tiempoMax = tiempoMax;
