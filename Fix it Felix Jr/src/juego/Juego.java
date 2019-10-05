@@ -10,6 +10,10 @@ public class Juego {
 	private Felix felix;
 	
 	private Edificio edificio;
+	private ControladorDeRalph ralphController;
+	//private ControladorDePajaros birdController;
+	private int puntaje;
+	private int tiempo;
 	
 	
 	
@@ -21,9 +25,18 @@ public class Juego {
 	}
 	
 	public void iniciarNivel() {
-		nivel.setNroNivel(0);
+		nivel = new Nivel(0);		//Ver como manejamos el nro de nivel en el que estamos
 		edificio=nivel.generarEdificio();
 		felix=Felix.getInstance();
 		felix.setVentanaActual(edificio.getSecciones()[0].getVentanas()[2][2]);
+		tiempo=nivel.getTiempoMax();
+	}
+	
+	public void actualizar() {
+		ralphController.manejarRalph();
+		//birdController.generarPajaros();
+		//birdController.actualizarPosPajaros();
+		
+		
 	}
 }

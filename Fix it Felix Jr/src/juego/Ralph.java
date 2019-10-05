@@ -1,15 +1,13 @@
 package juego;
 
-public class Ralph extends Desplazable {
-	
+public class Ralph /*extends Desplazable */{
 	
 	private static final int ladrillosPorTirada = 3;
-	
 	private int ladrillos;
-	
-	public double posX;
-
+	private int posX;
+	private int velocidad;
 	private static Ralph INSTANCE;
+	
 	
 	public int getLadrillos() {
 		return ladrillos;
@@ -23,16 +21,16 @@ public class Ralph extends Desplazable {
 		this.ladrillos = ladrillos;
 	}
 
-	public void setPosX(double posX) {
+	public void setPosX(int posX) {
 		this.posX = posX;
 	}
 
 	private Ralph() {
 		this.ladrillos=40;
-		this.posX= 500.0;//cambiar valor
+		this.posX= 500;//cambiar valor
 	}
 	
-	public Ralph getInstance() {
+	public static Ralph getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new Ralph();
 		}
@@ -40,10 +38,11 @@ public class Ralph extends Desplazable {
 	}
 	
 	public void golpearEdif() {
-		if (ladrillos > 3) {
+		if (ladrillos > ladrillosPorTirada) {
 			for (int i = 0; i < ladrillosPorTirada; i++) {
-				Juego.generarLadrillo(new Posicion(pos.getPosX() + i * 15 - 15,pos.getPosY()));	 // Genero ladrillos a -15, 0 y 15 pixeles del centro de Ralph
+				Juego.generarLadrillo(new Posicion(posX + i * 15 - 15,100));	 // Genero ladrillos a -15, 0 y 15 pixeles del centro de Ralph
 				//comprobar si los ladrillos estan en una pos correcta
+				//El 100 sería la posicino en Y de Ralph, ver si está bien o se la cambiamos
 				ladrillos--;
 				//Esperar 1 segundo
 				try {
@@ -55,16 +54,16 @@ public class Ralph extends Desplazable {
 		}
 	}
 
-	@Override
+	/*@Override
 	public Direcciones obtenerDireccion() {
 		return null;
-	}
+	}*/
 
-	@Override
-	public void avanzar() {
+	
+	public void avanzar(int cantPasos, Direcciones direccion) {
 		for (int i=0;i<velocidad/5;i++) {
 			//case
-			pos.setPosX(pos.getPosX()+5);
+			posX+=5;
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException error) {
