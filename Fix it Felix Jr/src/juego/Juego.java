@@ -13,6 +13,7 @@ public class Juego {
 	
 	
 	
+	
 	private static List<Impactable> impactables= new LinkedList<Impactable>();
 	
 	public static void generarLadrillo (Posicion posicion) {

@@ -22,8 +22,8 @@ public class Felix {
 		return INSTANCE;
 	}
 	
-public void reparar(Ventana ventana) {
-		
+public void reparar() {
+		Edificio.getInstance().getSecciones()[]
 	}
 
 	

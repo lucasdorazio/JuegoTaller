@@ -1,9 +1,44 @@
 package juego;
 
 public class Ralph extends Desplazable {
-	private final int ladrillosPorTirada = 3;//static?
-	private int ladrillos = 40;
+	
+	
+	private static final int ladrillosPorTirada = 3;
+	
+	private int ladrillos;
+	
+	public double posX;
 
+	private static Ralph INSTANCE;
+	
+	public int getLadrillos() {
+		return ladrillos;
+	}
+
+	public double getPosX() {
+		return posX;
+	}
+
+	public void setLadrillos(int ladrillos) {
+		this.ladrillos = ladrillos;
+	}
+
+	public void setPosX(double posX) {
+		this.posX = posX;
+	}
+
+	private Ralph() {
+		this.ladrillos=40;
+		this.posX= 500.0;//cambiar valor
+	}
+	
+	public Ralph getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new Ralph();
+		}
+		return INSTANCE;
+	}
+	
 	public void golpearEdif() {
 		if (ladrillos > 3) {
 			for (int i = 0; i < ladrillosPorTirada; i++) {
@@ -28,7 +63,7 @@ public class Ralph extends Desplazable {
 	@Override
 	public void avanzar() {
 		for (int i=0;i<velocidad/5;i++) {
-			case
+			//case
 			pos.setPosX(pos.getPosX()+5);
 			try {
 				Thread.sleep(100);
