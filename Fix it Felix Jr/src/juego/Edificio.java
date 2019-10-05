@@ -7,11 +7,22 @@ public class Edificio {
 	@SuppressWarnings("unused")
 	private Seccion secciones[];
 	
-	public Edificio(Seccion[] secciones) {
-		this.secciones=secciones;
-		seccionesRetantes=3;
+	private static Edificio INSTANCE;
+	
+	private Edificio() {
+		this.seccionesRetantes=3;
+	}
+	
+	public static Edificio getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new Edificio();
+		}
+		return INSTANCE;
 	}
 
+	public void setSecciones(Seccion[] secciones) {
+		this.secciones=secciones;
+	}
 	public int getSeccionesRetantes() {
 		return seccionesRetantes;
 	}
@@ -19,6 +30,12 @@ public class Edificio {
 	public void setSeccionesRetantes(int seccionesRetantes) {
 		this.seccionesRetantes = seccionesRetantes;
 	}
+	
+	public Seccion[] getSecciones() {
+		return secciones;
+	}
+	
+	
 
 	
 }

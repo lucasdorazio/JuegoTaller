@@ -17,7 +17,9 @@ public class Nivel {
 		secciones[2] = generarSeccion(Dificultad.getProbPanelesRotos(nroNivel),
 				Dificultad.getProbObstaculos(nroNivel), Dificultad.getProbVemtAbierta(nroNivel));
 		
-		return new Edificio(secciones);
+		Edificio e = Edificio.getInstance();
+		e.setSecciones(secciones);
+		return e;
 	}
 
 	private Seccion generarSeccion(double probPanelRoto, double probObstaculo,

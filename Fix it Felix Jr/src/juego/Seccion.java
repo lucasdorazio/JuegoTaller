@@ -4,7 +4,6 @@ public class Seccion {
 	
 	private int ventanasRestantes;
 	
-	@SuppressWarnings("unused")
 	private Ventana ventanas[][];
 	
 	public int getVentanasRestantes() {
@@ -16,7 +15,13 @@ public class Seccion {
 	
 	public Seccion (int ventanasRestantes, Ventana[][] ventanas) {
 		this.ventanasRestantes= ventanasRestantes;
-		this.ventanas=ventanas;
+		this.setVentanas(ventanas);
+	}
+	public Ventana[][] getVentanas() {
+		return ventanas;
+	}
+	public void setVentanas(Ventana ventanas[][]) {
+		this.ventanas = ventanas;
 	}
 	
 	
