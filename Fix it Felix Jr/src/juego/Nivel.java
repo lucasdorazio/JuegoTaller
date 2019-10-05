@@ -17,11 +17,42 @@ public class Nivel {
 		Edificio ed = new Edificio();
 		return ed;
 	}
-	
+
 	private Seccion generarSeccion(int cantPanelesRotos, int cantObstaculos) {
 		int posicion;
-		Ventana[][] ventanas= new Ventana[3][5];
-		boolean [] rotos= new boolean [30]; 
+		double probRoto = cantPanelesRotos / 30;
+		double probObstaculo = cantObstaculos;
+		EstadoPanel inferior, superior;
+		boolean moldura= false;
+		boolean macetero= false;
+		boolean vAbieta= false;
+		inferior = EstadoPanel.SANO;
+		superior = EstadoPanel.SANO;
+
+		for (int m = 0; m < 3; m++) {
+			for (int n = 0; n < 5; n++) {
+				if (Math.random() <= probRoto / 2) {
+					inferior = EstadoPanel.ROTO;
+				} else if (Math.random() <= probRoto / 2) {
+					inferior = EstadoPanel.MEDIO_ROTO;
+				}
+				if (Math.random() <= probRoto / 2) {
+					superior = EstadoPanel.ROTO;
+				} else if (Math.random() <= probRoto / 2) {
+					superior = EstadoPanel.MEDIO_ROTO;
+				}
+				Ventana v = new Comun(m, n, true, false, inferior, superior);
+
+			}
+
+		}
+
+	}
+		
+		
+		
+		
+		/*boolean [] rotos= new boolean [30]; 
 		/*int [] cantObstaculosPorVentana = new int[15];
 		while (cantObstaculos>0) {
 			posObstaculo= ((int) (Math.random()*15));
@@ -30,7 +61,7 @@ public class Nivel {
 				cantObstaculos--;
 			}
 		}
-		*/
+		*
 		int cantMolduras=cantObstaculos/3;
 		int cantMaceteros=cantMolduras;
 		int cantVentAbiertas=cantObstaculos%3;
@@ -79,7 +110,9 @@ public class Nivel {
 		2	4-5
 		3	6-7
 		4	8-9
+	/
 	*/
+	}
 	public int getNroNivel() {
 		return nroNivel;
 	}
