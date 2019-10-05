@@ -1,16 +1,22 @@
 package juego;
 
-public class Ralph /*extends Desplazable */{
-	
-	private static final int ladrillosPorTirada = 3;
-	private int ladrillos;
+public class Ralph /* extends Desplazable */ {
+
+	private static final int LIMITE_DERECHO_EDIFICIO = 500;
+	private static final int LIMITE_IZQUIERDA_EDIFICIO = 100;
+	private static final int LADRILLOS_POR_TIRADA = 3;
+	private static final double TIEMPO_ENTRE_LADRILLOS=0.5;
+	private int ladrillosTotales;
+	private int ladrillosRestantes;
 	private int posX;
 	private int velocidad;
+	private int timer = 0;
+	private int pasosRestantes;
+	private Direcciones dirActual;
 	private static Ralph INSTANCE;
-	
-	
+
 	public int getLadrillos() {
-		return ladrillos;
+		return ladrillosTotales;
 	}
 
 	public double getPosX() {
@@ -18,7 +24,7 @@ public class Ralph /*extends Desplazable */{
 	}
 
 	public void setLadrillos(int ladrillos) {
-		this.ladrillos = ladrillos;
+		this.ladrillosTotales = ladrillos;
 	}
 
 	public void setPosX(int posX) {
@@ -26,53 +32,60 @@ public class Ralph /*extends Desplazable */{
 	}
 
 	private Ralph() {
-		this.ladrillos=40;
-		this.posX= 500;//cambiar valor
+		this.ladrillosTotales = 40;
+		this.posX = 500;// cambiar valor
 	}
-	
+
 	public static Ralph getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new Ralph();
 		}
 		return INSTANCE;
 	}
-	
-	public void golpearEdif() {
-		if (ladrillos > ladrillosPorTirada) {
-			for (int i = 0; i < ladrillosPorTirada; i++) {
-				Juego.generarLadrillo(new Posicion(posX + i * 15 - 15,100));	 // Genero ladrillos a -15, 0 y 15 pixeles del centro de Ralph
-				//comprobar si los ladrillos estan en una pos correcta
-				//El 100 sería la posicino en Y de Ralph, ver si está bien o se la cambiamos
-				ladrillos--;
-				//Esperar 1 segundo
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException error) {
-					error.printStackTrace();
-				}
-			}
+
+	public boolean golpearEdif() {							//Retorna true cuando no tiene que tirar mas ladrillos
+		timer++;
+		if (timer>TIEMPO_ENTRE_LADRILLOS*10000) {												// timer se incrementa 10000 veces por segundo
+			Juego.generarLadrillo(new Posicion(posX+(ladrillosRestantes*15)-30,100));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
+			ladrillosRestantes--;																//Revisar coordY de la posicion
+			timer=0;
 		}
+		return (ladrillosRestantes==0);
+	}
+	
+	public void comenzarGolpeo() {
+		ladrillosRestantes=LADRILLOS_POR_TIRADA;
+		golpearEdif();
 	}
 
-	/*@Override
-	public Direcciones obtenerDireccion() {
-		return null;
-	}*/
+	/*
+	 * @Override public Direcciones obtenerDireccion() { return null; }
+	 */
 
-	
-	public void avanzar(int cantPasos, Direcciones direccion) {
-		for (int i=0;i<velocidad/5;i++) {
-			//case
-			posX+=5;
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException error) {
-				// TODO Auto-generated catch block
-				error.printStackTrace();
-			}
+	public void comenzarMovimiento(int cantPasos, Direcciones direccion) {
+		pasosRestantes = cantPasos * 15; // Un paso es igual a 15 pixeles
+		dirActual = direccion;
+		this.avanzar();
+	}
+
+	public boolean avanzar() { // Devuelve true cuando no tiene que avanzar mas
+		timer++;
+		if (timer > velocidad * 10000) { 
+			if (dirActual == Direcciones.DERECHA) {
+				if (posX + 1 > LIMITE_DERECHO_EDIFICIO) {
+					dirActual = Direcciones.IZQUIERDA;
+					posX--;
+				} else
+					posX++;
+			} else if (posX - 1 < LIMITE_IZQUIERDA_EDIFICIO) {
+				dirActual = Direcciones.DERECHA;
+				posX++;
+			} else
+				posX--;
+			pasosRestantes--;
+			timer=0;
 		}
-		
-
+		return (pasosRestantes == 0);
 	}
 
 }

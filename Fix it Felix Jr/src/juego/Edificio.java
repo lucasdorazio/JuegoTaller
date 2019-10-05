@@ -4,7 +4,6 @@ public class Edificio {
 	
 	private int seccionesRetantes;
 	
-	@SuppressWarnings("unused")
 	private Seccion secciones[];
 	
 	private static Edificio INSTANCE;

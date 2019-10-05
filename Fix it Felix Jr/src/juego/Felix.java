@@ -23,7 +23,7 @@ public class Felix {
 	}
 	
 public void reparar() {
-		Edificio.getInstance().getSecciones()[]
+		//Edificio.getInstance().getSecciones()[]
 	}
 
 	
