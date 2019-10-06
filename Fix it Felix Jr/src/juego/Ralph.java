@@ -2,8 +2,6 @@ package juego;
 
 public class Ralph implements Desplazable{
 
-	private static final int LIMITE_DERECHO_EDIFICIO = 500;
-	private static final int LIMITE_IZQUIERDA_EDIFICIO = 100;
 	private static final int LADRILLOS_POR_TIRADA = 3;
 	private static final double TIEMPO_ENTRE_LADRILLOS=0.5;
 	private int ladrillosTotales;
@@ -62,12 +60,12 @@ public class Ralph implements Desplazable{
 		timer++;
 		if (timer > 10000/velocidad) { 
 			if (dirActual == Direcciones.DERECHA) {
-				if (pos.getPosX() + 1 > LIMITE_DERECHO_EDIFICIO) {
+				if (pos.getPosX() + 1 > Juego.getLimiteDerechoEdificio()) {
 					dirActual = Direcciones.IZQUIERDA;
 					pos.disminuirPosX();
 				} else
 					pos.aumentarPosX();
-			} else if (pos.getPosX()-1 < LIMITE_IZQUIERDA_EDIFICIO) {
+			} else if (pos.getPosX()-1 < Juego.getLimiteIzquierdaEdificio()) {
 				dirActual = Direcciones.DERECHA;
 				pos.aumentarPosX();
 			} else

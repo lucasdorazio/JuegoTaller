@@ -13,9 +13,9 @@ public class Juego {
 	
 	private static final int LIMITE_IZQUIERDA_EDIFICIO = 100;
 	
-	private static final int FIN_DERECHO_MAPA=1000; //Revisar valor
+	private static final int LIMITE_DERECHO_MAPA=1000; //Revisar valor
 	
-	private static final int FIN_IZQUIERDO_MAPA=0;
+	private static final int LIMITE_IZQUIERDO_MAPA=0;
 	
 	private Edificio edificio;
 	
@@ -31,9 +31,22 @@ public class Juego {
 	
 	private int nroNivel;
 	
-	
-	
-	
+	public static int getLimiteDerechoEdificio() {
+		return LIMITE_DERECHO_EDIFICIO;
+	}
+
+	public static int getLimiteIzquierdaEdificio() {
+		return LIMITE_IZQUIERDA_EDIFICIO;
+	}
+
+	public static int getLimiteDerechoMapa() {
+		return LIMITE_DERECHO_MAPA;
+	}
+
+	public static int getLimiteIzquierdoMapa() {
+		return LIMITE_IZQUIERDO_MAPA;
+	}
+
 	private static List<Impactable> impactables= new LinkedList<Impactable>();
 	
 	

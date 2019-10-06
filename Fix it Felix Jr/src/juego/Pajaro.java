@@ -4,8 +4,6 @@ public class Pajaro implements Impactable, Desplazable{
 	
 	private Direcciones direccion;
 	private Posicion pos;
-	private static final int FIN_DERECHO_MAPA=1000; //Revisar valor
-	private static final int FIN_IZQUIERDO_MAPA=0;
 
 	public Pajaro(Posicion pos, Direcciones dir) {
 		this.pos=pos;
@@ -40,10 +38,10 @@ public class Pajaro implements Impactable, Desplazable{
 	public boolean avanzar() {
 		if (this.direccion == Direcciones.DERECHA) {
 			pos.aumentarPosX();
-			return (pos.getPosX()>FIN_DERECHO_MAPA);
+			return (pos.getPosX()>Juego.getLimiteDerechoMapa());
 		} else {
 			pos.disminuirPosX();
-			return (pos.getPosX()<FIN_IZQUIERDO_MAPA);
+			return (pos.getPosX()<Juego.getLimiteIzquierdoMapa());
 		}
 	}
 }
