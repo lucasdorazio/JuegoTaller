@@ -44,9 +44,4 @@ public class ControladorDeRalph {
 			}
 		}
 	}
-	
-	public void actualizarLadrillos() {
-		
-	}
-
 }

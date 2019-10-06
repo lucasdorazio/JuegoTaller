@@ -13,6 +13,22 @@ public class Posicion {
 		return this;
 	}
 	
+	public void aumentarPosX() {
+		posX++;
+	}
+	
+	public void aumentarPosY() {
+		posY++;
+	}
+	
+	public void disminuirPosY() {
+		posY--;
+	}
+	
+	public void disminuirPosX() {
+		posX--;
+	}
+	
 	public int getPosX() {
 		return posX;
 	}

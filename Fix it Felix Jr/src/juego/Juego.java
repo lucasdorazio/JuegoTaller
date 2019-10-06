@@ -32,6 +32,7 @@ public class Juego {
 	
 	public void actualizar() {
 		ralphController.manejarRalph();
+		brickController.actualizarLadrillos();
 		//birdController.generarPajaros();
 		//birdController.actualizarPosPajaros();
 		
