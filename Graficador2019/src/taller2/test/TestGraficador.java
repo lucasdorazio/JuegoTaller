@@ -9,6 +9,7 @@ import taller2.vista.Graficador;
  * Para graficar continuamente, simplemente en lugar de dibujar
  * sólo 1 vez, debería iterar N veces sobre la colección de objetos a mostrar
  */
+@SuppressWarnings("unused")
 public class TestGraficador {
 	public static void main(String[] args) {
 		//prueba cuando dibuja de arriba a abajo

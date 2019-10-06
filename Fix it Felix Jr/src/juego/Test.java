@@ -9,7 +9,6 @@ public class Test {
 		*/
 		Juego j = new Juego();
 		j.iniciarNivel();
-		j.pajaroGolpeaFelix();
 	}
 
 }

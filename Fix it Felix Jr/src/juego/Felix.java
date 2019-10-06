@@ -29,15 +29,15 @@ public class Felix {
 		Juego.comprobarSeccionLimpia(seccionActual);
 	}
 
-	public void recibirImpacto(Pajaro p) {
-		vidas--;//falta que se reinicie la seccion, hay que guardarla
-	}
-	
-	public void recibirImpacto (Pastel p) {
+	public void recibirImpactoPajaro() {
 		vidas--;
 	}
 	
-	public void recibirImpacto(Ladrillo l) {
+	public void recibirPastel () {
+		vulnerable=false;//por cierto tiempo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
+	
+	public void recibirImpactoLadrillo() {
 		if (!vulnerable) {
 			vidas--;
 		}

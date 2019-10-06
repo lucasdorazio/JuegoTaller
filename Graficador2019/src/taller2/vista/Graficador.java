@@ -16,7 +16,8 @@ import taller2.modelo.InformacionDibujable;
 public class Graficador {
    private static final int ANCHO = 650;
    private static final int ALTO = 550;
-   private static final int DELTA = 50;
+   @SuppressWarnings("unused")
+private static final int DELTA = 50;
    private static JFrame frame = new JFrame("Visualización Fix It Felix");
    private static final int margen = 50;
 
@@ -28,6 +29,7 @@ public class Graficador {
 
    public static void refrescarTopDown(List<? extends Dibujable> listaDibujables, int delayMilis) {
       Graphics gr = frame.getContentPane().getGraphics();
+      @SuppressWarnings("rawtypes")
       Iterator var4 = listaDibujables.iterator();
 
       while(var4.hasNext()) {
@@ -47,6 +49,7 @@ public class Graficador {
 
    public static void refrescarDownTop(List<? extends Dibujable> listaDibujables, int delayMilis) {
       Graphics gr = frame.getContentPane().getGraphics();
+      @SuppressWarnings("rawtypes")
       Iterator var4 = listaDibujables.iterator();
 
       while(var4.hasNext()) {
