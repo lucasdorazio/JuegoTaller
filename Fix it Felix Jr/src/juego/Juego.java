@@ -9,12 +9,27 @@ public class Juego {
 	
 	private Felix felix;
 	
+	private static final int LIMITE_DERECHO_EDIFICIO = 500;
+	
+	private static final int LIMITE_IZQUIERDA_EDIFICIO = 100;
+	
+	private static final int FIN_DERECHO_MAPA=1000; //Revisar valor
+	
+	private static final int FIN_IZQUIERDO_MAPA=0;
+	
 	private Edificio edificio;
+	
 	private ControladorDeRalph ralphController;
+	
 	//private ControladorDePajaros birdController;
+	
 	private ControladorDeLadrillos brickController;
+	
 	private int puntaje;
+	
 	private int tiempo;
+	
+	private int nroNivel;
 	
 	
 	
@@ -23,10 +38,10 @@ public class Juego {
 	
 	
 	public void iniciarNivel() {
-		nivel = new Nivel(0);		//Ver como manejamos el nro de nivel en el que estamos
-		edificio=nivel.generarEdificio();
-		felix=Felix.getInstance();
-		felix.setVentanaActual(edificio.getSecciones()[0].getVentanas()[2][2]);
+		nivel = new Nivel(this.nroNivel);		//Ver como manejamos el nro de nivel en el que estamos
+		nivel.generarEdificio();
+		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
+		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		tiempo=nivel.getTiempoMax();
 	}
 	

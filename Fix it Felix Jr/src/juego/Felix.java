@@ -8,6 +8,8 @@ public class Felix {
 	
 	private Ventana ventanaActual;
 	
+	private Seccion seccionActual;
+	
 	private static Felix INSTANCE;
 	
 	private Felix() {
@@ -50,6 +52,14 @@ public void reparar() {
 
 	public void setVentanaActual(Ventana ventanaActual) {
 		this.ventanaActual = ventanaActual;
+	}
+
+	public Seccion getSeccionActual() {
+		return seccionActual;
+	}
+
+	public void setSeccionActual(Seccion seccionActual) {
+		this.seccionActual = seccionActual;
 	}
 
 }

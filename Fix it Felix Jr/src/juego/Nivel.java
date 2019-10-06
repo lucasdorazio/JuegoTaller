@@ -13,7 +13,7 @@ public class Nivel {
 		this.tiempoMax=Dificultad.getTiempo(nroNivel);
 	}
 	
-	public Edificio generarEdificio() {
+	public void generarEdificio() {
 		Seccion[] secciones = new Seccion[3];
 		secciones[0] = generarPlantaBaja(Dificultad.getProbPanelesRotos(nroNivel),
 				Dificultad.getProbObstaculos(nroNivel), Dificultad.getProbVentAbierta(nroNivel));
@@ -21,10 +21,7 @@ public class Nivel {
 				Dificultad.getProbObstaculos(nroNivel), Dificultad.getProbVentAbierta(nroNivel));
 		secciones[2] = generarSeccion(Dificultad.getProbPanelesRotos(nroNivel),
 				Dificultad.getProbObstaculos(nroNivel), Dificultad.getProbVentAbierta(nroNivel));
-		
-		Edificio e = Edificio.getInstance();
-		e.setSecciones(secciones);
-		return e;
+		Edificio.getInstance().setSecciones(secciones);
 	}
 
 	private Seccion generarSeccion(double probPanelRoto, double probObstaculo,
