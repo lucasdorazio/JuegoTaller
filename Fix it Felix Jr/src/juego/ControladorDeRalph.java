@@ -7,14 +7,24 @@ public class ControladorDeRalph {
 	private static final int CANT_PASOS_MAX = 12;
 	private boolean estaMoviendose;
 	private boolean estaGolpeando;
-	private int timerGolpeo = 0;
-	private int timerMovimiento = 0;
+	private int timerGolpeo;
+	private int timerMovimiento;
 	private Ralph ralph;
 
+	public ControladorDeRalph(int tiempoDeGolpeo) {
+		this.tiempoDeGolpeo=tiempoDeGolpeo;
+		this.tiempoDeDesplazamiento= 5;
+		ralph= new Ralph();
+		timerGolpeo = 0;
+		timerMovimiento = 0;
+	}
+	
 	public int calcularCantPasos() {
 		return (int) (Math.random() * (CANT_PASOS_MIN - CANT_PASOS_MAX + 1) + CANT_PASOS_MIN);
 	}
 
+	
+	
 	public void manejarRalph() {
 		Direcciones dir;
 		if (estaMoviendose) {

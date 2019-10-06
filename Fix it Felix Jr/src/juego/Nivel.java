@@ -38,6 +38,9 @@ public class Nivel {
 			for (int n = 0; n < 5; n++) {
 				esCerrada=Math.random()<=PROB_VENT_CERRADA;
 				if (esCerrada=true) {
+					/* como se obtiene 4 veces una probabilidad por ventana, la probabilidad debe
+					 *  dividirse en 4. Se obtiene 4 veces. Dos por cada panel (roto y medio roto)
+					 */
 					if (Math.random() <= probPanelRoto/ 4) {
 						inferior = EstadoPanel.ROTO;
 					} else if (Math.random() <= probPanelRoto / 4) {

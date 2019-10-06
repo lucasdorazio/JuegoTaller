@@ -24,12 +24,19 @@ public class Felix {
 		return INSTANCE;
 	}
 	
-public void reparar() {
-		//Edificio.getInstance().getSecciones()[]
+	public void reparar() {
+		ventanaActual.repararse();
 	}
 
+	public void recibirImpacto(Pajaro p) {
+		vidas--;
+	}
 	
-	
+	public void recibirImpacto(Ladrillo l) {
+		if (!vulnerable) {
+			
+		}
+	}
 	public int getVidas() {
 		return vidas;
 	}
