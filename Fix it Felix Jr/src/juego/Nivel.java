@@ -232,6 +232,4 @@ public class Nivel {
 	public void setTiempoMax(int tiempoMax) {
 		this.tiempoMax = tiempoMax;
 	}
-	
-
 }

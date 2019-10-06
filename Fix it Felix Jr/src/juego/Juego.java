@@ -1,8 +1,5 @@
 package juego;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class Juego {
 	
 	private Nivel nivel;
@@ -14,6 +11,8 @@ public class Juego {
 	private static final int LIMITE_DERECHO_MAPA=1000; //Revisar valor
 	
 	private static final int LIMITE_IZQUIERDO_MAPA=0;
+	
+	private static final double CONST_TIEMPO = 10000;
 
 	private ControladorDeRalph ralphController;
 	
@@ -21,11 +20,11 @@ public class Juego {
 	
 	private ControladorDeLadrillos brickController;
 	
-	private int puntaje;
+	private static int puntaje;
 	
 	private int tiempo;
 	
-	private int timer;
+	private int timerPastel;
 	
 	private static Pastel pastel;
 	
@@ -34,6 +33,14 @@ public class Juego {
 	private static int nroNivel;
 	
 	private static int nroSeccion;
+	
+	private static boolean siguienteSeccion;
+	
+	private static boolean siguienteNivel;
+	
+	private Seccion[] seccionesOriginales;
+	
+	private Colisiones colisiones;
 	
 	
 	public static int getLimiteDerechoEdificio() {
@@ -55,39 +62,48 @@ public class Juego {
 	public static Pastel getPastel() {
 		return pastel;
 	}
-
-	//private static List<Impactable> impactables= new LinkedList<Impactable>();
 	
 	public Juego() {
 		
 	}
 	
 	public void iniciarNivel() {
+		nroSeccion=0;
 		nivel = new Nivel(nroNivel);		
 		ralphController = new ControladorDeRalph(Dificultad.getFrecuenciaGolpeo(nroNivel));
 		brickController = new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
 		birdController = new ControladorDePajaro();
 		nivel.generarEdificio();
+		seccionesOriginales=Edificio.getInstance().getSecciones().clone();
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		tiempo=nivel.getTiempoMax();
 	}
 	
-	public static void avanzarSeccion() {
-		Edificio.getInstance().setSeccionesRetantes(Edificio.getInstance().getSeccionesRetantes()-1);
-		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[]);
-		
+	public void avanzarSeccion() {
+		nroSeccion++;
+		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
+		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
+		siguienteSeccion=false;
 	}
 	
-	public static void avanzarNivel() {
+	public void avanzarNivel() {
 		
+		nroNivel++;
+		iniciarNivel();
+		siguienteSeccion=false;
+		System.out.println("Victoria!! Avanzas al nivel " + (nroNivel+1));//nroNivel va de 0 a 9
 	}
 	
 	public static void ganar() {
-		System.out.println("Ganaste, congratuleishon");
+		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ puntaje);
 	}
 	
 	public void actualizar() {
+		tiempo-=1/CONST_TIEMPO;
+		if (siguienteNivel) avanzarNivel();
+		if (siguienteSeccion) avanzarSeccion();
+		colisiones.comprobarColisiones();
 		ralphController.manejarRalph();
 		brickController.actualizarLadrillos();
 		birdController.generarPajaros();
@@ -96,10 +112,16 @@ public class Juego {
 		else if (pastel.disminuirTiempoDeVida()) pastel=null;
 	}
 	
+	public void jugar() {
+		while (tiempo>0 && Felix.getInstance().getVidas()>0) {
+			actualizar();
+		}
+	}
+	
 	public void generarPastel() {
-		timer++;
+		timerPastel++;
 		Ventana v;
-		if (timer > tiempoGeneracionPastel * 10000) {
+		if (timerPastel > tiempoGeneracionPastel * CONST_TIEMPO) {
 			v=this.obtenerVentanaAleatoria();
 			if (v.puedoGenerarPastel()) pastel = new Pastel(v);
 		}
@@ -113,18 +135,26 @@ public class Juego {
 	
 	public static void comprobarSeccionLimpia(Seccion seccion){
 		if (seccion.getVentanasRestantes()==0) {
-			if (Edificio.getInstance().getSeccionesRetantes()== 1) {
+			if (nroSeccion == 2) {
 				if (nroNivel ==9) {
 					ganar();
 				} else {
-					avanzarNivel();
+					siguienteNivel=true;
 				}
 			} else {
-				avanzarSeccion();
+				siguienteSeccion=true;
 			}
-		}/* sacar secciones restantes a edificios, agregar a seccion el nro de seccion actual
-		terminar los avanzares... mover de felix... seguir con el actualizar () crear while
-		
-		*/
+		}
 	}
+	
+	public void pajaroGolpeaFelix(){
+		
+		Edificio.getInstance().reiniciarSeccion(copiaSecciones[], nroSeccion);
+	}
+	
+	public void ladrilloGolpeaFelix(){
+		
+	}
+	
+	
 }

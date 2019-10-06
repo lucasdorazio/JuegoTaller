@@ -24,5 +24,4 @@ public class Seccion {
 		this.ventanas = ventanas;
 	}
 	
-	
 }

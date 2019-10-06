@@ -2,6 +2,7 @@ package juego;
 
 public class Posicion {
 	private int posX;
+	
 	private int posY;
 	
 	public Posicion(int posX, int posY) {

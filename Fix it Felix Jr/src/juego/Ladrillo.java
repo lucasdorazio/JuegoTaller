@@ -3,6 +3,7 @@ package juego;
 public class Ladrillo implements Impactable, Desplazable{
 	
 	private Direcciones direccion;
+	
 	private Posicion pos;
 	
 	public Ladrillo (Posicion pos) {
@@ -39,5 +40,4 @@ public class Ladrillo implements Impactable, Desplazable{
 		pos.disminuirPosY();
 		return (pos.getPosY()<0);
 	}
-	
 }

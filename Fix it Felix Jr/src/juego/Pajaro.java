@@ -3,6 +3,7 @@ package juego;
 public class Pajaro implements Impactable, Desplazable{
 	
 	private Direcciones direccion;
+	
 	private Posicion pos;
 
 	public Pajaro(Posicion pos, Direcciones dir) {

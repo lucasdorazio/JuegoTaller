@@ -39,5 +39,4 @@ public class Puerta extends Semicircular {
 	public boolean puedeAtravesarseLateralmente() {
 		return true;
 	}
-
 }

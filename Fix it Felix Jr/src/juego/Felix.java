@@ -34,12 +34,12 @@ public class Felix {
 	}
 	
 	public void recibirImpacto (Pastel p) {
-		
+		vidas--;
 	}
 	
 	public void recibirImpacto(Ladrillo l) {
 		if (!vulnerable) {
-			
+			vidas--;
 		}
 	}
 	public int getVidas() {
@@ -77,19 +77,22 @@ public class Felix {
 	public void mover(Direcciones dir) {
 		switch (dir) {
 		case ARRIBA:
-			if (!ventanaActual.tieneMoldura() && (ventanaActual.getNroFila())!=0)
+			if ((!ventanaActual.tieneMoldura()) && (ventanaActual.getNroFila()!=0) &&
+					(seccionActual.getVentanas()[ventanaActual.getNroFila()-1][ventanaActual.getNroColumna()].tieneMacetero()))
 				this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()-1][ventanaActual.getNroColumna()];
 			break;
 		case ABAJO:
-			if (!ventanaActual.tieneMacetero() && (ventanaActual.getNroFila()!=2))
+			if ((!ventanaActual.tieneMacetero()) && (ventanaActual.getNroFila()!=2) &&
+					(seccionActual.getVentanas()[ventanaActual.getNroFila()+1][ventanaActual.getNroColumna()].tieneMoldura()))
 				this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()+1][ventanaActual.getNroColumna()];
 		case IZQUIERDA:
-			if (ventanaActual.puedeAtravesarseLateralmente() && (ventanaActual.getNroColumna()!=0))
+			if ((ventanaActual.puedeAtravesarseLateralmente()) &&(ventanaActual.getNroColumna()!=0) &&
+					(seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()-1].puedeAtravesarseLateralmente()))
 				this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()-1];
 		case DERECHA:
-			if ((ventanaActual.getNroColumna()!=4) && seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()+1].puedeAtravesarseLateralmente())
+			if ((ventanaActual.puedeAtravesarseLateralmente()) && (ventanaActual.getNroColumna()!=4) &&
+					(seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()+1].puedeAtravesarseLateralmente()))
 				this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()+1];
 		}
 	}
-
 }

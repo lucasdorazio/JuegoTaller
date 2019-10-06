@@ -3,7 +3,9 @@ package juego;
 public class Pastel implements Impactable {
 
 	private int tiempoDeVida;
+	
 	private int timer;
+	
 	private Ventana ventanaActual;
 	
 	public Pastel(Ventana v) {
@@ -30,6 +32,4 @@ public class Pastel implements Impactable {
 	public Ventana devolverVentana() {
 		return this.ventanaActual;
 	}
-	
-
 }
