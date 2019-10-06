@@ -99,6 +99,10 @@ public class Juego {
 		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ puntaje);
 	}
 	
+	public void perder() {
+		System.out.println("Perdiste, tu puntaje fue: "+ puntaje);
+	}
+	 
 	public void actualizar() {
 		tiempo-=1/CONST_TIEMPO;
 		if (siguienteNivel) avanzarNivel();
@@ -148,12 +152,19 @@ public class Juego {
 	}
 	
 	public void pajaroGolpeaFelix(){
-		
-		Edificio.getInstance().reiniciarSeccion(copiaSecciones[], nroSeccion);
+		Edificio.getInstance().reiniciarSeccion(seccionesOriginales.clone(), nroSeccion);
+		if (Felix.getInstance().getVidas() == 0) {
+			perder();
+		}
 	}
-	
+	/*las seccionesOriginales no van a modificarse al enviar la copia. De esta manera se soporta
+	 * que la seccion pueda reiniciarse mas de una vez. 
+	*/
 	public void ladrilloGolpeaFelix(){
-		
+		Edificio.getInstance().setSecciones(seccionesOriginales.clone());
+		if (Felix.getInstance().getVidas() == 0) {
+			perder();
+		}
 	}
 	
 	

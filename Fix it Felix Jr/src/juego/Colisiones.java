@@ -11,6 +11,7 @@ public class Colisiones {
 		Pastel pastel=Juego.getPastel();
 		Ventana actual=Felix.getInstance().getVentanaActual();
 		Iterator<Ladrillo> iteLadrillos= listaLadrillos.iterator();
+		@SuppressWarnings("unused")
 		Iterator<Pajaro> itePajaros= listaPajaros.iterator();
 		if (pastel.devolverVentana().equals(actual)) Felix.getInstance().recibirImpacto(pastel);
 		while (iteLadrillos.hasNext()) {
