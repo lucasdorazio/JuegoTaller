@@ -1,6 +1,6 @@
 package juego;
 
 public interface Impactable {	
-	public void Impactar();
+	public void impactar();
 	public Ventana devolverVentana();
 }

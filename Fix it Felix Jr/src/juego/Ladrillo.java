@@ -8,11 +8,9 @@ public class Ladrillo extends Desplazable implements Impactable{
 	public Ladrillo (Posicion pos) {
 		this.pos=pos;
 	}
-	
-	public void impactar(){}
 
 	@Override
-	public void Impactar() {
+	public void impactar() {
 		// TODO Auto-generated method stub
 		
 	}

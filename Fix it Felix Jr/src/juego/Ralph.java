@@ -9,7 +9,7 @@ public class Ralph /* extends Desplazable */ {
 	private int ladrillosTotales;
 	private int ladrillosRestantes;
 	private int posX;
-	private int velocidad;
+	private int velocidad;	//velocidad= x pixeles/seg
 	private int timer = 0;
 	private int pasosRestantes;
 	private Direcciones dirActual;
@@ -46,7 +46,7 @@ public class Ralph /* extends Desplazable */ {
 	public boolean golpearEdif() {							//Retorna true cuando no tiene que tirar mas ladrillos
 		timer++;
 		if (timer>TIEMPO_ENTRE_LADRILLOS*10000) {												// timer se incrementa 10000 veces por segundo
-			Juego.generarLadrillo(new Posicion(posX+(ladrillosRestantes*15)-30,100));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
+			ControladorDeLadrillos.generarLadrillo(new Posicion(posX+(ladrillosRestantes*15)-30,100));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
 			ladrillosRestantes--;																//Revisar coordY de la posicion
 			timer=0;
 		}
@@ -70,7 +70,7 @@ public class Ralph /* extends Desplazable */ {
 
 	public boolean avanzar() { // Devuelve true cuando no tiene que avanzar mas
 		timer++;
-		if (timer > velocidad * 10000) { 
+		if (timer > 10000/velocidad) { 
 			if (dirActual == Direcciones.DERECHA) {
 				if (posX + 1 > LIMITE_DERECHO_EDIFICIO) {
 					dirActual = Direcciones.IZQUIERDA;

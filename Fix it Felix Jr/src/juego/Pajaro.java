@@ -3,11 +3,9 @@ package juego;
 public class Pajaro extends Desplazable implements Impactable {
 	
 	private Direcciones direccion;
-	
-	public void impactar(){}
 
 	@Override
-	public void Impactar() {
+	public void impactar() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -12,6 +12,7 @@ public class Juego {
 	private Edificio edificio;
 	private ControladorDeRalph ralphController;
 	//private ControladorDePajaros birdController;
+	private ControladorDeLadrillos brickController;
 	private int puntaje;
 	private int tiempo;
 	
@@ -20,9 +21,6 @@ public class Juego {
 	
 	private static List<Impactable> impactables= new LinkedList<Impactable>();
 	
-	public static void generarLadrillo (Posicion posicion) {
-		impactables.add(new Ladrillo(posicion));
-	}
 	
 	public void iniciarNivel() {
 		nivel = new Nivel(0);		//Ver como manejamos el nro de nivel en el que estamos
