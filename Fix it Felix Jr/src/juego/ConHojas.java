@@ -40,4 +40,10 @@ public class ConHojas extends Ventana {
 		return this.abierta;
 	}
 
+	@Override
+	public boolean puedeAtravesarseLateralmente() {
+		// TODO Auto-generated method stub
+		return (!abierta);
+	}
+
 }

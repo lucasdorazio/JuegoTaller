@@ -31,4 +31,10 @@ public class Comun extends Ventana {
 				paneles[1].getEstado()==EstadoPanel.SANO);
 	}
 
+	@Override
+	public boolean puedeAtravesarseLateralmente() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

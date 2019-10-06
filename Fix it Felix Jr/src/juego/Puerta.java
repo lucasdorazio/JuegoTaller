@@ -35,4 +35,9 @@ public class Puerta extends Semicircular {
 				paneles[3].getEstado()==EstadoPanel.SANO);
 	}
 
+	@Override
+	public boolean puedeAtravesarseLateralmente() {
+		return true;
+	}
+
 }

@@ -33,6 +33,10 @@ public class Felix {
 		vidas--;//falta que se reinicie la seccion, hay que guardarla
 	}
 	
+	public void recibirImpacto (Pastel p) {
+		
+	}
+	
 	public void recibirImpacto(Ladrillo l) {
 		if (!vulnerable) {
 			
@@ -68,6 +72,24 @@ public class Felix {
 
 	public void setSeccionActual(Seccion seccionActual) {
 		this.seccionActual = seccionActual;
+	}
+	
+	public void mover(Direcciones dir) {
+		switch (dir) {
+		case ARRIBA:
+			if (!ventanaActual.tieneMoldura() && (ventanaActual.getNroFila())!=0)
+				this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()-1][ventanaActual.getNroColumna()];
+			break;
+		case ABAJO:
+			if (!ventanaActual.tieneMacetero() && (ventanaActual.getNroFila()!=2))
+				this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()+1][ventanaActual.getNroColumna()];
+		case IZQUIERDA:
+			if (ventanaActual.puedeAtravesarseLateralmente() && (ventanaActual.getNroColumna()!=0))
+				this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()-1];
+		case DERECHA:
+			if ((ventanaActual.getNroColumna()!=4) && seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()+1].puedeAtravesarseLateralmente())
+				this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()+1];
+		}
 	}
 
 }

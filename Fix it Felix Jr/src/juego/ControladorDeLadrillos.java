@@ -14,6 +14,10 @@ public class ControladorDeLadrillos {
 		this.timer = 0;
 		this.velocidad = velocidad;
 	}
+	
+	public static List<Ladrillo> getListaLadrillos(){
+		return listaLadrillos;
+	}
 
 	public static void generarLadrillo(Posicion pos) {
 		listaLadrillos.add(new Ladrillo(pos));

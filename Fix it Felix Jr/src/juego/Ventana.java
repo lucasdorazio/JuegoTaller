@@ -19,6 +19,8 @@ public abstract class Ventana {
 	public abstract void repararse();
 	
 	public abstract boolean estoySana();
+	
+	public abstract boolean puedeAtravesarseLateralmente();
 
 	public int getNroFila() {
 		return nroFila;

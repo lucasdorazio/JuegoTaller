@@ -44,4 +44,10 @@ public class SemicircularSuperior extends Semicircular {
 				paneles[7].getEstado()==EstadoPanel.SANO);
 	}
 
+	@Override
+	public boolean puedeAtravesarseLateralmente() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

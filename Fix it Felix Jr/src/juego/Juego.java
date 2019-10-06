@@ -25,9 +25,16 @@ public class Juego {
 	
 	private int tiempo;
 	
+	private int timer;
+	
+	private static Pastel pastel;
+	
+	private int tiempoGeneracionPastel;
+	
 	private static int nroNivel;
 	
 	private static int nroSeccion;
+	
 	
 	public static int getLimiteDerechoEdificio() {
 		return LIMITE_DERECHO_EDIFICIO;
@@ -43,6 +50,10 @@ public class Juego {
 
 	public static int getLimiteIzquierdoMapa() {
 		return LIMITE_IZQUIERDO_MAPA;
+	}
+	
+	public static Pastel getPastel() {
+		return pastel;
 	}
 
 	//private static List<Impactable> impactables= new LinkedList<Impactable>();
@@ -80,7 +91,24 @@ public class Juego {
 		ralphController.manejarRalph();
 		brickController.actualizarLadrillos();
 		birdController.generarPajaros();
-		birdController.actualizarPosPajaros();	
+		birdController.actualizarPosPajaros();
+		if (pastel==null) this.generarPastel();
+		else if (pastel.disminuirTiempoDeVida()) pastel=null;
+	}
+	
+	public void generarPastel() {
+		timer++;
+		Ventana v;
+		if (timer > tiempoGeneracionPastel * 10000) {
+			v=this.obtenerVentanaAleatoria();
+			if (v.puedoGenerarPastel()) pastel = new Pastel(v);
+		}
+	}
+	
+	private Ventana obtenerVentanaAleatoria() {
+		int fila= (int) Math.random()*3;
+		int columna= (int) Math.random()*5;
+		return Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[fila][columna];
 	}
 	
 	public static void comprobarSeccionLimpia(Seccion seccion){

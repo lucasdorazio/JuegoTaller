@@ -8,9 +8,13 @@ public class ControladorDePajaro {
 
 	private static final int VELOCIDAD = 10; // cambiar valor
 	private int tiempoDeSpawneo;
-	private List<Pajaro> listaDePajaros;
+	private static List<Pajaro> listaDePajaros;
 	private int timer,timerGeneracion;
-
+	
+	public static List<Pajaro> getListaPajaros(){
+		return listaDePajaros;
+	}
+	
 	public ControladorDePajaro() {
 		// this.tiempoDeSpawneo=?
 		listaDePajaros = new LinkedList<Pajaro>();
