@@ -64,14 +64,14 @@ public class Ralph implements Desplazable{
 			if (dirActual == Direcciones.DERECHA) {
 				if (pos.getPosX() + 1 > LIMITE_DERECHO_EDIFICIO) {
 					dirActual = Direcciones.IZQUIERDA;
-					pos.disminuirPosX();;
+					pos.disminuirPosX();
 				} else
-					pos.aumentarPosX();;
+					pos.aumentarPosX();
 			} else if (pos.getPosX()-1 < LIMITE_IZQUIERDA_EDIFICIO) {
 				dirActual = Direcciones.DERECHA;
-				pos.aumentarPosX();;
+				pos.aumentarPosX();
 			} else
-				pos.disminuirPosX();;
+				pos.disminuirPosX();
 			pasosRestantes--;
 			timer=0;
 		}
