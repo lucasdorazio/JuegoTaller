@@ -26,10 +26,11 @@ public class Felix {
 	
 	public void reparar() {
 		ventanaActual.repararse();
+		Juego.comprobarSeccionLimpia(seccionActual);
 	}
 
 	public void recibirImpacto(Pajaro p) {
-		vidas--;
+		vidas--;//falta que se reinicie la seccion, hay que guardarla
 	}
 	
 	public void recibirImpacto(Ladrillo l) {

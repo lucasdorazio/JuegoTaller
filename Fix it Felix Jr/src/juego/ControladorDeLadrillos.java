@@ -10,9 +10,9 @@ public class ControladorDeLadrillos {
 	private int timer;
 	private int velocidad;
 
-	public ControladorDeLadrillos() {
+	public ControladorDeLadrillos(int velocidad) {
 		this.timer = 0;
-		// this.velocidad=?
+		this.velocidad = velocidad;
 	}
 
 	public static void generarLadrillo(Posicion pos) {
