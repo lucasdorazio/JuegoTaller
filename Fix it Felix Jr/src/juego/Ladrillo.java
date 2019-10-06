@@ -2,12 +2,12 @@ package juego;
 
 public class Ladrillo implements Impactable, Desplazable{
 	
-	private Direcciones direccion= Direcciones.ABAJO;
+	private Direcciones direccion;
 	private Posicion pos;
-	//velocidad= fijar numero
 	
 	public Ladrillo (Posicion pos) {
 		this.pos=pos;
+		this.direccion= Direcciones.ABAJO;
 	}
 	
 	public Posicion getPos() {
@@ -18,10 +18,6 @@ public class Ladrillo implements Impactable, Desplazable{
 		this.pos=pos;
 	}
 	
-	public boolean bajar() {
-		pos.disminuirPosY();
-		return (pos.getPosY()<0);
-	}
 
 	@Override
 	public void impactar() {
@@ -35,16 +31,13 @@ public class Ladrillo implements Impactable, Desplazable{
 		return null;
 	}
 
-	@Override
 	public Direcciones obtenerDireccion() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.direccion;
 	}
 
-	@Override
-	public void avanzar() {
-		// TODO Auto-generated method stub
-		
+	public boolean avanzar() {
+		pos.disminuirPosY();
+		return (pos.getPosY()<0);
 	}
 	
 }
