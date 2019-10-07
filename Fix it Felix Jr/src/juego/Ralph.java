@@ -17,10 +17,6 @@ public class Ralph implements Desplazable{
 		return ladrillosTotales;
 	}
 
-	public Posicion getPosicion() {
-		return this.pos;
-	}
-
 	public void setLadrillos(int ladrillos) {
 		this.ladrillosTotales = ladrillos;
 	}
@@ -51,13 +47,14 @@ public class Ralph implements Desplazable{
 	public boolean golpearEdif() {							//Retorna true cuando no tiene que tirar mas ladrillos
 		timer++;
 		if (timer>TIEMPO_ENTRE_LADRILLOS*CONST_TIEMPO) {			
-			ControladorDeLadrillos.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,pos.getPosY()));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
+			ControladorDeLadrillos.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
 			ladrillosRestantes--;																//Revisar coordY de la posicion
 			timer=0;
 		}
 		return (ladrillosRestantes==0);
 	}
 
+	@Override
 	public boolean avanzar() { // Devuelve true cuando no tiene que avanzar mas
 		timer++;
 		if (timer > CONST_TIEMPO/velocidad) { 
@@ -78,14 +75,17 @@ public class Ralph implements Desplazable{
 		return (pasosRestantes == 0);
 	}
 
+	@Override
 	public Posicion getPos() {
 		return this.pos;
 	}
 
+	@Override
 	public void setPos(Posicion pos) {
 		this.pos=pos;
 	}
 
+	@Override
 	public Direcciones obtenerDireccion() {
 		return this.dirActual;
 	}

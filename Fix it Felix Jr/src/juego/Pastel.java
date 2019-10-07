@@ -15,12 +15,7 @@ public class Pastel implements Impactable {
 		this.timer=0;
 	}
 	
-	@Override
-	public void impactar() {
-		// TODO Auto-generated method stub
-		
-	}
-	
+
 	public boolean disminuirTiempoDeVida() {
 		timer++;
 		if (timer>CONST_TIEMPO) {
@@ -29,7 +24,8 @@ public class Pastel implements Impactable {
 		}
 		return (tiempoDeVida==0);
 	}
-
+	
+	@Override
 	public Ventana devolverVentana() {
 		return this.ventanaActual;
 	}

@@ -17,7 +17,7 @@ public class ControladorDePajaro {
 	}
 	
 	public ControladorDePajaro() {
-		// this.tiempoDeSpawneo=?
+		this.tiempoDeSpawneo=15;
 		listaDePajaros = new LinkedList<Pajaro>();
 		timerMovimiento = 0;
 		timerGeneracion=0;

@@ -1,5 +1,4 @@
 package juego;
-
 public class Test {
 
 	public static void main(String[] args) {
@@ -8,7 +7,6 @@ public class Test {
 		v[1]=new Comun(2, 3, true, false, EstadoPanel.MEDIO_ROTO, EstadoPanel.SANO);
 		*/
 		Juego j = new Juego();
-		j.iniciarNivel();
 	}
 
 }

@@ -18,11 +18,11 @@ public class Edificio {
 	}
 	
 	public void reiniciarSeccion(int nroSeccion) {
-		secciones[nroSeccion]=seccionesOriginales[nroSeccion];
+		secciones[nroSeccion]=seccionesOriginales.clone()[nroSeccion];
 	}
 	
 	public void reiniciarEdificio() {
-		secciones=seccionesOriginales;
+		secciones=seccionesOriginales.clone();
 	}
 	
 	public void setSecciones(Seccion[] secciones) {
@@ -30,7 +30,7 @@ public class Edificio {
 	}
 	
 	public void guardarCopiaSecciones() {
-		seccionesOriginales=secciones;
+		seccionesOriginales= secciones.clone();
 	}
 	
 	public Seccion[] getSecciones() {

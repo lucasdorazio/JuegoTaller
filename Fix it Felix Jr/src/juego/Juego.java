@@ -22,6 +22,8 @@ public class Juego {
 	
 	private static boolean reinicioNivel;
 	
+	private static boolean reinicioSeccion;
+	
 	private static int nroNivel;
 	
 	private static int nroSeccion;
@@ -68,37 +70,42 @@ public class Juego {
 		//Inicializar variables necesarias
 	}
 	
-	public void iniciarNivel() {
+	public void iniciarNivel(boolean reinicio) {
 		nroSeccion=0;
-		nivel = new Nivel(nroNivel);		
+		nivel = new Nivel(nroNivel);
+		if (reinicio) {
+			Edificio.getInstance().reiniciarEdificio();
+			this.eliminarEntidades();
+		} else 
+			nivel.generarEdificio();
 		ralphController = new ControladorDeRalph(Dificultad.getFrecuenciaGolpeo(nroNivel));
 		brickController = new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
 		birdController = new ControladorDePajaro();
-		pastel=null;
-		nivel.generarEdificio();
+		pastel=null;	
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		tiempo=nivel.getTiempoMax();
 	}
 	
-	public void reiniciarNivel() {
-		nroSeccion=0;
-		Edificio.getInstance().reiniciarEdificio();
-		ralphController = new ControladorDeRalph(Dificultad.getFrecuenciaGolpeo(nroNivel));
-		brickController = new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
-		birdController = new ControladorDePajaro();
-		pastel=null;
-		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
-		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
-		//tiempo=nivel.getTiempoMax();  Si reiniciamos el nivel también se reinicia el tiempo?
+	public void reiniciarSeccion() {
+		this.eliminarEntidades();
+		Edificio.getInstance().reiniciarSeccion(nroSeccion);
+		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
+		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][2]);
 	}
 	
+	public void reiniciarNivel() {
+		
+	}
 	public void actualizar() {
-		if (reinicioNivel) reiniciarNivel();
+		if (reinicioNivel) iniciarNivel(true);
+		else if (reinicioSeccion) reiniciarSeccion();
 		else {
-			tiempo-=1/CONST_TIEMPO;
-			if (pasarDeNivel) avanzarNivel();
-			else if (pasarDeSeccion) avanzarSeccion();
+			tiempo -= 1 / CONST_TIEMPO;
+			if (pasarDeNivel)
+				avanzarNivel();
+			else if (pasarDeSeccion)
+				avanzarSeccion();
 			else {
 				colisiones.comprobarColisiones();
 				ralphController.manejarRalph();
@@ -106,14 +113,19 @@ public class Juego {
 				birdController.generarPajaros();
 				birdController.actualizarPosPajaros();
 				Felix.getInstance().actualizarInvulnerabilidad();
-				if (pastel==null) this.generarPastel();
-				else if (pastel.disminuirTiempoDeVida()) pastel=null;
+				if (pastel == null)
+					this.generarPastel();
+				else if (pastel.disminuirTiempoDeVida())
+					pastel = null;
 			}
 		}
 		
 	}
 	
+	
+	
 	public void avanzarSeccion() {
+		this.eliminarEntidades();
 		nroSeccion++;
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
@@ -121,9 +133,9 @@ public class Juego {
 	}
 	
 	public void avanzarNivel() {
-		
+		this.eliminarEntidades();
 		nroNivel++;
-		iniciarNivel();
+		iniciarNivel(false);
 		pasarDeSeccion=false;
 		pasarDeNivel=false;
 		System.out.println("Victoria!! Avanzas al nivel " + (nroNivel+1));//nroNivel va de 0 a 9
@@ -175,6 +187,12 @@ public class Juego {
 			}
 		}
 	}
+	
+	public void eliminarEntidades() {
+		birdController.eliminarPajaros();
+		brickController.eliminarLadrillos();
+		pastel=null;
+	}
 
 	public static void ladrilloGolpeoAFelix() {
 		reinicioNivel=true;
@@ -182,10 +200,8 @@ public class Juego {
 	}
 
 	public static void pajaroGolpeoAFelix() {
-		Edificio.getInstance().reiniciarSeccion(nroSeccion);
-		pastel=null;
-		/*Se justifica un metodo reiniciar seccion?
-		Para eliminar todas las entidades que haya en esa sección*/
+		reinicioSeccion=true;
+		System.out.println("Te ha golpeado un pajaro y se reiniciara la seccion");
 	}
 
 	public static void sumarPuntaje(int puntos) {
