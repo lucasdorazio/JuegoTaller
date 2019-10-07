@@ -7,6 +7,7 @@ import java.util.List;
 public class ControladorDeLadrillos {
 
 	private static List<Ladrillo> listaLadrillos = new LinkedList<Ladrillo>();
+	private static final int CONST_TIEMPO=10000;	//Cantidad de llamadas al método por segundo
 	private int timer;
 	private int velocidad;
 
@@ -25,7 +26,7 @@ public class ControladorDeLadrillos {
 
 	public void actualizarLadrillos() {
 		timer++;
-		if (timer > 10000 / velocidad) {
+		if (timer > CONST_TIEMPO / velocidad) {
 			Ladrillo ladrillo;
 			Iterator<Ladrillo> ite = listaLadrillos.iterator();
 			while (ite.hasNext()) {

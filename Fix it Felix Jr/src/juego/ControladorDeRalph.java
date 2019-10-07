@@ -5,6 +5,7 @@ public class ControladorDeRalph {
 	private int tiempoDeDesplazamiento; // Cada cuantos segundos Ralph se mueve
 	private static final int CANT_PASOS_MIN = 5;
 	private static final int CANT_PASOS_MAX = 12;
+	private static final int CONST_TIEMPO=10000;	//Cantidad de llamadas al método por segundo
 	private boolean estaMoviendose;
 	private boolean estaGolpeando;
 	private int timerGolpeo;
@@ -17,6 +18,8 @@ public class ControladorDeRalph {
 		ralph= new Ralph();
 		timerGolpeo = 0;
 		timerMovimiento = 0;
+		estaMoviendose=false;
+		estaGolpeando=false;
 	}
 	
 	public int calcularCantPasos() {
@@ -40,15 +43,14 @@ public class ControladorDeRalph {
 		} else {
 			timerMovimiento++;
 			timerGolpeo++;
-			if (timerMovimiento > (tiempoDeDesplazamiento * 10000)) { // Timer se aumenta aproximadamente 10000 veces
-																		// por segundo
+			if (timerMovimiento > (tiempoDeDesplazamiento * CONST_TIEMPO)) { 
 				if ((int) (Math.random() * 2) == 0)
 					dir = Direcciones.DERECHA;
 				else
 					dir = Direcciones.IZQUIERDA;
 				ralph.comenzarMovimiento(calcularCantPasos(), dir);
 				estaMoviendose = true;
-			} else if (timerGolpeo > (tiempoDeGolpeo * 10000)) {
+			} else if (timerGolpeo > (tiempoDeGolpeo * CONST_TIEMPO)) {
 				ralph.comenzarGolpeo();
 				estaGolpeando = true;
 			}

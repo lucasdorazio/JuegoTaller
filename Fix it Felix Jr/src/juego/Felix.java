@@ -2,9 +2,12 @@ package juego;
 
 public class Felix {
 	
-	private int vidas;
+	private static final int tiempoInvulnerabilidad=2;
+	private static final double CONST_TIEMPO = 10000;
 	
+	private int vidas;
 	private boolean vulnerable;
+	private int timerInvulnerabilidad;
 	
 	private Ventana ventanaActual;
 	
@@ -14,7 +17,8 @@ public class Felix {
 	
 	private Felix() {
 		this.vidas=3;
-		this.vulnerable=true; 
+		this.vulnerable=true;
+		this.timerInvulnerabilidad=0;
 	}
 	
 	public static Felix getInstance() {
@@ -26,15 +30,13 @@ public class Felix {
 	
 	public void reparar() {
 		ventanaActual.repararse();
+		Juego.sumarPuntaje(100);
 		Juego.comprobarSeccionLimpia(seccionActual);
 	}
-
-	public void recibirImpactoPajaro() {
-		vidas--;
-	}
 	
-	public void recibirPastel () {
-		vulnerable=false;//por cierto tiempo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	public void recibirImpactoPastel () {
+		vulnerable=false;
+		Juego.sumarPuntaje(500);
 	}
 	
 	public void recibirImpactoLadrillo() {
@@ -95,4 +97,15 @@ public class Felix {
 				this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()+1];
 		}
 	}
+	
+	public void actualizarInvulnerabilidad() {
+		if (this.vulnerable == false) {
+			timerInvulnerabilidad++;
+			if (timerInvulnerabilidad > tiempoInvulnerabilidad * CONST_TIEMPO) {
+				this.vulnerable = true;
+				timerInvulnerabilidad = 0;
+			}
+		}
+	}
+	
 }

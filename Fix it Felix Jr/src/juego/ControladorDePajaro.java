@@ -7,9 +7,10 @@ import java.util.List;
 public class ControladorDePajaro {
 
 	private static final int VELOCIDAD = 10; // cambiar valor
+	private static final int CONST_TIEMPO=10000;	//Cantidad de llamadas al método por segundo
 	private int tiempoDeSpawneo;
 	private static List<Pajaro> listaDePajaros;
-	private int timer,timerGeneracion;
+	private int timerMovimiento,timerGeneracion;
 	
 	public static List<Pajaro> getListaPajaros(){
 		return listaDePajaros;
@@ -18,15 +19,15 @@ public class ControladorDePajaro {
 	public ControladorDePajaro() {
 		// this.tiempoDeSpawneo=?
 		listaDePajaros = new LinkedList<Pajaro>();
-		timer = 0;
+		timerMovimiento = 0;
 		timerGeneracion=0;
 	}
 
-	public void generarPajaros() {
+	public void generarPajaros() {	//Genero 1 pajaro cada tiempoDeSpawneo segundos
 		timerGeneracion++;
 		int fila;
 		Direcciones dir;
-		if (timerGeneracion>tiempoDeSpawneo*10000) {
+		if (timerGeneracion>tiempoDeSpawneo*CONST_TIEMPO) {
 			fila= (int) (Math.random()*3);
 			if ((int) (Math.random()*2)==0) dir=Direcciones.DERECHA;
 			else dir=Direcciones.IZQUIERDA;
@@ -48,9 +49,9 @@ public class ControladorDePajaro {
 	}
 
 	public void actualizarPosPajaros() {
-		timer++;
+		timerMovimiento++;
 		Pajaro pajaro;
-		if (timer > 10000 / VELOCIDAD) {
+		if (timerMovimiento > CONST_TIEMPO / VELOCIDAD) {
 			Iterator<Pajaro> ite = listaDePajaros.iterator();
 			while (ite.hasNext()) {
 				pajaro = ite.next();
@@ -58,7 +59,7 @@ public class ControladorDePajaro {
 					ite.remove();
 				}
 			}
-			timer=0;
+			timerMovimiento=0;
 		}
 	}
 

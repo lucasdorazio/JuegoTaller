@@ -14,33 +14,34 @@ public class Juego {
 	
 	private static final double CONST_TIEMPO = 10000;
 
+	private static int puntaje;
+
+	private static boolean pasarDeSeccion;
+	
+	private static boolean pasarDeNivel;
+	
+	private static boolean reinicioNivel;
+	
+	private static int nroNivel;
+	
+	private static int nroSeccion;
+	
+	private static Pastel pastel;
+
 	private ControladorDeRalph ralphController;
 	
 	private ControladorDePajaro birdController;
 	
 	private ControladorDeLadrillos brickController;
 	
-	private static int puntaje;
+	private Colisiones colisiones;
 	
-	private int tiempo;
+	private double tiempo;
 	
 	private int timerPastel;
 	
-	private static Pastel pastel;
-	
 	private int tiempoGeneracionPastel;
-	
-	private static int nroNivel;
-	
-	private static int nroSeccion;
-	
-	private static boolean siguienteSeccion;
-	
-	private static boolean siguienteNivel;
-	
-	private static Seccion[] seccionesOriginales;
-	
-	private Colisiones colisiones;
+
 	
 	
 	public static int getLimiteDerechoEdificio() {
@@ -64,7 +65,7 @@ public class Juego {
 	}
 	
 	public Juego() {
-		
+		//Inicializar variables necesarias
 	}
 	
 	public void iniciarNivel() {
@@ -73,26 +74,63 @@ public class Juego {
 		ralphController = new ControladorDeRalph(Dificultad.getFrecuenciaGolpeo(nroNivel));
 		brickController = new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
 		birdController = new ControladorDePajaro();
+		pastel=null;
 		nivel.generarEdificio();
-		seccionesOriginales=Edificio.getInstance().getSecciones().clone();
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		tiempo=nivel.getTiempoMax();
+	}
+	
+	public void reiniciarNivel() {
+		nroSeccion=0;
+		Edificio.getInstance().reiniciarEdificio();
+		ralphController = new ControladorDeRalph(Dificultad.getFrecuenciaGolpeo(nroNivel));
+		brickController = new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
+		birdController = new ControladorDePajaro();
+		pastel=null;
+		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
+		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
+		//tiempo=nivel.getTiempoMax();  Si reiniciamos el nivel también se reinicia el tiempo?
+	}
+	
+	public void actualizar() {
+		if (reinicioNivel) reiniciarNivel();
+		else {
+			tiempo-=1/CONST_TIEMPO;
+			if (pasarDeNivel) avanzarNivel();
+			else if (pasarDeSeccion) avanzarSeccion();
+			else {
+				colisiones.comprobarColisiones();
+				ralphController.manejarRalph();
+				brickController.actualizarLadrillos();
+				birdController.generarPajaros();
+				birdController.actualizarPosPajaros();
+				Felix.getInstance().actualizarInvulnerabilidad();
+				if (pastel==null) this.generarPastel();
+				else if (pastel.disminuirTiempoDeVida()) pastel=null;
+			}
+		}
+		
 	}
 	
 	public void avanzarSeccion() {
 		nroSeccion++;
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
-		siguienteSeccion=false;
+		pasarDeSeccion=false;
 	}
 	
 	public void avanzarNivel() {
 		
 		nroNivel++;
 		iniciarNivel();
-		siguienteSeccion=false;
+		pasarDeSeccion=false;
+		pasarDeNivel=false;
 		System.out.println("Victoria!! Avanzas al nivel " + (nroNivel+1));//nroNivel va de 0 a 9
+	}
+	
+	public static int getNroSeccion() {
+		return nroSeccion;
 	}
 	
 	public static void ganar() {
@@ -100,30 +138,16 @@ public class Juego {
 	}
 	
 	public static void perder() {
-		
 		System.out.println("Perdiste, tu puntaje fue: "+ puntaje);
-	}
-	 
-	public void actualizar() {
-		tiempo-=1/CONST_TIEMPO;
-		if (siguienteNivel) avanzarNivel();
-		if (siguienteSeccion) avanzarSeccion();
-		colisiones.comprobarColisiones();
-		ralphController.manejarRalph();
-		brickController.actualizarLadrillos();
-		birdController.generarPajaros();
-		birdController.actualizarPosPajaros();
-		if (pastel==null) this.generarPastel();
-		else if (pastel.disminuirTiempoDeVida()) pastel=null;
 	}
 	
 	public void jugar() {
-		while (tiempo>0 && Felix.getInstance().getVidas()>0) {
+		while (tiempo>0 && Felix.getInstance().getVidas()>0) {	//No conviene preguntar por las vidas
 			actualizar();
 		}
 	}
 	
-	public void generarPastel() {
+	private void generarPastel() {
 		timerPastel++;
 		Ventana v;
 		if (timerPastel > tiempoGeneracionPastel * CONST_TIEMPO) {
@@ -144,33 +168,28 @@ public class Juego {
 				if (nroNivel ==9) {
 					ganar();
 				} else {
-					siguienteNivel=true;
+					pasarDeNivel=true;
 				}
 			} else {
-				siguienteSeccion=true;
+				pasarDeSeccion=true;
 			}
 		}
 	}
-	
-	public static void pajaroGolpeaFelix(){
-		Edificio.getInstance().reiniciarSeccion(seccionesOriginales.clone(), nroSeccion);
-		if (Felix.getInstance().getVidas() == 0) {
-			perder();
-		}
+
+	public static void ladrilloGolpeoAFelix() {
+		reinicioNivel=true;
+		System.out.println("Te ha golpeado un ladrillo y se reiniciara el nivel");
 	}
-	/*las seccionesOriginales no van a modificarse al enviar la copia. De esta manera se soporta
-	 * que la seccion pueda reiniciarse mas de una vez. 
-	*/
-	public static void ladrilloGolpeaFelix(){
-		Edificio.getInstance().setSecciones(seccionesOriginales.clone());
-		if (Felix.getInstance().getVidas() == 0) {
-			perder();
-		}
+
+	public static void pajaroGolpeoAFelix() {
+		Edificio.getInstance().reiniciarSeccion(nroSeccion);
+		pastel=null;
+		/*Se justifica un metodo reiniciar seccion?
+		Para eliminar todas las entidades que haya en esa sección*/
 	}
-	
-	public static void felixTocaPastel() {
-		puntaje+=1000;
+
+	public static void sumarPuntaje(int puntos) {
+		puntaje+=puntos;
 	}
-	
 	
 }

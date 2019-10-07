@@ -15,7 +15,7 @@ public class Seccion {
 	
 	public Seccion (int ventanasRestantes, Ventana[][] ventanas) {
 		this.ventanasRestantes= ventanasRestantes;
-		this.setVentanas(ventanas);
+		this.ventanas=ventanas;
 	}
 	public Ventana[][] getVentanas() {
 		return ventanas;

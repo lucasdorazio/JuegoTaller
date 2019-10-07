@@ -4,6 +4,7 @@ public class Ralph implements Desplazable{
 
 	private static final int LADRILLOS_POR_TIRADA = 3;
 	private static final double TIEMPO_ENTRE_LADRILLOS=0.5;
+	private static final int CONST_TIEMPO=10000;	//Cantidad de llamadas al método por segundo
 	private int ladrillosTotales;
 	private int ladrillosRestantes;
 	private Posicion pos;
@@ -31,34 +32,35 @@ public class Ralph implements Desplazable{
 	public Ralph() {
 		this.ladrillosTotales = 40;
 		this.pos =new Posicion(30,100);// cambiar valor
-		this.timer=0;
 		//this.velocidad=?
-	}
-
-	public boolean golpearEdif() {							//Retorna true cuando no tiene que tirar mas ladrillos
-		timer++;
-		if (timer>TIEMPO_ENTRE_LADRILLOS*10000) {												// timer se incrementa 10000 veces por segundo
-			ControladorDeLadrillos.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,pos.getPosY()));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
-			ladrillosRestantes--;																//Revisar coordY de la posicion
-			timer=0;
-		}
-		return (ladrillosRestantes==0);
 	}
 	
 	public void comenzarGolpeo() {
 		ladrillosRestantes=LADRILLOS_POR_TIRADA;
+		this.timer=0;
 		golpearEdif();
 	}
 
 	public void comenzarMovimiento(int cantPasos, Direcciones direccion) {
 		pasosRestantes = cantPasos * 15; // Un paso es igual a 15 pixeles
 		dirActual = direccion;
+		this.timer=0;
 		this.avanzar();
+	}
+	
+	public boolean golpearEdif() {							//Retorna true cuando no tiene que tirar mas ladrillos
+		timer++;
+		if (timer>TIEMPO_ENTRE_LADRILLOS*CONST_TIEMPO) {			
+			ControladorDeLadrillos.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,pos.getPosY()));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
+			ladrillosRestantes--;																//Revisar coordY de la posicion
+			timer=0;
+		}
+		return (ladrillosRestantes==0);
 	}
 
 	public boolean avanzar() { // Devuelve true cuando no tiene que avanzar mas
 		timer++;
-		if (timer > 10000/velocidad) { 
+		if (timer > CONST_TIEMPO/velocidad) { 
 			if (dirActual == Direcciones.DERECHA) {
 				if (pos.getPosX() + 1 > Juego.getLimiteDerechoEdificio()) {
 					dirActual = Direcciones.IZQUIERDA;

@@ -21,6 +21,10 @@ public abstract class Ventana {
 	public abstract boolean estoySana();
 	
 	public abstract boolean puedeAtravesarseLateralmente();
+	
+	public boolean equals(Ventana v) {
+		return (v.getNroColumna()==this.getNroColumna() && v.getNroFila()==this.getNroFila());
+	}
 
 	public int getNroFila() {
 		return nroFila;

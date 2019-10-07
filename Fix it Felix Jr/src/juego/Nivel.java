@@ -22,6 +22,7 @@ public class Nivel {
 		secciones[2] = generarSeccion(Dificultad.getProbPanelesRotos(nroNivel),
 				Dificultad.getProbObstaculos(nroNivel), Dificultad.getProbVentAbierta(nroNivel));
 		Edificio.getInstance().setSecciones(secciones);
+		Edificio.getInstance().guardarCopiaSecciones();
 	}
 
 	private Seccion generarSeccion(double probPanelRoto, double probObstaculo,
@@ -37,7 +38,7 @@ public class Nivel {
 		for (int m = 0; m < 3; m++) {
 			for (int n = 0; n < 5; n++) {
 				esCerrada=Math.random()<=PROB_VENT_CERRADA;
-				if (esCerrada=true) {
+				if (esCerrada) {
 					/* como se obtiene 4 veces una probabilidad por ventana, la probabilidad debe
 					 *  dividirse en 4. Se obtiene 4 veces. Dos por cada panel (roto y medio roto)
 					 */
