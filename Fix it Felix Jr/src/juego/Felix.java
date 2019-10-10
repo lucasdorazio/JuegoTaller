@@ -46,8 +46,9 @@ public class Felix implements Dibujable{
 	}
 	
 	public void recibirImpactoLadrillo() {
-		if (!vulnerable) {
+		if (vulnerable) {
 			vidas--;
+			System.out.println("a felix se le resto 1 vida");
 		}
 	}
 	public int getVidas() {

@@ -14,13 +14,13 @@ public class Test {
 		*/
 		Juego j = new Juego();
 		ArrayList<Dibujable> lista = new ArrayList<Dibujable>();
+		lista.add(Felix.getInstance());
+		int timer=0;
 		while (!j.perdio()) {
-			j.actualizarRalph();
 			j.actualizar();
-			Graficador.refrescarTopDown(lista, 1000);
 		}
-		int i=0;
-		i++;
+		if (Felix.getInstance().getVidas()==0) System.out.println("felix se quedo sin vidas");
+		else System.out.println("se quedaron sin tiempo");
 	}
 
 }

@@ -29,7 +29,6 @@ public class Colisiones {
 			actualEntidad=l.devolverVentana();
 			if (actualEntidad!= null && actualEntidad.equals(actualFelix)){
 				Felix.getInstance().recibirImpactoLadrillo();
-				//l.impactar();
 				Juego.ladrilloGolpeoAFelix();
 				fueImpactado=true;
 			}
@@ -38,7 +37,6 @@ public class Colisiones {
 			p=itePajaros.next();
 			actualEntidad=p.devolverVentana();
 			if (actualEntidad!= null && actualEntidad.equals(actualFelix)){
-				//p.impactar();
 				Juego.pajaroGolpeoAFelix();
 				fueImpactado=true;
 			}

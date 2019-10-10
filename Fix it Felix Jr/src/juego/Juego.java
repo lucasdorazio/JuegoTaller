@@ -81,6 +81,7 @@ public class Juego {
 			Edificio.getInstance().reiniciarEdificio();
 			this.eliminarEntidades();
 			jugador.setPuntaje(puntajePrevio);
+			reinicioNivel=false;
 		} else {
 			nivel.generarEdificio();
 			puntajePrevio=jugador.getPuntaje();
@@ -215,6 +216,7 @@ public class Juego {
 		birdController.eliminarPajaros();
 		brickController.eliminarLadrillos();
 		pastel=null;
+		System.out.println("Se eliminaron las entidades del nivel/seccion anterior");
 	}
 
 	public static void ladrilloGolpeoAFelix() {
