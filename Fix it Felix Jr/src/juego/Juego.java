@@ -1,5 +1,4 @@
 package juego;
-import java.io.ObjectInputStream.GetField;
 import java.util.Scanner;
 /**
  * Clase que conecta todas las componentes del juego, ya sea conociendolas
@@ -250,7 +249,7 @@ public class Juego {
 		pastel=null;
 	}
 	
-	public int getConstTiempo() {
+	public static int getConstTiempo() {
 		return CONST_TIEMPO;
 	}
 	
