@@ -1,7 +1,6 @@
 package juego;
 
 public class Nivel {
-	//Borralo Lucas
 	private static final double PROB_VENT_CERRADA=0.066;
 	
 	private int nroNivel;

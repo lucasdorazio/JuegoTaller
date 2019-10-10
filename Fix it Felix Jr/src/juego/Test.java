@@ -11,7 +11,8 @@ public class Test {
 		while (!j.perdio()) {
 			j.actualizarRalph();
 		}
+		int i=0;
+		i++;
 	}
-	//,pdifaic
 
 }
