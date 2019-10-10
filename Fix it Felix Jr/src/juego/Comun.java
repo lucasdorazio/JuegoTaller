@@ -33,8 +33,9 @@ public class Comun extends Ventana {
 
 	@Override
 	public boolean puedeAtravesarseLateralmente() {
-		// TODO Auto-generated method stub
 		return true;
 	}
+
+	
 
 }

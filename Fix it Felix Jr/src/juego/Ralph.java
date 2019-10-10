@@ -1,6 +1,9 @@
 package juego;
 
-public class Ralph implements Desplazable{
+import taller2.modelo.Dibujable;
+import taller2.modelo.InformacionDibujable;
+
+public class Ralph implements Desplazable, Dibujable{
 
 	private static final int LADRILLOS_POR_TIRADA = 3;
 	private static final double TIEMPO_ENTRE_LADRILLOS=0.5;
@@ -49,8 +52,8 @@ public class Ralph implements Desplazable{
 	public boolean golpearEdif() {							//Retorna true cuando no tiene que tirar mas ladrillos
 		timer++;
 		if (timer>TIEMPO_ENTRE_LADRILLOS*CONST_TIEMPO) {			
-			ControladorDeLadrillos.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
 			System.out.println("Ralph golpea el edificio BUM BUM BUM");
+			ControladorDeLadrillos.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
 			ladrillosRestantes--;			
 			timer=0;
 		}
@@ -92,6 +95,11 @@ public class Ralph implements Desplazable{
 	@Override
 	public Direcciones obtenerDireccion() {
 		return this.dirActual;
+	}
+
+	@Override
+	public InformacionDibujable getInformacionDibujable() {
+		return new InformacionDibujable(pos.getPosX(), pos.getPosY(), 'R');
 	}
 
 }

@@ -18,11 +18,6 @@ public class Ranking{
 				mejoresDiez[j] = mejoresDiez[j - 1];
 			}
 			mejoresDiez[pos] = jugador;
-		}//ahre
-	}
-
-	//Hola Lucas
-	
-
-	
+		}
+	}	
 }
