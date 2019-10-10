@@ -5,18 +5,10 @@ public class Test {
 	public static void main(String[] args) {
 		Juego j = new Juego();
 		Seccion s0=Edificio.getInstance().getSecciones()[0];
-		imprimirSeccion(s0);
-		/*System.out.println();
-		Seccion s1=Edificio.getInstance().getSecciones()[1];
-		imprimirSeccion(s1);
-		System.out.println();
-		Seccion s2=Edificio.getInstance().getSecciones()[2];
-		imprimirSeccion(s2);*/
+		//imprimirSeccion(s0);
 		int timer=0;
 		int random;
-		Direcciones dir= Direcciones.DERECHA;
-		int cambio=0;
-		//Direcciones dir=null;
+		Direcciones dir=null;
 		while (!j.perdio()) {
 			timer++;
 			j.actualizar();
@@ -32,23 +24,11 @@ public class Test {
 					}
 					Felix.getInstance().mover(dir);
 				}
-				/*Felix.getInstance().reparar();
-				if (Felix.getInstance().getVentanaActual().estoySana()) {
-					Felix.getInstance().mover(dir);
-					cambio++;
-					if (cambio%4==0) {
-						while (!Felix.getInstance().getVentanaActual().estoySana()) Felix.getInstance().reparar();
-						Felix.getInstance().mover(Direcciones.ABAJO);
-						if (dir==Direcciones.DERECHA) dir=Direcciones.IZQUIERDA;
-						else dir=Direcciones.IZQUIERDA;
-					}
-				}*/
-				//Felix.getInstance().mover(Direcciones.ABAJO);
 				timer = 0;
 			}
 		}
-		if (Felix.getInstance().getVidas()==0) System.out.println("felix se quedo sin vidas");
-		else System.out.println("se quedaron sin tiempo");
+		if (Felix.getInstance().getVidas()==0) System.out.println("Has perdido, Felix no tiene más vidas");
+		else System.out.println("Has perdido, no hay más tiempo");
 	}
 	
 	public static void imprimirSeccion (Seccion s) {

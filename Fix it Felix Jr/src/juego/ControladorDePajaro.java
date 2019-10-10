@@ -60,7 +60,6 @@ public class ControladorDePajaro {
 				pajaro = ite.next();
 				if (pajaro.avanzar()) {
 					ite.remove();
-					System.out.println("Se elimino un pajaro");
 				}
 			}
 			timerMovimiento=0;

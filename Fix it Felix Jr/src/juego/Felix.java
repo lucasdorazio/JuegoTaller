@@ -37,7 +37,6 @@ public class Felix{
 			seccionActual.disminuirVentanasRestantes();
 			Juego.comprobarSeccionLimpia(seccionActual);
 			System.out.println("...y arregló una ventana!");
-			Test.imprimirSeccion(seccionActual);
 		}
 	}
 	
@@ -50,7 +49,6 @@ public class Felix{
 	public void recibirImpactoLadrillo() {
 		if (vulnerable) {
 			vidas--;
-			System.out.println("a felix se le resto 1 vida");
 		}
 	}
 	public int getVidas() {

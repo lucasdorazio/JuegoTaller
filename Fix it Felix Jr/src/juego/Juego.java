@@ -90,7 +90,7 @@ public class Juego {
 		birdController = new ControladorDePajaro();
 		pastel=null;	
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
-		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][0]);		//Volver a 2,2
+		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		tiempo=nivel.getTiempoMax();
 	}
 	
@@ -113,9 +113,9 @@ public class Juego {
 				avanzarSeccion();
 			else {
 				colisiones.comprobarColisiones();
-				//ralphController.manejarRalph();
+				ralphController.manejarRalph();
 				brickController.actualizarLadrillos();
-				//birdController.generarPajaros();
+				birdController.generarPajaros();
 				birdController.actualizarPosPajaros();
 				Felix.getInstance().actualizarInvulnerabilidad();
 				if (pastel == null)
@@ -177,7 +177,6 @@ public class Juego {
 	}
 	
 	public static void comprobarSeccionLimpia(Seccion seccion){
-		System.out.println("En esta seccion quedan " + seccion.getVentanasRestantes()+ " ventanas restantes");
 		if (seccion.getVentanasRestantes()==0) {
 			if (nroSeccion == 2) {
 				if (nroNivel ==9) {

@@ -74,7 +74,6 @@ public class Ralph implements Desplazable, Dibujable{
 				pos.aumentarPosX();
 			} else
 				pos.disminuirPosX();
-									//System.out.println("Ralph está avanzando");
 			pasosRestantes--;
 			timer=0;
 		}
