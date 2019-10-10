@@ -22,9 +22,9 @@ public class Puerta extends Semicircular {
 			if (paneles[i].getEstado()!=EstadoPanel.SANO) {
 				paneles[i].repararse();
 				seReparo=true;
-				i++;
 				//los paneles de 0 y 1 abajo, 2 y 3 arriba
 			}
+			i++;
 		}
 	}
 

@@ -125,19 +125,6 @@ public class Juego {
 		}
 	}
 	
-	public void actualizarRalph() {
-		ralphController.manejarRalph();
-		brickController.actualizarLadrillos();
-		birdController.generarPajaros();
-		birdController.actualizarPosPajaros();
-		if (pastel == null)
-			this.generarPastel();
-		else if (pastel.disminuirTiempoDeVida()) {
-			pastel = null;
-			System.out.println("PASTEL ELIMINADO");
-		}
-	}
-	
 	public boolean perdio() {
 		return (Felix.getInstance().getVidas()==0 || tiempo<=0);
 	}
@@ -209,12 +196,11 @@ public class Juego {
 		birdController.eliminarPajaros();
 		brickController.eliminarLadrillos();
 		pastel=null;
-		System.out.println("Se eliminaron las entidades del nivel/seccion anterior");
 	}
 
 	public static void ladrilloGolpeoAFelix() {
 		reinicioNivel=true;
-		System.out.println("Te ha golpeado un ladrillo y se reiniciara el nivel");
+		System.out.println("Te ha golpeado un ladrillo y se reiniciará el nivel");
 	}
 
 	public static void pajaroGolpeoAFelix() {

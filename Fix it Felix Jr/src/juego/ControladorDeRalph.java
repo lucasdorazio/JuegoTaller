@@ -14,7 +14,7 @@ public class ControladorDeRalph {
 
 	public ControladorDeRalph(int tiempoDeGolpeo) {
 		this.tiempoDeGolpeo=tiempoDeGolpeo;
-		this.tiempoDeDesplazamiento= 14;
+		this.tiempoDeDesplazamiento= 12;
 		ralph= new Ralph();
 		timerGolpeo = 0;
 		timerMovimiento = 0;

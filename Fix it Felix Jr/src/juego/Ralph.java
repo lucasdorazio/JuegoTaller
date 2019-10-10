@@ -52,7 +52,6 @@ public class Ralph implements Desplazable, Dibujable{
 	public boolean golpearEdif() {							//Retorna true cuando no tiene que tirar mas ladrillos
 		timer++;
 		if (timer>TIEMPO_ENTRE_LADRILLOS*CONST_TIEMPO) {			
-			System.out.println("Ralph golpea el edificio BUM BUM BUM");
 			ControladorDeLadrillos.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
 			ladrillosRestantes--;			
 			timer=0;

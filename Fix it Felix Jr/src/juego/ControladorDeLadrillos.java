@@ -23,7 +23,7 @@ public class ControladorDeLadrillos {
 	public static void generarLadrillo(Posicion pos) {
 		Ladrillo l = new Ladrillo(pos);
 		listaLadrillos.add(l);
-		System.out.println("Se genero un ladrillo en ("+ pos.getPosX()+ ", "+ pos.getPosY()+")");
+		System.out.println("Se tiró un ladrillo desde ("+ pos.getPosX()+ ", "+ pos.getPosY()+")");
 	}
 
 	public void actualizarLadrillos() {
@@ -35,7 +35,6 @@ public class ControladorDeLadrillos {
 				ladrillo = ite.next();
 				if (ladrillo.avanzar()) {
 					ite.remove();
-					System.out.println("Se eliminó un ladrillo");
 				}
 			}
 			timer=0;

@@ -26,9 +26,9 @@ public class SemicircularSuperior extends Semicircular {
 			if (paneles[i].getEstado() != EstadoPanel.SANO) {
 				paneles[i].repararse();
 				seReparo = true;
-				i++;
 				// los paneles de 0 a 3 abajo, 4 a 7 arriba
 			}
+			i++;
 		}
 
 	}

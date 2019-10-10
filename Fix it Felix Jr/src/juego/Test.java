@@ -5,9 +5,26 @@ public class Test {
 	public static void main(String[] args) {
 		Juego j = new Juego();
 		Seccion s=Edificio.getInstance().getSecciones()[0];
-		//imprimirSeccion(s);
+		imprimirSeccion(s);
+		int timer=0;
+		int random;
+		Direcciones dir=null;
 		while (!j.perdio()) {
+			timer++;
 			j.actualizar();
+			//if (timer > 60000000) {
+				random=(int) (Math.random()*4);
+				System.out.println("random es " +random);
+				switch (random){
+				case 0: dir=Direcciones.ARRIBA;break;
+				case 1: dir=Direcciones.ABAJO;break;
+				case 2: dir=Direcciones.IZQUIERDA;break;
+				case 3: dir=Direcciones.DERECHA;break;
+				}
+				Felix.getInstance().mover(dir);
+				//Felix.getInstance().reparar();
+				timer = 0;
+			//}
 		}
 		if (Felix.getInstance().getVidas()==0) System.out.println("felix se quedo sin vidas");
 		else System.out.println("se quedaron sin tiempo");
