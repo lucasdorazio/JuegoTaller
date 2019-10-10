@@ -6,6 +6,9 @@ public class Jugador {
 	
 	private int puntaje;
 
+	public Jugador(String nick) {
+		this.nick=nick;
+	}
 	public String getNick() {
 		return nick;
 	}
