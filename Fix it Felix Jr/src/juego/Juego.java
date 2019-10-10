@@ -70,7 +70,7 @@ public class Juego {
 		reinicioSeccion=false;
 		colisiones= new Colisiones();
 		timerPastel=0;
-		tiempoGeneracionPastel=0.001;
+		tiempoGeneracionPastel=0.5;
 		teclado.close();
 	}
 	
@@ -126,10 +126,10 @@ public class Juego {
 	}
 	
 	public void actualizarRalph() {
-		ralphController.manejarRalph();
+		/*ralphController.manejarRalph();
 		brickController.actualizarLadrillos();
 		birdController.generarPajaros();
-		birdController.actualizarPosPajaros();
+		birdController.actualizarPosPajaros();*/
 		if (pastel == null)
 			this.generarPastel();
 		else if (pastel.disminuirTiempoDeVida()) {
@@ -184,16 +184,18 @@ public class Juego {
 		Ventana v;
 		if (timerPastel > tiempoGeneracionPastel * CONST_TIEMPO) {
 			v=this.obtenerVentanaAleatoria();
+			System.out.println("se obtuvo la ventana ["+v.getNroFila()+"]["+v.getNroColumna()+"]");
 			if (v.puedoGenerarPastel()) {
 				pastel = new Pastel(v);
 				System.out.println("PASTEL GENERADO EN VENTANA ["+v.getNroFila()+"]["+v.getNroColumna()+"]");
-			}
+			}else System.out.println("y no puede generar pastel :c");
 		}
 	}
 	
 	private Ventana obtenerVentanaAleatoria() {
-		int fila= (int) Math.random()*3;
-		int columna= (int) Math.random()*5;
+		int fila= (int) (Math.random()*3);
+		int columna= (int) (Math.random()*5);
+		System.out.println("Fila = "+ fila +  "   Col = "+ columna);
 		return Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[fila][columna];
 	}
 	

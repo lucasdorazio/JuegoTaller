@@ -89,9 +89,9 @@ public class Nivel {
 		for (int m = 0; m < 3; m++) {
 			for (int n = 0; n < 5; n++) {
 				if (m == 1 && n == 2) {//semi superior 8
-					ventanasRotas=generarSemiSup(matriz[m][n], ventanasRotas, probPanelRoto);
+					ventanasRotas=generarSemiSup(matriz,m,n, ventanasRotas, probPanelRoto);
 				} else if (m == 2 && n == 2) {//puerta
-					ventanasRotas=generarPuerta(matriz[m][n], ventanasRotas, probPanelRoto);
+					ventanasRotas=generarPuerta(matriz,m,n, ventanasRotas, probPanelRoto);
 				} else {// ventana de dos paneles
 					if (Math.random() <= probObstaculo / 2) {
 						macetero = true;
@@ -129,7 +129,7 @@ public class Nivel {
 		return new Seccion(ventanasRotas, matriz);
 	}
 
-	private int generarPuerta(Ventana puerta, int ventanasRotas, double probPanelRoto) {
+	private int generarPuerta(Ventana[][] puerta, int m, int n, int ventanasRotas, double probPanelRoto) {
 		EstadoPanel panel0 = EstadoPanel.SANO;
 		EstadoPanel panel1 = EstadoPanel.SANO;
 		EstadoPanel panel2 = EstadoPanel.SANO;
@@ -158,11 +158,11 @@ public class Nivel {
 				 || panel3 != EstadoPanel.SANO) {
 			ventanasRotas++;
 		}
-		puerta = new Puerta(2, 2, false, false, panel0, panel1, panel2, panel3);
+		puerta [m][n]= new Puerta(2, 2, false, false, panel0, panel1, panel2, panel3);
 		return ventanasRotas;
 	}
 	
-	private int generarSemiSup(Ventana semiSup, int ventanasRotas, double probPanelRoto) {
+	private int generarSemiSup(Ventana[][] matriz, int m, int n, int ventanasRotas, double probPanelRoto) {
 		EstadoPanel panel0 = EstadoPanel.SANO;
 		EstadoPanel panel1 = EstadoPanel.SANO;
 		EstadoPanel panel2 = EstadoPanel.SANO;
@@ -217,7 +217,7 @@ public class Nivel {
 				 || panel7 != EstadoPanel.SANO) {
 			ventanasRotas++;
 		}
-		semiSup = new SemicircularSuperior(1, 2, false, false, panel0, panel1, panel2, panel3, panel4, panel5, panel6, panel7);
+		matriz[m][n] = new SemicircularSuperior(1, 2, false, false, panel0, panel1, panel2, panel3, panel4, panel5, panel6, panel7);
 		return ventanasRotas;
 	}
 		
