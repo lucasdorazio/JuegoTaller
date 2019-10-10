@@ -20,6 +20,7 @@ public class ControladorDeRalph {
 		timerMovimiento = 0;
 		estaMoviendose=false;
 		estaGolpeando=false;
+		
 	}
 	
 	public int calcularCantPasos() {
