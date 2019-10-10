@@ -8,6 +8,11 @@ package juego;
 public class Comun extends Ventana {
 	
 	private Panel[] paneles= new Panel[2];	
+	
+	/**
+	 * retorna verdadero si un pastel puede crearse en esta ventana
+	 * Podra crearse si el panel inferior esta completamente roto
+	 */
 	@Override
 	public boolean puedoGenerarPastel() {
 		return (paneles[0].getEstado()==EstadoPanel.ROTO);
@@ -30,7 +35,7 @@ public class Comun extends Ventana {
 	}
 
 	/**
-	 * Metodo repararse() repara un panel en caso de estar dañado
+	 * cambia el estado del panel a SANO en caso de estar dañado
 	 * Se repara primero el inferior
 	 */
 	@Override
@@ -43,7 +48,7 @@ public class Comun extends Ventana {
 	}
 
 	/**
-	 * Metodo estoySana() retorna un booleano en verdadero si el estado
+	 * retorna verdadero si el estado
 	 * de ambos paneles de la ventana es SANO
 	 */
 	@Override
@@ -53,27 +58,11 @@ public class Comun extends Ventana {
 	}
 
 	/**
-	 * 
+	 * retorna verdadero si Felix
+	 * puede moverse hacia y desde la ventana desde izquierda y derecha
 	 */
 	@Override
 	public boolean puedeAtravesarseLateralmente() {
 		return true;
-	}
-
-	public char queSoy() {
-		return 'C';
-	}
-
-	
-	public String estadoPaneles() {
-		String cad="Paneles: ";
-		for (int i=0;i<this.paneles.length;i++) {
-			switch (this.paneles[i].getEstado()) {
-			case MEDIO_ROTO: cad=cad + "m, ";break;
-			case ROTO: cad=cad + "r, ";break;
-			case SANO: cad=cad + "s, ";break;
-			}
-		}
-		return cad;
 	}
 }
