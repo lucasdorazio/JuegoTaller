@@ -1,10 +1,8 @@
 package juego;
+
 /**
- *La clase juego implementa la coneccion entre todas las componentes
- * del juego, conociendo a la mayoria o siendo estas atributos del juego
+ * Clase que modela a la persona que jugará este juego a través de un nickname y los puntos que logre
  * @author Lucas Dorazio & Renzo Quaggia
- * @version 1.0
- * @since 10-10-2019
  */
 public class Jugador {
 	

@@ -1,5 +1,10 @@
 package juego;
 
+/**
+ * Clase que modela la posición dentro del mapa a través de una coordenada en X y una coordenada en Y
+ * @author Lucas Dorazio & Renzo Quaggia
+ *
+ */
 public class Posicion {
 	private int posX;
 	
