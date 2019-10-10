@@ -34,7 +34,6 @@ public class ControladorDePajaro {
 			else dir=Direcciones.IZQUIERDA;
 			p=crearPajaro(fila,dir);
 			listaDePajaros.add(p);
-			Juego.getLista().add(p);
 			timerGeneracion=0;
 		}
 	}
@@ -62,7 +61,6 @@ public class ControladorDePajaro {
 				if (pajaro.avanzar()) {
 					ite.remove();
 					System.out.println("Se elimino un pajaro");
-					Juego.getLista().remove(pajaro);
 				}
 			}
 			timerMovimiento=0;

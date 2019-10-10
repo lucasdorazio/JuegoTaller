@@ -1,9 +1,6 @@
 package juego;
 
-import taller2.modelo.Dibujable;
-import taller2.modelo.InformacionDibujable;
-
-public class Pajaro implements Impactable, Desplazable, Dibujable{
+public class Pajaro implements Impactable, Desplazable{
 	
 	private Direcciones direccion;
 	
@@ -84,12 +81,4 @@ public class Pajaro implements Impactable, Desplazable, Dibujable{
 		}
 	}
 
-
-	@Override
-	public InformacionDibujable getInformacionDibujable() {
-		char c;
-		if (direccion==Direcciones.DERECHA) c='>';
-		else c='<';
-		return new InformacionDibujable(pos.getPosX(), pos.getPosY(), c);
-	}
 }
