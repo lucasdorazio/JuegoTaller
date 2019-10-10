@@ -1,8 +1,13 @@
 package juego;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import taller2.modelo.Dibujable;
+
 public class Juego {
+	
+	private ArrayList<Dibujable> lista;
 	
 	private Nivel nivel;
 	
