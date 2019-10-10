@@ -1,8 +1,13 @@
 package juego;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import taller2.modelo.Dibujable;
+
 public class Juego {
+	
+	private static ArrayList<Dibujable> lista;
 	
 	private Nivel nivel;
 	
@@ -56,7 +61,16 @@ public class Juego {
 		return pastel;
 	}
 	
+	public static ArrayList<Dibujable> getLista() {
+		return lista;
+	}
+
+	public static void setLista(ArrayList<Dibujable> lista) {
+		Juego.lista = lista;
+	}
+
 	public Juego() {
+		lista= new ArrayList<Dibujable>();
 		Scanner teclado= new Scanner(System.in);
 		System.out.println("Ingrese su nickname");
 		jugador= new Jugador(teclado.next());
@@ -93,6 +107,7 @@ public class Juego {
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		tiempo=nivel.getTiempoMax();
+		lista.add(Felix.getInstance());
 	}
 	
 	public void reiniciarSeccion() {

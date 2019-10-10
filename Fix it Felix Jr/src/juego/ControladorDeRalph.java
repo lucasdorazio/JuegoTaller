@@ -20,6 +20,7 @@ public class ControladorDeRalph {
 		timerMovimiento = 0;
 		estaMoviendose=false;
 		estaGolpeando=false;
+		Juego.getLista().add(ralph);
 	}
 	
 	public int calcularCantPasos() {

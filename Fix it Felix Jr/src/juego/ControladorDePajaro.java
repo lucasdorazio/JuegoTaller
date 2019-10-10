@@ -24,6 +24,7 @@ public class ControladorDePajaro {
 	}
 
 	public void generarPajaros() {	//Genero 1 pajaro cada tiempoDeSpawneo segundos
+		Pajaro p;
 		timerGeneracion++;
 		int fila;
 		Direcciones dir;
@@ -31,7 +32,9 @@ public class ControladorDePajaro {
 			fila= (int) (Math.random()*3);
 			if ((int) (Math.random()*2)==0) dir=Direcciones.DERECHA;
 			else dir=Direcciones.IZQUIERDA;
-			listaDePajaros.add(crearPajaro(fila,dir));
+			p=crearPajaro(fila,dir);
+			listaDePajaros.add(p);
+			Juego.getLista().add(p);
 			timerGeneracion=0;
 		}
 	}
@@ -59,6 +62,7 @@ public class ControladorDePajaro {
 				if (pajaro.avanzar()) {
 					ite.remove();
 					System.out.println("Se elimino un pajaro");
+					Juego.getLista().remove(pajaro);
 				}
 			}
 			timerMovimiento=0;
