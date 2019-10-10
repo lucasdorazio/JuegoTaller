@@ -18,10 +18,11 @@ public class Puerta extends Semicircular {
 	public void repararse() {
 		boolean seReparo=false;
 		int i=0;
-		while (!seReparo && i!=4) {
+		while (!seReparo && i<4) {
 			if (paneles[i].getEstado()!=EstadoPanel.SANO) {
 				paneles[i].repararse();
 				seReparo=true;
+				i++;
 				//los paneles de 0 y 1 abajo, 2 y 3 arriba
 			}
 		}

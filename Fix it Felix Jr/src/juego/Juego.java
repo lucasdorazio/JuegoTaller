@@ -94,9 +94,6 @@ public class Juego {
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][2]);
 	}
 	
-	public void reiniciarNivel() {
-		
-	}
 	public void actualizar() {
 		if (reinicioNivel) iniciarNivel(true);
 		else if (reinicioSeccion) reiniciarSeccion();

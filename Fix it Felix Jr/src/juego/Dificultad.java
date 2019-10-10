@@ -3,7 +3,7 @@ package juego;
 public class Dificultad {
 	
 	private static final double PROB_PANEL_ROTO=0.3;
-	private static final int VELOCIDAD_LADRILLOS=20;
+	private static final int VELOCIDAD_LADRILLOS=110;
 	private static final int FRECUENCIA_GOLPEO=8;
 	private static final double PROB_OBSTACULO=0.2;
 	private static final double PROB_VENTANA_ABIERTA=0.1;

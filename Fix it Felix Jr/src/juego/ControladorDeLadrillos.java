@@ -37,5 +37,9 @@ public class ControladorDeLadrillos {
 			timer=0;
 		}
 	}
+	
+	public void eliminarLadrillos() {
+		listaLadrillos.clear();
+	}
 
 }

@@ -24,4 +24,8 @@ public class Seccion {
 		this.ventanas = ventanas;
 	}
 	
+	public void disminuirVentanasRestantes() {
+		ventanasRestantes--;
+	}
+	
 }

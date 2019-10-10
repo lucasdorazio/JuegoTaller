@@ -22,10 +22,11 @@ public class SemicircularSuperior extends Semicircular {
 	public void repararse() {
 		boolean seReparo = false;
 		int i = 0;
-		while (!seReparo && i != 7) {
+		while (!seReparo && i<8) {
 			if (paneles[i].getEstado() != EstadoPanel.SANO) {
 				paneles[i].repararse();
 				seReparo = true;
+				i++;
 				// los paneles de 0 a 3 abajo, 4 a 7 arriba
 			}
 		}

@@ -3,8 +3,8 @@ package juego;
 public class ControladorDeRalph {
 	private int tiempoDeGolpeo; // Cada cuantos segundos Ralph golpea
 	private int tiempoDeDesplazamiento; // Cada cuantos segundos Ralph se mueve
-	private static final int CANT_PASOS_MIN = 5;
-	private static final int CANT_PASOS_MAX = 12;
+	private static final int CANT_PASOS_MIN = 3;
+	private static final int CANT_PASOS_MAX = 7;
 	private static final int CONST_TIEMPO=10000;	//Cantidad de llamadas al método por segundo
 	private boolean estaMoviendose;
 	private boolean estaGolpeando;
@@ -14,7 +14,7 @@ public class ControladorDeRalph {
 
 	public ControladorDeRalph(int tiempoDeGolpeo) {
 		this.tiempoDeGolpeo=tiempoDeGolpeo;
-		this.tiempoDeDesplazamiento= 5;
+		this.tiempoDeDesplazamiento= 14;
 		ralph= new Ralph();
 		timerGolpeo = 0;
 		timerMovimiento = 0;

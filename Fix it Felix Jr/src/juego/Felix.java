@@ -29,9 +29,13 @@ public class Felix {
 	}
 	
 	public void reparar() {
+		boolean sanaAntes=ventanaActual.estoySana();
 		ventanaActual.repararse();
-		Juego.sumarPuntaje(100);
-		Juego.comprobarSeccionLimpia(seccionActual);
+		if (!sanaAntes && ventanaActual.estoySana()) {
+			Juego.sumarPuntaje(100);
+			seccionActual.disminuirVentanasRestantes();
+			Juego.comprobarSeccionLimpia(seccionActual);
+		}
 	}
 	
 	public void recibirImpactoPastel () {
