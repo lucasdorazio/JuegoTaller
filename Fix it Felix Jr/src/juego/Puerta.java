@@ -40,4 +40,20 @@ public class Puerta extends Semicircular {
 	public boolean puedeAtravesarseLateralmente() {
 		return true;
 	}
+	
+	public char queSoy() {
+		return 'P';
+	}
+	
+	public String estadoPaneles() {
+		String cad="Paneles: ";
+		for (int i=0;i<this.paneles.length;i++) {
+			switch (this.paneles[i].getEstado()) {
+			case MEDIO_ROTO: cad=cad + "m, ";break;
+			case ROTO: cad=cad + "r, ";break;
+			case SANO: cad=cad + "s, ";break;
+			}
+		}
+		return cad;
+	}
 }

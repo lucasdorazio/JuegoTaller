@@ -18,6 +18,8 @@ public abstract class Ventana implements Dibujable{
 		Juego.getLista().add(this);
 	}
 	
+	public abstract char queSoy();
+	public abstract String estadoPaneles();
 	public abstract boolean puedoGenerarPastel();
 	
 	public abstract void repararse();

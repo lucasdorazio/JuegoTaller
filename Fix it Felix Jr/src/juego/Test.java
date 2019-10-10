@@ -1,29 +1,27 @@
 package juego;
 
-import java.util.ArrayList;
-
-import taller2.modelo.Dibujable;
-import taller2.vista.Graficador;
-
 public class Test {
 
 	public static void main(String[] args) {
 		Juego j = new Juego();
-		ArrayList<Dibujable> lista = new ArrayList<Dibujable>();
-		lista.add(Felix.getInstance());
-		int timer=0;
-		//lista.add(Felix.getInstance());
-
+		Seccion s=Edificio.getInstance().getSecciones()[0];
+		//imprimirSeccion(s);
 		while (!j.perdio()) {
 			j.actualizar();
-			Graficador.refrescarTopDown(Juego.getLista(), 1000);
-			Felix.getInstance().mover(Direcciones.ARRIBA);
-			Felix.getInstance().mover(Direcciones.ARRIBA);
-			Felix.getInstance().mover(Direcciones.ARRIBA);
-//			Felix.getInstance().mover(Direcciones.DERECHA);
 		}
 		if (Felix.getInstance().getVidas()==0) System.out.println("felix se quedo sin vidas");
 		else System.out.println("se quedaron sin tiempo");
 	}
-
+	
+	public static void imprimirSeccion (Seccion s) {
+		Ventana v;
+		for (int m=0;m<3;m++) {
+			for (int n=0;n<5;n++) {
+				v=s.getVentanas()[m][n];
+				System.out.printf("%c: [%s]\t",v.queSoy(),v.estadoPaneles());
+			}
+			System.out.println(" ");
+		}
+	}
+	
 }

@@ -45,5 +45,20 @@ public class ConHojas extends Ventana {
 		// TODO Auto-generated method stub
 		return (!abierta);
 	}
-
+	
+	public char queSoy() {
+		return 'H';
+	}
+	
+	public String estadoPaneles() {
+		String cad="Paneles: ";
+		for (int i=0;i<this.paneles.length;i++) {
+			switch (this.paneles[i].getEstado()) {
+			case MEDIO_ROTO: cad=cad + "m, ";break;
+			case ROTO: cad=cad + "r, ";break;
+			case SANO: cad=cad + "s, ";break;
+			}
+		}
+		return cad;
+	}
 }
