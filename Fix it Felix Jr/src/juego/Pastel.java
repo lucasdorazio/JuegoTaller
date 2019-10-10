@@ -6,7 +6,7 @@ import taller2.modelo.InformacionDibujable;
 public class Pastel implements Impactable, Dibujable {
 
 	private int tiempoDeVida;
-	private static final int CONST_TIEMPO=10000;	//Cantidad de llamadas al método por segundo
+	private static final int CONST_TIEMPO=60000000;	//Cantidad de llamadas al método por segundo
 	
 	private int timer;
 	
