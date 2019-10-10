@@ -1,5 +1,10 @@
 package juego;
 
+/**
+ * La clase comun representa a las ventanas corrientes del edificio
+ * @author Lucas & Renzo
+ * @version 1.0
+ */
 public class Comun extends Ventana {
 	
 	private Panel[] paneles= new Panel[2];	
@@ -7,7 +12,15 @@ public class Comun extends Ventana {
 	public boolean puedoGenerarPastel() {
 		return (paneles[0].getEstado()==EstadoPanel.ROTO);
 	}
-	
+	/**
+	 * 
+	 * @param nroFila recibe el numero entero de fila que le correspondera a la ventana
+	 * @param nroCol recibe el numero entero de columna que le correspondera a la ventana
+	 * @param tieneMacetero si esta en verdadero, la ventana tendra macetero
+	 * @param tieneMoldura si esta en verdadero, la ventana tendra moldura
+	 * @param inferior recibe el estado del panel inferior de la ventana
+	 * @param superior recibe el estado del panel inferior de la ventana
+	 */
 	public Comun (int nroFila, int nroCol, boolean tieneMacetero, boolean tieneMoldura, 
 			EstadoPanel inferior, EstadoPanel superior) {
 		super(nroFila, nroCol, tieneMacetero, tieneMoldura);
@@ -16,6 +29,10 @@ public class Comun extends Ventana {
 		
 	}
 
+	/**
+	 * Metodo repararse() repara un panel en caso de estar dañado
+	 * Se repara primero el inferior
+	 */
 	@Override
 	public void repararse() {
 		if (paneles[0].getEstado()!=EstadoPanel.SANO) {
@@ -25,12 +42,19 @@ public class Comun extends Ventana {
 			paneles[1].repararse();
 	}
 
+	/**
+	 * Metodo estoySana() retorna un booleano en verdadero si el estado
+	 * de ambos paneles de la ventana es SANO
+	 */
 	@Override
 	public boolean estoySana(){
 		return (paneles[0].getEstado()==EstadoPanel.SANO &&
 				paneles[1].getEstado()==EstadoPanel.SANO);
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public boolean puedeAtravesarseLateralmente() {
 		return true;

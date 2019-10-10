@@ -1,5 +1,11 @@
 package juego;
-
+/**
+ * La clase Colisiones esta destinada al control y atencion de los choques 
+ * durante el juego
+ * 
+ * @author Lucas Dorazio & Renzo Quaggia
+ * @version 1.0
+ */
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,7 +14,10 @@ public class Colisiones {
 	public Colisiones() {
 		
 	}
-	
+	/**
+	 * Metodo que revisa para cada entidad creada, si se encuentra en la misma
+	 * ventana que Felix. Si es asi, invocará a los metodos correspondientes 
+	 */
 	public void comprobarColisiones() {
 		Ladrillo l;
 		Pajaro p;
