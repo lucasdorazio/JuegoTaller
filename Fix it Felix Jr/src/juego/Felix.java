@@ -32,7 +32,7 @@ public class Felix {
 		boolean sanaAntes=ventanaActual.estoySana();
 		ventanaActual.repararse();
 		if (!sanaAntes && ventanaActual.estoySana()) {
-			Juego.sumarPuntaje(100);
+			Juego.getJugador().sumarPuntaje(100);
 			seccionActual.disminuirVentanasRestantes();
 			Juego.comprobarSeccionLimpia(seccionActual);
 		}
@@ -40,7 +40,7 @@ public class Felix {
 	
 	public void recibirImpactoPastel () {
 		vulnerable=false;
-		Juego.sumarPuntaje(500);
+		Juego.getJugador().sumarPuntaje(500);
 	}
 	
 	public void recibirImpactoLadrillo() {

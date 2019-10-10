@@ -1,6 +1,6 @@
 package juego;
 
-public class Jugador implements Comparable {
+public class Jugador {
 	
 	private String nick;
 	
@@ -23,12 +23,6 @@ public class Jugador implements Comparable {
 
 	public void setPuntaje(int puntaje) {
 		this.puntaje = puntaje;
-	}
-	
-	public int compareTo(Jugador j) {
-		if (this.puntaje<j.puntaje) return -1;
-		else if (this.puntaje>j.puntaje) return 1;
-		else return 0;
 	}
 	
 		

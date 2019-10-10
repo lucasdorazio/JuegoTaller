@@ -2,7 +2,12 @@ package juego;
 
 public class Edificio {
 	
+	private static final int LIMITE_DERECHO_EDIFICIO = 520;
+	
+	private static final int LIMITE_IZQUIERDA_EDIFICIO = 180;
+	
 	private Seccion secciones[];
+	
 	private Seccion seccionesOriginales[];
 	
 	private static Edificio INSTANCE;
@@ -15,6 +20,14 @@ public class Edificio {
 			INSTANCE = new Edificio();
 		}
 		return INSTANCE;
+	}
+	
+	public static int getLimiteDerechoEdificio() {
+		return LIMITE_DERECHO_EDIFICIO;
+	}
+
+	public static int getLimiteIzquierdaEdificio() {
+		return LIMITE_IZQUIERDA_EDIFICIO;
 	}
 	
 	public void reiniciarSeccion(int nroSeccion) {

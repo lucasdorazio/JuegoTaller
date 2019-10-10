@@ -59,12 +59,12 @@ public class Ralph implements Desplazable{
 		timer++;
 		if (timer > CONST_TIEMPO/velocidad) { 
 			if (dirActual == Direcciones.DERECHA) {
-				if (pos.getPosX() + 1 > Juego.getLimiteDerechoEdificio()) {
+				if (pos.getPosX() + 1 > Edificio.getLimiteDerechoEdificio()) {
 					dirActual = Direcciones.IZQUIERDA;
 					pos.disminuirPosX();
 				} else
 					pos.aumentarPosX();
-			} else if (pos.getPosX()-1 < Juego.getLimiteIzquierdaEdificio()) {
+			} else if (pos.getPosX()-1 < Edificio.getLimiteIzquierdaEdificio()) {
 				dirActual = Direcciones.DERECHA;
 				pos.aumentarPosX();
 			} else
