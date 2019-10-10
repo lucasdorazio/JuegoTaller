@@ -22,6 +22,9 @@ public class Nivel {
 				Dificultad.getProbObstaculos(nroNivel), Dificultad.getProbVentAbierta(nroNivel));
 		Edificio.getInstance().setSecciones(secciones);
 		Edificio.getInstance().guardarCopiaSecciones();
+		System.out.println("En la seccion 0 quedan "+ Edificio.getInstance().getSecciones()[0].getVentanasRestantes());
+		System.out.println("En la seccion 1 quedan "+ Edificio.getInstance().getSecciones()[1].getVentanasRestantes());
+		System.out.println("En la seccion 2 quedan "+ Edificio.getInstance().getSecciones()[2].getVentanasRestantes());
 	}
 
 	private Seccion generarSeccion(double probPanelRoto, double probObstaculo,
@@ -37,7 +40,7 @@ public class Nivel {
 		for (int m = 0; m < 3; m++) {
 			for (int n = 0; n < 5; n++) {
 				esCerrada=Math.random()<=PROB_VENT_CERRADA;
-				if (esCerrada) {
+				if (!esCerrada) {
 					/* como se obtiene 4 veces una probabilidad por ventana, la probabilidad debe
 					 *  dividirse en 4. Se obtiene 4 veces. Dos por cada panel (roto y medio roto)
 					 */
@@ -50,9 +53,6 @@ public class Nivel {
 						superior = EstadoPanel.ROTO;
 					} else if (Math.random() <= probPanelRoto/ 4) {
 						superior = EstadoPanel.MEDIO_ROTO;
-					}
-					if (superior!=EstadoPanel.SANO || inferior!=EstadoPanel.SANO) {
-						ventanasRotas++;
 					}
 				}
 				
@@ -72,6 +72,12 @@ public class Nivel {
 				}
 			}
 		}
+		
+		for (int i=0; i<3;i++) {
+			for (int j=0;j<5;j++) {
+				if (!matriz[i][j].estoySana()) ventanasRotas++;
+			}
+		}
 		return new Seccion(ventanasRotas, matriz);
 	}
 	
@@ -88,9 +94,9 @@ public class Nivel {
 		for (int m = 0; m < 3; m++) {
 			for (int n = 0; n < 5; n++) {
 				if (m == 1 && n == 2) {//semi superior 8
-					ventanasRotas=generarSemiSup(matriz,m,n, ventanasRotas, probPanelRoto);
+					generarSemiSup(matriz,m,n, probPanelRoto);
 				} else if (m == 2 && n == 2) {//puerta
-					ventanasRotas=generarPuerta(matriz,m,n, ventanasRotas, probPanelRoto);
+					generarPuerta(matriz,m,n, probPanelRoto);
 				} else {// ventana de dos paneles
 					if (Math.random() <= probObstaculo / 2) {
 						macetero = true;
@@ -111,9 +117,6 @@ public class Nivel {
 						} else if (Math.random() <= probPanelRoto / 4) {
 							panel1 = EstadoPanel.MEDIO_ROTO;
 						}
-						if (panel0 != EstadoPanel.SANO || panel1 != EstadoPanel.SANO) {
-							ventanasRotas++;
-						}
 						if (Math.random() <= probVentAbierta) {
 							matriz[m][n] = new ConHojas(m, n, macetero, moldura, panel0, panel1, true);
 						} else {
@@ -124,11 +127,15 @@ public class Nivel {
 				}
 			}
 		}
-
+		for (int i=0; i<3;i++) {
+			for (int j=0;j<5;j++) {
+				if (!matriz[i][j].estoySana()) ventanasRotas++;
+			}
+		}
 		return new Seccion(ventanasRotas, matriz);
 	}
 
-	private int generarPuerta(Ventana[][] puerta, int m, int n, int ventanasRotas, double probPanelRoto) {
+	private void generarPuerta(Ventana[][] puerta, int m, int n, double probPanelRoto) {
 		EstadoPanel panel0 = EstadoPanel.SANO;
 		EstadoPanel panel1 = EstadoPanel.SANO;
 		EstadoPanel panel2 = EstadoPanel.SANO;
@@ -153,15 +160,10 @@ public class Nivel {
 		} else if (Math.random() <= probPanelRoto / 8) {
 			panel3 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (panel0 != EstadoPanel.SANO || panel1 != EstadoPanel.SANO || panel2 != EstadoPanel.SANO
-				 || panel3 != EstadoPanel.SANO) {
-			ventanasRotas++;
-		}
 		puerta [m][n]= new Puerta(2, 2, false, false, panel0, panel1, panel2, panel3);
-		return ventanasRotas;
 	}
 	
-	private int generarSemiSup(Ventana[][] matriz, int m, int n, int ventanasRotas, double probPanelRoto) {
+	private void generarSemiSup(Ventana[][] matriz, int m, int n, double probPanelRoto) {
 		EstadoPanel panel0 = EstadoPanel.SANO;
 		EstadoPanel panel1 = EstadoPanel.SANO;
 		EstadoPanel panel2 = EstadoPanel.SANO;
@@ -210,14 +212,7 @@ public class Nivel {
 		} else if (Math.random() <= probPanelRoto / 16) {
 			panel7 = EstadoPanel.MEDIO_ROTO;
 		}
-		
-		if (panel0 != EstadoPanel.SANO || panel1 != EstadoPanel.SANO || panel2 != EstadoPanel.SANO
-				 || panel3 != EstadoPanel.SANO || panel4 != EstadoPanel.SANO || panel5 != EstadoPanel.SANO || panel6 != EstadoPanel.SANO
-				 || panel7 != EstadoPanel.SANO) {
-			ventanasRotas++;
-		}
 		matriz[m][n] = new SemicircularSuperior(1, 2, false, false, panel0, panel1, panel2, panel3, panel4, panel5, panel6, panel7);
-		return ventanasRotas;
 	}
 		
 	public int getNroNivel() {

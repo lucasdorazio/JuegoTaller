@@ -22,6 +22,7 @@ public class Colisiones {
 		Iterator<Pajaro> itePajaros= listaPajaros.iterator();
 		if (pastel!= null && pastel.devolverVentana().equals(actualFelix)) {
 			Felix.getInstance().recibirImpactoPastel();
+			Juego.felixComePastel();
 			fueImpactado=true;
 		}
 		while (iteLadrillos.hasNext() && !fueImpactado) {

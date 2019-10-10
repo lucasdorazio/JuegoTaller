@@ -90,7 +90,7 @@ public class Juego {
 		birdController = new ControladorDePajaro();
 		pastel=null;	
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
-		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
+		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[0][0]);		//Volver a 2,2
 		tiempo=nivel.getTiempoMax();
 	}
 	
@@ -99,6 +99,7 @@ public class Juego {
 		Edificio.getInstance().reiniciarSeccion(nroSeccion);
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][2]);
+		reinicioSeccion=false;
 	}
 	
 	public void actualizar() {
@@ -112,9 +113,9 @@ public class Juego {
 				avanzarSeccion();
 			else {
 				colisiones.comprobarColisiones();
-				ralphController.manejarRalph();
+				//ralphController.manejarRalph();
 				brickController.actualizarLadrillos();
-				birdController.generarPajaros();
+				//birdController.generarPajaros();
 				birdController.actualizarPosPajaros();
 				Felix.getInstance().actualizarInvulnerabilidad();
 				if (pastel == null)
@@ -137,6 +138,7 @@ public class Juego {
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
 		pasarDeSeccion=false;
+		System.out.println("Avanzaste a la seccion "+ nroSeccion);
 	}
 	
 	public void avanzarNivel() {
@@ -154,10 +156,6 @@ public class Juego {
 	
 	public static void ganar() {
 		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
-	}
-	
-	public static void perder() {
-		System.out.println("Perdiste, tu puntaje fue: "+ jugador.getPuntaje());
 	}
 	
 	private void generarPastel() {
@@ -179,6 +177,7 @@ public class Juego {
 	}
 	
 	public static void comprobarSeccionLimpia(Seccion seccion){
+		System.out.println("En esta seccion quedan " + seccion.getVentanasRestantes()+ " ventanas restantes");
 		if (seccion.getVentanasRestantes()==0) {
 			if (nroSeccion == 2) {
 				if (nroNivel ==9) {
@@ -210,6 +209,10 @@ public class Juego {
 
 	public static Jugador getJugador() {
 		return jugador;
+	}
+
+	public static void felixComePastel() {
+		pastel=null;
 	}
 	
 }
