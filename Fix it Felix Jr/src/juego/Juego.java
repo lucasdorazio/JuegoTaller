@@ -6,17 +6,13 @@ public class Juego {
 	
 	private Nivel nivel;
 	
-	private static final int LIMITE_DERECHO_EDIFICIO = 520;
-	
-	private static final int LIMITE_IZQUIERDA_EDIFICIO = 180;
-	
 	private static final int LIMITE_DERECHO_MAPA=700;
 	
 	private static final int LIMITE_IZQUIERDO_MAPA=0;
 	
 	private static final double CONST_TIEMPO = 10000;
 
-	private static int puntaje;
+	private static int puntajeje;
 	
 	private static Jugador jugador;
 	
@@ -50,16 +46,6 @@ public class Juego {
 	
 	private int tiempoGeneracionPastel;
 
-	
-	
-	public static int getLimiteDerechoEdificio() {
-		return LIMITE_DERECHO_EDIFICIO;
-	}
-
-	public static int getLimiteIzquierdaEdificio() {
-		return LIMITE_IZQUIERDA_EDIFICIO;
-	}
-
 	public static int getLimiteDerechoMapa() {
 		return LIMITE_DERECHO_MAPA;
 	}
@@ -74,10 +60,12 @@ public class Juego {
 	
 	public Juego() {
 		Scanner teclado= new Scanner(System.in);
+		System.out.println("Ingrese su nickname");
+		jugador= new Jugador(teclado.next());
+		jugador.setPuntaje(0);
+		puntajePrevio=0;
 		nroNivel=0;
 		this.iniciarNivel(false);
-		puntaje=0;
-		puntajePrevio=0;
 		pasarDeNivel=false;
 		pasarDeSeccion=false;
 		reinicioNivel=false;
@@ -85,10 +73,7 @@ public class Juego {
 		colisiones= new Colisiones();
 		timerPastel=0;
 		tiempoGeneracionPastel=5;
-		System.out.println("Ingrese su nickname");
-		jugador= new Jugador(teclado.next());
 		teclado.close();
-		
 	}
 	
 	public void iniciarNivel(boolean reinicio) {
@@ -97,10 +82,10 @@ public class Juego {
 		if (reinicio) {
 			Edificio.getInstance().reiniciarEdificio();
 			this.eliminarEntidades();
-			puntaje=puntajePrevio;
+			jugador.setPuntaje(puntajePrevio);
 		} else {
 			nivel.generarEdificio();
-			puntajePrevio=puntaje;
+			puntajePrevio=jugador.getPuntaje();
 		}
 		ralphController = new ControladorDeRalph(Dificultad.getFrecuenciaGolpeo(nroNivel));
 		brickController = new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
@@ -170,11 +155,11 @@ public class Juego {
 	}
 	
 	public static void ganar() {
-		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ puntaje);
+		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
 	}
 	
 	public static void perder() {
-		System.out.println("Perdiste, tu puntaje fue: "+ puntaje);
+		System.out.println("Perdiste, tu puntaje fue: "+ jugador.getPuntaje());
 	}
 	
 	public void jugar() {
@@ -228,8 +213,8 @@ public class Juego {
 		System.out.println("Te ha golpeado un pajaro y se reiniciara la seccion");
 	}
 
-	public static void sumarPuntaje(int puntos) {
-		puntaje+=puntos;
+	public static Jugador getJugador() {
+		return jugador;
 	}
 	
 }
