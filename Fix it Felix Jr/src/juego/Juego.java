@@ -90,7 +90,7 @@ public class Juego {
 		birdController = new ControladorDePajaro();
 		pastel=null;	
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
-		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[0][0]);		//Volver a 2,2
+		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][0]);		//Volver a 2,2
 		tiempo=nivel.getTiempoMax();
 	}
 	

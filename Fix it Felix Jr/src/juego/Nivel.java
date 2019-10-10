@@ -68,7 +68,7 @@ public class Nivel {
 				} else if (Math.random()<=probVentAbierta) {
 					matriz[m][n]= new ConHojas(m, n, macetero, moldura, inferior, superior, true);
 				} else {
-					matriz[m][n]= new Comun(m, n, true, false, inferior, superior);
+					matriz[m][n]= new Comun(m, n, macetero, moldura, inferior, superior);
 				}
 			}
 		}
@@ -120,7 +120,7 @@ public class Nivel {
 						if (Math.random() <= probVentAbierta) {
 							matriz[m][n] = new ConHojas(m, n, macetero, moldura, panel0, panel1, true);
 						} else {
-							matriz[m][n] = new Comun(m, n, true, false, panel0, panel1);
+							matriz[m][n] = new Comun(m, n, macetero, moldura, panel0, panel1);
 						}
 
 					}

@@ -20,8 +20,8 @@ public class Test {
 		while (!j.perdio()) {
 			timer++;
 			j.actualizar();
-			if (timer > 60000000*2) {
-				/*Felix.getInstance().reparar();
+			if (timer > 30000000) {
+				Felix.getInstance().reparar();
 				if (Felix.getInstance().getVentanaActual().estoySana()) {
 					random=(int) (Math.random()*4);
 					switch (random){
@@ -31,8 +31,8 @@ public class Test {
 					case 3: dir=Direcciones.DERECHA; break;
 					}
 					Felix.getInstance().mover(dir);
-				}*/
-				Felix.getInstance().reparar();
+				}
+				/*Felix.getInstance().reparar();
 				if (Felix.getInstance().getVentanaActual().estoySana()) {
 					Felix.getInstance().mover(dir);
 					cambio++;
@@ -42,7 +42,8 @@ public class Test {
 						if (dir==Direcciones.DERECHA) dir=Direcciones.IZQUIERDA;
 						else dir=Direcciones.IZQUIERDA;
 					}
-				}
+				}*/
+				//Felix.getInstance().mover(Direcciones.ABAJO);
 				timer = 0;
 			}
 		}
@@ -52,10 +53,15 @@ public class Test {
 	
 	public static void imprimirSeccion (Seccion s) {
 		Ventana v;
+		String cad;
 		for (int m=0;m<3;m++) {
 			for (int n=0;n<5;n++) {
+				cad="";
 				v=s.getVentanas()[m][n];
-				System.out.printf("%c: [%s]\t",v.queSoy(),v.estadoPaneles());
+				System.out.printf("%c: [%s] ",v.queSoy(),v.estadoPaneles());
+				if (v.tieneMacetero()) cad=cad+"_";
+				if (v.tieneMoldura()) cad=cad+ "^^";
+				System.out.printf("(%s)\t\t", cad);
 			}
 			System.out.println(" ");
 		}
