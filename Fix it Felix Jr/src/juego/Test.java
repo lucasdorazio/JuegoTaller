@@ -14,6 +14,8 @@ public class Test {
 		*/
 		Juego j = new Juego();
 		ArrayList<Dibujable> lista = new ArrayList<Dibujable>();
+		j.iniciarNivel(false);
+		lista.add(Felix.getInstance());
 		while (!j.perdio()) {
 			j.actualizarRalph();
 			j.actualizar();
