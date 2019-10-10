@@ -5,6 +5,10 @@ import java.util.List;
 
 public class Colisiones {
 	
+	public Colisiones() {
+		
+	}
+	
 	public void comprobarColisiones() {
 		Ladrillo l;
 		Pajaro p;

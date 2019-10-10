@@ -1,7 +1,5 @@
 package juego;
 
-import javax.swing.JFrame;
-
 public class Test {
 
 	public static void main(String[] args) {
@@ -10,10 +8,10 @@ public class Test {
 		v[1]=new Comun(2, 3, true, false, EstadoPanel.MEDIO_ROTO, EstadoPanel.SANO);
 		*/
 		Juego j = new Juego();
-		JFrame f= new JFrame();
-		f.setSize(700, 560);
-		f.setVisible(true);
-		f.show();
+		while (!j.perdio()) {
+			j.actualizar();
+			//bla bla bla
+		}
 	}
 
 }

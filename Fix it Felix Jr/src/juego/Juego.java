@@ -1,20 +1,26 @@
 package juego;
 
+import java.util.Scanner;
+
 public class Juego {
 	
 	private Nivel nivel;
 	
-	private static final int LIMITE_DERECHO_EDIFICIO = 500;
+	private static final int LIMITE_DERECHO_EDIFICIO = 520;
 	
-	private static final int LIMITE_IZQUIERDA_EDIFICIO = 100;
+	private static final int LIMITE_IZQUIERDA_EDIFICIO = 180;
 	
-	private static final int LIMITE_DERECHO_MAPA=1000; //Revisar valor
+	private static final int LIMITE_DERECHO_MAPA=700;
 	
 	private static final int LIMITE_IZQUIERDO_MAPA=0;
 	
 	private static final double CONST_TIEMPO = 10000;
 
 	private static int puntaje;
+	
+	private static Jugador jugador;
+	
+	private int puntajePrevio;
 
 	private static boolean pasarDeSeccion;
 	
@@ -67,7 +73,22 @@ public class Juego {
 	}
 	
 	public Juego() {
-		//Inicializar variables necesarias
+		Scanner teclado= new Scanner(System.in);
+		nroNivel=0;
+		this.iniciarNivel(false);
+		puntaje=0;
+		puntajePrevio=0;
+		pasarDeNivel=false;
+		pasarDeSeccion=false;
+		reinicioNivel=false;
+		reinicioSeccion=false;
+		colisiones= new Colisiones();
+		timerPastel=0;
+		tiempoGeneracionPastel=5;
+		System.out.println("Ingrese su nickname");
+		jugador= new Jugador(teclado.next());
+		teclado.close();
+		
 	}
 	
 	public void iniciarNivel(boolean reinicio) {
@@ -76,8 +97,11 @@ public class Juego {
 		if (reinicio) {
 			Edificio.getInstance().reiniciarEdificio();
 			this.eliminarEntidades();
-		} else 
+			puntaje=puntajePrevio;
+		} else {
 			nivel.generarEdificio();
+			puntajePrevio=puntaje;
+		}
 		ralphController = new ControladorDeRalph(Dificultad.getFrecuenciaGolpeo(nroNivel));
 		brickController = new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
 		birdController = new ControladorDePajaro();
@@ -116,7 +140,10 @@ public class Juego {
 					pastel = null;
 			}
 		}
-		
+	}
+	
+	public boolean perdio() {
+		return (Felix.getInstance().getVidas()==0 || tiempo<=0);
 	}
 	
 	
