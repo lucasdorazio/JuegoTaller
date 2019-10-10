@@ -11,8 +11,6 @@ public class Juego {
 	private static final int LIMITE_IZQUIERDO_MAPA=0;
 	
 	private static final double CONST_TIEMPO = 10000;
-
-	private static int puntajeje;
 	
 	private static Jugador jugador;
 	
