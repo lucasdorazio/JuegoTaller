@@ -1,11 +1,20 @@
 package juego;
 
+/**
+ * Clase que modela las rocas lanzadas por Ralph para molestar a Felix
+ * @author Lucas Dorazio & Renzo Quaggia
+ *
+ */
 public class Ladrillo implements Impactable, Desplazable{
 	
 	private Direcciones direccion;
 	
 	private Posicion pos;
 	
+	/**
+	 * Inicializa valores por defecto de los ladrillos
+	 * @param pos indica en qué posicion se encontrará el nuevo ladrillo
+	 */
 	public Ladrillo (Posicion pos) {
 		this.pos=pos;
 		this.direccion= Direcciones.ABAJO;
@@ -21,6 +30,9 @@ public class Ladrillo implements Impactable, Desplazable{
 		this.pos=pos;
 	}
 
+	/**
+	 * Devuelve la ventana en la que se encuentra el ladrillo para determinar si choca o no con Felix
+	 */
 	@Override
 	public Ventana devolverVentana() {
 		int m=-1;
@@ -66,6 +78,9 @@ public class Ladrillo implements Impactable, Desplazable{
 		return this.direccion;
 	}
 
+	/**
+	 * @return true cuando el ladrillo llega al limite inferior del mapa
+	 */
 	@Override
 	public boolean avanzar() {
 		pos.disminuirPosY();

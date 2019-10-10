@@ -1,5 +1,10 @@
 package juego;
 
+/**
+ * Clase que modela los parámetros de la dificultad según el número de nivel en el que esté el jugador
+ * @author Lucas Dorazio & Renzo Quaggia
+ *
+ */
 public class Nivel {
 	private static final double PROB_VENT_CERRADA=0.066;
 	
@@ -12,6 +17,9 @@ public class Nivel {
 		this.tiempoMax=Dificultad.getTiempo(nroNivel);
 	}
 	
+	/**
+	 * Genera un nuevo edificio en donde se desplazarán Felix y las demás entidades
+	 */
 	public void generarEdificio() {
 		Seccion[] secciones = new Seccion[3];
 		secciones[0] = generarPlantaBaja(Dificultad.getProbPanelesRotos(nroNivel),

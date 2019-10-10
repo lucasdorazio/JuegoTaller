@@ -1,9 +1,21 @@
 package juego;
 
+/**
+ * Ventana con 8 paneles que aparece en la primer sección de cada nivel
+ * @author Lucas Dorazio & Renzo Quaggia
+ */
 public class SemicircularSuperior extends Semicircular {
 	
 	private Panel[] paneles = new Panel[8];
 	
+	/**
+	 * Inicializa atributos
+	 * @param nroFila atributo general de todas las ventanas
+	 * @param nroCol atributo general de todas las ventanas
+	 * @param tieneMacetero atributo general de todas las ventanas
+	 * @param tieneMoldura atributo general de todas las ventanas
+	 * @param panel0-7 indican el estado de cada uno de sus 8 paneles
+	 */
 	public SemicircularSuperior(int nroFila, int nroCol, boolean tieneMacetero, boolean tieneMoldura,
 			EstadoPanel panel0, EstadoPanel panel1, EstadoPanel panel2, EstadoPanel panel3,
 			EstadoPanel panel4, EstadoPanel panel5, EstadoPanel panel6, EstadoPanel panel7){
@@ -17,7 +29,10 @@ public class SemicircularSuperior extends Semicircular {
 		paneles[6]= new Panel(panel6);
 		paneles[7]= new Panel(panel7);		
 	}
-
+	
+	/**
+	 * Indica la forma en que se reparar sus paneles
+	 */
 	@Override
 	public void repararse() {
 		boolean seReparo = false;
@@ -32,7 +47,10 @@ public class SemicircularSuperior extends Semicircular {
 		}
 
 	}
-
+	
+	/**
+	 * Determina si es sana o no según si sus 8 paneles sean sanos
+	 */
 	@Override
 	public boolean estoySana() {
 		return (paneles[0].getEstado()==EstadoPanel.SANO &&
@@ -50,21 +68,4 @@ public class SemicircularSuperior extends Semicircular {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	public char queSoy() {
-		return 'S';
-	}
-	
-	public String estadoPaneles() {
-		String cad="Paneles: ";
-		for (int i=0;i<this.paneles.length;i++) {
-			switch (this.paneles[i].getEstado()) {
-			case MEDIO_ROTO: cad=cad + "m, ";break;
-			case ROTO: cad=cad + "r, ";break;
-			case SANO: cad=cad + "s, ";break;
-			}
-		}
-		return cad;
-	}
-
 }

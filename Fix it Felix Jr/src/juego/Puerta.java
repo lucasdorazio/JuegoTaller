@@ -1,9 +1,17 @@
 package juego;
 
+/**
+ * Es la clase que modela la ventana de tipo puerta con 4 paneles donde comenzará Felix
+ * @author Lucas Dorazio & Renzo Quaggia
+ *
+ */
 public class Puerta extends Semicircular {
 
 	private Panel[] paneles= new Panel[4];
 	
+	/**
+	 * Inicializa los atributos básicos de una ventana e indica el estado de sus 4 paneles
+	 */
 	public Puerta(int nroFila, int nroCol, boolean tieneMacetero, boolean tieneMoldura,
 			EstadoPanel panel0, EstadoPanel panel1, EstadoPanel panel2, EstadoPanel panel3) {
 		super(nroFila, nroCol, tieneMacetero, tieneMoldura);
@@ -13,7 +21,9 @@ public class Puerta extends Semicircular {
 		paneles[3]= new Panel(panel3);
 		
 	}
-	
+	/**
+	 * Indica la forma en que se reparan sus paneles
+	 */
 	@Override
 	public void repararse() {
 		boolean seReparo=false;
@@ -27,7 +37,10 @@ public class Puerta extends Semicircular {
 			i++;
 		}
 	}
-
+	
+	/**
+	 * Determina si la puerta está sana o no según el estado de sus 4 paneles
+	 */
 	@Override
 	public boolean estoySana() {
 		return (paneles[0].getEstado()==EstadoPanel.SANO &&
@@ -39,21 +52,5 @@ public class Puerta extends Semicircular {
 	@Override
 	public boolean puedeAtravesarseLateralmente() {
 		return true;
-	}
-	
-	public char queSoy() {
-		return 'P';
-	}
-	
-	public String estadoPaneles() {
-		String cad="Paneles: ";
-		for (int i=0;i<this.paneles.length;i++) {
-			switch (this.paneles[i].getEstado()) {
-			case MEDIO_ROTO: cad=cad + "m, ";break;
-			case ROTO: cad=cad + "r, ";break;
-			case SANO: cad=cad + "s, ";break;
-			}
-		}
-		return cad;
 	}
 }

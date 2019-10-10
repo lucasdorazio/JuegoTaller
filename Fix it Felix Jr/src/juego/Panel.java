@@ -1,5 +1,10 @@
 package juego;
 
+/**
+ * Clase que modela los paneles componentes de las ventanas
+ * @author Lucas Dorazio & Renzo Quaggia
+ *
+ */
 public class Panel {
 	
 	private int golpesRestantes;
@@ -12,6 +17,9 @@ public class Panel {
 		else this.golpesRestantes=2;
 	}
 	
+	/**
+	 * Forma de transformar un panel a estado sano
+	 */
 	public void repararse() {
 		golpesRestantes--;
 		if (golpesRestantes==0) {

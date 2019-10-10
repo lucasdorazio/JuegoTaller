@@ -1,5 +1,10 @@
 package juego;
 
+/**
+ * Clase que modela la entidad voladora que puede chocar a Felix
+ * @author Lucas Dorazio & Renzo Quaggia
+ *
+ */
 public class Pajaro implements Impactable, Desplazable{
 	
 	private Direcciones direccion;
@@ -11,7 +16,9 @@ public class Pajaro implements Impactable, Desplazable{
 		this.direccion=dir;
 	}
 	
-
+	/**
+	 * Devuelve la ventana en la que se encuentre el pajaro para determinar si choca o no con Felix
+	 */
 	@Override
 	public Ventana devolverVentana() {
 		int m=-1;

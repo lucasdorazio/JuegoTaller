@@ -12,7 +12,6 @@ import java.util.List;
 public class ControladorDePajaro {
 
 	private static final int VELOCIDAD = 56;
-	private static final int CONST_TIEMPO=60000000;	//Cantidad de llamadas al método por segundo
 	private int tiempoDeSpawneo;
 	private static List<Pajaro> listaDePajaros;
 	private int timerMovimiento,timerGeneracion;
@@ -35,7 +34,7 @@ public class ControladorDePajaro {
 		timerGeneracion++;
 		int fila;
 		Direcciones dir;
-		if (timerGeneracion>tiempoDeSpawneo*CONST_TIEMPO) {
+		if (timerGeneracion>tiempoDeSpawneo*Juego.getConstTiempo()) {
 			fila= (int) (Math.random()*3);
 			if ((int) (Math.random()*2)==0) dir=Direcciones.DERECHA;
 			else dir=Direcciones.IZQUIERDA;
@@ -65,7 +64,7 @@ public class ControladorDePajaro {
 	public void actualizarPosPajaros() {
 		timerMovimiento++;
 		Pajaro pajaro;
-		if (timerMovimiento > CONST_TIEMPO / VELOCIDAD) {
+		if (timerMovimiento > Juego.getConstTiempo() / VELOCIDAD) {
 			Iterator<Pajaro> ite = listaDePajaros.iterator();
 			while (ite.hasNext()) {
 				pajaro = ite.next();
