@@ -125,6 +125,11 @@ public class Juego {
 		}
 	}
 	
+	public void actualizarRalph() {
+		ralphController.manejarRalph();
+		brickController.actualizarLadrillos();
+	}
+	
 	public boolean perdio() {
 		return (Felix.getInstance().getVidas()==0 || tiempo<=0);
 	}

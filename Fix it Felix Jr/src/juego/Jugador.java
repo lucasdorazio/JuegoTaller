@@ -25,6 +25,9 @@ public class Jugador {
 		this.puntaje = puntaje;
 	}
 	
+	public void sumarPuntaje(int puntos) {
+		this.puntaje+=puntos;
+	}
 		
 
 }

@@ -9,8 +9,7 @@ public class Test {
 		*/
 		Juego j = new Juego();
 		while (!j.perdio()) {
-			j.actualizar();
-			//bla bla bla
+			j.actualizarRalph();
 		}
 	}
 

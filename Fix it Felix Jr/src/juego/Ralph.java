@@ -34,12 +34,14 @@ public class Ralph implements Desplazable{
 	public void comenzarGolpeo() {
 		ladrillosRestantes=LADRILLOS_POR_TIRADA;
 		this.timer=0;
+		System.out.println("Ralph inicio golpeo");
 		golpearEdif();
 	}
 
 	public void comenzarMovimiento(int cantPasos, Direcciones direccion) {
 		pasosRestantes = cantPasos * 46; // Un paso es igual a 46 pixeles
 		dirActual = direccion;
+		System.out.println("Ralph inicio movimiento");
 		this.timer=0;
 		this.avanzar();
 	}
@@ -48,6 +50,7 @@ public class Ralph implements Desplazable{
 		timer++;
 		if (timer>TIEMPO_ENTRE_LADRILLOS*CONST_TIEMPO) {			
 			ControladorDeLadrillos.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
+			System.out.println("Ralph golpea el edificio, su posicion es (" +pos.getPosX()+ ";" + pos.getPosY()+")");
 			ladrillosRestantes--;			
 			timer=0;
 		}
@@ -69,6 +72,7 @@ public class Ralph implements Desplazable{
 				pos.aumentarPosX();
 			} else
 				pos.disminuirPosX();
+									//System.out.println("Ralph está avanzando");
 			pasosRestantes--;
 			timer=0;
 		}
