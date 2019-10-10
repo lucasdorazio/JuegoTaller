@@ -8,7 +8,6 @@ package juego;
 public class Pastel implements Impactable {
 
 	private int tiempoDeVida;
-	private static final int CONST_TIEMPO=60000000;	//Cantidad de llamadas al método por segundo
 	
 	private int timer;
 	
@@ -29,7 +28,7 @@ public class Pastel implements Impactable {
 	 */
 	public boolean disminuirTiempoDeVida() {
 		timer++;
-		if (timer>CONST_TIEMPO) {
+		if (timer>Juego.getConstTiempo()) {
 			tiempoDeVida--;
 			timer=0;
 		}

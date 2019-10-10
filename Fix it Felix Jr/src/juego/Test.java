@@ -1,11 +1,13 @@
 package juego;
-
+/**
+ * Clase que contiene el main para la ejección del juego
+ * @author Lucas Dorazio & Renzo Quaggia
+ *
+ */
 public class Test {
 
 	public static void main(String[] args) {
 		Juego j = new Juego();
-		Seccion s0=Edificio.getInstance().getSecciones()[0];
-		//imprimirSeccion(s0);
 		int timer=0;
 		int random;
 		Direcciones dir=null;
@@ -29,22 +31,6 @@ public class Test {
 		}
 		if (Felix.getInstance().getVidas()==0) System.out.println("Has perdido, Felix no tiene más vidas");
 		else System.out.println("Has perdido, no hay más tiempo");
-	}
-	
-	public static void imprimirSeccion (Seccion s) {
-		Ventana v;
-		String cad;
-		for (int m=0;m<3;m++) {
-			for (int n=0;n<5;n++) {
-				cad="";
-				v=s.getVentanas()[m][n];
-				System.out.printf("%c: [%s] ",v.queSoy(),v.estadoPaneles());
-				if (v.tieneMacetero()) cad=cad+"_";
-				if (v.tieneMoldura()) cad=cad+ "^^";
-				System.out.printf("(%s)\t\t", cad);
-			}
-			System.out.println(" ");
-		}
 	}
 	
 }

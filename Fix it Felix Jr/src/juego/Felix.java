@@ -3,7 +3,6 @@ package juego;
 public class Felix{
 	
 	private static final int tiempoInvulnerabilidad=2;
-	private static final double CONST_TIEMPO = 10000;
 	
 	private int vidas;
 	private boolean vulnerable;
@@ -115,7 +114,7 @@ public class Felix{
 	public void actualizarInvulnerabilidad() {
 		if (this.vulnerable == false) {
 			timerInvulnerabilidad++;
-			if (timerInvulnerabilidad > tiempoInvulnerabilidad * CONST_TIEMPO) {
+			if (timerInvulnerabilidad > tiempoInvulnerabilidad * Juego.getConstTiempo()) {
 				this.vulnerable = true;
 				timerInvulnerabilidad = 0;
 			}

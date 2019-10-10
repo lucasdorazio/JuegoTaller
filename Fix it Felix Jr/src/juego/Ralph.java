@@ -12,7 +12,6 @@ public class Ralph implements Desplazable, Dibujable{
 
 	private static final int LADRILLOS_POR_TIRADA = 3;
 	private static final double TIEMPO_ENTRE_LADRILLOS=0.5;
-	private static final int CONST_TIEMPO=60000000;	//Cantidad de llamadas al método por segundo
 	private int ladrillosTotales;
 	private int ladrillosRestantes;
 	private Posicion pos;
@@ -72,7 +71,7 @@ public class Ralph implements Desplazable, Dibujable{
 	 */
 	public boolean golpearEdif() {	
 		timer++;
-		if (timer>TIEMPO_ENTRE_LADRILLOS*CONST_TIEMPO) {			
+		if (timer>TIEMPO_ENTRE_LADRILLOS*Juego.getConstTiempo()) {			
 			ControladorDeLadrillos.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
 			ladrillosRestantes--;			
 			timer=0;
@@ -88,7 +87,7 @@ public class Ralph implements Desplazable, Dibujable{
 	@Override
 	public boolean avanzar() { 
 		timer++;
-		if (timer > CONST_TIEMPO/velocidad) { 
+		if (timer > Juego.getConstTiempo()/velocidad) { 
 			if (dirActual == Direcciones.DERECHA) {
 				if (pos.getPosX() + 1 > Edificio.getLimiteDerechoEdificio()) {
 					dirActual = Direcciones.IZQUIERDA;
