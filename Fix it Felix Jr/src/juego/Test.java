@@ -9,12 +9,15 @@ public class Test {
 
 	public static void main(String[] args) {
 		Juego j = new Juego();
-		ArrayList<Dibujable> lista = new ArrayList<Dibujable>();
-		lista.add(Felix.getInstance());
+		//lista.add(Felix.getInstance());
 		while (!j.perdio()) {
 			j.actualizarRalph();
 			j.actualizar();
-			Graficador.refrescarTopDown(lista, 1000);
+			Graficador.refrescarTopDown(Juego.getLista(), 1000);
+			Felix.getInstance().mover(Direcciones.ARRIBA);
+			Felix.getInstance().mover(Direcciones.ARRIBA);
+			Felix.getInstance().mover(Direcciones.ARRIBA);
+//			Felix.getInstance().mover(Direcciones.DERECHA);
 		}
 	}
 

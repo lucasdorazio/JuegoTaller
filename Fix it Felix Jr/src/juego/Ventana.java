@@ -15,6 +15,7 @@ public abstract class Ventana implements Dibujable{
 		this.nroFila=nroFila;
 		this.tieneMacetero=tieneMacetero;
 		this.tieneMoldura=tieneMoldura;
+		Juego.getLista().add(this);
 	}
 	
 	public abstract boolean puedoGenerarPastel();
