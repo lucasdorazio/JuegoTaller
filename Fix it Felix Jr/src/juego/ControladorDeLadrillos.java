@@ -7,7 +7,7 @@ import java.util.List;
 public class ControladorDeLadrillos {
 
 	private static List<Ladrillo> listaLadrillos = new LinkedList<Ladrillo>();
-	private static final int CONST_TIEMPO=10000;	//Cantidad de llamadas al método por segundo
+	private static final int CONST_TIEMPO=60000000;	//Cantidad de llamadas al método por segundo
 	private int timer;
 	private int velocidad;
 

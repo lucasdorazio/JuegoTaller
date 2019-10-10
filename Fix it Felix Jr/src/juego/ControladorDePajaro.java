@@ -7,7 +7,7 @@ import java.util.List;
 public class ControladorDePajaro {
 
 	private static final int VELOCIDAD = 56;
-	private static final int CONST_TIEMPO=10000;	//Cantidad de llamadas al método por segundo
+	private static final int CONST_TIEMPO=60000000;	//Cantidad de llamadas al método por segundo
 	private int tiempoDeSpawneo;
 	private static List<Pajaro> listaDePajaros;
 	private int timerMovimiento,timerGeneracion;
@@ -45,6 +45,7 @@ public class ControladorDePajaro {
 		}
 		if (dir==Direcciones.DERECHA) posX=Juego.getLimiteIzquierdoMapa();
 		else posX=Juego.getLimiteDerechoMapa();
+		System.out.println("Se genero un pajaro en ("+ posX+";"+ posY+")");
 		return new Pajaro(new Posicion(posX, posY), dir);
 	}
 
@@ -57,6 +58,7 @@ public class ControladorDePajaro {
 				pajaro = ite.next();
 				if (pajaro.avanzar()) {
 					ite.remove();
+					System.out.println("Se elimino un pajaro");
 				}
 			}
 			timerMovimiento=0;

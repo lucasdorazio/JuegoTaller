@@ -5,7 +5,7 @@ public class ControladorDeRalph {
 	private int tiempoDeDesplazamiento; // Cada cuantos segundos Ralph se mueve
 	private static final int CANT_PASOS_MIN = 3;
 	private static final int CANT_PASOS_MAX = 7;
-	private static final int CONST_TIEMPO=10000;	//Cantidad de llamadas al método por segundo
+	private static final int CONST_TIEMPO=60000000;	//Cantidad de llamadas al método por segundo
 	private boolean estaMoviendose;
 	private boolean estaGolpeando;
 	private int timerGolpeo;
@@ -34,6 +34,7 @@ public class ControladorDeRalph {
 			if (ralph.avanzar()) {
 				estaMoviendose = false;
 				timerMovimiento = 0;
+				System.out.println("Ralph termino de moverse y su posicion es (" +ralph.getPos().getPosX()+ ";" + ralph.getPos().getPosY()+")");
 			}
 		} else if (estaGolpeando) {
 			if (ralph.golpearEdif()) {

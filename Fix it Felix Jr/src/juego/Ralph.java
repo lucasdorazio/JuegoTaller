@@ -4,7 +4,7 @@ public class Ralph implements Desplazable{
 
 	private static final int LADRILLOS_POR_TIRADA = 3;
 	private static final double TIEMPO_ENTRE_LADRILLOS=0.5;
-	private static final int CONST_TIEMPO=10000;	//Cantidad de llamadas al método por segundo
+	private static final int CONST_TIEMPO=60000000;	//Cantidad de llamadas al método por segundo
 	private int ladrillosTotales;
 	private int ladrillosRestantes;
 	private Posicion pos;
@@ -50,7 +50,7 @@ public class Ralph implements Desplazable{
 		timer++;
 		if (timer>TIEMPO_ENTRE_LADRILLOS*CONST_TIEMPO) {			
 			ControladorDeLadrillos.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
-			System.out.println("Ralph golpea el edificio, su posicion es (" +pos.getPosX()+ ";" + pos.getPosY()+")");
+			System.out.println("Ralph golpea el edificio BUM BUM BUM");
 			ladrillosRestantes--;			
 			timer=0;
 		}

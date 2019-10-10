@@ -10,7 +10,7 @@ public class Juego {
 	
 	private static final int LIMITE_IZQUIERDO_MAPA=0;
 	
-	private static final double CONST_TIEMPO = 10000;
+	private static final double CONST_TIEMPO = 60000000;
 	
 	private static Jugador jugador;
 	
@@ -42,7 +42,7 @@ public class Juego {
 	
 	private int timerPastel;
 	
-	private int tiempoGeneracionPastel;
+	private double tiempoGeneracionPastel;
 
 	public static int getLimiteDerechoMapa() {
 		return LIMITE_DERECHO_MAPA;
@@ -70,7 +70,7 @@ public class Juego {
 		reinicioSeccion=false;
 		colisiones= new Colisiones();
 		timerPastel=0;
-		tiempoGeneracionPastel=5;
+		tiempoGeneracionPastel=0.001;
 		teclado.close();
 	}
 	
@@ -128,6 +128,14 @@ public class Juego {
 	public void actualizarRalph() {
 		ralphController.manejarRalph();
 		brickController.actualizarLadrillos();
+		birdController.generarPajaros();
+		birdController.actualizarPosPajaros();
+		if (pastel == null)
+			this.generarPastel();
+		else if (pastel.disminuirTiempoDeVida()) {
+			pastel = null;
+			System.out.println("PASTEL ELIMINADO");
+		}
 	}
 	
 	public boolean perdio() {
@@ -176,7 +184,10 @@ public class Juego {
 		Ventana v;
 		if (timerPastel > tiempoGeneracionPastel * CONST_TIEMPO) {
 			v=this.obtenerVentanaAleatoria();
-			if (v.puedoGenerarPastel()) pastel = new Pastel(v);
+			if (v.puedoGenerarPastel()) {
+				pastel = new Pastel(v);
+				System.out.println("PASTEL GENERADO EN VENTANA ["+v.getNroFila()+"]["+v.getNroColumna()+"]");
+			}
 		}
 	}
 	

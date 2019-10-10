@@ -72,9 +72,11 @@ public class Pajaro implements Impactable, Desplazable{
 	public boolean avanzar() {
 		if (this.direccion == Direcciones.DERECHA) {
 			pos.aumentarPosX();
+													//System.out.println("Pajaro avanza a la derecha");
 			return (pos.getPosX()>Juego.getLimiteDerechoMapa());
 		} else {
 			pos.disminuirPosX();
+													//System.out.println("Pajaro avanza a la izquierda");
 			return (pos.getPosX()<Juego.getLimiteIzquierdoMapa());
 		}
 	}
