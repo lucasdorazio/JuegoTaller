@@ -1,6 +1,9 @@
 package juego;
 
-public abstract class Ventana {
+import taller2.modelo.Dibujable;
+import taller2.modelo.InformacionDibujable;
+
+public abstract class Ventana implements Dibujable{
 	
 	private int nroFila;
 	private int nroColumna;
@@ -49,5 +52,18 @@ public abstract class Ventana {
 	public void setTieneMoldura(boolean tieneMoldura) {
 		this.tieneMoldura = tieneMoldura;
 	}
+	
+	public InformacionDibujable getInformacionDibujable() {
+		int x=180+21+(42+21)*this.getNroColumna();
+		int y=42+(70+320)*(3-this.nroFila);
+		char c;
+		if (this.estoySana()) {
+			c='_';
+		} else {
+			c='X';
+		}
+		return new InformacionDibujable(x, y, c);
+	}
+	
 
 }

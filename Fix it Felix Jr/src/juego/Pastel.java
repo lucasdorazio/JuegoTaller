@@ -1,6 +1,9 @@
 package juego;
 
-public class Pastel implements Impactable {
+import taller2.modelo.Dibujable;
+import taller2.modelo.InformacionDibujable;
+
+public class Pastel implements Impactable, Dibujable {
 
 	private int tiempoDeVida;
 	private static final int CONST_TIEMPO=10000;	//Cantidad de llamadas al método por segundo
@@ -28,5 +31,14 @@ public class Pastel implements Impactable {
 	@Override
 	public Ventana devolverVentana() {
 		return this.ventanaActual;
+	}
+
+
+	@Override
+	public InformacionDibujable getInformacionDibujable() {
+		int x=180+21+(42+21)*ventanaActual.getNroColumna();
+		int y=42+(70+320)*(3-ventanaActual.getNroFila());
+		char c='.';
+		return new InformacionDibujable(x, y, c);
 	}
 }
