@@ -1,6 +1,6 @@
 package juego;
 /**
- * La clase Colisiones esta destinada al control y atencion de los choques 
+  La clase Colisiones esta destinada al control y atencion de los choques 
  * durante el juego
  * 
  * @author Lucas Dorazio & Renzo Quaggia

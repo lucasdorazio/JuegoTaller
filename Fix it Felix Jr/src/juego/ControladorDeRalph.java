@@ -1,8 +1,9 @@
 package juego;
 /**
- * 
+ * ControladorDeRalph manejara al objeto de clase Ralph, sus movimientos
+ * y comportamiento
  * @author Lucas y Renzo
- *
+ * @version 1.0
  */
 public class ControladorDeRalph {
 	private int tiempoDeGolpeo; // Cada cuantos segundos Ralph golpea
@@ -16,6 +17,10 @@ public class ControladorDeRalph {
 	private int timerMovimiento;
 	private Ralph ralph;
 
+	/**
+	 * 
+	 * @param tiempoDeGolpeo recibe cada cuanto tiempo ralph realiza un golpe
+	 */
 	public ControladorDeRalph(int tiempoDeGolpeo) {
 		this.tiempoDeGolpeo=tiempoDeGolpeo;
 		this.tiempoDeDesplazamiento= 12;
@@ -25,13 +30,20 @@ public class ControladorDeRalph {
 		estaMoviendose=false;
 		estaGolpeando=false;
 	}
-	
+	/**
+	 * 
+	 * @return cantidad de pasos que ralf dará en cierta direccion
+	 * entre un minimo y un maximo fijo
+	 */
 	public int calcularCantPasos() {
 		return (int) (Math.random() * (CANT_PASOS_MIN - CANT_PASOS_MAX + 1) + CANT_PASOS_MIN);
 	}
 
 	
-	
+	/**
+	 * Se encarga de darle ordenes a ralph, tales como moverse,
+	 * cambiar de direccion, golpear edificio
+	 */
 	public void manejarRalph() {
 		Direcciones dir;
 		if (estaMoviendose) {

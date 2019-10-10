@@ -1,6 +1,13 @@
 package juego;
+import java.io.ObjectInputStream.GetField;
 import java.util.Scanner;
-
+/**
+ * Clase que conecta todas las componentes del juego, ya sea conociendolas
+ * o usandolas como atributos propios.
+ * Su metodo principal será el actualizar()
+ * @author Lucas y Renzo
+ *
+ */
 public class Juego {
 	
 	private Nivel nivel;
@@ -9,7 +16,7 @@ public class Juego {
 	
 	private static final int LIMITE_IZQUIERDO_MAPA=0;
 	
-	private static final double CONST_TIEMPO = 60000000;
+	private static final int CONST_TIEMPO = 60000000;
 	
 	private static Jugador jugador;
 	
@@ -72,7 +79,11 @@ public class Juego {
 		tiempoGeneracionPastel=5;
 		teclado.close();
 	}
-	
+	/**
+	 * iniciarNivel comienza un nuevo nivel(generando
+	 * el edificio principalmente) o reinicia el actual
+	 * @param reinicio indica si el inicio de este nivel es un reinicio o no
+	 */
 	public void iniciarNivel(boolean reinicio) {
 		nroSeccion=0;
 		nivel = new Nivel(nroNivel);
@@ -93,7 +104,9 @@ public class Juego {
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		tiempo=nivel.getTiempoMax();
 	}
-	
+	/**
+	 * reinicia la seccion actual en la que transcurre el juego
+	 */
 	public void reiniciarSeccion() {
 		this.eliminarEntidades();
 		Edificio.getInstance().reiniciarSeccion(nroSeccion);
@@ -101,7 +114,10 @@ public class Juego {
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][2]);
 		reinicioSeccion=false;
 	}
-	
+	/**
+	 * permite la sincronizacion
+	 * e interaccion entre las diferentes entidades del juego
+	 */
 	public void actualizar() {
 		if (reinicioNivel) iniciarNivel(true);
 		else if (reinicioSeccion) reiniciarSeccion();
@@ -125,13 +141,18 @@ public class Juego {
 			}
 		}
 	}
-	
+	/**
+	 * 
+	 * @return verdadero si las vidas de Felix son 0
+	 */
 	public boolean perdio() {
 		return (Felix.getInstance().getVidas()==0 || tiempo<=0);
 	}
 	
 	
-	
+	/**
+	 * carga la siguiente seccion del edificio 
+	 */
 	public void avanzarSeccion() {
 		this.eliminarEntidades();
 		nroSeccion++;
@@ -140,7 +161,9 @@ public class Juego {
 		pasarDeSeccion=false;
 		System.out.println("Avanzaste a la seccion "+ nroSeccion);
 	}
-	
+	/**
+	 * iniciara un nuevo nivel desde cero 
+	 */
 	public void avanzarNivel() {
 		this.eliminarEntidades();
 		nroNivel++;
@@ -157,7 +180,9 @@ public class Juego {
 	public static void ganar() {
 		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
 	}
-	
+	/**
+	 * Intenta crear un pastel en alguna de las ventanas disponibles para hacerlo
+	 */
 	private void generarPastel() {
 		timerPastel++;
 		Ventana v;
@@ -169,13 +194,21 @@ public class Juego {
 			}
 		}
 	}
-	
+	/**
+	 * 
+	 * @return una ventana aleatoria entre las 15 que se encuentran en la seccion
+	 */
 	private Ventana obtenerVentanaAleatoria() {
 		int fila= (int) (Math.random()*3);
 		int columna= (int) (Math.random()*5);
 		return Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[fila][columna];
 	}
 	
+	/**
+	 * Analiza si la seccion actual (recibida por parametro) tiene todas sus 
+	 * ventanas sanas 
+	 * @param seccion recibe la seccion que se desea comprobar
+	 */
 	public static void comprobarSeccionLimpia(Seccion seccion){
 		if (seccion.getVentanasRestantes()==0) {
 			if (nroSeccion == 2) {
@@ -189,12 +222,15 @@ public class Juego {
 			}
 		}
 	}
-	
+	/**
+	 * Descarta los posibles pajaros, ladrillos y pasteles en la partida
+	 */
 	public void eliminarEntidades() {
 		birdController.eliminarPajaros();
 		brickController.eliminarLadrillos();
 		pastel=null;
 	}
+
 
 	public static void ladrilloGolpeoAFelix() {
 		reinicioNivel=true;
@@ -212,6 +248,10 @@ public class Juego {
 
 	public static void felixComePastel() {
 		pastel=null;
+	}
+	
+	public int getConstTiempo() {
+		return CONST_TIEMPO;
 	}
 	
 }

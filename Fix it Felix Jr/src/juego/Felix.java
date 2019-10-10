@@ -1,5 +1,9 @@
 package juego;
-
+/**
+ * Modela al personaje y jugador Felix, sus acciones y movimientos posibles
+ * @author Lucas y Renzo
+ *
+ */
 public class Felix{
 	
 	private static final int tiempoInvulnerabilidad=2;
@@ -20,14 +24,20 @@ public class Felix{
 		this.vulnerable=true;
 		this.timerInvulnerabilidad=0;
 	}
-	
+	/**
+	 * 
+	 * @return INSTANCIA de Felix, de acuerdo al patron de diseño Singleton
+	 */
 	public static Felix getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new Felix();
 		}
 		return INSTANCE;
 	}
-	
+	/**
+	 * Repara (intenta cambiar el estado de los paneles a SANO) la ventana
+	 * sobre la cual se encuentra posicionado
+	 */
 	public void reparar() {
 		boolean sanaAntes=ventanaActual.estoySana();
 		ventanaActual.repararse();

@@ -1,5 +1,10 @@
 package juego;
-
+/**
+ * Clase que almacena probabilidades y demas datos
+ * que agregan dificultad al juego conforme se pasa de nivel
+ * @author Lucas
+ *
+ */
 public class Dificultad {
 	
 	private static final double PROB_PANEL_ROTO=0.3;

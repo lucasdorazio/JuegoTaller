@@ -1,5 +1,9 @@
 package juego;
-
+/**
+ * Modela al conjunto de secciones y las administra
+ * @author Lucas y Renzo
+ * @version 1.1
+ */
 public class Edificio {
 	
 	private static final int LIMITE_DERECHO_EDIFICIO = 520;
@@ -14,7 +18,11 @@ public class Edificio {
 	
 	private Edificio() {
 	}
-	
+	/**
+	 * 
+	 * @return Instancia de Edificio
+	 * Patron Singleton
+	 */
 	public static Edificio getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new Edificio();
@@ -29,11 +37,18 @@ public class Edificio {
 	public static int getLimiteIzquierdaEdificio() {
 		return LIMITE_IZQUIERDA_EDIFICIO;
 	}
-	
+	/**
+	 * Reinicia la seccion actual en la que transcurre el juego a su 
+	 * distribucion original
+	 * @param nroSeccion recibe el numero de la seccion correspondiente 
+	 * que se quiere reiniciar del edificio
+	 */
 	public void reiniciarSeccion(int nroSeccion) {
 		secciones[nroSeccion]=seccionesOriginales.clone()[nroSeccion];
 	}
-	
+	/**
+	 * Reinicia el edificio a su distribucion original
+	 */
 	public void reiniciarEdificio() {
 		secciones=seccionesOriginales.clone();
 	}
@@ -41,7 +56,9 @@ public class Edificio {
 	public void setSecciones(Seccion[] secciones) {
 		this.secciones=secciones;
 	}
-	
+	/**
+	 * Almacena la distribucion original con la que se generó el edificio
+	 */
 	public void guardarCopiaSecciones() {
 		seccionesOriginales= secciones.clone();
 	}
