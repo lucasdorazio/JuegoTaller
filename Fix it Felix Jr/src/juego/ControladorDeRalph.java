@@ -1,5 +1,9 @@
 package juego;
-
+/**
+ * 
+ * @author Lucas y Renzo
+ *
+ */
 public class ControladorDeRalph {
 	private int tiempoDeGolpeo; // Cada cuantos segundos Ralph golpea
 	private int tiempoDeDesplazamiento; // Cada cuantos segundos Ralph se mueve
