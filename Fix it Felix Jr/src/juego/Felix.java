@@ -1,8 +1,6 @@
 package juego;
-import taller2.modelo.Dibujable;
-import taller2.modelo.InformacionDibujable;
 
-public class Felix implements Dibujable{
+public class Felix{
 	
 	private static final int tiempoInvulnerabilidad=2;
 	private static final double CONST_TIEMPO = 10000;
@@ -115,11 +113,6 @@ public class Felix implements Dibujable{
 		}
 	}
 
-	public InformacionDibujable getInformacionDibujable() {
-		int x=180+21+(42+21)*getVentanaActual().getNroColumna();
-		int y=42+(70+320)*(3-getVentanaActual().getNroFila());
-		char c='F';
-		return new InformacionDibujable(x, y, c);
-	}
+
 	
 }

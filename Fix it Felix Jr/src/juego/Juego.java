@@ -1,13 +1,7 @@
 package juego;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import taller2.modelo.Dibujable;
-
 public class Juego {
-	
-	private static ArrayList<Dibujable> lista;
 	
 	private Nivel nivel;
 	
@@ -61,16 +55,7 @@ public class Juego {
 		return pastel;
 	}
 	
-	public static ArrayList<Dibujable> getLista() {
-		return lista;
-	}
-
-	public static void setLista(ArrayList<Dibujable> lista) {
-		Juego.lista = lista;
-	}
-
 	public Juego() {
-		lista= new ArrayList<Dibujable>();
 		Scanner teclado= new Scanner(System.in);
 		System.out.println("Ingrese su nickname");
 		jugador= new Jugador(teclado.next());
@@ -107,7 +92,6 @@ public class Juego {
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		tiempo=nivel.getTiempoMax();
-		lista.add(Felix.getInstance());
 	}
 	
 	public void reiniciarSeccion() {
@@ -187,12 +171,6 @@ public class Juego {
 	
 	public static void perder() {
 		System.out.println("Perdiste, tu puntaje fue: "+ jugador.getPuntaje());
-	}
-	
-	public void jugar() {
-		while (tiempo>0 && Felix.getInstance().getVidas()>0) {	//No conviene preguntar por las vidas
-			actualizar();
-		}
 	}
 	
 	private void generarPastel() {

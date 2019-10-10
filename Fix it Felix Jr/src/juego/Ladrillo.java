@@ -1,9 +1,6 @@
 package juego;
 
-import taller2.modelo.Dibujable;
-import taller2.modelo.InformacionDibujable;
-
-public class Ladrillo implements Impactable, Desplazable, Dibujable{
+public class Ladrillo implements Impactable, Desplazable{
 	
 	private Direcciones direccion;
 	
@@ -75,8 +72,4 @@ public class Ladrillo implements Impactable, Desplazable, Dibujable{
 		return (pos.getPosY()<0);
 	}
 
-	@Override
-	public InformacionDibujable getInformacionDibujable() {
-		return new InformacionDibujable(pos.getPosX(), pos.getPosY(), '=');
-	}
 }
