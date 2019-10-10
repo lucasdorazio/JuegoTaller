@@ -19,7 +19,7 @@ public class Colisiones {
 		Ventana actual=Felix.getInstance().getVentanaActual();
 		Iterator<Ladrillo> iteLadrillos= listaLadrillos.iterator();
 		Iterator<Pajaro> itePajaros= listaPajaros.iterator();
-		if (pastel.devolverVentana().equals(actual)) {
+		if (pastel!= null && pastel.devolverVentana().equals(actual)) {
 			Felix.getInstance().recibirImpactoPastel();
 			fueImpactado=true;
 		}
