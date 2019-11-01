@@ -1,4 +1,4 @@
-package juego;
+package entidades;
 
 /**
  * Clase que modela la posición dentro del mapa a través de una coordenada en X y una coordenada en Y

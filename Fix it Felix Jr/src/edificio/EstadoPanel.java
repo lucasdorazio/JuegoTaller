@@ -1,4 +1,4 @@
-package juego;
+package edificio;
 /**
  * Clase enumerativa con constantes que simbolizan los estados en que un 
  * objeto de la clase panel pueda llegar a tener

@@ -1,4 +1,4 @@
-package juego;
+package edificio;
 
 /**
  * La clase Ventana será de la extienden todas los tipos de ventanas del edificio

@@ -1,4 +1,7 @@
-package juego;
+package entidades;
+
+import edificio.Ventana;
+import juego.Juego;
 
 /**
  * Clase que modela los pasteles otorgados por los Nicelanders y le suman puntos al jugador al tomarlos

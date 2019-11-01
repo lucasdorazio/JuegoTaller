@@ -1,15 +1,20 @@
-package juego;
+package controladores;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import entidades.Direcciones;
+import entidades.Pajaro;
+import entidades.Posicion;
+import juego.Juego;
 /**
  * La clase ControladorDeLadrillos se encarga de la administracion
  * de los objetos de la clase Pajaro
  * @author Lucas y Renzo
  *
  */
-public class ControladorDePajaro {
+public class ControladorDePajaro extends Controlador{
 
 	private static final int VELOCIDAD = 56;
 	private int tiempoDeSpawneo;
@@ -26,6 +31,12 @@ public class ControladorDePajaro {
 		timerMovimiento = 0;
 		timerGeneracion=0;
 	}
+	
+	public void actualizar() {
+		generarPajaros();
+		moverPajaros();
+	}
+	
 	/**
 	 * Genera un pajaro cada cierto tiempo fijo
 	 */
@@ -61,7 +72,7 @@ public class ControladorDePajaro {
 	 * Actualiza en cada momento la posicion actual de 
 	 * los pajaros existentes
 	 */
-	public void actualizarPosPajaros() {
+	public void moverPajaros() {
 		timerMovimiento++;
 		Pajaro pajaro;
 		if (timerMovimiento > Juego.getConstTiempo() / VELOCIDAD) {
@@ -78,7 +89,7 @@ public class ControladorDePajaro {
 	/**
 	 * Descarta los pajaros existentes
 	 */
-	public void eliminarPajaros() {
+	public void avanzarSeccion() {
 		listaDePajaros.clear();
 	}
 

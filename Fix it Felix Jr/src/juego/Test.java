@@ -1,4 +1,8 @@
 package juego;
+
+import entidades.Direcciones;
+import entidades.Felix;
+
 /**
  * Clase que contiene el main para la ejección del juego
  * @author Lucas Dorazio & Renzo Quaggia

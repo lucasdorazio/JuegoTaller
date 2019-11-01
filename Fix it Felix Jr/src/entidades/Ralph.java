@@ -1,5 +1,8 @@
-package juego;
+package entidades;
 
+import controladores.ControladorDeLadrillos;
+import edificio.Edificio;
+import juego.Juego;
 import taller2.modelo.Dibujable;
 import taller2.modelo.InformacionDibujable;
 
@@ -19,6 +22,7 @@ public class Ralph implements Desplazable, Dibujable{
 	private int timer;
 	private int pasosRestantes;
 	private Direcciones dirActual;
+	private ControladorDeLadrillos brickController;
 	
 	public int getLadrillos() {
 		return ladrillosTotales;
@@ -35,7 +39,8 @@ public class Ralph implements Desplazable, Dibujable{
 	/**
 	 * Inicialización de valores por defecto de los atributos de Ralph 
 	 */
-	public Ralph() {
+	public Ralph(ControladorDeLadrillos brickController) {
+		this.brickController=brickController;
 		this.ladrillosTotales = 40;	
 		this.pos =new Posicion(350,390);	//Parte superior de la sección, en el centro
 		this.velocidad=150;
@@ -72,7 +77,7 @@ public class Ralph implements Desplazable, Dibujable{
 	public boolean golpearEdif() {	
 		timer++;
 		if (timer>TIEMPO_ENTRE_LADRILLOS*Juego.getConstTiempo()) {			
-			ControladorDeLadrillos.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
+			brickController.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
 			ladrillosRestantes--;			
 			timer=0;
 		}

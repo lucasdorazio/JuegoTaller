@@ -1,4 +1,5 @@
-package juego;
+package entidades;
+
 /**
  * Interface que implementaran las clases capaces de desplazarse
  * teniendo una posicion, direccion y velocidad

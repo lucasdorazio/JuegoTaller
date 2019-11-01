@@ -1,4 +1,4 @@
-package juego;
+package edificio;
 
 /**
  * Clase que modela los paneles componentes de las ventanas

@@ -1,5 +1,14 @@
 package juego;
 
+import edificio.Comun;
+import edificio.ConHojas;
+import edificio.Edificio;
+import edificio.EstadoPanel;
+import edificio.Puerta;
+import edificio.Seccion;
+import edificio.SemicircularSuperior;
+import edificio.Ventana;
+
 /**
  * Clase que modela los parámetros de la dificultad según el número de nivel en el que esté el jugador
  * @author Lucas Dorazio & Renzo Quaggia

@@ -9,6 +9,14 @@ package juego;
 import java.util.Iterator;
 import java.util.List;
 
+import controladores.ControladorDeLadrillos;
+import controladores.ControladorDePajaro;
+import edificio.Ventana;
+import entidades.Felix;
+import entidades.Ladrillo;
+import entidades.Pajaro;
+import entidades.Pastel;
+
 public class Colisiones {
 	
 	public Colisiones() {

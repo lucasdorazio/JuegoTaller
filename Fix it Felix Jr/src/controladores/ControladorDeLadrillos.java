@@ -1,15 +1,19 @@
-package juego;
+package controladores;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import entidades.Ladrillo;
+import entidades.Posicion;
+import juego.Juego;
 /**
  * La clase ControladorDeLadrillos se encarga de la administracion
  * de los objetos de la clase Ladrillo
  * @author Lucas y Renzo
  *
  */
-public class ControladorDeLadrillos {
+public class ControladorDeLadrillos extends Controlador{
 
 	private static List<Ladrillo> listaLadrillos = new LinkedList<Ladrillo>();
 	private int timer;
@@ -33,7 +37,7 @@ public class ControladorDeLadrillos {
 	 * Instancia un nuevo ladrillo
 	 * @param pos recibe la posicion que se le asignara al Ladrillo
 	 */
-	public static void generarLadrillo(Posicion pos) {
+	public void generarLadrillo(Posicion pos) {
 		Ladrillo l = new Ladrillo(pos);
 		listaLadrillos.add(l);
 		System.out.println("Se tiró un ladrillo desde ("+ pos.getPosX()+ ", "+ pos.getPosY()+")");
@@ -42,7 +46,7 @@ public class ControladorDeLadrillos {
 	/**
 	 * maneja la posicion de cada ladrillo existente en todo momento
 	 */
-	public void actualizarLadrillos() {
+	public void actualizar() {
 		timer++;
 		if (timer > Juego.getConstTiempo() / velocidad) {
 			Ladrillo ladrillo;
@@ -59,7 +63,7 @@ public class ControladorDeLadrillos {
 	/**
 	 * Descarta todos los ladrillos existentes
 	 */
-	public void eliminarLadrillos() {
+	public void avanzarSeccion() {
 		listaLadrillos.clear();
 	}
 

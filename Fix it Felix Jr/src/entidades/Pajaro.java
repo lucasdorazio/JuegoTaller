@@ -1,4 +1,8 @@
-package juego;
+package entidades;
+
+import edificio.Edificio;
+import edificio.Ventana;
+import juego.Juego;
 
 /**
  * Clase que modela la entidad voladora que puede chocar a Felix

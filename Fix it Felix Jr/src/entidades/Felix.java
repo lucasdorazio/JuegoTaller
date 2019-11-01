@@ -1,4 +1,9 @@
-package juego;
+package entidades;
+
+import edificio.Seccion;
+import edificio.Ventana;
+import juego.Juego;
+
 /**
  * Modela al personaje y jugador Felix, sus acciones y movimientos posibles
  * @author Lucas y Renzo

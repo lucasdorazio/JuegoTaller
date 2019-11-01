@@ -1,4 +1,4 @@
-package juego;
+package edificio;
 
 /**
  * Clase que modela el conjunto de ventanas que Felix debe reparar para avanzar a la siguiente seccion del edificio

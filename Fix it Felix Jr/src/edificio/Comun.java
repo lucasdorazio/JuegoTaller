@@ -1,15 +1,22 @@
-package juego;
+package edificio;
+
 /**
- * La clase ConHojas representa las ventanas de dos paneles con hojas 
- * ya sean abiertas o cerradas
- * @author Lucas
- *
+ * La clase comun representa a las ventanas corrientes del edificio
+ * @author Lucas & Renzo
+ * @version 1.0
  */
-public class ConHojas extends Ventana {
-	
-	private boolean abierta;
+public class Comun extends Ventana {
 	
 	private Panel[] paneles= new Panel[2];	
+	
+	/**
+	 * retorna verdadero si un pastel puede crearse en esta ventana
+	 * Podra crearse si el panel inferior esta completamente roto
+	 */
+	@Override
+	public boolean puedoGenerarPastel() {
+		return (paneles[0].getEstado()==EstadoPanel.ROTO);
+	}
 	/**
 	 * 
 	 * @param nroFila recibe el numero entero de fila que le correspondera a la ventana
@@ -18,24 +25,13 @@ public class ConHojas extends Ventana {
 	 * @param tieneMoldura si esta en verdadero, la ventana tendra moldura
 	 * @param inferior recibe el estado del panel inferior de la ventana
 	 * @param superior recibe el estado del panel inferior de la ventana
-	 * @param abierta define si la ventana esta abierta o no. En caso de estarlo, 
-	 * 	felix no será accesible lateralmente
 	 */
-	public ConHojas(int nroFila, int nroCol, boolean tieneMacetero, boolean tieneMoldura,
-			EstadoPanel inferior, EstadoPanel superior, boolean abierta) {
+	public Comun (int nroFila, int nroCol, boolean tieneMacetero, boolean tieneMoldura, 
+			EstadoPanel inferior, EstadoPanel superior) {
 		super(nroFila, nroCol, tieneMacetero, tieneMoldura);
-		this.abierta=abierta;
 		paneles[0]= new Panel(inferior);
 		paneles[1]= new Panel(superior);
-	}
-
-	/**
-	 * retorna verdadero si un pastel puede crearse en esta ventana
-	 * Podra crearse si el panel inferior esta completamente roto
-	 */
-	@Override
-	public boolean puedoGenerarPastel() {
-		return false;
+		
 	}
 
 	/**
@@ -56,13 +52,9 @@ public class ConHojas extends Ventana {
 	 * de ambos paneles de la ventana es SANO
 	 */
 	@Override
-	public boolean estoySana() {
+	public boolean estoySana(){
 		return (paneles[0].getEstado()==EstadoPanel.SANO &&
 				paneles[1].getEstado()==EstadoPanel.SANO);
-	}
-	
-	public boolean getAbierta() {
-		return this.abierta;
 	}
 
 	/**
@@ -71,7 +63,6 @@ public class ConHojas extends Ventana {
 	 */
 	@Override
 	public boolean puedeAtravesarseLateralmente() {
-		// TODO Auto-generated method stub
-		return (!abierta);
+		return true;
 	}
 }

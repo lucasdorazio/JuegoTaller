@@ -1,4 +1,7 @@
-package juego;
+package entidades;
+
+import edificio.Ventana;
+
 /**
  * Interface que implementaran las clases capaces de impactar/interactuar contra
  * el jugador

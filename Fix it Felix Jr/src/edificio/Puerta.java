@@ -1,4 +1,4 @@
-package juego;
+package edificio;
 
 /**
  * Es la clase que modela la ventana de tipo puerta con 4 paneles donde comenzará Felix

@@ -1,4 +1,4 @@
-package juego;
+package edificio;
 /**
  * Modela al conjunto de secciones y las administra
  * @author Lucas y Renzo

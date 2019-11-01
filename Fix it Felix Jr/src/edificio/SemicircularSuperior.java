@@ -1,4 +1,4 @@
-package juego;
+package edificio;
 
 /**
  * Ventana con 8 paneles que aparece en la primer sección de cada nivel

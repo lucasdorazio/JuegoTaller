@@ -1,4 +1,4 @@
-package juego;
+package edificio;
 /**
  * Clase que nos permite agrupar las ventanas que tengan más de dos paneles
  * @author Lucas Dorazio & Renzo Quaggia

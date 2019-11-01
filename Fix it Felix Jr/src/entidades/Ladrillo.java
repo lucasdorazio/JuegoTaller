@@ -1,4 +1,8 @@
-package juego;
+package entidades;
+
+import edificio.Edificio;
+import edificio.Ventana;
+import juego.Juego;
 
 /**
  * Clase que modela las rocas lanzadas por Ralph para molestar a Felix

@@ -1,5 +1,14 @@
 package juego;
 import java.util.Scanner;
+
+import controladores.Controlador;
+import controladores.ControladorDeLadrillos;
+import controladores.ControladorDePajaro;
+import controladores.ControladorDePastel;
+import controladores.ControladorDeRalph;
+import edificio.Edificio;
+import edificio.Seccion;
+import entidades.Felix;
 /**
  * Clase que conecta todas las componentes del juego, ya sea conociendolas
  * o usandolas como atributos propios.
@@ -33,22 +42,12 @@ public class Juego {
 	
 	private static int nroSeccion;
 	
-	private static Pastel pastel;
-
-	private ControladorDeRalph ralphController;
-	
-	private ControladorDePajaro birdController;
-	
-	private ControladorDeLadrillos brickController;
+	private Controlador controladores[];
 	
 	private Colisiones colisiones;
 	
 	private double tiempo;
 	
-	private int timerPastel;
-	
-	private double tiempoGeneracionPastel;
-
 	public static int getLimiteDerechoMapa() {
 		return LIMITE_DERECHO_MAPA;
 	}
@@ -57,9 +56,6 @@ public class Juego {
 		return LIMITE_IZQUIERDO_MAPA;
 	}
 	
-	public static Pastel getPastel() {
-		return pastel;
-	}
 	
 	public Juego() {
 		Scanner teclado= new Scanner(System.in);
@@ -74,8 +70,6 @@ public class Juego {
 		reinicioNivel=false;
 		reinicioSeccion=false;
 		colisiones= new Colisiones();
-		timerPastel=0;
-		tiempoGeneracionPastel=5;
 		teclado.close();
 	}
 	/**
@@ -84,21 +78,26 @@ public class Juego {
 	 * @param reinicio indica si el inicio de este nivel es un reinicio o no
 	 */
 	public void iniciarNivel(boolean reinicio) {
+		ControladorDeLadrillos brickController;
 		nroSeccion=0;
 		nivel = new Nivel(nroNivel);
 		if (reinicio) {
 			Edificio.getInstance().reiniciarEdificio();
-			this.eliminarEntidades();
+			for (int i=0;i<4;i++) {
+				controladores[i].avanzarSeccion();
+			}
 			jugador.setPuntaje(puntajePrevio);
 			reinicioNivel=false;
 		} else {
 			nivel.generarEdificio();
 			puntajePrevio=jugador.getPuntaje();
 		}
-		ralphController = new ControladorDeRalph(Dificultad.getFrecuenciaGolpeo(nroNivel));
-		brickController = new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
-		birdController = new ControladorDePajaro();
-		pastel=null;	
+		controladores= new Controlador[4];
+		brickController= new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
+		controladores[0]= brickController;
+		controladores[1]= new ControladorDeRalph(Dificultad.getFrecuenciaGolpeo(nroNivel), brickController);
+		controladores[2]= new ControladorDePajaro();
+		controladores[3]= new ControladorDePastel();	
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		tiempo=nivel.getTiempoMax();
@@ -107,7 +106,9 @@ public class Juego {
 	 * reinicia la seccion actual en la que transcurre el juego
 	 */
 	public void reiniciarSeccion() {
-		this.eliminarEntidades();
+		for (int i=0;i<4;i++) {
+			controladores[i].avanzarSeccion();
+		}
 		Edificio.getInstance().reiniciarSeccion(nroSeccion);
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][2]);
@@ -128,15 +129,10 @@ public class Juego {
 				avanzarSeccion();
 			else {
 				colisiones.comprobarColisiones();
-				ralphController.manejarRalph();
-				brickController.actualizarLadrillos();
-				birdController.generarPajaros();
-				birdController.actualizarPosPajaros();
+				for (int i=0;i<4;i++) {
+					controladores[i].actualizar();
+				}
 				Felix.getInstance().actualizarInvulnerabilidad();
-				if (pastel == null)
-					this.generarPastel();
-				else if (pastel.disminuirTiempoDeVida())
-					pastel = null;
 			}
 		}
 	}
@@ -153,7 +149,9 @@ public class Juego {
 	 * carga la siguiente seccion del edificio 
 	 */
 	public void avanzarSeccion() {
-		this.eliminarEntidades();
+		for (int i=0;i<4;i++) {
+			controladores[i].avanzarSeccion();
+		}
 		nroSeccion++;
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
@@ -164,7 +162,9 @@ public class Juego {
 	 * iniciara un nuevo nivel desde cero 
 	 */
 	public void avanzarNivel() {
-		this.eliminarEntidades();
+		for (int i=0;i<4;i++) {
+			controladores[i].avanzarSeccion();
+		}
 		nroNivel++;
 		iniciarNivel(false);
 		pasarDeSeccion=false;
@@ -179,29 +179,7 @@ public class Juego {
 	public static void ganar() {
 		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
 	}
-	/**
-	 * Intenta crear un pastel en alguna de las ventanas disponibles para hacerlo
-	 */
-	private void generarPastel() {
-		timerPastel++;
-		Ventana v;
-		if (timerPastel > tiempoGeneracionPastel * CONST_TIEMPO) {
-			v=this.obtenerVentanaAleatoria();
-			if (v.puedoGenerarPastel()) {
-				pastel = new Pastel(v);
-				System.out.println("PASTEL GENERADO EN VENTANA ["+v.getNroFila()+"]["+v.getNroColumna()+"]");
-			}
-		}
-	}
-	/**
-	 * 
-	 * @return una ventana aleatoria entre las 15 que se encuentran en la seccion
-	 */
-	private Ventana obtenerVentanaAleatoria() {
-		int fila= (int) (Math.random()*3);
-		int columna= (int) (Math.random()*5);
-		return Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[fila][columna];
-	}
+	
 	
 	/**
 	 * Analiza si la seccion actual (recibida por parametro) tiene todas sus 
@@ -220,14 +198,6 @@ public class Juego {
 				pasarDeSeccion=true;
 			}
 		}
-	}
-	/**
-	 * Descarta los posibles pajaros, ladrillos y pasteles en la partida
-	 */
-	public void eliminarEntidades() {
-		birdController.eliminarPajaros();
-		brickController.eliminarLadrillos();
-		pastel=null;
 	}
 
 
