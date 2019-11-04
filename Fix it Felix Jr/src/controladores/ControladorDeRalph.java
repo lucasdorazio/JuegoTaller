@@ -64,14 +64,14 @@ public class ControladorDeRalph extends Controlador{
 		} else {
 			timerMovimiento++;
 			timerGolpeo++;
-			if (timerMovimiento > (tiempoDeDesplazamiento * Juego.getConstTiempo())) { 
+			if (timerMovimiento > (tiempoDeDesplazamiento * Juego.CONST_TIEMPO)) { 
 				if ((int) (Math.random() * 2) == 0)
 					dir = Direcciones.DERECHA;
 				else
 					dir = Direcciones.IZQUIERDA;
 				ralph.comenzarMovimiento(calcularCantPasos(), dir);
 				estaMoviendose = true;
-			} else if (timerGolpeo > (tiempoDeGolpeo * Juego.getConstTiempo())) {
+			} else if (timerGolpeo > (tiempoDeGolpeo * Juego.CONST_TIEMPO)) {
 				ralph.comenzarGolpeo();
 				estaGolpeando = true;
 			}

@@ -18,46 +18,45 @@ import entidades.Felix;
  */
 public class Juego {
 	
+	private static Juego INSTANCE;
+	
 	private Nivel nivel;
 	
-	private static final int LIMITE_DERECHO_MAPA=700;
+	public static final int LIMITE_DERECHO_MAPA=700;
 	
-	private static final int LIMITE_IZQUIERDO_MAPA=0;
+	public static final int LIMITE_IZQUIERDO_MAPA=0;
 	
-	private static final int CONST_TIEMPO = 60000000;
+	public static final int CONST_TIEMPO = 60000000;
 	
-	private static Jugador jugador;
+	private  Jugador jugador;
 	
 	private int puntajePrevio;
 
-	private static boolean pasarDeSeccion;
+	private  boolean pasarDeSeccion;
 	
-	private static boolean pasarDeNivel;
+	private  boolean pasarDeNivel;
 	
-	private static boolean reinicioNivel;
+	private  boolean reinicioNivel;
 	
-	private static boolean reinicioSeccion;
+	private  boolean reinicioSeccion;
 	
-	private static int nroNivel;
+	private  int nroNivel;
 	
-	private static int nroSeccion;
+	private  int nroSeccion;
 	
 	private Controlador controladores[];
 	
-	private Colisiones colisiones;
-	
 	private double tiempo;
 	
-	public static int getLimiteDerechoMapa() {
-		return LIMITE_DERECHO_MAPA;
-	}
-
-	public static int getLimiteIzquierdoMapa() {
-		return LIMITE_IZQUIERDO_MAPA;
+	public static Juego getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new Juego();
+		}
+		return INSTANCE;
 	}
 	
 	
-	public Juego() {
+	private Juego() {
 		Scanner teclado= new Scanner(System.in);
 		System.out.println("Ingrese su nickname");
 		jugador= new Jugador(teclado.next());
@@ -69,7 +68,6 @@ public class Juego {
 		pasarDeSeccion=false;
 		reinicioNivel=false;
 		reinicioSeccion=false;
-		colisiones= new Colisiones();
 		teclado.close();
 	}
 	/**
@@ -128,7 +126,6 @@ public class Juego {
 			else if (pasarDeSeccion)
 				avanzarSeccion();
 			else {
-				colisiones.comprobarColisiones();
 				for (int i=0;i<4;i++) {
 					controladores[i].actualizar();
 				}
@@ -172,11 +169,11 @@ public class Juego {
 		System.out.println("Victoria!! Avanzas al nivel " + (nroNivel+1));//nroNivel va de 0 a 9
 	}
 	
-	public static int getNroSeccion() {
+	public int getNroSeccion() {
 		return nroSeccion;
 	}
 	
-	public static void ganar() {
+	public void ganar() {
 		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
 	}
 	
@@ -186,7 +183,7 @@ public class Juego {
 	 * ventanas sanas 
 	 * @param seccion recibe la seccion que se desea comprobar
 	 */
-	public static void comprobarSeccionLimpia(Seccion seccion){
+	public void comprobarSeccionLimpia(Seccion seccion){
 		if (seccion.getVentanasRestantes()==0) {
 			if (nroSeccion == 2) {
 				if (nroNivel ==9) {
@@ -201,25 +198,21 @@ public class Juego {
 	}
 
 
-	public static void ladrilloGolpeoAFelix() {
+	public void ladrilloGolpeoAFelix() {
 		reinicioNivel=true;
 		System.out.println("Te ha golpeado un ladrillo y se reiniciará el nivel");
 	}
 
-	public static void pajaroGolpeoAFelix() {
+	public void pajaroGolpeoAFelix() {
 		reinicioSeccion=true;
 		System.out.println("Te ha golpeado un pajaro y se reiniciara la seccion");
 	}
 
-	public static Jugador getJugador() {
+	public Jugador getJugador() {
 		return jugador;
 	}
 
-	public static void felixComePastel() {
-		pastel=null;
-	}
-	
-	public static int getConstTiempo() {
+	public int getConstTiempo() {
 		return CONST_TIEMPO;
 	}
 	

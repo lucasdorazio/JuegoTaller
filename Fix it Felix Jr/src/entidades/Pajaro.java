@@ -59,7 +59,7 @@ public class Pajaro implements Impactable, Desplazable{
 				}
 			}
 		}
-		if (m!=-1 && n!=-1) return Edificio.getInstance().getSecciones()[Juego.getNroSeccion()].getVentanas()[m][n];
+		if (m!=-1 && n!=-1) return Edificio.getInstance().getSecciones()[Juego.getInstance().getNroSeccion()].getVentanas()[m][n];
 		else return null;
 	}
 	
@@ -84,11 +84,11 @@ public class Pajaro implements Impactable, Desplazable{
 		if (this.direccion == Direcciones.DERECHA) {
 			pos.aumentarPosX();
 													//System.out.println("Pajaro avanza a la derecha");
-			return (pos.getPosX()>Juego.getLimiteDerechoMapa());
+			return (pos.getPosX()>Juego.LIMITE_DERECHO_MAPA);
 		} else {
 			pos.disminuirPosX();
 													//System.out.println("Pajaro avanza a la izquierda");
-			return (pos.getPosX()<Juego.getLimiteIzquierdoMapa());
+			return (pos.getPosX()<Juego.LIMITE_IZQUIERDO_MAPA);
 		}
 	}
 

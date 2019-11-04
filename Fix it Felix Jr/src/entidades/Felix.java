@@ -47,16 +47,16 @@ public class Felix{
 		ventanaActual.repararse();
 		System.out.println("Felix da un martillazo");
 		if (!sanaAntes && ventanaActual.estoySana()) {
-			Juego.getJugador().sumarPuntaje(100);
+			Juego.getInstance().getJugador().sumarPuntaje(100);
 			seccionActual.disminuirVentanasRestantes();
-			Juego.comprobarSeccionLimpia(seccionActual);
+			Juego.getInstance().comprobarSeccionLimpia(seccionActual);
 			System.out.println("...y arregló una ventana!");
 		}
 	}
 	
 	public void recibirImpactoPastel () {
 		vulnerable=false;
-		Juego.getJugador().sumarPuntaje(500);
+		Juego.getInstance().getJugador().sumarPuntaje(500);
 		System.out.println("Felix se comió un pastel y ahora es invulnerable!");
 	}
 	
@@ -129,7 +129,7 @@ public class Felix{
 	public void actualizarInvulnerabilidad() {
 		if (this.vulnerable == false) {
 			timerInvulnerabilidad++;
-			if (timerInvulnerabilidad > tiempoInvulnerabilidad * Juego.getConstTiempo()) {
+			if (timerInvulnerabilidad > tiempoInvulnerabilidad * Juego.getInstance().getConstTiempo()) {
 				this.vulnerable = true;
 				timerInvulnerabilidad = 0;
 			}

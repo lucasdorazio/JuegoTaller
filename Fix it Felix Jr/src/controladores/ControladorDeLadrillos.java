@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import edificio.Ventana;
+import entidades.Felix;
 import entidades.Ladrillo;
 import entidades.Posicion;
 import juego.Juego;
@@ -48,13 +50,24 @@ public class ControladorDeLadrillos extends Controlador{
 	 */
 	public void actualizar() {
 		timer++;
-		if (timer > Juego.getConstTiempo() / velocidad) {
+		boolean impacto=false;
+		Ventana ventanaActualFelix = Felix.getInstance().getVentanaActual();
+		Ventana ventanaActualLadrillo;
+		if (timer > Juego.CONST_TIEMPO / velocidad) {
 			Ladrillo ladrillo;
 			Iterator<Ladrillo> ite = listaLadrillos.iterator();
-			while (ite.hasNext()) {
+			while (ite.hasNext() && !impacto) {
 				ladrillo = ite.next();
 				if (ladrillo.avanzar()) {
 					ite.remove();
+				} else {
+					ventanaActualLadrillo = ladrillo.devolverVentana();
+					if (ventanaActualLadrillo!=null &&
+							ventanaActualLadrillo.equals(ventanaActualFelix)) {
+						Juego.getInstance().ladrilloGolpeoAFelix();
+						Felix.getInstance().recibirImpactoLadrillo();
+						impacto=true;
+					}
 				}
 			}
 			timer=0;

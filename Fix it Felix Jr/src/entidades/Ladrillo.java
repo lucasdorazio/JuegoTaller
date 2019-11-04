@@ -73,7 +73,7 @@ public class Ladrillo implements Impactable, Desplazable{
 				}
 			}
 		}
-		if (m!=-1 && n!=-1) return Edificio.getInstance().getSecciones()[Juego.getNroSeccion()].getVentanas()[m][n];
+		if (m!=-1 && n!=-1) return Edificio.getInstance().getSecciones()[Juego.getInstance().getNroSeccion()].getVentanas()[m][n];
 		else return null;
 	}
 

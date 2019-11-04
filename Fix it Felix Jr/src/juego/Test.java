@@ -2,6 +2,7 @@ package juego;
 
 import entidades.Direcciones;
 import entidades.Felix;
+import java.awt.*;
 
 /**
  * Clase que contiene el main para la ejección del juego
@@ -11,13 +12,13 @@ import entidades.Felix;
 public class Test {
 
 	public static void main(String[] args) {
-		Juego j = new Juego();
+		Frame miFrame= new Frame();
 		int timer=0;
 		int random;
 		Direcciones dir=null;
-		while (!j.perdio()) {
+		while (!Juego.getInstance().perdio()) {
 			timer++;
-			j.actualizar();
+			Juego.getInstance().actualizar();
 			if (timer > 30000000) {
 				Felix.getInstance().reparar();
 				if (Felix.getInstance().getVentanaActual().estoySana()) {
