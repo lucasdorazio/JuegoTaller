@@ -48,6 +48,8 @@ public class Juego {
 	
 	private double tiempo;
 	
+	private Ranking ranking;
+	
 	public static Juego getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new Juego();
@@ -59,6 +61,7 @@ public class Juego {
 	private Juego() {
 		Scanner teclado= new Scanner(System.in);
 		System.out.println("Ingrese su nickname");
+		ranking.leerRanking();
 		jugador= new Jugador(teclado.next());
 		jugador.setPuntaje(0);
 		puntajePrevio=0;
@@ -214,6 +217,10 @@ public class Juego {
 
 	public int getConstTiempo() {
 		return CONST_TIEMPO;
+	}
+	
+	public Jugador[] mejoresCinco(){
+		return ranking.getmejoresDiez();
 	}
 	
 }

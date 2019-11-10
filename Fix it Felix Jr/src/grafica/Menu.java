@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import juego.Juego;
+
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +27,7 @@ public class Menu extends JFrame {
 			public void run() {
 				try {
 					Menu frame = new Menu();
+					Juego.getInstance();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -97,7 +101,8 @@ public class Menu extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				TopJugadores framTop = new TopJugadores(Juego.getInstance().mejoresCinco());
+				framTop.setVisible(true);
 			}
 		});
 		contentPane.add(botonRanking);
