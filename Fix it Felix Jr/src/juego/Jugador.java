@@ -14,8 +14,9 @@ public class Jugador implements Serializable{
 	
 	private int puntaje;
 
-	public Jugador(String nick) {
+	public Jugador(String nick, int puntaje) {
 		this.nick=nick;
+		this.puntaje=puntaje;
 	}
 	public String getNick() {
 		return nick;

@@ -60,10 +60,17 @@ public class Juego {
 	
 	private Juego() {
 		Scanner teclado= new Scanner(System.in);
-		System.out.println("Ingrese su nickname");
+		//System.out.println("Ingrese su nickname");
+		ranking = new Ranking();
+		//ranking.cargarMejoresJugadores();
+		/*try{
+			ranking.escribirRanking();
+		} catch (Exception e) {
+			System.out.println("No se pudo escribir");
+		}*/
 		ranking.leerRanking();
-		jugador= new Jugador(teclado.next());
-		jugador.setPuntaje(0);
+		//cambie el set por mandarlo al constructor
+		jugador= new Jugador(teclado.next(), 0);
 		puntajePrevio=0;
 		nroNivel=0;
 		this.iniciarNivel(false);

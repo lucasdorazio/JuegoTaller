@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
 
 /**
  * Clase que modela el almacenamiento y posición de los jugadores con mejores puntajes
@@ -17,7 +18,7 @@ public class Ranking{
 	private Jugador[] mejoresCinco;
 	
 	public Ranking() {
-		 
+		 mejoresCinco = new Jugador[5];
 	}
 	
 	/**
@@ -38,7 +39,7 @@ public class Ranking{
 	}
 	
 	public void escribirRanking() throws FileNotFoundException, IOException {
-		ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("datos/ranking.TXT"));
+		ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Lucas\\Desktop\\archivo.obj"));
 		for (int i = 0; i < 5; i++) {
 			salida.writeObject(mejoresCinco[i]);
 		}
@@ -46,30 +47,40 @@ public class Ranking{
 	}
 	
 	public void leerRanking() {
-		Object[] jugadores = new Object[5];
+		//Object[] jugadores = new Object[5];
+		//tira error invalid stream header
 		ObjectInputStream entrada = null;
 		try {
-			entrada = new ObjectInputStream(new FileInputStream("datos/ranking.TXT"));
+			entrada = new ObjectInputStream(new FileInputStream("C:\\Users\\Lucas\\Desktop\\archivo.obj"));
 		} catch (IOException e) {
-			System.out.println("Archivo ranking.TXT no encontrado");
+			System.out.println("Archivo ranking.TXT no encontrado vez 1");
 			e.printStackTrace();
 		} 
 		for (int i = 0; i < 5; i++) {
 			try {
-				jugadores[i]=entrada.readObject();
+				mejoresCinco[i]=(Jugador) entrada.readObject();
 			} catch (ClassNotFoundException e) {
 				System.out.println("De alguna forma, la clase no fue encontrada (preguntar)");
 				e.printStackTrace();
 			} catch (IOException e) {
-				System.out.println("Archivo ranking.TXT no encontrado");
+				System.out.println("Archivo ranking.TXT no encontrado vez 2");
 				e.printStackTrace();
 			} 
 		}
-		mejoresCinco=(Jugador[]) jugadores;
+		//mejoresCinco=(Jugador[]) jugadores;
 	}
 	
 	public Jugador[] getmejoresDiez() {
 		return mejoresCinco;
 	}
-	
+	// para probar stream
+	public void cargarMejoresJugadores() {
+		mejoresCinco[0]= new Jugador("Manuel", 500);
+		mejoresCinco[1]= new Jugador("juan", 400);
+		mejoresCinco[2]= new Jugador("ricky", 300);
+		mejoresCinco[3]= new Jugador("sofia", 200);
+		mejoresCinco[4]= new Jugador("ernesto", 100);
+		
+		}
+		
 }
