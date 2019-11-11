@@ -37,5 +37,4 @@ public class Test {
 		if (Felix.getInstance().getVidas()==0) System.out.println("Has perdido, Felix no tiene más vidas");
 		else System.out.println("Has perdido, no hay más tiempo");
 	}
-	
 }

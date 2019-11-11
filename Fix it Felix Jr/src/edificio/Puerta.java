@@ -1,5 +1,7 @@
 package edificio;
 
+import entidades.Direcciones;
+
 /**
  * Es la clase que modela la ventana de tipo puerta con 4 paneles donde comenzará Felix
  * @author Lucas Dorazio & Renzo Quaggia
@@ -52,5 +54,10 @@ public class Puerta extends Semicircular {
 	@Override
 	public boolean puedeAtravesarseLateralmente() {
 		return true;
+	}
+	@Override
+	public boolean puedePasar(Direcciones dir) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

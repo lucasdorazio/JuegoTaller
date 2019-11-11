@@ -1,5 +1,7 @@
 package edificio;
 
+import entidades.Direcciones;
+
 /**
  * Ventana con 8 paneles que aparece en la primer sección de cada nivel
  * @author Lucas Dorazio & Renzo Quaggia
@@ -67,5 +69,11 @@ public class SemicircularSuperior extends Semicircular {
 	public boolean puedeAtravesarseLateralmente() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public boolean puedePasar(Direcciones dir) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -31,7 +31,7 @@ public class Pastel implements Impactable {
 	 */
 	public boolean disminuirTiempoDeVida() {
 		timer++;
-		if (timer>Juego.getInstance().getConstTiempo()) {
+		if (timer>Juego.CONST_TIEMPO) {
 			tiempoDeVida--;
 			timer=0;
 		}

@@ -1,4 +1,7 @@
 package edificio;
+
+import entidades.Direcciones;
+
 /**
  * La clase ConHojas representa las ventanas de dos paneles con hojas 
  * ya sean abiertas o cerradas
@@ -73,5 +76,11 @@ public class ConHojas extends Ventana {
 	public boolean puedeAtravesarseLateralmente() {
 		// TODO Auto-generated method stub
 		return (!abierta);
+	}
+
+	@Override
+	public boolean puedePasar(Direcciones dir) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

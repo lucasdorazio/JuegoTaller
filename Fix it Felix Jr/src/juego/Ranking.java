@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.URL;
 
 /**
  * Clase que modela el almacenamiento y posición de los jugadores con mejores puntajes
@@ -36,10 +35,19 @@ public class Ranking{
 			}
 			mejoresCinco[pos] = jugador;
 		}
+		try {
+			escribirRanking();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("El archivo archivo.obj no se ha encontrado");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void escribirRanking() throws FileNotFoundException, IOException {
-		ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("C:\\Users\\Lucas\\Desktop\\archivo.obj"));
+		ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("src/datos/archivo.obj"));
 		for (int i = 0; i < 5; i++) {
 			salida.writeObject(mejoresCinco[i]);
 		}
@@ -51,7 +59,7 @@ public class Ranking{
 		//tira error invalid stream header
 		ObjectInputStream entrada = null;
 		try {
-			entrada = new ObjectInputStream(new FileInputStream("C:\\Users\\Lucas\\Desktop\\archivo.obj"));
+			entrada = new ObjectInputStream(new FileInputStream("src/datos/archivo.obj"));
 		} catch (IOException e) {
 			System.out.println("Archivo ranking.TXT no encontrado vez 1");
 			e.printStackTrace();
@@ -67,7 +75,7 @@ public class Ranking{
 				e.printStackTrace();
 			} 
 		}
-		//mejoresCinco=(Jugador[]) jugadores;
+		
 	}
 	
 	public Jugador[] getmejoresDiez() {

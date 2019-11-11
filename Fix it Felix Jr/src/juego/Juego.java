@@ -57,20 +57,19 @@ public class Juego {
 		return INSTANCE;
 	}
 	
-	
 	private Juego() {
 		Scanner teclado= new Scanner(System.in);
 		//System.out.println("Ingrese su nickname");
 		ranking = new Ranking();
-		//ranking.cargarMejoresJugadores();
-		/*try{
+		/*ranking.cargarMejoresJugadores();
+		try{
 			ranking.escribirRanking();
 		} catch (Exception e) {
 			System.out.println("No se pudo escribir");
-		}*/
+		}//era para comprobar que lee y escribe bien*/
 		ranking.leerRanking();
 		//cambie el set por mandarlo al constructor
-		jugador= new Jugador(teclado.next(), 0);
+		jugador= new Jugador("nuevo", 0);
 		puntajePrevio=0;
 		nroNivel=0;
 		this.iniciarNivel(false);
@@ -221,13 +220,12 @@ public class Juego {
 	public Jugador getJugador() {
 		return jugador;
 	}
-
-	public int getConstTiempo() {
-		return CONST_TIEMPO;
-	}
 	
 	public Jugador[] mejoresCinco(){
 		return ranking.getmejoresDiez();
 	}
 	
+	public void setNroNivel (int nroNivel) {
+		this.nroNivel=nroNivel;
+	}
 }

@@ -129,7 +129,7 @@ public class Felix{
 	public void actualizarInvulnerabilidad() {
 		if (this.vulnerable == false) {
 			timerInvulnerabilidad++;
-			if (timerInvulnerabilidad > tiempoInvulnerabilidad * Juego.getInstance().getConstTiempo()) {
+			if (timerInvulnerabilidad > tiempoInvulnerabilidad * Juego.CONST_TIEMPO) {
 				this.vulnerable = true;
 				timerInvulnerabilidad = 0;
 			}

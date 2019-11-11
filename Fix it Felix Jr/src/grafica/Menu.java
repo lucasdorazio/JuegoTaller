@@ -1,5 +1,6 @@
 package grafica;
 import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import juego.Juego;
+import controladores.ControladorDeJuego;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -15,9 +17,11 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@SuppressWarnings("serial")
 public class Menu extends JFrame {
 	private Image fondo;
 	private JPanel contentPane;
+	private ControladorDeJuego gameController;
 
 	/**
 	 * Launch the application.
@@ -41,8 +45,9 @@ public class Menu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("serial")
 	public Menu() {
-		//setPreferredSize(new Dimension(800, 600)); No es necesario si esta el setBounds
+		gameController= new ControladorDeJuego(this);
 		setResizable(false);
 		setTitle("Fix it Felix Jr!");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,11 +81,13 @@ public class Menu extends JFrame {
 		JButton botonComoJugar = new JButton("COMO JUGAR");
 		botonComoJugar.setFont(CambiarFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
 		botonComoJugar.setBounds(114, 400, 115, 73);
+		ComoJugar frameComojugar = new ComoJugar(this);
+		frameComojugar.setVisible(false);
 		botonComoJugar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ComoJugar frameComojugar = new ComoJugar();
+				setVisible(false);
 				frameComojugar.setVisible(true);
 			}
 		});
@@ -91,7 +98,9 @@ public class Menu extends JFrame {
 		botonJugar.setBounds(342, 400, 115, 73);
 		botonJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				setVisible(false);
+				gameController.getFrameJuego().setVisible(true);
+				//gameController.jugar();
 			}
 		});
 		contentPane.add(botonJugar);
