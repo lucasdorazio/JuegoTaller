@@ -42,7 +42,7 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
-		setPreferredSize(new Dimension(800, 600));
+		//setPreferredSize(new Dimension(800, 600)); No es necesario si esta el setBounds
 		setResizable(false);
 		setTitle("Fix it Felix Jr!");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

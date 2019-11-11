@@ -1,5 +1,7 @@
 package edificio;
 
+import entidades.Direcciones;
+
 /**
  * La clase comun representa a las ventanas corrientes del edificio
  * @author Lucas & Renzo
@@ -64,5 +66,24 @@ public class Comun extends Ventana {
 	@Override
 	public boolean puedeAtravesarseLateralmente() {
 		return true;
+	}
+	@Override
+	public boolean puedePasar(Direcciones dir) {
+		boolean puede=false;
+		switch (dir) {
+		case DERECHA:
+			if (getNroColumna() != 4) puede=true;
+			break;
+		case IZQUIERDA:
+			if (getNroColumna() != 0) puede=true;
+			break;
+		case ARRIBA:
+			if ((getNroFila() != 0) && (!tieneMoldura())) puede=true;
+			break;
+		case ABAJO:
+			if ((getNroFila() != 2) && (!tieneMacetero())) puede=false;
+			break;
+		}
+		return puede;
 	}
 }

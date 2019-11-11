@@ -1,5 +1,7 @@
 package edificio;
 
+import entidades.Direcciones;
+
 /**
  * La clase Ventana será de la extienden todas los tipos de ventanas del edificio
  * @author Lucas Dorazio & Renzo Quaggia
@@ -46,6 +48,13 @@ public abstract class Ventana{
 	 * @return si una ventana se puede atravesar de costado, es necesario para la incorporación de ventanas con hojas abiertas
 	 */
 	public abstract boolean puedeAtravesarseLateralmente();
+	
+	/**
+	 * 
+	 * @param dir
+	 * @return si una ventana puede atravesarse en una determinada direccion, es necesario para el movimiento de Felix
+	 */
+	public abstract boolean puedePasar (Direcciones dir);
 	
 	/**
 	 * Determino si una ventana es o no igual a la otra ventana @param v
