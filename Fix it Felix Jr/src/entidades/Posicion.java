@@ -34,6 +34,21 @@ public class Posicion {
 	public void disminuirPosX() {
 		posX--;
 	}
+	public void aumentarPosX(int pixeles) {
+		posX+= pixeles;
+	}
+	
+	public void aumentarPosY(int pixeles) {
+		posY+= pixeles;
+	}
+	
+	public void disminuirPosY(int pixeles) {
+		posY-= pixeles;
+	}
+	
+	public void disminuirPosX(int pixeles) {
+		posX-= pixeles;
+	}
 	
 	public int getPosX() {
 		return posX;

@@ -16,7 +16,7 @@ import entidades.Felix;
  * @author Lucas y Renzo
  *
  */
-public class Juego {
+public class Juego implements Runnable{
 	
 	private static Juego INSTANCE;
 	
@@ -142,6 +142,12 @@ public class Juego {
 			}
 		}
 	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 	/**
 	 * 
 	 * @return verdadero si las vidas de Felix son 0
@@ -228,4 +234,5 @@ public class Juego {
 	public void setNroNivel (int nroNivel) {
 		this.nroNivel=nroNivel;
 	}
+	
 }

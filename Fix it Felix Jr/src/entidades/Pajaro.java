@@ -1,5 +1,6 @@
 package entidades;
 
+import controladores.ControladorDePajaro;
 import edificio.Edificio;
 import edificio.Ventana;
 import juego.Juego;
@@ -82,11 +83,11 @@ public class Pajaro implements Impactable, Desplazable{
 	@Override
 	public boolean avanzar() {
 		if (this.direccion == Direcciones.DERECHA) {
-			pos.aumentarPosX();
+			pos.aumentarPosX(ControladorDePajaro.VELOCIDAD);
 													//System.out.println("Pajaro avanza a la derecha");
 			return (pos.getPosX()>Juego.LIMITE_DERECHO_MAPA);
 		} else {
-			pos.disminuirPosX();
+			pos.disminuirPosX(ControladorDePajaro.VELOCIDAD);
 													//System.out.println("Pajaro avanza a la izquierda");
 			return (pos.getPosX()<Juego.LIMITE_IZQUIERDO_MAPA);
 		}

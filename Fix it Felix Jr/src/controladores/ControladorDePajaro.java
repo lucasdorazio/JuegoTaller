@@ -3,6 +3,8 @@ package controladores;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import edificio.Ventana;
 import entidades.Direcciones;
@@ -18,20 +20,38 @@ import juego.Juego;
  */
 public class ControladorDePajaro extends Controlador{
 
-	private static final int VELOCIDAD = 56;
+	public static final int VELOCIDAD = 56;
+	private static final int ACTUALIZACION_POSICION= 1000; 
 	private int tiempoDeSpawneo;
 	private static List<Pajaro> listaDePajaros;
 	private int timerMovimiento,timerGeneracion;
+	private Timer timer;
 	
-	public static List<Pajaro> getListaPajaros(){
+	public List<Pajaro> getListaPajaros(){
 		return listaDePajaros;
 	}
 	
 	public ControladorDePajaro() {
-		this.tiempoDeSpawneo=15;
+		this.tiempoDeSpawneo=15000;
 		listaDePajaros = new LinkedList<Pajaro>();
 		timerMovimiento = 0;
 		timerGeneracion=0;
+		TimerTask generacion= new TimerTask() {
+			@Override
+			public void run() {
+				generarPajaros();
+			}
+		};
+		TimerTask movimiento= new TimerTask() {
+			@Override
+			public void run() {
+				moverPajaros();
+				
+			}
+		};
+		timer= new Timer();
+		timer.schedule(generacion, 0, tiempoDeSpawneo);
+		timer.schedule(movimiento, 0, ACTUALIZACION_POSICION);
 	}
 	
 	public void actualizar() {
@@ -44,17 +64,15 @@ public class ControladorDePajaro extends Controlador{
 	 */
 	public void generarPajaros() {	
 		Pajaro p;
-		timerGeneracion++;
 		int fila;
 		Direcciones dir;
-		if (timerGeneracion>tiempoDeSpawneo*Juego.CONST_TIEMPO) {
-			fila= (int) (Math.random()*3);
-			if ((int) (Math.random()*2)==0) dir=Direcciones.DERECHA;
-			else dir=Direcciones.IZQUIERDA;
-			p=crearPajaro(fila,dir);
-			listaDePajaros.add(p);
-			timerGeneracion=0;
-		}
+		fila = (int) (Math.random() * 3);
+		if ((int) (Math.random() * 2) == 0)
+			dir = Direcciones.DERECHA;
+		else
+			dir = Direcciones.IZQUIERDA;
+		p = crearPajaro(fila, dir);
+		listaDePajaros.add(p);
 	}
 	
 	private Pajaro crearPajaro(int fila, Direcciones dir) {
@@ -75,27 +93,22 @@ public class ControladorDePajaro extends Controlador{
 	 * los pajaros existentes
 	 */
 	public void moverPajaros() {
-		timerMovimiento++;
 		Pajaro pajaro;
-		boolean impacto=false;
+		boolean impacto = false;
 		Ventana ventanaActualPajaro;
-		Ventana ventanaActualFelix=Felix.getInstance().getVentanaActual();
-		if (timerMovimiento > Juego.CONST_TIEMPO / VELOCIDAD) {
-			Iterator<Pajaro> ite = listaDePajaros.iterator();
-			while (ite.hasNext() && !impacto) {
-				pajaro = ite.next();
-				if (pajaro.avanzar()) {
-					ite.remove();
-				} else {
-					ventanaActualPajaro=pajaro.devolverVentana();
-					if (ventanaActualPajaro!= null && 
-							ventanaActualPajaro.equals(ventanaActualFelix)) {
-						Juego.getInstance().pajaroGolpeoAFelix();
-						impacto=true;
-					}
+		Ventana ventanaActualFelix = Felix.getInstance().getVentanaActual();
+		Iterator<Pajaro> ite = listaDePajaros.iterator();
+		while (ite.hasNext() && !impacto) {
+			pajaro = ite.next();
+			if (pajaro.avanzar()) {
+				ite.remove();
+			} else {
+				ventanaActualPajaro = pajaro.devolverVentana();
+				if (ventanaActualPajaro != null && ventanaActualPajaro.equals(ventanaActualFelix)) {
+					Juego.getInstance().pajaroGolpeoAFelix();
+					impacto = true;
 				}
 			}
-			timerMovimiento=0;
 		}
 	}
 	/**
