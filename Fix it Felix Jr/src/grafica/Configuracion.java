@@ -1,13 +1,19 @@
 package grafica;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import juego.Juego;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class Configuracion extends JFrame {
@@ -48,6 +54,28 @@ public class Configuracion extends JFrame {
 		cmbNiveles.setBounds(131, 121, 109, 20);
 		contentPane.add(cmbNiveles);
 		cmbNiveles.setModel(new javax.swing.DefaultComboBoxModel<>(niveles));
+		
+		JButton btnAplicar = new JButton("Aplicar");
+		btnAplicar.setBounds(75, 192, 89, 23);
+		contentPane.add(btnAplicar);
+		btnAplicar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Juego.getInstance().setNroNivel(cmbNiveles.getSelectedIndex()-1);
+			}
+		});
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(262, 192, 89, 23);
+		contentPane.add(btnCancelar);
+		btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarClick(evt);
+            }
+		});
 	
+	}
+	
+	public void btnCerrarClick(ActionEvent event) {
+		this.dispose();
 	}
 }
