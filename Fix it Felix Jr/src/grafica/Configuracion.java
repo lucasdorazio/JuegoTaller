@@ -55,12 +55,13 @@ public class Configuracion extends JFrame {
 		contentPane.add(cmbNiveles);
 		cmbNiveles.setModel(new javax.swing.DefaultComboBoxModel<>(niveles));
 		
-		JButton btnAplicar = new JButton("Aplicar");
+		JButton btnAplicar = new JButton("Aceptar");
 		btnAplicar.setBounds(75, 192, 89, 23);
 		contentPane.add(btnAplicar);
 		btnAplicar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Juego.getInstance().setNroNivel(cmbNiveles.getSelectedIndex()-1);
+				actionCerrar(e);
 			}
 		});
 		
@@ -69,13 +70,13 @@ public class Configuracion extends JFrame {
 		contentPane.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarClick(evt);
+                actionCerrar(evt);
             }
 		});
 	
 	}
 	
-	public void btnCerrarClick(ActionEvent event) {
+	public void actionCerrar(ActionEvent event) {
 		this.dispose();
 	}
 }
