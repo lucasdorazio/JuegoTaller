@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class FrameJuego extends JFrame {
+	
+	private Image imEdificio;
 		
 	public FrameJuego(Menu m) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -16,7 +18,13 @@ public class FrameJuego extends JFrame {
 				m.setVisible(true);
 			}
 		});
-		setBounds(100, 100, 50, 50);
+		try {
+            imEdificio = ImageIO.read(new File ("src/grafica/Fondos/fondoMenu3.jpg")); // carga imagen en img
+            //contentPane.getGraphics().drawImage(fondo, 0, 0, null);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+		setBounds(100, 100, 700, 800);
 	}
 	
 }
