@@ -66,7 +66,7 @@ public class Menu extends JFrame {
 			System.err.println("No se encuentra el archivo fondoMenu.jpg");
 		} else {
 			try {
-				fondo = ImageIO.read(urlFondo); // carga imagen en img
+				fondo = ImageIO.read(new File ("src/grafica/Fondos/fondoMenu3.jpg")); // carga imagen en img
 				//contentPane.getGraphics().drawImage(fondo, 0, 0, null);
 			} catch (IOException ex) {
 				ex.printStackTrace();
