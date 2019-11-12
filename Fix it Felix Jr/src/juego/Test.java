@@ -2,7 +2,6 @@ package juego;
 
 import entidades.Direcciones;
 import entidades.Felix;
-import java.awt.*;
 
 /**
  * Clase que contiene el main para la ejección del juego
@@ -12,7 +11,6 @@ import java.awt.*;
 public class Test {
 
 	public static void main(String[] args) {
-		Frame miFrame= new Frame();
 		int timer=0;
 		int random;
 		Direcciones dir=null;

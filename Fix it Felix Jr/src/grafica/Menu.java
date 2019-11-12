@@ -45,7 +45,6 @@ public class Menu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	@SuppressWarnings("serial")
 	public Menu() {
 		gameController= new ControladorDeJuego(this);
 		setResizable(false);
@@ -109,7 +108,7 @@ public class Menu extends JFrame {
 		botonRanking.setFont(CambiarFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
 		botonRanking.setBounds(571, 400, 115, 73);
 		botonRanking.addActionListener(new ActionListener() {
-			
+		//hacer invisible el menu
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TopJugadores framTop = new TopJugadores(Juego.getInstance().mejoresCinco());
@@ -118,11 +117,23 @@ public class Menu extends JFrame {
 		});
 		contentPane.add(botonRanking);
 		
-		JButton botonConfig = new JButton("New button");	
+		/*JButton botonConfig = new JButton("New button");	
 		botonConfig.setIcon(new ImageIcon(Menu.class.getResource("/grafica/Otros/icon.png")));
-		botonConfig.setBounds(669, 24, 89, 23);
+		botonConfig.setBounds(669, 24, 89, 23);	
+		Configuracion frameConfig= new Configuracion(this);
+		frameConfig.setVisible(false);
+		botonConfig.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				frameConfig.setVisible(true);				}
+			});
 		contentPane.add(botonConfig);
+		*/
 		}
+		
+		
 	
 	public Font CambiarFuente(String ruta, int escala){
         Font fuente = null; 

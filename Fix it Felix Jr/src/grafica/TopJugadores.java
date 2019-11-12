@@ -1,23 +1,21 @@
 package grafica;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.TableModel;
-
 import juego.Jugador;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
 
+@SuppressWarnings("serial")
 public class TopJugadores extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private JLabel lblTopJugadores;
 
 	/**
 	 * Create the frame.
@@ -46,6 +44,9 @@ public class TopJugadores extends JFrame {
 		table = new JTable(datos, columnas);
 		table.setEnabled(false);
 		scrollPane.setViewportView(table);
+		
+		lblTopJugadores = new JLabel("TOP 5 JUGADORES");
+		contentPane.add(lblTopJugadores, BorderLayout.NORTH);
 		//preguntar porque no imprime las columnas
 	}
 	

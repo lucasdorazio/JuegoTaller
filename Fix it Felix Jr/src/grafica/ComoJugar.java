@@ -12,8 +12,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class ComoJugar extends JFrame {
 
 	private JPanel contentPane;
@@ -54,10 +54,6 @@ public class ComoJugar extends JFrame {
 			}
 		}
 		
-		
-		
-		JLabel lblEstoFunciona = new JLabel("Esto funciona");
-		contentPane.add(lblEstoFunciona, BorderLayout.CENTER);
 	}
 
 }

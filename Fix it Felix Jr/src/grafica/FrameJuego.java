@@ -8,10 +8,7 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class FrameJuego extends JFrame {
 		
-	private Menu menu;
-	
 	public FrameJuego(Menu m) {
-		this.menu=m;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			@Override
