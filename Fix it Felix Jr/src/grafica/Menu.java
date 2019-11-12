@@ -121,8 +121,8 @@ public class Menu extends JFrame {
 		ImageIcon imagenBoton = new ImageIcon("src/grafica/Otros/icon.png");
 		JButton botonConfig = new JButton("Opciones");
 		botonConfig.setFont(CambiarFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
-		botonConfig.setBounds(658, 24, 100, 100);	
-		botonConfig.setIcon(new ImageIcon(imagenBoton.getImage().getScaledInstance(botonConfig.getWidth(), botonConfig.getHeight(), Image.SCALE_SMOOTH)));
+		botonConfig.setBounds(672, 24, 86, 79);	
+		botonConfig.setIcon(new ImageIcon(imagenBoton.getImage().getScaledInstance(botonConfig.getWidth(), botonConfig.getHeight(), Image.SCALE_SMOOTH)));	
 		Configuracion frameConfig= new Configuracion(this);
 		frameConfig.setVisible(false);
 		botonConfig.addActionListener(new ActionListener() {
