@@ -24,7 +24,6 @@ public class ControladorDePajaro extends Controlador{
 	private static final int ACTUALIZACION_POSICION= 1000; 
 	private int tiempoDeSpawneo;
 	private static List<Pajaro> listaDePajaros;
-	private int timerMovimiento,timerGeneracion;
 	private Timer timer;
 	
 	public List<Pajaro> getListaPajaros(){
@@ -34,8 +33,6 @@ public class ControladorDePajaro extends Controlador{
 	public ControladorDePajaro() {
 		this.tiempoDeSpawneo=15000;
 		listaDePajaros = new LinkedList<Pajaro>();
-		timerMovimiento = 0;
-		timerGeneracion=0;
 		TimerTask generacion= new TimerTask() {
 			@Override
 			public void run() {

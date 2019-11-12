@@ -45,7 +45,6 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
-		gameController= new ControladorDeJuego(this);
 		setResizable(false);
 		setTitle("Fix it Felix Jr!");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,6 +90,7 @@ public class Menu extends JFrame {
 		botonJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
+				crearControladorJuego();
 				gameController.getFrameJuego().setVisible(true);
 				//gameController.jugar();
 			}
@@ -127,7 +127,10 @@ public class Menu extends JFrame {
 		contentPane.add(botonConfig);
 		}
 		
-		
+	
+	private void crearControladorJuego() {
+		gameController= new ControladorDeJuego(this);
+	}
 	
 	public Font CambiarFuente(String ruta, int escala){
         Font fuente = null; 
