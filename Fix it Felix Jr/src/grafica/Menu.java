@@ -74,12 +74,13 @@ public class Menu extends JFrame {
 		
 		JLabel lblFixItFelix = new JLabel("FIX IT \n FELIX JR!");
 		lblFixItFelix.setFont(CambiarFuente("src/grafica/Fuentes/ka1.ttf", 60));
+		lblFixItFelix.setForeground(Color.RED);
 		lblFixItFelix.setBounds(76, 132, 682, 172);
 		contentPane.add(lblFixItFelix);
 		
 		JButton botonComoJugar = new JButton("COMO JUGAR");
 		botonComoJugar.setFont(CambiarFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
-		botonComoJugar.setBounds(114, 400, 115, 73);
+		botonComoJugar.setBounds(100, 400, 145, 73);
 		ComoJugar frameComojugar = new ComoJugar(this);
 		frameComojugar.setVisible(false);
 		botonComoJugar.addActionListener(new ActionListener() {
@@ -94,7 +95,7 @@ public class Menu extends JFrame {
 		
 		JButton botonJugar = new JButton("JUGAR");
 		botonJugar.setFont(CambiarFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
-		botonJugar.setBounds(342, 400, 115, 73);
+		botonJugar.setBounds(338, 400, 145, 73);
 		botonJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -106,7 +107,7 @@ public class Menu extends JFrame {
 		
 		JButton botonRanking = new JButton("RANKING");
 		botonRanking.setFont(CambiarFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
-		botonRanking.setBounds(571, 400, 115, 73);
+		botonRanking.setBounds(570, 400, 145, 73);
 		botonRanking.addActionListener(new ActionListener() {
 		//hacer invisible el menu
 			@Override
@@ -116,10 +117,12 @@ public class Menu extends JFrame {
 			}
 		});
 		contentPane.add(botonRanking);
-		
-		/*JButton botonConfig = new JButton("New button");	
-		botonConfig.setIcon(new ImageIcon(Menu.class.getResource("/grafica/Otros/icon.png")));
-		botonConfig.setBounds(669, 24, 89, 23);	
+		//try catch?
+		ImageIcon imagenBoton = new ImageIcon("src/grafica/Otros/icon.png");
+		JButton botonConfig = new JButton("Opciones");
+		botonConfig.setFont(CambiarFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
+		botonConfig.setBounds(658, 24, 100, 100);	
+		botonConfig.setIcon(new ImageIcon(imagenBoton.getImage().getScaledInstance(botonConfig.getWidth(), botonConfig.getHeight(), Image.SCALE_SMOOTH)));
 		Configuracion frameConfig= new Configuracion(this);
 		frameConfig.setVisible(false);
 		botonConfig.addActionListener(new ActionListener() {
@@ -130,7 +133,6 @@ public class Menu extends JFrame {
 				frameConfig.setVisible(true);				}
 			});
 		contentPane.add(botonConfig);
-		*/
 		}
 		
 		
