@@ -58,15 +58,7 @@ public class Comun extends Ventana {
 		return (paneles[0].getEstado()==EstadoPanel.SANO &&
 				paneles[1].getEstado()==EstadoPanel.SANO);
 	}
-
-	/**
-	 * retorna verdadero si Felix
-	 * puede moverse hacia y desde la ventana desde izquierda y derecha
-	 */
-	@Override
-	public boolean puedeAtravesarseLateralmente() {
-		return true;
-	}
+	
 	@Override
 	public boolean puedePasar(Direcciones dir) {
 		boolean puede=false;
@@ -81,7 +73,7 @@ public class Comun extends Ventana {
 			if ((getNroFila() != 0) && (!tieneMoldura())) puede=true;
 			break;
 		case ABAJO:
-			if ((getNroFila() != 2) && (!tieneMacetero())) puede=false;
+			if ((getNroFila() != 2) && (!tieneMacetero())) puede=true;
 			break;
 		}
 		return puede;

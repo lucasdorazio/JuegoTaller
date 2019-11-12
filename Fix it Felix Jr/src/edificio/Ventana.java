@@ -45,11 +45,6 @@ public abstract class Ventana{
 	public abstract boolean estoySana();
 	
 	/**
-	 * @return si una ventana se puede atravesar de costado, es necesario para la incorporación de ventanas con hojas abiertas
-	 */
-	public abstract boolean puedeAtravesarseLateralmente();
-	
-	/**
 	 * 
 	 * @param dir
 	 * @return si una ventana puede atravesarse en una determinada direccion, es necesario para el movimiento de Felix

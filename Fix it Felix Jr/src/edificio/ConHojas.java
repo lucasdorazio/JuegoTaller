@@ -68,19 +68,23 @@ public class ConHojas extends Ventana {
 		return this.abierta;
 	}
 
-	/**
-	 * retorna verdadero si Felix
-	 * puede moverse hacia y desde la ventana desde izquierda y derecha
-	 */
-	@Override
-	public boolean puedeAtravesarseLateralmente() {
-		// TODO Auto-generated method stub
-		return (!abierta);
-	}
-
 	@Override
 	public boolean puedePasar(Direcciones dir) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean puede=false;
+		switch (dir) {
+		case DERECHA:
+			if ((getNroColumna() != 4) && (!abierta)) puede=true;
+			break;
+		case IZQUIERDA:
+			if ((getNroColumna() != 0) && (!abierta))puede=true;
+			break;
+		case ARRIBA:
+			if ((getNroFila() != 0) && (!tieneMoldura())) puede=true;
+			break;
+		case ABAJO:
+			if ((getNroFila() != 2) && (!tieneMacetero())) puede=true;
+			break;
+		}
+		return puede;
 	}
 }

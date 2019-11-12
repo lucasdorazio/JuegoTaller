@@ -97,7 +97,7 @@ public class Felix{
 		this.seccionActual = seccionActual;
 	}
 	
-	public void mover(Direcciones dir) {
+	/*public void moverViejo(Direcciones dir) {
 		switch (dir) {
 		case ARRIBA:
 			if ((!ventanaActual.tieneMoldura()) && (ventanaActual.getNroFila()!=0) &&
@@ -123,6 +123,42 @@ public class Felix{
 				this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()+1];
 			System.out.println("Felix se desplaza hacia la derecha y queda en la ventana ["+ventanaActual.getNroFila()+"]["+ventanaActual.getNroColumna()+"]");
 			break;
+		}
+	}*/
+	
+	public void mover(Direcciones dir) {
+		Ventana proximaVentana;
+		if (ventanaActual.puedePasar(dir)) {
+			switch (dir) {
+			case DERECHA:
+				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()+ 1];
+				if (proximaVentana.puedePasar(Direcciones.IZQUIERDA))
+					ventanaActual = proximaVentana;
+				System.out.println("Felix se desplaza hacia la derecha y queda en la ventana ["
+						+ ventanaActual.getNroFila() + "][" + ventanaActual.getNroColumna() + "]");
+				break;
+			case IZQUIERDA:
+				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()- 1];
+				if (proximaVentana.puedePasar(Direcciones.IZQUIERDA))
+					ventanaActual = proximaVentana;
+				System.out.println("Felix se desplaza hacia la izquierda y queda en la ventana ["
+						+ ventanaActual.getNroFila() + "][" + ventanaActual.getNroColumna() + "]");
+				break;
+			case ARRIBA:
+				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila() - 1][ventanaActual.getNroColumna()];
+				if (proximaVentana.puedePasar(Direcciones.ABAJO))
+					ventanaActual = proximaVentana;
+				System.out.println("Felix se desplaza hacia arriba y queda en la ventana [" + ventanaActual.getNroFila()
+						+ "][" + ventanaActual.getNroColumna() + "]");
+				break;
+			case ABAJO:
+				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila() + 1][ventanaActual.getNroColumna()];
+				if (proximaVentana.puedePasar(Direcciones.ARRIBA))
+					ventanaActual = proximaVentana;
+				System.out.println("Felix se desplaza hacia abajo y queda en la ventana [" + ventanaActual.getNroFila()
+						+ "][" + ventanaActual.getNroColumna() + "]");
+				break;
+			}
 		}
 	}
 	

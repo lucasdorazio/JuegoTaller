@@ -50,14 +50,24 @@ public class Puerta extends Semicircular {
 				paneles[2].getEstado()==EstadoPanel.SANO &&
 				paneles[3].getEstado()==EstadoPanel.SANO);
 	}
-
-	@Override
-	public boolean puedeAtravesarseLateralmente() {
-		return true;
-	}
+	
 	@Override
 	public boolean puedePasar(Direcciones dir) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean puede=false;
+		switch (dir) {
+		case DERECHA:
+			if (getNroColumna() != 4) puede=true;
+			break;
+		case IZQUIERDA:
+			if (getNroColumna() != 0) puede=true;
+			break;
+		case ARRIBA:
+			if ((getNroFila() != 0) && (!tieneMoldura())) puede=true;
+			break;
+		case ABAJO:
+			if ((getNroFila() != 2) && (!tieneMacetero())) puede=true;
+			break;
+		}
+		return puede;
 	}
 }
