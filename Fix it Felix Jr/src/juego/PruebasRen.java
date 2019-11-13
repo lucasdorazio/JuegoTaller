@@ -14,6 +14,7 @@ public class PruebasRen {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Marco mimarco= new Marco();
+		mimarco.setVisible(true);
 		ControladorDePajaro cont= new ControladorDePajaro();
 		TimerTask task= new TimerTask() {
 			
@@ -25,7 +26,7 @@ public class PruebasRen {
 				if (!ite.hasNext()) System.out.println("No hay nada en la lista de pajaros"); 
 				while (ite.hasNext()) {
 					p=ite.next();
-					System.out.println("Pajaro "+ i+ "en posicion ("+p.getPos().getPosX()+", "+p.getPos().getPosY()+")");
+					System.out.println("Pajaro "+ i+ " en posicion ("+p.getPos().getPosX()+", "+p.getPos().getPosY()+")");
 					i++;
 				}
 				
@@ -39,7 +40,6 @@ public class PruebasRen {
 class Marco extends JFrame {
 	public Marco() {
 		setBounds(100, 100, 200, 200);
-		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

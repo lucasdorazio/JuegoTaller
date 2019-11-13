@@ -76,7 +76,7 @@ public class Configuracion extends JFrame {
 	
 	}
 	
-	public void actionCerrar(ActionEvent event) {
+	private void actionCerrar(ActionEvent event) {
 		this.dispose();
 	}
 }

@@ -1,12 +1,8 @@
 package controladores;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import entidades.Direcciones;
-import entidades.Felix;
 import grafica.FrameJuego;
 import grafica.Menu;
 import juego.Juego;
@@ -24,37 +20,7 @@ public class ControladorDeJuego {
 
 	public ControladorDeJuego(Menu m) {
 		frameJuego= new FrameJuego(m);
-		frameJuego.addKeyListener(new KeyAdapter() {
-				public void keyPressed (KeyEvent tecla) {
-					switch (tecla.getKeyCode()) {
-						case 37:
-							System.out.println("se presiono la flechita pa izq");
-							Felix.getInstance().mover(Direcciones.IZQUIERDA);
-							break;
-						case 38:
-							System.out.println("se presiono la flechita pa arriba");
-							Felix.getInstance().mover(Direcciones.ARRIBA);
-							break;
-						case 39:
-							System.out.println("se presiono la flechita pa derecha");
-							Felix.getInstance().mover(Direcciones.DERECHA);
-							break;
-						case 40:
-							System.out.println("se presiono la flechita pa abajo");
-							Felix.getInstance().mover(Direcciones.ABAJO);
-							break;
-						case 80:
-							System.out.println("Se apreto la p");
-							if (hiloPausa.isAlive()) {
-								hiloPausa.stop();
-							}
-							break;
-						default: System.out.println("otra tecla");
-						break;
-					}
-				}
-		});
-		frameJuego.setVisible(false);
+		frameJuego.setVisible(true);
 	}
 	
 	public void jugar() {
