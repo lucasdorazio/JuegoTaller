@@ -84,7 +84,7 @@ public class FrameJuego extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		setBounds(100, 100, 700, 560);
+		setBounds(100, 100, 675, 560);
 	}
 	
 }
