@@ -21,6 +21,8 @@ public class Felix{
 	
 	private Seccion seccionActual;
 	
+	private Posicion pos;
+	
 	private static Felix INSTANCE;
 	
 	private Felix() {
@@ -170,6 +172,34 @@ public class Felix{
 				timerInvulnerabilidad = 0;
 			}
 		}
+	}
+	/*if (posY>=33 && posY<= 102) {
+		m=2;//33 es la base... 
+	} else {
+		if (posY>=135 && posY<=205) {
+			m=1;//170
+		} else {
+			if(posY>=238 && posY<=307) {
+				m=0;//272
+			}
+		}
+	}
+	*/
+	// m filas---> determinan y, n columnas---> determinan x
+	public Posicion getPos() {
+		int posX;
+		int posY;
+		switch (getVentanaActual().getNroColumna()) {
+		case 0:
+			
+			break;
+		case 1:
+			break;
+		case 2: 
+			break;
+			
+		}
+		return new Posicion(posX, posY);
 	}
 
 

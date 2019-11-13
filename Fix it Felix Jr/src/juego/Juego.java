@@ -16,6 +16,7 @@ import entidades.Felix;
  * @author Lucas y Renzo
  *
  */
+import entidades.Posicion;
 public class Juego implements Runnable{
 	
 	private static Juego INSTANCE;
@@ -234,5 +235,6 @@ public class Juego implements Runnable{
 	public void setNroNivel (int nroNivel) {
 		this.nroNivel=nroNivel;
 	}
+	
 	
 }
