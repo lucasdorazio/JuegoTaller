@@ -21,7 +21,7 @@ public class Dificultad {
 		return VELOCIDAD_LADRILLOS*(1+nivel/10);
 	}
 	public static int getFrecuenciaGolpeo(int nivel) {
-		return FRECUENCIA_GOLPEO*(1+nivel/10);
+		return FRECUENCIA_GOLPEO*(1-nivel/10);
 	}
 	public static double getProbObstaculos(int nivel) {
 		return PROB_OBSTACULO*(1+nivel/10);

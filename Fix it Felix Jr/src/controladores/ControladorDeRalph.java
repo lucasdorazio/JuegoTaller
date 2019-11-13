@@ -1,5 +1,8 @@
 package controladores;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import entidades.Direcciones;
 import entidades.Ralph;
 import juego.Juego;
@@ -20,19 +23,27 @@ public class ControladorDeRalph extends Controlador{
 	private int timerGolpeo;
 	private int timerMovimiento;
 	private Ralph ralph;
+	private Timer timer;
 
 	/**
 	 * 
 	 * @param tiempoDeGolpeo recibe cada cuanto tiempo ralph realiza un golpe
 	 */
 	public ControladorDeRalph(int tiempoDeGolpeo, ControladorDeLadrillos brickController) {
-		this.tiempoDeGolpeo=tiempoDeGolpeo;
+		this.tiempoDeGolpeo=tiempoDeGolpeo*1000;
 		this.tiempoDeDesplazamiento= 12;
 		ralph= new Ralph(brickController);
+		timer= new Timer();
 		timerGolpeo = 0;
 		timerMovimiento = 0;
 		estaMoviendose=false;
 		estaGolpeando=false;
+		TimerTask golpeo= new TimerTask() {			
+			@Override
+			public void run() {
+				
+			}
+		};
 	}
 	/**
 	 * 
@@ -40,7 +51,7 @@ public class ControladorDeRalph extends Controlador{
 	 * entre un minimo y un maximo fijo
 	 */
 	public int calcularCantPasos() {
-		return (int) (Math.random() * (CANT_PASOS_MIN - CANT_PASOS_MAX + 1) + CANT_PASOS_MIN);
+		return (int) (Math.random() * (CANT_PASOS_MAX - CANT_PASOS_MIN + 1) + CANT_PASOS_MIN);
 	}
 
 	

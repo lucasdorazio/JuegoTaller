@@ -99,6 +99,7 @@ public class ControladorDePajaro extends Controlador{
 			pajaro = ite.next();
 			if (pajaro.avanzar()) {
 				ite.remove();
+				System.out.println("Se elimino un bird");
 			} else {
 				ventanaActualPajaro = pajaro.devolverVentana();
 				if (ventanaActualPajaro != null && ventanaActualPajaro.equals(ventanaActualFelix)) {
