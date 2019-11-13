@@ -78,4 +78,13 @@ public class Comun extends Ventana {
 		}
 		return puede;
 	}
+	@Override
+	public EstadoPanel[] getEstadoPaneles() {
+		EstadoPanel[] estados = new EstadoPanel[2];
+		estados[0]=this.paneles[0].getEstado();
+		estados[1]=this.paneles[1].getEstado();
+		return estados;
+	}
+	
+	
 }

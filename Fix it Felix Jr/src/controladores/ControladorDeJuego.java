@@ -28,7 +28,7 @@ public class ControladorDeJuego {
 		TimerTask gameUpdate= new TimerTask() {
 			public void run() {
 				Juego.getInstance().actualizar();
-				frameJuego.repaint();
+				frameJuego.paintComponent(frameJuego.getGraphics());
 				if (perdio) timer.cancel();
 			}
 		};

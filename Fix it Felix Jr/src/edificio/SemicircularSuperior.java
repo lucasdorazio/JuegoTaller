@@ -84,4 +84,18 @@ public class SemicircularSuperior extends Semicircular {
 		}
 		return puede;
 	}
+
+	@Override
+	public EstadoPanel[] getEstadoPaneles() {
+		EstadoPanel[] estados = new EstadoPanel[7];
+		estados[0]=this.paneles[0].getEstado();
+		estados[1]=this.paneles[1].getEstado();
+		estados[2]=this.paneles[2].getEstado();
+		estados[3]=this.paneles[3].getEstado();
+		estados[4]=this.paneles[4].getEstado();
+		estados[5]=this.paneles[5].getEstado();
+		estados[6]=this.paneles[6].getEstado();
+		estados[7]=this.paneles[7].getEstado();
+		return estados;
+	}
 }

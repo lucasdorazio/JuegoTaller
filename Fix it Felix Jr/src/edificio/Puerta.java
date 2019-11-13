@@ -70,4 +70,13 @@ public class Puerta extends Semicircular {
 		}
 		return puede;
 	}
+	@Override
+	public EstadoPanel[] getEstadoPaneles() {
+		EstadoPanel[] estados = new EstadoPanel[4];
+		estados[0]=this.paneles[0].getEstado();
+		estados[1]=this.paneles[1].getEstado();
+		estados[2]=this.paneles[2].getEstado();
+		estados[3]=this.paneles[3].getEstado();
+		return estados;
+	}
 }

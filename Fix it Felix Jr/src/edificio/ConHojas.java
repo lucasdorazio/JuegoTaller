@@ -87,4 +87,10 @@ public class ConHojas extends Ventana {
 		}
 		return puede;
 	}
+
+	@Override
+	public EstadoPanel[] getEstadoPaneles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

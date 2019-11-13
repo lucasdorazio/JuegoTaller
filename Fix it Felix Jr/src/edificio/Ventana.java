@@ -83,5 +83,7 @@ public abstract class Ventana{
 		this.tieneMoldura = tieneMoldura;
 	}
 	
+	public abstract EstadoPanel[] getEstadoPaneles();
+	
 
 }

@@ -1,4 +1,5 @@
 package juego;
+import java.util.List;
 import java.util.Scanner;
 
 import controladores.Controlador;
@@ -9,6 +10,7 @@ import controladores.ControladorDeRalph;
 import edificio.Edificio;
 import edificio.Seccion;
 import entidades.Felix;
+import entidades.Pajaro;
 /**
  * Clase que conecta todas las componentes del juego, ya sea conociendolas
  * o usandolas como atributos propios.
@@ -16,7 +18,6 @@ import entidades.Felix;
  * @author Lucas y Renzo
  *
  */
-import entidades.Posicion;
 public class Juego implements Runnable{
 	
 	private static Juego INSTANCE;
@@ -235,6 +236,9 @@ public class Juego implements Runnable{
 	public void setNroNivel (int nroNivel) {
 		this.nroNivel=nroNivel;
 	}
-	
-	
+	//verificar si se puede hacer de otra manera
+	public List<Pajaro> getListaPajaros(){
+		ControladorDePajaro controladorP= (ControladorDePajaro) controladores[2];
+		return controladorP.getListaPajaros();
+	}
 }
