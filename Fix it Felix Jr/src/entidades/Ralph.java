@@ -1,5 +1,8 @@
 package entidades;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import controladores.ControladorDeLadrillos;
 import edificio.Edificio;
 import juego.Juego;
@@ -14,7 +17,7 @@ import taller2.modelo.InformacionDibujable;
 public class Ralph implements Desplazable, Dibujable{
 
 	private static final int LADRILLOS_POR_TIRADA = 3;
-	private static final double TIEMPO_ENTRE_LADRILLOS=0.5;
+	private static final int TIEMPO_ENTRE_LADRILLOS=500;
 	private int ladrillosTotales;
 	private int ladrillosRestantes;
 	private Posicion pos;
@@ -23,6 +26,7 @@ public class Ralph implements Desplazable, Dibujable{
 	private int pasosRestantes;
 	private Direcciones dirActual;
 	private ControladorDeLadrillos brickController;
+	private Timer timerr;
 	
 	public int getLadrillos() {
 		return ladrillosTotales;
@@ -44,6 +48,7 @@ public class Ralph implements Desplazable, Dibujable{
 		this.ladrillosTotales = 40;	
 		this.pos =new Posicion(350,390);	//Parte superior de la sección, en el centro
 		this.velocidad=150;
+		timerr= new Timer();
 	}
 	
 	/**
@@ -55,6 +60,14 @@ public class Ralph implements Desplazable, Dibujable{
 		this.timer=0;
 		System.out.println("Ralph inicio golpeo");
 		golpearEdif();
+		TimerTask golpear= new TimerTask() {
+			
+			@Override
+			public void run() {
+				if (golpearEdif()) this.cancel();
+			}
+		};
+		timerr.schedule(golpear, 0, TIEMPO_ENTRE_LADRILLOS);
 	}
 
 	/**
@@ -74,13 +87,9 @@ public class Ralph implements Desplazable, Dibujable{
 	 * Fase de ejecución del golpeo
 	 * @return true cuando no tiene que tirar más ladrillos
 	 */
-	public boolean golpearEdif() {	
-		timer++;
-		if (timer>TIEMPO_ENTRE_LADRILLOS*Juego.CONST_TIEMPO) {			
-			brickController.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
-			ladrillosRestantes--;			
-			timer=0;
-		}
+	public boolean golpearEdif() {			
+		brickController.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
+		ladrillosRestantes--;			
 		return (ladrillosRestantes==0);
 	}
 

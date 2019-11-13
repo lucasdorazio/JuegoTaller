@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 
 import controladores.ControladorDePajaro;
+import controladores.ControladorDeRalph;
 import entidades.Pajaro;
 
 public class PruebasRen {
@@ -15,7 +16,8 @@ public class PruebasRen {
 		// TODO Auto-generated method stub
 		Marco mimarco= new Marco();
 		mimarco.setVisible(true);
-		ControladorDePajaro cont= new ControladorDePajaro();
+		Timer timer= new Timer();
+		/*ControladorDePajaro cont= new ControladorDePajaro();
 		TimerTask task= new TimerTask() {
 			
 			@Override
@@ -32,14 +34,35 @@ public class PruebasRen {
 				
 			}
 		};
-		Timer timer= new Timer();
-		timer.schedule(task, 0, 500);
+		timer.schedule(task, 0, 500);*/
+		Thread hilo = new Thread(new Hilo(), "prueba");
+		hilo.start();
 	}
 	
 }
+@SuppressWarnings("serial")
 class Marco extends JFrame {
 	public Marco() {
 		setBounds(100, 100, 200, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+}
+
+class Hilo implements Runnable{
+	int k=4;
+	@Override
+	public void run() {
+		Timer timer= new Timer();
+		TimerTask reducirEnteros= new TimerTask() {
+			
+			@Override
+			public void run() {
+				System.out.println("K=" +k);
+				k--;
+				if (k == 0) this.cancel();
+			}
+		};
+		timer.schedule(reducirEnteros, 0, 1000);
+	}
+	
 }
