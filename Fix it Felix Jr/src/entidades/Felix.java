@@ -185,7 +185,7 @@ public class Felix{
 		}
 	}
 	*/
-	// m filas---> determinan y, n columnas---> determinan x
+	/*// m filas---> determinan y, n columnas---> determinan x
 	public Posicion getPos() {
 		int posX;
 		int posY;
@@ -200,7 +200,7 @@ public class Felix{
 			
 		}
 		return new Posicion(posX, posY);
-	}
+	}*/
 
 
 	

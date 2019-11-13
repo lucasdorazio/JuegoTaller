@@ -69,14 +69,16 @@ public class FrameJuego extends JFrame {
 		try {
             imEdificio = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion1.png"));
             felix = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice102_@.png"));
+     
 		} catch (IOException ex) {
             ex.printStackTrace();
         }
 		
 		contentPane = new JPanel() {
 			protected void paintComponent(Graphics g) {
+				System.out.println("ancho:"+imEdificio.getWidth(null) +". altura:" +imEdificio.getHeight(null) );
 				g.drawImage(imEdificio, 180, 0, imEdificio.getWidth(null), imEdificio.getHeight(null), null);
-				g.drawImage(felix, Felix.getInstance().getVentanaActual(), dy1, felix.getWidth(null), felix.getHeight(null), null)
+				//g.drawImage(felix, Felix.getInstance().getVentanaActual(), dy1, felix.getWidth(null), felix.getHeight(null), null)
 			};
 		};
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
