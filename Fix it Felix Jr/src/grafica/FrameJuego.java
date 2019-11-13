@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import edificio.Edificio;
+import edificio.Ventana;
 import entidades.Direcciones;
 import entidades.Felix;
 import juego.Juego;
@@ -22,7 +24,7 @@ import juego.Juego;
 public class FrameJuego extends JFrame {
 
 	private JPanel contentPane;
-	private Image imEdificio, felix, ralph;  
+	private Image  seccion0, seccion1, seccion2, seccionAct, felix, ralph, ventanaComun, puerta, conHojas, semicircular; 
 	private Thread hiloJuego;
 	private Thread hiloPausa;
 
@@ -67,17 +69,34 @@ public class FrameJuego extends JFrame {
 			}
 		});
 		try {
-            imEdificio = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion1.png"));
+            seccion0 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion1.png"));
+            seccion1 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion2.png"));
+            seccion2 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion3.png"));
             felix = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice102_@.png"));
-     
+            ventanaComun= ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice100_@.png"));
+            conHojas=ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice106_@.png"));;
+            semicircular=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_@.png"));;
+            puerta=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice600_@.png"));;
 		} catch (IOException ex) {
-            ex.printStackTrace();
+            ex.printStackTrace();	
         }
 		
 		contentPane = new JPanel() {
+			
 			protected void paintComponent(Graphics g) {
-				System.out.println("ancho:"+imEdificio.getWidth(null) +". altura:" +imEdificio.getHeight(null) );
-				g.drawImage(imEdificio, 180, 0, imEdificio.getWidth(null), imEdificio.getHeight(null), null);
+				switch (Juego.getInstance().getNroSeccion()) {
+				case 0:
+					seccionAct=seccion0;
+					break;
+				case 1:
+					seccionAct=seccion1;
+					break;
+				case 2:
+					seccionAct=seccion2;
+				}
+				g.drawImage(seccionAct, 180, 0, seccionAct.getWidth(null), seccionAct.getHeight(null), null);
+				paintVentanas(g);
+				
 				//g.drawImage(felix, Felix.getInstance().getVentanaActual(), dy1, felix.getWidth(null), felix.getHeight(null), null)
 			};
 		};
@@ -87,4 +106,35 @@ public class FrameJuego extends JFrame {
 		setBounds(100, 100, 675, 560);
 	}
 	
+	private void paintVentanas(Graphics g) {
+		Image ventanaActual = null;
+		Ventana[][] m=Edificio.getInstance().getSecciones()[Juego.getInstance().getNroSeccion()].getVentanas();
+		Ventana v;
+		int modifY, modifX;
+		for (int i=0; i<5; i++) {
+			modifY=0;
+			for (int j=1; j<4; j++) {
+				modifX=0;
+				v=m[j-1][i];
+				switch (v.getClass().getName()) {
+				case "edificio.Comun":
+					ventanaActual=ventanaComun;
+					break;
+				case "edificio.ConHojas":
+					ventanaActual=conHojas;
+					break;
+				case "edificio.SemicircularSuperior":
+					ventanaActual=semicircular;
+					modifX=-11;
+					break;
+				case "edificio.Puerta":
+					modifX=-11;
+					modifY=-25;
+					ventanaActual=puerta;
+					break;
+				}
+				g.drawImage(ventanaActual, 214+52*i+modifX, 20+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
+			}
+		}
+	}
 }
