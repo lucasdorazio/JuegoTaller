@@ -21,21 +21,25 @@ public class ControladorDeJuego {
 	public ControladorDeJuego(Menu m) {
 		frameJuego= new FrameJuego(m);
 		frameJuego.setVisible(true);
+		timer= new Timer();
 	}
 	
 	public void jugar() {
 		boolean perdio = false;
 		TimerTask gameUpdate= new TimerTask() {
 			public void run() {
+				System.out.println("hola facu");
 				Juego.getInstance().actualizar();
-				frameJuego.paintComponent(frameJuego.getGraphics());
+				frameJuego.repaint();
+				//frameJuego.update(frameJuego.getGraphics());
+				//frameJuego.paint(frameJuego.getGraphics());
 				if (perdio) timer.cancel();
 			}
 		};
-		hiloJuego= new Thread(Juego.getInstance(),"hiloJuego");
-		hiloJuego.start();
-		Juego.getInstance().setNroNivel(nivelElegido);
-		Juego.getInstance().iniciarNivel(false);
-		timer.schedule(gameUpdate, 1, 1000);
+		timer.schedule(gameUpdate, 1, 200);
+//		hiloJuego= new Thread(Juego.getInstance(),"hiloJuego");
+//		hiloJuego.start();
+//		Juego.getInstance().setNroNivel(nivelElegido);
+//		Juego.getInstance().iniciarNivel(false);
 	}
 }

@@ -1,5 +1,7 @@
 package controladores;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -90,9 +92,16 @@ public class ControladorDePastel extends Controlador {
 		int posY=0;
 		if (pastel!= null) {
 			posX = 224+52*pastel.devolverVentana().getNroColumna();
-			posY = 130+80*pastel.devolverVentana().getNroFila();			
-		}
-		return (new Posicion(posX, posY));
+			posY = 130+80*pastel.devolverVentana().getNroFila();
+			return (new Posicion(posX, posY));
+		} else return null;
+	}
+
+	@Override
+	public List<Posicion> getListaPosEntidades() {
+		List<Posicion> lista = new LinkedList<Posicion>();
+		lista.add(getPosPastel());
+		return lista;
 	}
 
 }

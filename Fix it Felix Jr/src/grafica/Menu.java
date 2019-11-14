@@ -92,7 +92,7 @@ public class Menu extends JFrame {
 				setVisible(false);
 				crearControladorJuego();
 				gameController.getFrameJuego().setVisible(true);
-				//gameController.jugar();
+				gameController.jugar();
 			}
 		});
 		contentPane.add(botonJugar);

@@ -1,5 +1,7 @@
 package controladores;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,8 +27,6 @@ public class ControladorDeRalph extends Controlador{
 	private int timerMovimiento;
 	private Ralph ralph;
 	private Timer timer;
-	private HiloDependiente hiloGolpeo;
-	private Thread hiloMovimiento;
 
 	/**
 	 * 
@@ -44,35 +44,45 @@ public class ControladorDeRalph extends Controlador{
 		TimerTask golpeo= new TimerTask() {			
 			@Override
 			public void run() {
-				hiloGolpeo= new HiloDependiente(hiloMovimiento, ralph);
-				hiloGolpeo.start();
-			}
-		};
-		TimerTask movimiento= new TimerTask() {			
-			@Override
-			public void run() {
-				hiloMovimiento= new Thread() {
-					public void run() {
-						Direcciones dir;
-						if ((int) (Math.random() * 2) == 0)
-							dir = Direcciones.DERECHA;
-						else
-							dir = Direcciones.IZQUIERDA;
-						ralph.comenzarMovimiento(calcularCantPasos(), dir);
-						while (!ralph.avanzar()) {
-							try {
-								Thread.sleep(7);	//(int) (1000/ralph.velocidad())
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+				if (!estaMoviendose) {
+					estaGolpeando = true;
+					while (!ralph.golpearEdif()) {
+						try {
+							Thread.sleep(ralph.TIEMPO_ENTRE_LADRILLOS);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
 						}
 					}
-				};
+					estaGolpeando = false;
+				}
 			}
 		};
-		timer.schedule(movimiento, 0, tiempoDeDesplazamiento);
+		TimerTask movimiento= new TimerTask() {
+			
+			@Override
+			public void run() {
+				if (!estaGolpeando) {
+					estaMoviendose=true;
+					Direcciones dir;
+					if ((int) (Math.random() * 2) == 0)
+						dir = Direcciones.DERECHA;
+					else
+						dir = Direcciones.IZQUIERDA;
+					ralph.comenzarMovimiento(calcularCantPasos(), dir);
+					while (!ralph.avanzar()) {
+						try {
+							Thread.sleep((int) (1000/ ralph.getVelocidad()));
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					
+					estaMoviendose=false;
+				}
+			}
+		};
 		timer.schedule(golpeo, 0, tiempoDeGolpeo);
+		timer.schedule(movimiento, 0, tiempoDeDesplazamiento);
 	}
 	/**
 	 * 
@@ -120,34 +130,10 @@ public class ControladorDeRalph extends Controlador{
 	
 	public void avanzarSeccion() {
 	}
-	
-	private class HiloDependiente extends Thread {
-		Thread t;
-		Ralph ralph;
-		public HiloDependiente (Thread t,Ralph r) {
-			this.t=t;
-			this.ralph=r;
-		}
-		
-		public void run() {
-			try {
-				t.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			while (!ralph.golpearEdif()) {
-				try {
-					Thread.sleep(ralph.TIEMPO_ENTRE_LADRILLOS);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	
-	}
-	
-	public Posicion getPos() {
-		return ControladorDeRalph.this.ralph.getPos();
+	@Override
+	public List<Posicion> getListaPosEntidades() {
+		List<Posicion> lista = new LinkedList<Posicion>();
+		lista.add(ralph.getPos());
+		return lista;
 	}
 }

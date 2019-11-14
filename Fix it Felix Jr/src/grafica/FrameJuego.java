@@ -31,11 +31,11 @@ import juego.Juego;
 @SuppressWarnings("serial")
 public class FrameJuego extends JFrame {
 
-	private JPanel contentPane;
-	private Image  fondo, seccion0, seccion1, seccion2, felix, ralph, ventanaComun, puerta, conHojas, cerrada,
-	semicircular, panelSemiRoto, panelSano, pajaro, pastel, ladrillo; 
+	private JPanel contentPane; 
 	private Thread hiloJuego;
 	private Thread hiloPausa;
+	private Image  fondo, seccion0, seccion1, seccion2, felix, ralph, ventanaComun, puerta, conHojas, cerrada,
+	semicircular, panelSemiRoto, panelSano, pajaro, pastel, ladrillo;
 
 	public FrameJuego(Menu m) {
 		addKeyListener(new KeyAdapter() {
@@ -98,20 +98,21 @@ public class FrameJuego extends JFrame {
             ex.printStackTrace();	
         }
 		
-		contentPane = new JPanel() {
-			
+		contentPane = new JPanel(){
 			protected void paintComponent(Graphics g) {
+				//super.paintComponent(g);
 				g.drawImage(fondo, 0, 0, this.getWidth(),this.getHeight(),null);
 				paintSeccion(g);
 				paintVentanas(g);
 				paintPajaros(g);
 				paintPastel(g);
-				paintLadrillos(g);
+				//paintLadrillos(g);
 				g.drawImage(felix, Felix.getInstance().getPos().getPosX(), Felix.getInstance().getPos().getPosY(), felix.getWidth(null), felix.getHeight(null), null);
 				g.drawImage(ralph, Juego.getInstance().getPosRalph().getPosX(), Juego.getInstance().getPosRalph().getPosY(), ralph.getWidth(null), ralph.getHeight(null),null);
 			};
-			
 		};
+//		contentPane.setBounds(100,100,675,370);
+//		contentPane.setVisible(true);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
@@ -186,7 +187,7 @@ public class FrameJuego extends JFrame {
 	
 	private void paintPastel(Graphics g) {
 		Posicion pos = Juego.getInstance().getPosPastel();
-		if (pos.getPosX() != 0 && pos.getPosY() != 0) {
+		if ( pos != null) {
 			g.drawImage(pastel, pos.getPosX(), pos.getPosY(), pastel.getWidth(null), pastel.getHeight(null), null);
 		}
 	}
@@ -210,11 +211,15 @@ public class FrameJuego extends JFrame {
 			}
 	 }
 	
-	public void paintComponent(Graphics g) {
+	public void paintComponents(Graphics g) {
 		g.drawImage(fondo, 0, 0, this.getWidth(),this.getHeight(),null);
 		paintSeccion(g);
 		paintVentanas(g);
 		paintPajaros(g);
 		paintPastel(g);
+	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponents(g);
 	}
 }

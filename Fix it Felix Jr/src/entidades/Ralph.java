@@ -31,13 +31,9 @@ public class Ralph implements Desplazable, Dibujable{
 	public int getLadrillos() {
 		return ladrillosTotales;
 	}
-
-	public void setLadrillos(int ladrillos) {
-		this.ladrillosTotales = ladrillos;
-	}
-
-	public void setPosicion(Posicion pos) {
-		this.pos = pos;
+	
+	public int getVelocidad() {
+		return velocidad;
 	}
 	
 	/**

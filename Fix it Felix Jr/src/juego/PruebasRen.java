@@ -1,16 +1,9 @@
 package juego;
 
-import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
-
-import controladores.ControladorDePajaro;
-import controladores.ControladorDeRalph;
-import entidades.Direcciones;
-import entidades.Pajaro;
-import entidades.Ralph;
 
 public class PruebasRen {
 	static HiloIndependiente  hiloMovimiento= new HiloIndependiente();
@@ -53,6 +46,8 @@ public class PruebasRen {
 			@Override
 			public void run() {
 				/*if (movimiento.)
+=======
+>>>>>>> branch 'master' of https://github.com/lucasdorazio/JuegoTaller.git
 				if (!hiloGolpeo.isAlive() && !hiloMovimiento.isAlive()) {
 					hiloGolpeo= new HiloDependiente(hiloMovimiento);
 					hiloGolpeo.start();

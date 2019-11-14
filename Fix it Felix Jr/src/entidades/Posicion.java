@@ -15,10 +15,6 @@ public class Posicion {
 		this.posY=posY;
 	}
 	
-	public Posicion getPoscion() {
-		return this;
-	}
-	
 	public void aumentarPosX() {
 		posX++;
 	}

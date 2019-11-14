@@ -85,4 +85,16 @@ public class ControladorDeLadrillos extends Controlador{
 		listaLadrillos.clear();
 	}
 
+	@Override
+	public List<Posicion> getListaPosEntidades() {
+		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
+		Iterator<Ladrillo> ite = listaLadrillos.iterator();
+		Ladrillo ladrillo;
+		while (ite.hasNext()) {
+			ladrillo = ite.next();
+			listaPosiciones.add(ladrillo.getPos());
+		}
+		return listaPosiciones;
+	}
+
 }

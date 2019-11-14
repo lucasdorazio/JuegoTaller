@@ -242,36 +242,18 @@ public class Juego implements Runnable{
 	}
 	//verificar si se puede hacer de otra manera
 	public List<Posicion> getListaPosPajaros(){
-		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
-		List<Pajaro> listaPajaros= ((ControladorDePajaro) controladores[2]).getListaPajaros();
-		Iterator<Pajaro> ite = listaPajaros.iterator();
-		Pajaro pajaro;
-		while (ite.hasNext()) {
-			pajaro = ite.next();
-			listaPosiciones.add(pajaro.getPos());
-		}
-		return listaPosiciones;
+		return controladores[2].getListaPosEntidades();
 	}
 
 	public List<Posicion> getListaPosLadrillos(){
-		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
-		List<Ladrillo> listaLadrillos= ((ControladorDeLadrillos) controladores[0]).getListaLadrillos();
-		Iterator<Ladrillo> ite = listaLadrillos.iterator();
-		Ladrillo ladrillo;
-		while (ite.hasNext()) {
-			ladrillo = ite.next();
-			listaPosiciones.add(ladrillo.getPos());
-		}
-		return listaPosiciones;
+		return controladores[0].getListaPosEntidades();
 	}
 	
 	public Posicion getPosPastel() {
-		ControladorDePastel controladorPastel = (ControladorDePastel) controladores[3];
-		return controladorPastel.getPosPastel();
+		return controladores[3].getListaPosEntidades().get(0);
 	}
 	
 	public Posicion getPosRalph() {
-		ControladorDeRalph controladorRalph = (ControladorDeRalph) controladores[1];
-		return controladorRalph.getPos();
+		return controladores[1].getListaPosEntidades().get(0);
 	}
 }

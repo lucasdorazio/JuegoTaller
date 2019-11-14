@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import edificio.Ventana;
 import entidades.Direcciones;
 import entidades.Felix;
+import entidades.Ladrillo;
 import entidades.Pajaro;
 import entidades.Posicion;
 import juego.Juego;
@@ -114,6 +115,18 @@ public class ControladorDePajaro extends Controlador{
 	 */
 	public void avanzarSeccion() {
 		listaDePajaros.clear();
+	}
+
+	@Override
+	public List<Posicion> getListaPosEntidades() {
+		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
+		Iterator<Pajaro> ite = listaDePajaros.iterator();
+		Pajaro pajaro;
+		while (ite.hasNext()) {
+			pajaro = ite.next();
+			listaPosiciones.add(pajaro.getPos());
+		}
+		return listaPosiciones;
 	}
 
 }
