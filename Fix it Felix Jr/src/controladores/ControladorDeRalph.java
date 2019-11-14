@@ -71,7 +71,7 @@ public class ControladorDeRalph extends Controlador{
 					ralph.comenzarMovimiento(calcularCantPasos(), dir);
 					while (!ralph.avanzar()) {
 						try {
-							Thread.sleep((int) (1000/ ralph.getVelocidad()));
+							Thread.sleep((int) (7));
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -82,7 +82,7 @@ public class ControladorDeRalph extends Controlador{
 			}
 		};
 		timer.schedule(golpeo, 0, tiempoDeGolpeo);
-		timer.schedule(movimiento, 0, tiempoDeDesplazamiento);
+		//timer.schedule(movimiento, 0, tiempoDeDesplazamiento*1000);
 	}
 	/**
 	 * 

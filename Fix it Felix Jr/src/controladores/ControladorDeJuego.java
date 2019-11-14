@@ -28,7 +28,6 @@ public class ControladorDeJuego {
 		boolean perdio = false;
 		TimerTask gameUpdate= new TimerTask() {
 			public void run() {
-				System.out.println("hola facu");
 				Juego.getInstance().actualizar();
 				frameJuego.repaint();
 				//frameJuego.update(frameJuego.getGraphics());
@@ -36,7 +35,7 @@ public class ControladorDeJuego {
 				if (perdio) timer.cancel();
 			}
 		};
-		timer.schedule(gameUpdate, 1, 200);
+		timer.schedule(gameUpdate, 1, 100);
 //		hiloJuego= new Thread(Juego.getInstance(),"hiloJuego");
 //		hiloJuego.start();
 //		Juego.getInstance().setNroNivel(nivelElegido);

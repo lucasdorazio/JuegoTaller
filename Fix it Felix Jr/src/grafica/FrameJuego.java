@@ -42,19 +42,15 @@ public class FrameJuego extends JFrame {
 			public void keyPressed(KeyEvent tecla) {
 				switch (tecla.getKeyCode()) {
 				case 37:
-					System.out.println("se presiono la flechita pa izq");
 					Felix.getInstance().mover(Direcciones.IZQUIERDA);
 					break;
 				case 38:
-					System.out.println("se presiono la flechita pa arriba");
 					Felix.getInstance().mover(Direcciones.ARRIBA);
 					break;
 				case 39:
-					System.out.println("se presiono la flechita pa derecha");
 					Felix.getInstance().mover(Direcciones.DERECHA);
 					break;
 				case 40:
-					System.out.println("se presiono la flechita pa abajo");
 					Felix.getInstance().mover(Direcciones.ABAJO);
 					break;
 				case 80:
@@ -62,6 +58,8 @@ public class FrameJuego extends JFrame {
 					if (hiloPausa.isAlive()) {
 						hiloPausa.stop();
 					}
+				case 32:
+					Felix.getInstance().reparar();
 					break;
 				default:
 					System.out.println("otra tecla");
@@ -83,7 +81,7 @@ public class FrameJuego extends JFrame {
             seccion1 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion2.png"));
             seccion2 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion3.png"));
             felix = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice102_@.png"));
-            ralph = ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice233_@.png"));
+            ralph = ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice146_@.png"));
             ventanaComun= ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice103_@.png"));
             conHojas=ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice106_@.png"));
             cerrada=ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice105_@.png"));
@@ -106,7 +104,7 @@ public class FrameJuego extends JFrame {
 				paintVentanas(g);
 				paintPajaros(g);
 				paintPastel(g);
-				//paintLadrillos(g);
+				paintLadrillos(g);
 				g.drawImage(felix, Felix.getInstance().getPos().getPosX(), Felix.getInstance().getPos().getPosY(), felix.getWidth(null), felix.getHeight(null), null);
 				g.drawImage(ralph, Juego.getInstance().getPosRalph().getPosX(), Juego.getInstance().getPosRalph().getPosY(), ralph.getWidth(null), ralph.getHeight(null),null);
 			};
@@ -116,7 +114,7 @@ public class FrameJuego extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		setBounds(100, 100, 675, 370);
+		setBounds(100, 100, Juego.LIMITE_DERECHO_MAPA, Juego.LIMITE_INFERIOR_MAPA);
 	}
 	
 	private void paintSeccion(Graphics g) {

@@ -42,7 +42,7 @@ public class Ralph implements Desplazable, Dibujable{
 	public Ralph(ControladorDeLadrillos brickController) {
 		this.brickController=brickController;
 		this.ladrillosTotales = 40;	
-		this.pos =new Posicion(350,390);	//Parte superior de la sección, en el centro
+		this.pos =new Posicion(260,6);	//Parte superior de la sección, en el centro
 		this.velocidad=150;
 		timerr= new Timer();
 	}
@@ -84,9 +84,12 @@ public class Ralph implements Desplazable, Dibujable{
 	 * @return true cuando no tiene que tirar más ladrillos
 	 */
 	public boolean golpearEdif() {			
-		brickController.generarLadrillo(new Posicion(pos.getPosX()+(ladrillosRestantes*15)-30,340));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
+		brickController.generarLadrillo(new Posicion(pos.getPosX()+((LADRILLOS_POR_TIRADA- ladrillosRestantes)*15),100));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
 		ladrillosRestantes--;			
-		return (ladrillosRestantes==0);
+		if (ladrillosRestantes==0) {
+			ladrillosRestantes=LADRILLOS_POR_TIRADA;
+			return true;
+		}else return false;
 	}
 
 	
@@ -95,9 +98,7 @@ public class Ralph implements Desplazable, Dibujable{
 	 * @return true cuando llego el fin de su movimiento
 	 */
 	@Override
-	public boolean avanzar() { 
-		timer++;
-		if (timer > Juego.CONST_TIEMPO/velocidad) { 
+	public boolean avanzar() {  
 			if (dirActual == Direcciones.DERECHA) {
 				if (pos.getPosX() + 1 > Edificio.getLimiteDerechoEdificio()) {
 					dirActual = Direcciones.IZQUIERDA;
@@ -110,8 +111,6 @@ public class Ralph implements Desplazable, Dibujable{
 			} else
 				pos.disminuirPosX();
 			pasosRestantes--;
-			timer=0;
-		}
 		return (pasosRestantes == 0);
 	}
 

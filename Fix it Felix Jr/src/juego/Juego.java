@@ -28,9 +28,11 @@ public class Juego implements Runnable{
 	
 	private Nivel nivel;
 	
-	public static final int LIMITE_DERECHO_MAPA=700;
+	public static final int LIMITE_DERECHO_MAPA=675;
 	
 	public static final int LIMITE_IZQUIERDO_MAPA=0;
+	
+	public static final int LIMITE_INFERIOR_MAPA=370;
 	
 	public static final int CONST_TIEMPO = 60000000;
 	
@@ -141,9 +143,9 @@ public class Juego implements Runnable{
 			else if (pasarDeSeccion)
 				avanzarSeccion();
 			else {
-				for (int i=0;i<4;i++) {
-					controladores[i].actualizar();
-				}
+//				for (int i=0;i<4;i++) {
+//					controladores[i].actualizar();
+//				}
 				Felix.getInstance().actualizarInvulnerabilidad();
 			}
 		}

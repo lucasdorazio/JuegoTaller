@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import edificio.Ventana;
 import entidades.Felix;
@@ -20,7 +21,7 @@ import juego.Juego;
 public class ControladorDeLadrillos extends Controlador{
 
 	private static final int ACTUALIZACION_POSICION= 1000; 
-	private static List<Ladrillo> listaLadrillos = new LinkedList<Ladrillo>();
+	private static List<Ladrillo> listaLadrillos = new CopyOnWriteArrayList<Ladrillo>();
 	private int velocidad;
 	private Timer timerr;
 

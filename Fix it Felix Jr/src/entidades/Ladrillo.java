@@ -87,8 +87,8 @@ public class Ladrillo implements Impactable, Desplazable{
 	 */
 	@Override
 	public boolean avanzar() {
-		pos.disminuirPosY();
-		return (pos.getPosY()<0);
+		pos.aumentarPosY();
+		return (pos.getPosY()>Juego.LIMITE_INFERIOR_MAPA);
 	}
 
 }

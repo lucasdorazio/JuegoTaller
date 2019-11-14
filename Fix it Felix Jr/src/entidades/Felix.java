@@ -48,7 +48,6 @@ public class Felix {
 	public void reparar() {
 		boolean sanaAntes = ventanaActual.estoySana();
 		ventanaActual.repararse();
-		System.out.println("Felix da un martillazo");
 		if (!sanaAntes && ventanaActual.estoySana()) {
 			Juego.getInstance().getJugador().sumarPuntaje(100);
 			seccionActual.disminuirVentanasRestantes();
@@ -146,32 +145,24 @@ public class Felix {
 						+ 1];
 				if (proximaVentana.puedePasar(Direcciones.IZQUIERDA))
 					ventanaActual = proximaVentana;
-				System.out.println("Felix se desplaza hacia la derecha y queda en la ventana ["
-						+ ventanaActual.getNroFila() + "][" + ventanaActual.getNroColumna() + "]");
 				break;
 			case IZQUIERDA:
 				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()
 						- 1];
 				if (proximaVentana.puedePasar(Direcciones.DERECHA))
 					ventanaActual = proximaVentana;
-				System.out.println("Felix se desplaza hacia la izquierda y queda en la ventana ["
-						+ ventanaActual.getNroFila() + "][" + ventanaActual.getNroColumna() + "]");
 				break;
 			case ARRIBA:
 				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila() - 1][ventanaActual
 						.getNroColumna()];
 				if (proximaVentana.puedePasar(Direcciones.ABAJO))
 					ventanaActual = proximaVentana;
-				System.out.println("Felix se desplaza hacia arriba y queda en la ventana [" + ventanaActual.getNroFila()
-						+ "][" + ventanaActual.getNroColumna() + "]");
 				break;
 			case ABAJO:
 				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila() + 1][ventanaActual
 						.getNroColumna()];
 				if (proximaVentana.puedePasar(Direcciones.ARRIBA))
 					ventanaActual = proximaVentana;
-				System.out.println("Felix se desplaza hacia abajo y queda en la ventana [" + ventanaActual.getNroFila()
-						+ "][" + ventanaActual.getNroColumna() + "]");
 				break;
 			}
 		}

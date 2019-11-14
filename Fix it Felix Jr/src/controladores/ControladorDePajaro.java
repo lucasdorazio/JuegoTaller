@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import edificio.Ventana;
 import entidades.Direcciones;
@@ -21,8 +22,8 @@ import juego.Juego;
  */
 public class ControladorDePajaro extends Controlador{
 
-	public static final int VELOCIDAD = 56;
-	private static final int ACTUALIZACION_POSICION= 1000; 
+	public static final int VELOCIDAD = 1;
+	private static final int ACTUALIZACION_POSICION= 100; 
 	private int tiempoDeSpawneo;
 	private static List<Pajaro> listaDePajaros;
 	private Timer timer;
@@ -33,7 +34,7 @@ public class ControladorDePajaro extends Controlador{
 	
 	public ControladorDePajaro() {
 		this.tiempoDeSpawneo=15000;
-		listaDePajaros = new LinkedList<Pajaro>();
+		listaDePajaros = new CopyOnWriteArrayList<Pajaro>();
 		TimerTask generacion= new TimerTask() {
 			@Override
 			public void run() {
@@ -49,7 +50,7 @@ public class ControladorDePajaro extends Controlador{
 		};
 		timer= new Timer();
 		timer.schedule(generacion, 0, tiempoDeSpawneo);
-		timer.schedule(movimiento, 0, ACTUALIZACION_POSICION);
+		timer.schedule(movimiento, 0, 10);
 	}
 	
 	public void actualizar() {

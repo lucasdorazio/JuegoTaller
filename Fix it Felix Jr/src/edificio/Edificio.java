@@ -6,7 +6,7 @@ package edificio;
  */
 public class Edificio {
 	
-	private static final int LIMITE_DERECHO_EDIFICIO = 520;
+	private static final int LIMITE_DERECHO_EDIFICIO = 424;
 	
 	private static final int LIMITE_IZQUIERDA_EDIFICIO = 180;
 	
