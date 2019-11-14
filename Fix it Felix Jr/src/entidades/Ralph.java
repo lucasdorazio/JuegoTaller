@@ -17,7 +17,7 @@ import taller2.modelo.InformacionDibujable;
 public class Ralph implements Desplazable, Dibujable{
 
 	private static final int LADRILLOS_POR_TIRADA = 3;
-	private static final int TIEMPO_ENTRE_LADRILLOS=500;
+	public final int TIEMPO_ENTRE_LADRILLOS=500;
 	private int ladrillosTotales;
 	private int ladrillosRestantes;
 	private Posicion pos;

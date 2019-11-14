@@ -8,9 +8,13 @@ import javax.swing.JFrame;
 
 import controladores.ControladorDePajaro;
 import controladores.ControladorDeRalph;
+import entidades.Direcciones;
 import entidades.Pajaro;
+import entidades.Ralph;
 
 public class PruebasRen {
+	static HiloIndependiente  hiloMovimiento= new HiloIndependiente();
+	static HiloDependiente hiloGolpeo= new HiloDependiente(hiloMovimiento);
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -35,9 +39,31 @@ public class PruebasRen {
 			}
 		};
 		timer.schedule(task, 0, 500);*/
-		Thread hilo = new Thread(new Hilo(), "prueba");
-		hilo.start();
+		
+		TimerTask movimiento= new TimerTask() {		
+			@Override
+			public void run() {
+				if (!hiloMovimiento.isAlive() && !hiloGolpeo.isAlive()) {
+					hiloMovimiento= new HiloIndependiente();
+					hiloMovimiento.start();
+				}
+			}
+		};
+		TimerTask golpeo= new TimerTask() {			
+			@Override
+			public void run() {
+				if (movimiento.)
+				if (!hiloGolpeo.isAlive() && !hiloMovimiento.isAlive()) {
+					hiloGolpeo= new HiloDependiente(hiloMovimiento);
+					hiloGolpeo.start();
+				}
+			}
+		};
+		timer.schedule(movimiento, 0, 1000);
+		timer.schedule(golpeo, 0, 2000);
 	}
+	
+
 	
 }
 @SuppressWarnings("serial")
@@ -45,6 +71,54 @@ class Marco extends JFrame {
 	public Marco() {
 		setBounds(100, 100, 200, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+
+class HiloDependiente extends Thread {
+	Thread t;
+	int i=0;
+	public HiloDependiente (Thread t) {
+		this.t=t;
+	}
+	
+	public void run() {
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		boolean termino=false;
+		while (!termino) {
+			System.out.println("dependiente="+i);
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			i++;
+			if (i==10) termino=true;
+		}
+		System.out.println("termino exitosamente");
+	}
+}
+class HiloIndependiente extends Thread{
+	public void run() {
+		int i=0;
+		boolean termino=false;
+		while (!termino) {
+			System.out.println("solari="+i);
+			try {
+				Thread.sleep(200);	//(int) (1000/ralph.velocidad())
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			i++;
+			if (i==10) termino=true;
+		}
+		System.out.println("termino exitosamente");
+		
 	}
 }
 
