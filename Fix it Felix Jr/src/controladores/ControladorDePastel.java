@@ -7,6 +7,7 @@ import edificio.Edificio;
 import edificio.Ventana;
 import entidades.Felix;
 import entidades.Pastel;
+import entidades.Posicion;
 import juego.Juego;
 
 public class ControladorDePastel extends Controlador {
@@ -20,7 +21,7 @@ public class ControladorDePastel extends Controlador {
 	private Timer timer;
 
 	public ControladorDePastel() {
-		this.tiempoSpawneo = 5000;
+		this.tiempoSpawneo = 5;
 		timer= new Timer();
 		TimerTask generacion= new TimerTask() {			
 			@Override
@@ -82,6 +83,16 @@ public class ControladorDePastel extends Controlador {
 
 	public void avanzarSeccion() {
 		pastel = null;
+	}
+	
+	public Posicion getPosPastel() {
+		int posX=0;
+		int posY=0;
+		if (pastel!= null) {
+			posX = 224+52*pastel.devolverVentana().getNroColumna();
+			posY = 130+80*pastel.devolverVentana().getNroFila();			
+		}
+		return (new Posicion(posX, posY));
 	}
 
 }

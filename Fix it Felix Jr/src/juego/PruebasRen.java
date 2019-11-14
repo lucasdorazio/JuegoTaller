@@ -52,11 +52,11 @@ public class PruebasRen {
 		TimerTask golpeo= new TimerTask() {			
 			@Override
 			public void run() {
-				if (movimiento.)
+				/*if (movimiento.)
 				if (!hiloGolpeo.isAlive() && !hiloMovimiento.isAlive()) {
 					hiloGolpeo= new HiloDependiente(hiloMovimiento);
 					hiloGolpeo.start();
-				}
+				}*/
 			}
 		};
 		timer.schedule(movimiento, 0, 1000);

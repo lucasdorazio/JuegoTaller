@@ -41,7 +41,7 @@ public class ControladorDeLadrillos extends Controlador{
 		timerr.schedule(movimiento, 0, ACTUALIZACION_POSICION);
 	}
 	
-	public static List<Ladrillo> getListaLadrillos(){
+	public List<Ladrillo> getListaLadrillos(){
 		return listaLadrillos;
 	}
 
@@ -52,7 +52,7 @@ public class ControladorDeLadrillos extends Controlador{
 	public void generarLadrillo(Posicion pos) {
 		Ladrillo l = new Ladrillo(pos);
 		listaLadrillos.add(l);
-		System.out.println("Se tiró un ladrillo desde ("+ pos.getPosX()+ ", "+ pos.getPosY()+")");
+		//System.out.println("Se tiró un ladrillo desde ("+ pos.getPosX()+ ", "+ pos.getPosY()+")");
 	}
 
 	/**

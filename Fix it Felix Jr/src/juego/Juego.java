@@ -1,4 +1,6 @@
 package juego;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,6 +12,7 @@ import controladores.ControladorDeRalph;
 import edificio.Edificio;
 import edificio.Seccion;
 import entidades.Felix;
+import entidades.Ladrillo;
 import entidades.Pajaro;
 /**
  * Clase que conecta todas las componentes del juego, ya sea conociendolas
@@ -18,6 +21,7 @@ import entidades.Pajaro;
  * @author Lucas y Renzo
  *
  */
+import entidades.Posicion;
 public class Juego implements Runnable{
 	
 	private static Juego INSTANCE;
@@ -237,8 +241,37 @@ public class Juego implements Runnable{
 		this.nroNivel=nroNivel;
 	}
 	//verificar si se puede hacer de otra manera
-	public List<Pajaro> getListaPajaros(){
-		ControladorDePajaro controladorP= (ControladorDePajaro) controladores[2];
-		return controladorP.getListaPajaros();
+	public List<Posicion> getListaPosPajaros(){
+		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
+		List<Pajaro> listaPajaros= ((ControladorDePajaro) controladores[2]).getListaPajaros();
+		Iterator<Pajaro> ite = listaPajaros.iterator();
+		Pajaro pajaro;
+		while (ite.hasNext()) {
+			pajaro = ite.next();
+			listaPosiciones.add(pajaro.getPos());
+		}
+		return listaPosiciones;
+	}
+
+	public List<Posicion> getListaPosLadrillos(){
+		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
+		List<Ladrillo> listaLadrillos= ((ControladorDeLadrillos) controladores[0]).getListaLadrillos();
+		Iterator<Ladrillo> ite = listaLadrillos.iterator();
+		Ladrillo ladrillo;
+		while (ite.hasNext()) {
+			ladrillo = ite.next();
+			listaPosiciones.add(ladrillo.getPos());
+		}
+		return listaPosiciones;
+	}
+	
+	public Posicion getPosPastel() {
+		ControladorDePastel controladorPastel = (ControladorDePastel) controladores[3];
+		return controladorPastel.getPosPastel();
+	}
+	
+	public Posicion getPosRalph() {
+		ControladorDeRalph controladorRalph = (ControladorDeRalph) controladores[1];
+		return controladorRalph.getPos();
 	}
 }

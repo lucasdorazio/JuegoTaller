@@ -22,15 +22,18 @@ import edificio.EstadoPanel;
 import edificio.Ventana;
 import entidades.Direcciones;
 import entidades.Felix;
+import entidades.Ladrillo;
 import entidades.Pajaro;
+import entidades.Posicion;
+import entidades.Ralph;
 import juego.Juego;
 
 @SuppressWarnings("serial")
 public class FrameJuego extends JFrame {
 
 	private JPanel contentPane;
-	private Image  fondo, seccion0, seccion1, seccion2, felix, ralph, ventanaComun, puerta, conHojas,
-	semicircular, panelSemiRoto, panelSano, pajaro; 
+	private Image  fondo, seccion0, seccion1, seccion2, felix, ralph, ventanaComun, puerta, conHojas, cerrada,
+	semicircular, panelSemiRoto, panelSano, pajaro, pastel, ladrillo; 
 	private Thread hiloJuego;
 	private Thread hiloPausa;
 
@@ -80,13 +83,17 @@ public class FrameJuego extends JFrame {
             seccion1 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion2.png"));
             seccion2 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion3.png"));
             felix = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice102_@.png"));
+            ralph = ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice233_@.png"));
             ventanaComun= ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice103_@.png"));
             conHojas=ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice106_@.png"));
+            cerrada=ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice105_@.png"));
             semicircular=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_@.png"));
             puerta=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice600_@.png"));
             panelSemiRoto=ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice05_05.png"));
             panelSano=ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice14_14.png"));
             pajaro=ImageIO.read(new File("src/grafica/fixitfelixcortado/pajaro/slice08_08.png"));
+            pastel=ImageIO.read(new File("src/grafica/fixitfelixcortado/pastel/slice12_12.png"));
+            ladrillo=ImageIO.read(new File("src/grafica/fixitfelixcortado/rocas/slice10_10.png"));
 		} catch (IOException ex) {
             ex.printStackTrace();	
         }
@@ -98,7 +105,10 @@ public class FrameJuego extends JFrame {
 				paintSeccion(g);
 				paintVentanas(g);
 				paintPajaros(g);
-				//g.drawImage(felix, Felix.getInstance().getVentanaActual(), dy1, felix.getWidth(null), felix.getHeight(null), null)
+				paintPastel(g);
+				paintLadrillos(g);
+				g.drawImage(felix, Felix.getInstance().getPos().getPosX(), Felix.getInstance().getPos().getPosY(), felix.getWidth(null), felix.getHeight(null), null);
+				g.drawImage(ralph, Juego.getInstance().getPosRalph().getPosX(), Juego.getInstance().getPosRalph().getPosY(), ralph.getWidth(null), ralph.getHeight(null),null);
 			};
 			
 		};
@@ -130,29 +140,30 @@ public class FrameJuego extends JFrame {
 		int modifY, modifX;
 		for (int i=0; i<5; i++) {
 			modifY=0;
-			for (int j=1; j<4; j++) {
+			g.drawImage(cerrada, 214+52*i, 20, cerrada.getWidth(null), cerrada.getHeight(null), null);
+			for (int j=0; j<3; j++) {
 				modifX=0;
-				v=m[j-1][i];
+				v=m[j][i];
 				switch (v.getClass().getName()) {
 				case "edificio.Comun":
 					ventanaActual=ventanaComun;
-					g.drawImage(ventanaActual, 214+52*i+modifX, 20+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
+					g.drawImage(ventanaActual, 214+52*i+modifX, 100+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
 					paintPanelesComun(g, v);
 					break;
 				case "edificio.ConHojas":
 					ventanaActual=conHojas;
-					g.drawImage(ventanaActual, 214+52*i+modifX, 20+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
+					g.drawImage(ventanaActual, 214+52*i+modifX, 100+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
 					break;
 				case "edificio.SemicircularSuperior":
 					ventanaActual=semicircular;
 					modifX=-11;
-					g.drawImage(ventanaActual, 214+52*i+modifX, 20+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
+					g.drawImage(ventanaActual, 214+52*i+modifX, 100+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
 					break;
 				case "edificio.Puerta":
 					modifX=-11;
 					modifY=-25;
 					ventanaActual=puerta;
-					g.drawImage(ventanaActual, 214+52*i+modifX, 20+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
+					g.drawImage(ventanaActual, 214+52*i+modifX, 100+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
 					break;
 				}
 				//g.drawImage(ventanaActual, 214+52*i+modifX, 20+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
@@ -169,23 +180,41 @@ public class FrameJuego extends JFrame {
 				panelActual = panelSemiRoto;
 			else if (v.getEstadoPaneles()[i] == EstadoPanel.SANO)
 				panelActual = panelSano;
-			if (v.getEstadoPaneles()[i] != EstadoPanel.ROTO) g.drawImage(panelActual, 224+52*m, 32+80*(n+1)+19*i, panelActual.getWidth(null), panelActual.getHeight(null), null);
+			if (v.getEstadoPaneles()[i] != EstadoPanel.ROTO) g.drawImage(panelActual, 224+52*m, 51+80*(n+1)-19*i, panelActual.getWidth(null), panelActual.getHeight(null), null);
 		}
 	}
 	
-	private void paintPajaros(Graphics g) {
-		List<Pajaro> lista = Juego.getInstance().getListaPajaros();
-		Iterator<Pajaro> ite = lista.iterator();
-		Pajaro pajaro= null;
-		while (ite.hasNext()) {
-			pajaro = ite.next();
-			g.drawImage(this.pajaro, pajaro.getPos().getPosX(), pajaro.getPos().getPosY(), this.pajaro.getWidth(null), this.pajaro.getHeight(null), null);
+	private void paintPastel(Graphics g) {
+		Posicion pos = Juego.getInstance().getPosPastel();
+		if (pos.getPosX() != 0 && pos.getPosY() != 0) {
+			g.drawImage(pastel, pos.getPosX(), pos.getPosY(), pastel.getWidth(null), pastel.getHeight(null), null);
 		}
 	}
+	//seria mejor que juego me de un getListaPosiciones?
+	private void paintPajaros(Graphics g) {
+		List<Posicion> lista = Juego.getInstance().getListaPosPajaros();
+		Iterator<Posicion> ite = lista.iterator();
+		Posicion pos;
+		while (ite.hasNext()) {
+			pos = ite.next();
+			g.drawImage(pajaro, pos.getPosX(), pos.getPosY(), pajaro.getWidth(null), pajaro.getHeight(null), null);
+		}
+	}
+	 private void paintLadrillos(Graphics g) {
+		 List<Posicion> lista = Juego.getInstance().getListaPosLadrillos();
+			Iterator<Posicion> ite = lista.iterator();
+			Posicion pos;
+			while (ite.hasNext()) {
+				pos = ite.next();
+				g.drawImage(ladrillo, pos.getPosX(), pos.getPosY(), ladrillo.getWidth(null), ladrillo.getHeight(null), null);
+			}
+	 }
+	
 	public void paintComponent(Graphics g) {
 		g.drawImage(fondo, 0, 0, this.getWidth(),this.getHeight(),null);
 		paintSeccion(g);
 		paintVentanas(g);
 		paintPajaros(g);
+		paintPastel(g);
 	}
 }

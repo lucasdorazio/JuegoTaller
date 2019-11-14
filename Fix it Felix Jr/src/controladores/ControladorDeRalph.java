@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import entidades.Direcciones;
+import entidades.Posicion;
 import entidades.Ralph;
 import juego.Juego;
 
@@ -143,5 +144,10 @@ public class ControladorDeRalph extends Controlador{
 				}
 			}
 		}
+	
+	}
+	
+	public Posicion getPos() {
+		return ControladorDeRalph.this.ralph.getPos();
 	}
 }
