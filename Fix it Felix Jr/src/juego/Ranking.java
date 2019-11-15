@@ -75,7 +75,6 @@ public class Ranking{
 				e.printStackTrace();
 			} 
 		}
-		
 	}
 	
 	public static Jugador[] getMejoresCinco() {
