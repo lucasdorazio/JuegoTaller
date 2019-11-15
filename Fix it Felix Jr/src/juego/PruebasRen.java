@@ -14,6 +14,8 @@ public class PruebasRen {
 		Marco mimarco= new Marco();
 		mimarco.setVisible(true);
 		System.out.println(obtenerNumero());
+		System.out.println("hola bebe");
+		
 		
 	}
 	
