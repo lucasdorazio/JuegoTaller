@@ -52,7 +52,6 @@ public class ControladorDePastel extends Controlador {
 			v = obtenerVentanaAleatoria();
 			if (v.puedoGenerarPastel()) {
 				pastel = new Pastel(v);
-				System.out.println("PASTEL GENERADO EN VENTANA [" + v.getNroFila() + "][" + v.getNroColumna() + "]");
 			}
 			timer=0;
 		}

@@ -142,12 +142,10 @@ public class Juego implements Runnable{
 		else {
 			if (reinicioNivel) {
 				iniciarNivel(true);
-				System.out.println("Quedan " + Felix.getInstance().getSeccionActual().getVentanasRestantes()
-						+ " ventanas restantes");
+				System.out.println("NIVEL REINICIADO");
 			} else if (reinicioSeccion) {
 				reiniciarSeccion();
-				System.out.println("Quedan " + Felix.getInstance().getSeccionActual().getVentanasRestantes()
-						+ " ventanas restantes");
+				System.out.println("SECCION REINICIADA");
 			} else {
 				timerTiempo++;
 				if (timerTiempo > 1000 / ControladorDeJuego.ACTUALIZACION) {
@@ -246,6 +244,7 @@ public class Juego implements Runnable{
 	}
 	
 	public void perder() {
+		ControladorDeJuego.perdio=true;
 		boolean nombreCorrecto=false;
 		System.out.println("Lo lamento, has perdido. Tu punteaje fue: "+ jugador.getPuntaje());
 		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
@@ -284,12 +283,10 @@ public class Juego implements Runnable{
 
 	public void ladrilloGolpeoAFelix() {
 		reinicioNivel=true;
-		System.out.println("Te ha golpeado un ladrillo y se reiniciará el nivel");
 	}
 
 	public void pajaroGolpeoAFelix() {
 		reinicioSeccion=true;
-		System.out.println("Te ha golpeado un pajaro y se reiniciara la seccion");
 	}
 
 	public Jugador getJugador() {

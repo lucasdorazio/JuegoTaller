@@ -33,7 +33,7 @@ public class Pajaro implements Impactable, Desplazable{
 		case 110:
 			m=0;
 			break;
-		case 100:
+		case 190:
 			m=1;
 			break;
 		case 280:

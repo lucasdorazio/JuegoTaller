@@ -12,6 +12,8 @@ public class ControladorDeJuego {
 	public static final int ACTUALIZACION=5;
 	private FrameJuego frameJuego;
 	private Timer timer;
+	public static boolean perdio = false;
+	public static boolean gano=false;
 	
 	public FrameJuego getFrameJuego() {
 		return frameJuego;
@@ -24,14 +26,12 @@ public class ControladorDeJuego {
 	}
 	
 	public void jugar() {
-		boolean perdio = false;
-		boolean gano=false;
 		Juego.getInstance().iniciarNivel(false);
 		TimerTask gameUpdate= new TimerTask() {
 			public void run() {
-				Juego.getInstance().actualizar();
+				if (!perdio || !gano) Juego.getInstance().actualizar();
 				frameJuego.repaint();
-				if (perdio || gano) timer.cancel();
+				//if (perdio || gano) timer.cancel();
 			}
 		};
 		timer.schedule(gameUpdate, 1, ACTUALIZACION);
