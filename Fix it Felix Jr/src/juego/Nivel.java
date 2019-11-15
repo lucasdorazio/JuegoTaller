@@ -187,44 +187,44 @@ public class Nivel {
 		EstadoPanel panel5 = EstadoPanel.SANO;
 		EstadoPanel panel6 = EstadoPanel.SANO;
 		EstadoPanel panel7 = EstadoPanel.SANO;
-		if (Math.random() <= probPanelRoto / 16) {
+		if (Math.random() <= probPanelRoto / 4) {
 			panel0 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 16) {
+		} else if (Math.random() <= probPanelRoto / 4) {
 			panel0 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 16) {
+		if (Math.random() <= probPanelRoto / 4) {
 			panel1 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 16) {
+		} else if (Math.random() <= probPanelRoto / 4) {
 			panel1 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 16) {
+		if (Math.random() <= probPanelRoto / 4) {
 			panel2 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 16) {
+		} else if (Math.random() <= probPanelRoto / 4) {
 			panel2 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 16) {
+		if (Math.random() <= probPanelRoto / 4) {
 			panel3 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 16) {
+		} else if (Math.random() <= probPanelRoto / 4) {
 			panel3 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 16) {
+		if (Math.random() <= probPanelRoto / 4) {
 			panel4 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 16) {
+		} else if (Math.random() <= probPanelRoto / 4) {
 			panel4 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 16) {
+		if (Math.random() <= probPanelRoto / 4) {
 			panel5 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 16) {
+		} else if (Math.random() <= probPanelRoto / 4) {
 			panel5 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 16) {
+		if (Math.random() <= probPanelRoto / 4) {
 			panel6 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 16) {
+		} else if (Math.random() <= probPanelRoto / 4) {
 			panel6 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 16) {
+		if (Math.random() <= probPanelRoto / 4) {
 			panel7 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 16) {
+		} else if (Math.random() <= probPanelRoto / 4) {
 			panel7 = EstadoPanel.MEDIO_ROTO;
 		}
 		matriz[m][n] = new SemicircularSuperior(1, 2, false, false, panel0, panel1, panel2, panel3, panel4, panel5, panel6, panel7);
