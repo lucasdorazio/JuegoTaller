@@ -110,12 +110,13 @@ public class ControladorDePastel extends Controlador<EstadoPastel> {
 	public InfoGraficable<EstadoPastel> getListaInfoGraficable() {
 		InfoGraficable<EstadoPastel> info = new InfoGraficable<EstadoPastel>();
 		List<Posicion> listaPos = new LinkedList<Posicion>();
-		listaPos.add(getPosPastel());
-		if (listaPos.get(0) != null) {
+		Posicion posPastel= getPosPastel();
+		listaPos.add(posPastel);
+		info.setListaPosiciones(listaPos);
+		if (posPastel != null) {
 			List<EstadoPastel> estado = new LinkedList<EstadoPastel>();
 			estado.add(pastel.getEstado());
 			info.setListaEstados(estado);
-			info.setListaPosiciones(listaPos);
 		}
 		return info;
 	}
