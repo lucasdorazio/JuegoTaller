@@ -48,13 +48,14 @@ public class Edificio {
 	 */
 	public void reiniciarSeccion(int nroSeccion) {
 		secciones[nroSeccion]=seccionesOriginales.clone()[nroSeccion];
-		//Nivel.generarEdificio();
+		guardarCopiaSeccion(nroSeccion);
 	}
 	/**
 	 * Reinicia el edificio a su distribucion original
 	 */
 	public void reiniciarEdificio() {
-		secciones=seccionesOriginales.clone();
+		secciones=seccionesOriginales;
+		guardarCopiaEdifio();
 	}
 	
 	public void setSecciones(Seccion[] secciones) {
@@ -63,8 +64,23 @@ public class Edificio {
 	/**
 	 * Almacena la distribucion original con la que se generó el edificio
 	 */
-	public void guardarCopiaSecciones() {
-		seccionesOriginales= secciones.clone();
+	public void guardarCopiaEdifio() {
+		//seccionesOriginales= secciones.clone();
+		seccionesOriginales= new Seccion[3];
+		for (int seccion=0;seccion<3;seccion++) {
+			guardarCopiaSeccion(seccion);
+		}
+	}
+	
+	private void guardarCopiaSeccion(int seccion) {
+		Ventana[][] matrizVentanas= new Ventana[3][5];
+		for (int i=0; i<3;i++) {
+			for (int j=0;j<5;j++) {
+				matrizVentanas[i][j]= secciones[seccion].getVentanas()[i][j].clone();
+			}
+		}
+		seccionesOriginales[seccion]= new Seccion(secciones[seccion].getVentanasRestantes(), matrizVentanas);
+		
 	}
 	
 	public Seccion[] getSecciones() {

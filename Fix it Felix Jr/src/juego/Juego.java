@@ -134,7 +134,10 @@ public class Juego implements Runnable{
 	 * e interaccion entre las diferentes entidades del juego
 	 */
 	public void actualizar() {
-		if (reinicioNivel) iniciarNivel(true);
+		if (reinicioNivel) {
+			iniciarNivel(true);
+			System.out.println("Quedan "+ Felix.getInstance().getSeccionActual().getVentanasRestantes() + " ventanas restantes");
+		}
 		else if (reinicioSeccion) {
 			reiniciarSeccion();
 			System.out.println("Quedan "+ Felix.getInstance().getSeccionActual().getVentanasRestantes() + " ventanas restantes");
@@ -152,8 +155,8 @@ public class Juego implements Runnable{
 				avanzarSeccion();
 			else {
 				for (int i=0;i<4;i++) {
-					//if (i==1) continue;
-					if (i==2) continue;
+					if (i==1) continue;
+					//if (i==2) continue;
 					controladores[i].actualizar();
 				}
 				Felix.getInstance().actualizarInvulnerabilidad();
