@@ -6,8 +6,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -23,7 +21,11 @@ import edificio.EstadoPanel;
 import edificio.Panel;
 import edificio.Ventana;
 import entidades.Direcciones;
+import entidades.EstadoPajaro;
+import entidades.EstadoPastel;
+import entidades.EstadosRalph;
 import entidades.Felix;
+import entidades.InfoGraficable;
 import entidades.Posicion;
 import juego.Juego;
 
@@ -32,7 +34,7 @@ public class FrameJuego extends JFrame {
 
 	private JPanel contentPane; 
 	private Image  fondo, seccion0, seccion1, seccion2, felix, ralph, ventanaComun, conHojas, cerrada,
-	semicircular, panelSemiRoto, panelSano, pajaro, pastel, ladrillo, semi1, semi2, semi3, semi4, semi5, semi6,
+	semicircular, panelSemiRoto, panelSano, pajaro1, pajaro2, pajaro3, pajaro4, pastel1, pastel2, ladrillo, semi1, semi2, semi3, semi4, semi5, semi6,
 	semi7, semi8,  macetero, moldura, puerta0, puerta1, puerta2, puerta3, puerta4;
 
 	public FrameJuego(Menu m) {
@@ -103,8 +105,12 @@ public class FrameJuego extends JFrame {
             semicircular=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_@.png"));
             panelSemiRoto=ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice05_05.png"));
             panelSano=ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice14_14.png"));
-            pajaro=ImageIO.read(new File("src/grafica/fixitfelixcortado/pajaro/slice08_08.png"));
-            pastel=ImageIO.read(new File("src/grafica/fixitfelixcortado/pastel/slice12_12.png"));
+            pajaro1=ImageIO.read(new File("src/grafica/fixitfelixcortado/pajaro/slice08_08.png"));
+            pajaro2=ImageIO.read(new File("src/grafica/fixitfelixcortado/pajaro/slice09_09.png"));
+            pajaro3=ImageIO.read(new File("src/grafica/fixitfelixcortado/pajaro/slice41_41.png"));
+            pajaro4=ImageIO.read(new File("src/grafica/fixitfelixcortado/pajaro/slice61_61.png"));
+            pastel1=ImageIO.read(new File("src/grafica/fixitfelixcortado/pastel/slice12_12.png"));
+            pastel2=ImageIO.read(new File("src/grafica/fixitfelixcortado/pastel/slice13_13.png"));
             ladrillo=ImageIO.read(new File("src/grafica/fixitfelixcortado/rocas/slice10_10.png"));
             semi1=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_1@.png"));
             semi2=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_2@.png"));
@@ -135,8 +141,8 @@ public class FrameJuego extends JFrame {
 				paintPajaros(g);
 				paintPastel(g);
 				paintLadrillos(g);
-				g.drawImage(felix, Felix.getInstance().getPos().getPosX(), Felix.getInstance().getPos().getPosY(), felix.getWidth(null), felix.getHeight(null), null);
-				g.drawImage(ralph, Juego.getInstance().getPosRalph().getPosX(), Juego.getInstance().getPosRalph().getPosY(), ralph.getWidth(null), ralph.getHeight(null),null);
+				//g.drawImage(felix, Felix.getInstance().getPos().getPosX(), Felix.getInstance().getPos().getPosY(), felix.getWidth(null), felix.getHeight(null), null);
+				//g.drawImage(ralph, Juego.getInstance().getPosRalph().getPosX(), Juego.getInstance().getPosRalph().getPosY(), ralph.getWidth(null), ralph.getHeight(null),null);
 			};
 		};
 //		contentPane.setBounds(100,100,675,370);
@@ -285,23 +291,50 @@ public class FrameJuego extends JFrame {
 	}
 	
 	private void paintPastel(Graphics g) {
-		Posicion pos = Juego.getInstance().getPosPastel();
+		Image imagen = null;
+		InfoGraficable<EstadoPastel> info = Juego.getInstance().getInfoGraficablePastel();
+		Posicion pos = info.getListaPosiciones().get(0);
+		EstadoPastel estado = info.getListaEstados().get(0);
 		if ( pos != null) {
-			g.drawImage(pastel, pos.getPosX(), pos.getPosY(), pastel.getWidth(null), pastel.getHeight(null), null);
+			if (estado == EstadoPastel.NORMAL1)
+				imagen = pastel1;
+			else
+				imagen = pastel2;
+			g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
 		}
 	}
 	//seria mejor que juego me de un getListaPosiciones?
 	private void paintPajaros(Graphics g) {
-		List<Posicion> lista = Juego.getInstance().getListaPosPajaros();
-		Iterator<Posicion> ite = lista.iterator();
+		int i=0;
+		Image imagen = null;
+		List<Posicion> posiciones = Juego.getInstance().getInfoGraficablePajaros().getListaPosiciones();
+		List<EstadoPajaro> estados = Juego.getInstance().getInfoGraficablePajaros().getListaEstados();
+		Iterator<Posicion> ite = posiciones.iterator();
 		Posicion pos;
 		while (ite.hasNext()) {
 			pos = ite.next();
-			g.drawImage(pajaro, pos.getPosX(), pos.getPosY(), pajaro.getWidth(null), pajaro.getHeight(null), null);
+			switch (estados.get(i)) {
+			case VOLANDO1:
+				imagen = pajaro1;
+				break;
+			case VOLANDO2:
+				imagen = pajaro2;
+				break;
+			case VOLANDO3:
+				imagen = pajaro3;
+				break;
+			case VOLANDO4:
+				imagen = pajaro4;
+				break;
+			default:
+				break;
+			}
+			g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
+			i++;
 		}
 	}
 	 private void paintLadrillos(Graphics g) {
-		 List<Posicion> lista = Juego.getInstance().getListaPosLadrillos();
+		 	List<Posicion> lista = Juego.getInstance().getInfoGraficableLadrillos().getListaPosiciones();
 			Iterator<Posicion> ite = lista.iterator();
 			Posicion pos;
 			while (ite.hasNext()) {
@@ -310,7 +343,22 @@ public class FrameJuego extends JFrame {
 			}
 	 }
 	 
-	 
+	private void paintRalph(Graphics g) {
+		Image imagen = null;
+		InfoGraficable<EstadosRalph> info = Juego.getInstance().getInfoGraficableRalph();
+		Posicion pos = info.getListaPosiciones().get(0);
+		EstadosRalph estado = info.getListaEstados().get(0);
+//		switch (estado) {
+//		case NORMAL1:
+//	
+//			break;
+//
+//		default:
+//			break;
+//		}
+		g.drawImage(ralph, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
+
+	}
 	
 	public void paintComponents(Graphics g) {
 		g.drawImage(fondo, 0, 0, this.getWidth(),this.getHeight(),null);

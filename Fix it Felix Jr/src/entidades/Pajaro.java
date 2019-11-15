@@ -17,9 +17,14 @@ public class Pajaro implements Impactable, Desplazable{
 	
 	private EstadoPajaro  estado;
 
-	public Pajaro(Posicion pos, Direcciones dir) {
+	public Pajaro(Posicion pos, Direcciones direcciones) {
 		this.pos=pos;
-		this.direccion=dir;
+		this.direccion=direcciones;
+		if (direcciones == Direcciones.DERECHA) {
+			estado = EstadoPajaro.VOLANDO1;
+		}
+		else 
+			estado = EstadoPajaro.VOLANDO3;
 	}
 	
 	/**

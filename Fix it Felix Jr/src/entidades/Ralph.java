@@ -18,6 +18,7 @@ public class Ralph implements Desplazable, Dibujable{
 	private Posicion pos;
 	private int velocidad;	//velocidad= pixeles/seg
 	private int pasosRestantes;
+	private EstadosRalph estado;
 	private Direcciones dirActual;
 	private ControladorDeLadrillos brickController;
 	
@@ -37,6 +38,7 @@ public class Ralph implements Desplazable, Dibujable{
 		this.ladrillosTotales = 40;	
 		this.pos =new Posicion(260,6);	//Parte superior de la sección, en el centro
 		this.velocidad=150;
+		this.setEstado(EstadosRalph.NORMAL1);
 	}
 	
 	/**
@@ -110,6 +112,14 @@ public class Ralph implements Desplazable, Dibujable{
 	@Override
 	public InformacionDibujable getInformacionDibujable() {
 		return new InformacionDibujable(pos.getPosX(), pos.getPosY(), 'R');
+	}
+
+	public EstadosRalph getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadosRalph estado) {
+		this.estado = estado;
 	}
 
 }

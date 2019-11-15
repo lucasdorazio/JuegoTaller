@@ -24,6 +24,7 @@ public class ControladorDePajaro extends Controlador<EstadoPajaro>{
 	private int tiempoDeSpawneo;
 	private int timerGeneracion;
 	private int timerMovimiento;
+	private int timerSwap;
 	private static List<Pajaro> listaDePajaros;
 	
 	public List<Pajaro> getListaPajaros(){
@@ -35,7 +36,7 @@ public class ControladorDePajaro extends Controlador<EstadoPajaro>{
 		listaDePajaros = new LinkedList<Pajaro>();
 		timerGeneracion=0;
 		timerMovimiento=0;
-		
+		timerSwap=0;
 	}
 	
 	public void actualizar() {
@@ -78,15 +79,40 @@ public class ControladorDePajaro extends Controlador<EstadoPajaro>{
 	 * los pajaros existentes
 	 */
 	public void moverPajaros() {
+		boolean cambiar = false;
 		timerMovimiento++;
 		Pajaro pajaro;
 		boolean impacto=false;
 		Ventana ventanaActualPajaro;
 		Ventana ventanaActualFelix=Felix.getInstance().getVentanaActual();
 		if (timerMovimiento >VELOCIDAD * ControladorDeJuego.ACTUALIZACION /1000) {
+			timerSwap++;
 			Iterator<Pajaro> ite = listaDePajaros.iterator();
+			if (timerSwap == 50) {
+				cambiar =true; 
+				timerSwap =0;
+			}
 			while (ite.hasNext() && !impacto) {
 				pajaro = ite.next();
+				if ( cambiar) {
+					switch (pajaro.getEstado()) {
+					case VOLANDO1:
+						pajaro.setEstado(EstadoPajaro.VOLANDO2);
+						break;
+					case VOLANDO2:
+						pajaro.setEstado(EstadoPajaro.VOLANDO1);
+						break;
+					case VOLANDO3:
+						pajaro.setEstado(EstadoPajaro.VOLANDO4);
+						break;
+					case VOLANDO4:
+						pajaro.setEstado(EstadoPajaro.VOLANDO3);
+						break;
+					default:
+						break;
+					}
+					
+				}
 				if (pajaro.avanzar()) {
 					ite.remove();
 				}
@@ -100,6 +126,7 @@ public class ControladorDePajaro extends Controlador<EstadoPajaro>{
 				}
 			}
 			timerMovimiento=0;
+			System.out.println(timerSwap);	
 		}
 	}
 	/**
@@ -109,29 +136,29 @@ public class ControladorDePajaro extends Controlador<EstadoPajaro>{
 		listaDePajaros.clear();
 	}
 
-	@Override
-	public List<Posicion> getListaPosEntidades() {
-		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
-		Iterator<Pajaro> ite = listaDePajaros.iterator();
-		Pajaro pajaro;
-		while (ite.hasNext()) {
-			pajaro = ite.next();
-			listaPosiciones.add(pajaro.getPos());
-		}
-		return listaPosiciones;
-	}
-	
-	@Override
-	public List<EstadoPajaro> getListaEstadoEntidades() {
-		List<EstadoPajaro> listaEstados = new LinkedList<EstadoPajaro>();
-		Iterator<Pajaro> ite = listaDePajaros.iterator();
-		Pajaro pajaro;
-		while (ite.hasNext()) {
-			pajaro = ite.next();
-			listaEstados.add(pajaro.getEstado());
-		}
-		return listaEstados;
-	}
+//	@Override
+//	public List<Posicion> getListaPosEntidades() {
+//		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
+//		Iterator<Pajaro> ite = listaDePajaros.iterator();
+//		Pajaro pajaro;
+//		while (ite.hasNext()) {
+//			pajaro = ite.next();
+//			listaPosiciones.add(pajaro.getPos());
+//		}
+//		return listaPosiciones;
+//	}
+//	
+//	@Override
+//	public List<EstadoPajaro> getListaEstadoEntidades() {
+//		List<EstadoPajaro> listaEstados = new LinkedList<EstadoPajaro>();
+//		Iterator<Pajaro> ite = listaDePajaros.iterator();
+//		Pajaro pajaro;
+//		while (ite.hasNext()) {
+//			pajaro = ite.next();
+//			listaEstados.add(pajaro.getEstado());
+//		}
+//		return listaEstados;
+//	}
 
 	@Override
 	public InfoGraficable<EstadoPajaro> getListaInfoGraficable() {

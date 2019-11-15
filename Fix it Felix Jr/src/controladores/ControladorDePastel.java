@@ -5,18 +5,22 @@ import java.util.List;
 
 import edificio.Edificio;
 import edificio.Ventana;
+import entidades.EstadoPastel;
 import entidades.Felix;
+import entidades.InfoGraficable;
 import entidades.Pastel;
 import entidades.Posicion;
 import juego.Juego;
 
-public class ControladorDePastel extends Controlador {
+public class ControladorDePastel extends Controlador<EstadoPastel> {
 
 	private int tiempoSpawneo;
 
 	private Pastel pastel;
 	
 	private int timer;
+	
+	private int timerSwap;
 
 	public ControladorDePastel() {
 		this.tiempoSpawneo = 5;
@@ -32,10 +36,18 @@ public class ControladorDePastel extends Controlador {
 				pastel = null;
 			} else {
 				timer++;
+				tiempoSpawneo++;
 				if (timer > tiempoSpawneo * 1000 / ControladorDeJuego.ACTUALIZACION) {
 					if (pastel.disminuirTiempoDeVida())
 						pastel = null;
+					if (timerSwap == 2) {
+						if (pastel.getEstado()== EstadoPastel.NORMAL1)
+							pastel.setEstado(EstadoPastel.NORMAL2);
+						else 
+							pastel.setEstado(EstadoPastel.NORMAL2);
+					}
 					timer=0;
+					timerSwap=0;
 				}
 			}
 		}
@@ -81,11 +93,31 @@ public class ControladorDePastel extends Controlador {
 		} else return null;
 	}
 
+//	@Override
+//	public List<Posicion> getListaPosEntidades() {
+//		List<Posicion> lista = new LinkedList<Posicion>();
+//		lista.add(getPosPastel());
+//		return lista;
+//	}
+//
+//	@Override
+//	public List getListaEstadoEntidades() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
 	@Override
-	public List<Posicion> getListaPosEntidades() {
-		List<Posicion> lista = new LinkedList<Posicion>();
-		lista.add(getPosPastel());
-		return lista;
+	public InfoGraficable<EstadoPastel> getListaInfoGraficable() {
+		InfoGraficable<EstadoPastel> info = new InfoGraficable<EstadoPastel>();
+		List<Posicion> listaPos = new LinkedList<Posicion>();
+		listaPos.add(getPosPastel());
+		if (listaPos.get(0) != null) {
+			List<EstadoPastel> estado = new LinkedList<EstadoPastel>();
+			estado.add(pastel.getEstado());
+			info.setListaEstados(estado);
+			info.setListaPosiciones(listaPos);
+		}
+		return info;
 	}
 
 }

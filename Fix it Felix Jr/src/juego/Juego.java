@@ -10,7 +10,11 @@ import controladores.ControladorDePastel;
 import controladores.ControladorDeRalph;
 import edificio.Edificio;
 import edificio.Seccion;
+import entidades.EstadoPajaro;
+import entidades.EstadoPastel;
+import entidades.EstadosRalph;
 import entidades.Felix;
+import entidades.InfoGraficable;
 /**
  * Clase que conecta todas las componentes del juego, ya sea conociendolas
  * o usandolas como atributos propios.
@@ -296,22 +300,23 @@ public class Juego implements Runnable{
 	public void setNroNivel (int nroNivel) {
 		this.nroNivel=nroNivel;
 	}
-	//verificar si se puede hacer de otra manera
-	public List<Posicion> getListaPosPajaros(){
-		List<Posicion> posiciones = controladores[2].getListaPosEntidades();
-		
-		return controladores[2].getListaPosEntidades();
+	
+	@SuppressWarnings("unchecked")
+	public InfoGraficable<EstadoPajaro> getInfoGraficablePajaros(){
+		return controladores[2].getListaInfoGraficable();
 	}
 
-	public List<Posicion> getListaPosLadrillos(){
-		return controladores[0].getListaPosEntidades();
+	public InfoGraficable<?> getInfoGraficableLadrillos(){
+		return controladores[0].getListaInfoGraficable();
 	}
 	
-	public Posicion getPosPastel() {
-		return controladores[3].getListaPosEntidades().get(0);
+	@SuppressWarnings("unchecked")
+	public InfoGraficable<EstadoPastel> getInfoGraficablePastel(){ 
+		return controladores[3].getListaInfoGraficable();
 	}
 	
-	public Posicion getPosRalph() {
-		return controladores[1].getListaPosEntidades().get(0);
+	@SuppressWarnings("unchecked")
+	public InfoGraficable<EstadosRalph> getInfoGraficableRalph() {
+		return controladores[1].getListaInfoGraficable();
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import edificio.Ventana;
 import entidades.Felix;
+import entidades.InfoGraficable;
 import entidades.Ladrillo;
 import entidades.Posicion;
 import juego.Juego;
@@ -15,6 +16,7 @@ import juego.Juego;
  * @author Lucas y Renzo
  *
  */
+@SuppressWarnings("rawtypes")
 public class ControladorDeLadrillos extends Controlador{
 
 	private static List<Ladrillo> listaLadrillos = new LinkedList<Ladrillo>();
@@ -79,16 +81,36 @@ public class ControladorDeLadrillos extends Controlador{
 		listaLadrillos.clear();
 	}
 
+//	@Override
+//	public List<Posicion> getListaPosEntidades() {
+//		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
+//		Iterator<Ladrillo> ite = listaLadrillos.iterator();
+//		Ladrillo ladrillo;
+//		while (ite.hasNext()) {
+//			ladrillo = ite.next();
+//			listaPosiciones.add(ladrillo.getPos());
+//		}
+//		return listaPosiciones;
+//	}
+
+//	@Override
+//	public List<?> getListaEstadoEntidades() {
+//		return null;
+//	}
+
 	@Override
-	public List<Posicion> getListaPosEntidades() {
-		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
+	public InfoGraficable<?> getListaInfoGraficable() {
+		InfoGraficable<?> info = new InfoGraficable<>();
 		Iterator<Ladrillo> ite = listaLadrillos.iterator();
+		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
 		Ladrillo ladrillo;
 		while (ite.hasNext()) {
 			ladrillo = ite.next();
 			listaPosiciones.add(ladrillo.getPos());
 		}
-		return listaPosiciones;
+		info.setListaEstados(null);
+		info.setListaPosiciones(listaPosiciones);
+		return info;
 	}
 
 }
