@@ -29,30 +29,43 @@ public class Pajaro implements Impactable, Desplazable{
 		int n=-1;
 		int posY=pos.getPosY();
 		int posX=pos.getPosX();//distancia entre el limite izquierdo y el comienzo de la seccion
-		if (posY>=33 && posY<= 102) {
+		switch (posY) {
+		case 110:
+			m=0;
+			break;
+		case 100:
+			m=1;
+			break;
+		case 280:
 			m=2;
+			break;
+		default:
+			break;
+		}
+		if (posY == 130) {
+			m=0;
 		} else {
-			if (posY>=135 && posY<=205) {
+			if (posY>=180 && posY<=240) {
 				m=1;
 			} else {
-				if(posY>=238 && posY<=307) {
-					m=0;
+				if(posY>=260 && posY<=340) {
+					m=2;
 				}
 			}
 		}
-		if (posX>=22 && posX<=63) {
+		if (posX>=214 && posX<=252) {
 			n=0;
 		} else {
-			if (posX>=85 && posX<=127) {
+			if (posX>=266 && posX<=304) {
 				n=1;
 			} else {
-				if(posX>=149 && posX<=191) {
+				if(posX>=318 && posX<=356) {
 					n=2;
 				} else {
-					if(posX>=212 && posX<=254) {
+					if(posX>=370 && posX<=408) {
 						n=3;
 					} else {
-						if(posX>=276 && posX<=318) {
+						if(posX>=422 && posX<=460) {
 							n=4;
 						}
 					}

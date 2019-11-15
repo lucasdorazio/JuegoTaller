@@ -62,9 +62,9 @@ public class ControladorDePajaro extends Controlador{
 	private Pajaro crearPajaro(int fila, Direcciones dir) {
 		int posY=0, posX;
 		switch (fila){
-		case 0: posY= 268; break;
-		case 1: posY= 168; break;
-		case 2: posY= 68; break;
+		case 0: posY= 110; break;
+		case 1: posY= 190; break;
+		case 2: posY= 280; break;
 		}
 		if (dir==Direcciones.DERECHA) posX=Juego.LIMITE_IZQUIERDO_MAPA;
 		else posX=Juego.LIMITE_DERECHO_MAPA;
