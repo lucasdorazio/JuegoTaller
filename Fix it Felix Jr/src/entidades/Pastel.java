@@ -11,6 +11,8 @@ public class Pastel implements Impactable {
 
 	private int tiempoDeVida;
 	
+	private EstadoPastel estado;
+	
 	private Ventana ventanaActual;
 	
 	/**
@@ -20,6 +22,7 @@ public class Pastel implements Impactable {
 	public Pastel(Ventana v) {
 		this.ventanaActual= v;
 		this.tiempoDeVida=15;	//Un pastel se mantendrá en una ventana por 15 segundos
+		this.setEstado(EstadoPastel.NORMAL1);
 	}
 	
 	/**
@@ -36,6 +39,14 @@ public class Pastel implements Impactable {
 	@Override
 	public Ventana devolverVentana() {
 		return this.ventanaActual;
+	}
+
+	public EstadoPastel getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoPastel estado) {
+		this.estado = estado;
 	}
 
 }

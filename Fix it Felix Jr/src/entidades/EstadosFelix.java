@@ -1,0 +1,13 @@
+package entidades;
+
+public enum EstadosFelix {
+	NORMAL1,
+	NORMAL2,
+	MARTILLANDO1,
+	MARTILLANDO2,
+	MARTILLANDO3,
+	MARTILLANDO4,
+	INVULNERABLE1,
+	INVULNERABLE2,
+	
+}

@@ -154,24 +154,24 @@ public class Nivel {
 		EstadoPanel panel1 = EstadoPanel.SANO;
 		EstadoPanel panel2 = EstadoPanel.SANO;
 		EstadoPanel panel3 = EstadoPanel.SANO;
-		if (Math.random() <= probPanelRoto / 8) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel0 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 8) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel0 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 8) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel1 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 8) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel1 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 8) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel2 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 8) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel2 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 8) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel3 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 8) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel3 = EstadoPanel.MEDIO_ROTO;
 		}
 		puerta [m][n]= new Puerta(2, 2, false, false, panel0, panel1, panel2, panel3);
@@ -186,44 +186,44 @@ public class Nivel {
 		EstadoPanel panel5 = EstadoPanel.SANO;
 		EstadoPanel panel6 = EstadoPanel.SANO;
 		EstadoPanel panel7 = EstadoPanel.SANO;
-		if (Math.random() <= probPanelRoto / 4) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel0 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 4) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel0 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 4) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel1 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 4) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel1 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 4) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel2 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 4) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel2 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 4) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel3 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 4) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel3 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 4) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel4 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 4) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel4 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 4) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel5 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 4) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel5 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 4) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel6 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 4) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel6 = EstadoPanel.MEDIO_ROTO;
 		}
-		if (Math.random() <= probPanelRoto / 4) {
+		if (Math.random() <= probPanelRoto / 2) {
 			panel7 = EstadoPanel.ROTO;
-		} else if (Math.random() <= probPanelRoto / 4) {
+		} else if (Math.random() <= probPanelRoto / 2) {
 			panel7 = EstadoPanel.MEDIO_ROTO;
 		}
 		matriz[m][n] = new SemicircularSuperior(1, 2, false, false, panel0, panel1, panel2, panel3, panel4, panel5, panel6, panel7);

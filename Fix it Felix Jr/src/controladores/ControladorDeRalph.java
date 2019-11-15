@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import entidades.Direcciones;
+import entidades.EstadoPastel;
+import entidades.EstadosRalph;
+import entidades.InfoGraficable;
 import entidades.Posicion;
 import entidades.Ralph;
 
@@ -13,6 +16,7 @@ import entidades.Ralph;
  * @author Lucas y Renzo
  * @version 1.0
  */
+@SuppressWarnings("rawtypes")
 public class ControladorDeRalph extends Controlador{
 	private int tiempoDeGolpeo; // Cada cuantos segundos Ralph golpea
 	private int tiempoDeDesplazamiento; // Cada cuantos segundos Ralph se mueve
@@ -97,10 +101,21 @@ public class ControladorDeRalph extends Controlador{
 
 	public void avanzarSeccion() {
 	}
+//	@Override
+//	public List<Posicion> getListaPosEntidades() {
+//		List<Posicion> lista = new LinkedList<Posicion>();
+//		lista.add(ralph.getPos());
+//		return lista;
+//	}
 	@Override
-	public List<Posicion> getListaPosEntidades() {
-		List<Posicion> lista = new LinkedList<Posicion>();
-		lista.add(ralph.getPos());
-		return lista;
+	public InfoGraficable getListaInfoGraficable() {
+		InfoGraficable<EstadosRalph> info = new InfoGraficable<EstadosRalph>();
+		List<Posicion> pos = new LinkedList<Posicion>();
+		pos.add(ralph.getPos());
+		List<EstadosRalph> estado = new LinkedList<EstadosRalph>();
+		estado.add(ralph.getEstado());
+		info.setListaEstados(estado);
+		info.setListaPosiciones(pos);
+		return info;
 	}
 }

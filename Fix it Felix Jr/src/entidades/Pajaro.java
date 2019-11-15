@@ -14,10 +14,17 @@ public class Pajaro implements Impactable, Desplazable{
 	private Direcciones direccion;
 	
 	private Posicion pos;
+	
+	private EstadoPajaro  estado;
 
-	public Pajaro(Posicion pos, Direcciones dir) {
+	public Pajaro(Posicion pos, Direcciones direcciones) {
 		this.pos=pos;
-		this.direccion=dir;
+		this.direccion=direcciones;
+		if (direcciones == Direcciones.DERECHA) {
+			estado = EstadoPajaro.VOLANDO1;
+		}
+		else 
+			estado = EstadoPajaro.VOLANDO3;
 	}
 	
 	/**
@@ -92,6 +99,14 @@ public class Pajaro implements Impactable, Desplazable{
 													//System.out.println("Pajaro avanza a la izquierda");
 			return (pos.getPosX()<Juego.LIMITE_IZQUIERDO_MAPA);
 		}
+	}
+
+	public EstadoPajaro getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoPajaro estado) {
+		this.estado = estado;
 	}
 
 }
