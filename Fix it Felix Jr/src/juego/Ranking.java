@@ -90,5 +90,9 @@ public class Ranking{
 		mejoresCinco[4]= new Jugador("ernesto", 100);
 		
 		}
+
+	public boolean estaEntreLosMejoresCinco(int puntaje) {
+		return (puntaje > mejoresCinco[4].getPuntaje());
+	}
 		
 }

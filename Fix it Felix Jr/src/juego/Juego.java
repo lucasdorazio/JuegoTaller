@@ -20,6 +20,9 @@ import entidades.Felix;
  */
 import entidades.Posicion;
 import excepciones.ImproperNameException;
+import excepciones.InvalidCharacterNameException;
+import excepciones.TooLongNameException;
+import excepciones.TooShortNameException;
 public class Juego implements Runnable{
 	
 	private static Juego INSTANCE;
@@ -215,10 +218,19 @@ public class Juego implements Runnable{
 	}
 	
 	public void ganar() {
-		if (jugador.getPuntaje() > ranking.getMejoresCinco()[4].getPuntaje()) {
-			pedirNombre();
-		}else 
-			System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
+		boolean nombreCorrecto=false;
+		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
+		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
+			while (!nombreCorrecto) {
+				try {
+					pedirNombre();
+					nombreCorrecto = true;
+				} catch (ImproperNameException e) {
+					System.out.println("ERROR: " + e.toString());
+				}
+			}
+			ranking.actualizarRanking(jugador);
+		}
 	}
 	
 	public void pedirNombre() throws ImproperNameException{
@@ -226,12 +238,27 @@ public class Juego implements Runnable{
 		String nombre;
 		System.out.println("Felicitaciones, su puntaje esta en el Top5, ingrese su nombre");
 		nombre= teclado.next();
-		if (nombre.isEmpty()) throw new ImproperNameException();
 		teclado.close();
+		if (nombre.length() < 2) throw new TooShortNameException();
+		if (nombre.length() > 20) throw new TooLongNameException();
+		if (nombre.contains(" ")) throw new InvalidCharacterNameException();
+		jugador.setNick(nombre);
 	}
 	
 	public void perder() {
-		System.out.println("Perdiste pichon");
+		boolean nombreCorrecto=false;
+		System.out.println("Lo lamento, has perdido. Tu punteaje fue: "+ jugador.getPuntaje());
+		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
+			while (!nombreCorrecto) {
+				try {
+					pedirNombre();
+					nombreCorrecto = true;
+				} catch (ImproperNameException e) {
+					System.out.println("ERROR: " + e.toString());
+				}
+			}
+			ranking.actualizarRanking(jugador);
+		}
 	}
 	
 	

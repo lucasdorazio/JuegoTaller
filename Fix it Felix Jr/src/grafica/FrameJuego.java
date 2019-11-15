@@ -215,7 +215,6 @@ public class FrameJuego extends JFrame {
 				cantRotos++;
 			}
 		}
-		System.out.println("paneles rotos= "+ cantRotos);
 		switch (cantRotos) {
 		case 0:
 			ventana=semicircular;
@@ -259,7 +258,6 @@ public class FrameJuego extends JFrame {
 				cantRotos++;
 			}
 		}
-		System.out.println("puertas rotos= "+ cantRotos);
 		switch (cantRotos) {
 		case 0:
 			ventana=puerta0;

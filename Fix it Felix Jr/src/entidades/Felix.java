@@ -53,7 +53,6 @@ public class Felix {
 			Juego.getInstance().getJugador().sumarPuntaje(100);
 			seccionActual.disminuirVentanasRestantes();
 			Juego.getInstance().comprobarSeccionLimpia(seccionActual);
-			System.out.println("VENTANA REPARADA");
 		}
 	}
 

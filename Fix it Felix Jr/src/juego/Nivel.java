@@ -39,7 +39,6 @@ public class Nivel {
 				Dificultad.getProbObstaculos(nroNivel), Dificultad.getProbVentAbierta(nroNivel));
 		Edificio.getInstance().setSecciones(secciones);
 		Edificio.getInstance().guardarCopiaEdifio();
-		System.out.println("Ventanas restantes= "+ Edificio.getInstance().getSecciones()[0].getVentanasRestantes());
 	}
 
 	private Seccion generarSeccion(double probPanelRoto, double probObstaculo,
