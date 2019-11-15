@@ -28,7 +28,7 @@ public class Pajaro implements Impactable, Desplazable{
 		int m=-1;
 		int n=-1;
 		int posY=pos.getPosY();
-		int posX=pos.getPosX()-180;//distancia entre el limite izquierdo y el comienzo de la seccion
+		int posX=pos.getPosX();//distancia entre el limite izquierdo y el comienzo de la seccion
 		if (posY>=33 && posY<= 102) {
 			m=2;
 		} else {

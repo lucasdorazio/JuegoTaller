@@ -64,8 +64,6 @@ public class ControladorDeRalph extends Controlador{
 				if (ralph.avanzar()) {
 					estaMoviendose = false;
 					timerIntervaloMovimiento = 0;
-					System.out.println("Ralph termino de moverse y su posicion es (" + ralph.getPos().getPosX() + ";"
-							+ ralph.getPos().getPosY() + ")");
 				}
 				timerMover=0;
 			}

@@ -1,5 +1,6 @@
 package entidades;
 
+import controladores.ControladorDeJuego;
 import edificio.Seccion;
 import edificio.Ventana;
 import juego.Juego;
@@ -52,7 +53,7 @@ public class Felix {
 			Juego.getInstance().getJugador().sumarPuntaje(100);
 			seccionActual.disminuirVentanasRestantes();
 			Juego.getInstance().comprobarSeccionLimpia(seccionActual);
-			System.out.println("...y arregló una ventana!");
+			System.out.println("VENTANA REPARADA");
 		}
 	}
 
@@ -171,7 +172,7 @@ public class Felix {
 	public void actualizarInvulnerabilidad() {
 		if (this.vulnerable == false) {
 			timerInvulnerabilidad++;
-			if (timerInvulnerabilidad > tiempoInvulnerabilidad * Juego.CONST_TIEMPO) {
+			if (timerInvulnerabilidad > tiempoInvulnerabilidad * 1000 / ControladorDeJuego.ACTUALIZACION) {
 				this.vulnerable = true;
 				timerInvulnerabilidad = 0;
 			}

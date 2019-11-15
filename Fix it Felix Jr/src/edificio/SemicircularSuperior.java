@@ -88,7 +88,7 @@ public class SemicircularSuperior extends Semicircular {
 
 	@Override
 	public EstadoPanel[] getEstadoPaneles() {
-		EstadoPanel[] estados = new EstadoPanel[7];
+		EstadoPanel[] estados = new EstadoPanel[8];
 		estados[0]=this.paneles[0].getEstado();
 		estados[1]=this.paneles[1].getEstado();
 		estados[2]=this.paneles[2].getEstado();

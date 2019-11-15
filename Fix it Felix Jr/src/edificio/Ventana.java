@@ -8,7 +8,7 @@ import entidades.Direcciones;
  *
  */
 
-public abstract class Ventana{
+public abstract class Ventana implements Cloneable{
 	
 	private int nroFila;
 	private int nroColumna;
@@ -89,5 +89,33 @@ public abstract class Ventana{
 	public TipoVentana getTipo() {
 		return tipo;
 	}
-
+	
+	public Ventana clone() {
+		Ventana v;
+		switch (tipo) {
+		case COMUN:
+			v= new Comun(nroFila, nroColumna, tieneMacetero, tieneMoldura, getEstadoPaneles()[0], getEstadoPaneles()[1]);
+			break;
+		case CONHOJAS:
+			v= new ConHojas(nroFila, nroColumna, tieneMacetero, tieneMoldura, EstadoPanel.SANO, EstadoPanel.SANO, true);
+			break;
+		case CONHOJASCERRADA:
+			v= new ConHojas(nroFila, nroColumna, tieneMacetero, tieneMoldura, EstadoPanel.SANO, EstadoPanel.SANO, false);
+			break;
+		case PUERTA:
+			v= new Puerta(nroFila, nroColumna, tieneMacetero, tieneMoldura, getEstadoPaneles()[0], getEstadoPaneles()[1],
+					getEstadoPaneles()[2], getEstadoPaneles()[3]);
+			break;
+		case SEMICIRCULAR:
+			v= new SemicircularSuperior(nroFila, nroColumna, tieneMacetero, tieneMoldura, getEstadoPaneles()[0], getEstadoPaneles()[1],
+					getEstadoPaneles()[2], getEstadoPaneles()[3], getEstadoPaneles()[4], getEstadoPaneles()[5], 
+					getEstadoPaneles()[6], getEstadoPaneles()[7]);
+			break;
+		default:
+			System.out.println("FATAL ERROR EN LA CLONACION DE VENTANAS");
+			v=null;
+			break;
+		}
+		return v;
+	}
 }

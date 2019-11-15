@@ -68,7 +68,6 @@ public class ControladorDePajaro extends Controlador{
 		}
 		if (dir==Direcciones.DERECHA) posX=Juego.LIMITE_IZQUIERDO_MAPA;
 		else posX=Juego.LIMITE_DERECHO_MAPA;
-		System.out.println("Se genero un pajaro en ("+ posX+","+ posY+")");
 		return new Pajaro(new Posicion(posX, posY), dir);
 	}
 
