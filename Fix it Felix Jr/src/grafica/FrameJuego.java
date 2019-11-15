@@ -20,6 +20,7 @@ import controladores.ControladorDePajaro;
 import edificio.ConHojas;
 import edificio.Edificio;
 import edificio.EstadoPanel;
+import edificio.Panel;
 import edificio.Ventana;
 import entidades.Direcciones;
 import entidades.Felix;
@@ -36,10 +37,11 @@ public class FrameJuego extends JFrame {
 	private Thread hiloJuego;
 	private Thread hiloPausa;
 	private Image  fondo, seccion0, seccion1, seccion2, felix, ralph, ventanaComun, puerta, conHojas, cerrada,
-	semicircular, panelSemiRoto, panelSano, pajaro, pastel, ladrillo;
+	semicircular, panelSemiRoto, panelSano, pajaro, pastel, ladrillo, semi1, semi2, semi3, semi4, semi5, semi6, semi7, semi8;
 
 	public FrameJuego(Menu m) {
 		addKeyListener(new KeyAdapter() {
+			@SuppressWarnings("deprecation")
 			public void keyPressed(KeyEvent tecla) {
 				switch (tecla.getKeyCode()) {
 				case 37:
@@ -93,6 +95,14 @@ public class FrameJuego extends JFrame {
             pajaro=ImageIO.read(new File("src/grafica/fixitfelixcortado/pajaro/slice08_08.png"));
             pastel=ImageIO.read(new File("src/grafica/fixitfelixcortado/pastel/slice12_12.png"));
             ladrillo=ImageIO.read(new File("src/grafica/fixitfelixcortado/rocas/slice10_10.png"));
+            semi1=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_1@.png"));
+            semi2=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_2@.png"));
+            semi3=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_3@.png"));
+            semi4=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_4@.png"));
+            semi5=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_5@.png"));
+            semi6=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_6@.png"));
+            semi7=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_7@.png"));
+            semi8=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice602_8@.png"));
 		} catch (IOException ex) {
             ex.printStackTrace();	
         }
@@ -136,7 +146,6 @@ public class FrameJuego extends JFrame {
 	private void paintVentanas(Graphics g) {
 		Ventana[][] m=Edificio.getInstance().getSecciones()[Juego.getInstance().getNroSeccion()].getVentanas();
 		Ventana v;
-		int modifY, modifX;
 		for (int i=0; i<5; i++) {
 			modifY=0;
 			g.drawImage(cerrada, 214+52*i, 20, cerrada.getWidth(null), cerrada.getHeight(null), null);
@@ -154,12 +163,11 @@ public class FrameJuego extends JFrame {
 				case CONHOJASCERRADA:
 					g.drawImage(cerrada, 214+52*i, 100+80*j, cerrada.getWidth(null), cerrada.getHeight(null), null);
 				case SEMICIRCULAR:
-					g.drawImage(semicircular, 214+52*i-11, 100+80*j, semicircular.getWidth(null), semicircular.getHeight(null), null);
-					paintPanelesSemicircular(g);
+					paintPanelesSemicircular(g, v);
 					break;
 				case PUERTA:
 					g.drawImage(puerta, 214+52*i-11, 100+80*j-25, puerta.getWidth(null), puerta.getHeight(null), null);
-					paintPanelesPuerta(g);
+					//paintPanelesPuerta(g);
 					break;
 				}
 				//g.drawImage(ventanaActual, 214+52*i+modifX, 20+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
@@ -181,6 +189,45 @@ public class FrameJuego extends JFrame {
 	}
 	
 	private void paintPanelesSemicircular(Graphics g, Ventana v) {
+		Image ventana = null;
+		int cantRotos = 0;
+		for (int i = 0; i < 8; i++) {
+			if (v.getEstadoPaneles()[i] != EstadoPanel.SANO) {
+				cantRotos++;
+			}
+		}
+		switch (cantRotos) {
+		case 0:
+			ventana=semicircular;
+			break;
+		case 1:
+			ventana=semi1;
+			break;
+		case 2:
+			ventana=semi2;
+			break;
+		case 3:
+			ventana=semi3;
+			break;
+		case 4:
+			ventana=semi4;
+			break;
+		case 5:
+			ventana=semi5;
+			break;
+		case 6:
+			ventana=semi6;
+			break;
+		case 7:
+			ventana=semi7;
+			break;
+		case 8:
+			ventana=semi8;
+			break;
+		default:
+			break;
+		}
+		g.drawImage(ventana, 214+52*v.getNroColumna()-11, 100+80*v.getNroFila(), ventana.getWidth(null), ventana.getHeight(null), null);
 	}
 	
 	private void paintPanelesPuerta(Graphics g, Ventana v) {
