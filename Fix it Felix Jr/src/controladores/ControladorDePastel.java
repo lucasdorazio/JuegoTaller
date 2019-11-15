@@ -19,11 +19,9 @@ public class ControladorDePastel extends Controlador<EstadoPastel> {
 	private Pastel pastel;
 	
 	private int timer;
-	
-	private int timerSwap;
 
 	public ControladorDePastel() {
-		this.tiempoSpawneo = 5;
+		this.tiempoSpawneo = 4;
 		timer=0;
 	}
 
@@ -36,18 +34,14 @@ public class ControladorDePastel extends Controlador<EstadoPastel> {
 				pastel = null;
 			} else {
 				timer++;
-				tiempoSpawneo++;
 				if (timer > tiempoSpawneo * 1000 / ControladorDeJuego.ACTUALIZACION) {
+					if (pastel.getEstado() == EstadoPastel.NORMAL1)
+						pastel.setEstado(EstadoPastel.NORMAL2);
+					else
+						pastel.setEstado(EstadoPastel.NORMAL1);
 					if (pastel.disminuirTiempoDeVida())
 						pastel = null;
-					if (timerSwap == 2) {
-						if (pastel.getEstado()== EstadoPastel.NORMAL1)
-							pastel.setEstado(EstadoPastel.NORMAL2);
-						else 
-							pastel.setEstado(EstadoPastel.NORMAL2);
-					}
-					timer=0;
-					timerSwap=0;
+					timer = 0;
 				}
 			}
 		}
@@ -115,8 +109,8 @@ public class ControladorDePastel extends Controlador<EstadoPastel> {
 			List<EstadoPastel> estado = new LinkedList<EstadoPastel>();
 			estado.add(pastel.getEstado());
 			info.setListaEstados(estado);
-			info.setListaPosiciones(listaPos);
 		}
+		info.setListaPosiciones(listaPos);
 		return info;
 	}
 

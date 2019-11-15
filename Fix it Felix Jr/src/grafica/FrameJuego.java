@@ -294,8 +294,9 @@ public class FrameJuego extends JFrame {
 		Image imagen = null;
 		InfoGraficable<EstadoPastel> info = Juego.getInstance().getInfoGraficablePastel();
 		Posicion pos = info.getListaPosiciones().get(0);
-		EstadoPastel estado = info.getListaEstados().get(0);
+		EstadoPastel estado;
 		if ( pos != null) {
+			 estado = info.getListaEstados().get(0);
 			if (estado == EstadoPastel.NORMAL1)
 				imagen = pastel1;
 			else

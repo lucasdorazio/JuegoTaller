@@ -125,8 +125,7 @@ public class ControladorDePajaro extends Controlador<EstadoPajaro>{
 					}
 				}
 			}
-			timerMovimiento=0;
-			System.out.println(timerSwap);	
+			timerMovimiento=0;	
 		}
 	}
 	/**
