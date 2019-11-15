@@ -1,6 +1,5 @@
 package entidades;
 
-import controladores.ControladorDePajaro;
 import edificio.Edificio;
 import edificio.Ventana;
 import juego.Juego;

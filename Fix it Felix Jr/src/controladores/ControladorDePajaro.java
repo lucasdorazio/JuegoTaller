@@ -3,7 +3,6 @@ package controladores;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import edificio.Ventana;
 import entidades.Direcciones;

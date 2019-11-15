@@ -12,11 +12,10 @@ import juego.Juego;
 
 public class ControladorDePastel extends Controlador {
 
-	//private int timer;
-
 	private int tiempoSpawneo;
 
 	private Pastel pastel;
+	
 	private int timer;
 
 	public ControladorDePastel() {
@@ -31,22 +30,16 @@ public class ControladorDePastel extends Controlador {
 			if (pastel.devolverVentana().equals(Felix.getInstance().getVentanaActual())) {
 				Felix.getInstance().recibirImpactoPastel();
 				pastel = null;
-			} else if (pastel.disminuirTiempoDeVida())
-				pastel = null;
-
+			} else {
+				timer++;
+				if (timer > tiempoSpawneo * 1000 / ControladorDeJuego.ACTUALIZACION) {
+					if (pastel.disminuirTiempoDeVida())
+						pastel = null;
+					timer=0;
+				}
+			}
 		}
 	}
-	
-	public void comprobarColision() {
-		if (pastel != null) {
-			if (pastel.devolverVentana().equals(Felix.getInstance().getVentanaActual())) {
-				Felix.getInstance().recibirImpactoPastel();
-				pastel = null;
-			} else if (pastel.disminuirTiempoDeVida())
-				pastel = null;
-		}
-	}
-	
 	
 
 	/**
@@ -55,7 +48,7 @@ public class ControladorDePastel extends Controlador {
 	private void generarPastel() {
 		timer++;
 		Ventana v;
-		if (timer > tiempoSpawneo *1000/5) {
+		if (timer > tiempoSpawneo *1000/ ControladorDeJuego.ACTUALIZACION) {
 			v = obtenerVentanaAleatoria();
 			if (v.puedoGenerarPastel()) {
 				pastel = new Pastel(v);

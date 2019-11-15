@@ -1,7 +1,6 @@
 package entidades;
 
 import edificio.Ventana;
-import juego.Juego;
 
 /**
  * Clase que modela los pasteles otorgados por los Nicelanders y le suman puntos al jugador al tomarlos
@@ -12,8 +11,6 @@ public class Pastel implements Impactable {
 
 	private int tiempoDeVida;
 	
-	private int timer;
-	
 	private Ventana ventanaActual;
 	
 	/**
@@ -23,18 +20,13 @@ public class Pastel implements Impactable {
 	public Pastel(Ventana v) {
 		this.ventanaActual=v;
 		this.tiempoDeVida=15;	//Un pastel se mantendrá en una ventana por 15 segundos
-		this.timer=0;
 	}
 	
 	/**
 	 * @return true cuando el pastel debe ser eliminado porque no le queda más tiempo de vida
 	 */
 	public boolean disminuirTiempoDeVida() {
-		timer++;
-		if (timer>Juego.CONST_TIEMPO) {
-			tiempoDeVida--;
-			timer=0;
-		}
+		tiempoDeVida--;
 		return (tiempoDeVida==0);
 	}
 	

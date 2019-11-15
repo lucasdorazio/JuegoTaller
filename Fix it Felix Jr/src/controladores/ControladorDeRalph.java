@@ -2,13 +2,10 @@ package controladores;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import entidades.Direcciones;
 import entidades.Posicion;
 import entidades.Ralph;
-import juego.Juego;
 
 /**
  * ControladorDeRalph manejara al objeto de clase Ralph, sus movimientos
@@ -39,7 +36,6 @@ public class ControladorDeRalph extends Controlador{
 		this.tiempoDeGolpeo=tiempoDeGolpeo;
 		this.tiempoDeDesplazamiento= 12;
 		this.velocidad=150;
-		System.out.println("tiempo de golpeo es " + tiempoDeGolpeo);
 		ralph= new Ralph(brickController);
 		timerIntervaloGolpeo = 1000;
 		timerIntervaloMovimiento = 0;
@@ -85,7 +81,6 @@ public class ControladorDeRalph extends Controlador{
 		} else {
 			timerIntervaloMovimiento++;
 			timerIntervaloGolpeo++;
-			int antesdeborrarestavariablecambiael0delifdeabajo;
 			if (timerIntervaloMovimiento > (tiempoDeDesplazamiento * 1000 / ControladorDeJuego.ACTUALIZACION)) {
 				if ((int) (Math.random() * 2) == 0)
 					dir = Direcciones.DERECHA;

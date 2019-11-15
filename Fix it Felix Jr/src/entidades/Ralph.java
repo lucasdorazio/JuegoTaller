@@ -2,7 +2,6 @@ package entidades;
 
 import controladores.ControladorDeLadrillos;
 import edificio.Edificio;
-import juego.Juego;
 import taller2.modelo.Dibujable;
 import taller2.modelo.InformacionDibujable;
 
