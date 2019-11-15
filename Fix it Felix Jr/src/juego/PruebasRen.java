@@ -5,17 +5,26 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
+import excepciones.ImproperNameException;
+
 public class PruebasRen {
 	static HiloIndependiente  hiloMovimiento= new HiloIndependiente();
 	static HiloDependiente hiloGolpeo= new HiloDependiente(hiloMovimiento);
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Marco mimarco= new Marco();
-		mimarco.setVisible(true);
-		System.out.println(obtenerNumero());
-		System.out.println("hola bebe");
-		
+//		Marco mimarco= new Marco();
+//		mimarco.setVisible(true);
+		boolean nombreCorrecto=false;
+		while (!nombreCorrecto) {
+			try {
+				Juego.getInstance().pedirNombre();
+				nombreCorrecto = true;
+			} catch (ImproperNameException e) {
+				System.out.println("ERROR: " + e.toString());
+			}
+		}
+		System.out.println("Salio del while");
 		
 	}
 	

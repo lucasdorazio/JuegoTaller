@@ -234,7 +234,7 @@ public class Juego implements Runnable{
 	public void pedirNombre() throws ImproperNameException{
 		Scanner teclado= new Scanner(System.in);
 		String nombre;
-		System.out.println("Felicitaciones, su puntaje esta en el Top5, ingrese su nombre");
+		System.out.println("Ingrese su nombre");
 		nombre= teclado.next();
 		teclado.close();
 		if (nombre.length() < 2) throw new TooShortNameException();

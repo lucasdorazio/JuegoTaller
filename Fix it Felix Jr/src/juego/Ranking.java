@@ -30,7 +30,7 @@ public class Ranking{
 			pos++;
 		}
 		if (pos < 5) {
-			for (int j = 5; j > pos; j--) {
+			for (int j = 4; j > pos; j--) {
 				mejoresCinco[j] = mejoresCinco[j - 1];
 			}
 			mejoresCinco[pos] = jugador;
@@ -79,10 +79,12 @@ public class Ranking{
 	}
 	
 	public static Jugador[] getMejoresCinco() {
+		if (mejoresCinco== null) cargarMejoresJugadores();
 		return mejoresCinco;
 	}
 	// para probar stream
-	public void cargarMejoresJugadores() {
+	public static void cargarMejoresJugadores() {
+		mejoresCinco= new Jugador[5];
 		mejoresCinco[0]= new Jugador("Manuel", 500);
 		mejoresCinco[1]= new Jugador("juan", 400);
 		mejoresCinco[2]= new Jugador("ricky", 300);

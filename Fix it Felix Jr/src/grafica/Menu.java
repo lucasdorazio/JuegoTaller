@@ -101,13 +101,13 @@ public class Menu extends JFrame {
 		contentPane.add(botonJugar);
 		
 		JButton botonRanking = new JButton("RANKING");
+		TopJugadores framTop = new TopJugadores(Ranking.getMejoresCinco());
 		botonRanking.setFont(CambiarFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
 		botonRanking.setBounds(570, 400, 145, 73);
 		botonRanking.addActionListener(new ActionListener() {
 		//hacer invisible el menu
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TopJugadores framTop = new TopJugadores(Ranking.getMejoresCinco());
 				framTop.setVisible(true);
 			}
 		});
