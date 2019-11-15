@@ -10,11 +10,8 @@ import juego.Juego;
 public class ControladorDeJuego {
 	
 	public static final int ACTUALIZACION=5;
-	private int nivelElegido = 0;
 	private FrameJuego frameJuego;
 	private Timer timer;
-	private Thread hiloJuego;
-	private Thread hiloPausa;
 	
 	public FrameJuego getFrameJuego() {
 		return frameJuego;

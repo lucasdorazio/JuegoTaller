@@ -57,7 +57,6 @@ public class Ralph implements Desplazable, Dibujable{
 	public void comenzarMovimiento(int cantPasos, Direcciones direccion) {
 		pasosRestantes = cantPasos * 46; // Un paso es igual a 46 pixeles
 		dirActual = direccion;
-		System.out.println("Ralph inicio movimiento");
 		this.avanzar();
 	}
 	

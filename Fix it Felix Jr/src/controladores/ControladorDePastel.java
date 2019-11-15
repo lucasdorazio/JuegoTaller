@@ -77,7 +77,7 @@ public class ControladorDePastel extends Controlador {
 		int posY=0;
 		if (pastel!= null) {
 			posX = 224+52*pastel.devolverVentana().getNroColumna();
-			posY = 130+80*pastel.devolverVentana().getNroFila();
+			posY = 128+80*pastel.devolverVentana().getNroFila();
 			return (new Posicion(posX, posY));
 		} else return null;
 	}

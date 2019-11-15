@@ -1,10 +1,9 @@
 package juego;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 import controladores.Controlador;
+import controladores.ControladorDeJuego;
 import controladores.ControladorDeLadrillos;
 import controladores.ControladorDePajaro;
 import controladores.ControladorDePastel;
@@ -12,8 +11,6 @@ import controladores.ControladorDeRalph;
 import edificio.Edificio;
 import edificio.Seccion;
 import entidades.Felix;
-import entidades.Ladrillo;
-import entidades.Pajaro;
 /**
  * Clase que conecta todas las componentes del juego, ya sea conociendolas
  * o usandolas como atributos propios.
@@ -37,8 +34,6 @@ public class Juego implements Runnable{
 	public static final int CONST_TIEMPO = 60000000;
 	
 	private  Jugador jugador;
-	
-	private int puntajePrevio;
 
 	private  boolean pasarDeSeccion;
 	
@@ -52,9 +47,13 @@ public class Juego implements Runnable{
 	
 	private  int nroSeccion;
 	
+	private int puntajePrevio;
+
+	private int timerTiempo;
+	
 	private Controlador controladores[];
 	
-	private double tiempo;
+	private int tiempo;
 	
 	private Ranking ranking;
 	
@@ -85,6 +84,7 @@ public class Juego implements Runnable{
 		pasarDeSeccion=false;
 		reinicioNivel=false;
 		reinicioSeccion=false;
+		timerTiempo=0;
 		teclado.close();
 	}
 	/**
@@ -135,16 +135,25 @@ public class Juego implements Runnable{
 	 */
 	public void actualizar() {
 		if (reinicioNivel) iniciarNivel(true);
-		else if (reinicioSeccion) reiniciarSeccion();
+		else if (reinicioSeccion) {
+			reiniciarSeccion();
+			System.out.println("Quedan "+ Felix.getInstance().getSeccionActual().getVentanasRestantes() + " ventanas restantes");
+		}
 		else {
-			tiempo -= 1 / CONST_TIEMPO;
+			timerTiempo++;
+			if (timerTiempo> 1000 / ControladorDeJuego.ACTUALIZACION) {
+				tiempo--;
+				timerTiempo=0;
+				
+			}
 			if (pasarDeNivel)
 				avanzarNivel();
 			else if (pasarDeSeccion)
 				avanzarSeccion();
 			else {
 				for (int i=0;i<4;i++) {
-					//if (i!=2)
+					//if (i==1) continue;
+					if (i==2) continue;
 					controladores[i].actualizar();
 				}
 				Felix.getInstance().actualizarInvulnerabilidad();

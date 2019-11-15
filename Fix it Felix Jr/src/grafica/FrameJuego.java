@@ -16,27 +16,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controladores.ControladorDePajaro;
-import edificio.ConHojas;
 import edificio.Edificio;
 import edificio.EstadoPanel;
 import edificio.Ventana;
 import entidades.Direcciones;
 import entidades.Felix;
-import entidades.Ladrillo;
-import entidades.Pajaro;
 import entidades.Posicion;
-import entidades.Ralph;
 import juego.Juego;
 
 @SuppressWarnings("serial")
 public class FrameJuego extends JFrame {
 
 	private JPanel contentPane; 
-	private Thread hiloJuego;
-	private Thread hiloPausa;
 	private Image  fondo, seccion0, seccion1, seccion2, felix, ralph, ventanaComun, puerta, conHojas, cerrada,
-	semicircular, panelSemiRoto, panelSano, pajaro, pastel, ladrillo;
+	semicircular, panelSemiRoto, panelSano, pajaro, pastel, ladrillo, macetero, moldura;
 
 	public FrameJuego(Menu m) {
 		addKeyListener(new KeyAdapter() {
@@ -56,14 +49,30 @@ public class FrameJuego extends JFrame {
 					break;
 				case 80:
 					System.out.println("Se apreto la p");
-					if (hiloPausa.isAlive()) {
-						hiloPausa.stop();
-					}
+					break;
 				case 32:
 					Felix.getInstance().reparar();
 					break;
+				case 72: //H= hack para pasar de seccion si no hay ventanas rotas
+					Juego.getInstance().comprobarSeccionLimpia(Felix.getInstance().getSeccionActual());
+					break;
+				case 87: //w voy arriba aunque haya obstaculo (tira error)
+					Felix.getInstance().setVentanaActual(Felix.getInstance().getSeccionActual().getVentanas()[Felix.getInstance().getVentanaActual().getNroFila()-1][Felix.getInstance().getVentanaActual().getNroColumna()]);
+					break;
+				case 65: //A voy a la izquierda aunque haya obstaculo (tira error)
+					Felix.getInstance().setVentanaActual(Felix.getInstance().getSeccionActual().getVentanas()[Felix.getInstance().getVentanaActual().getNroFila()][Felix.getInstance().getVentanaActual().getNroColumna()-1]);
+					break;
+				case 83: //S voy abajo aunque haya obstaculo (tira error)
+					Felix.getInstance().setVentanaActual(Felix.getInstance().getSeccionActual().getVentanas()[Felix.getInstance().getVentanaActual().getNroFila()+1][Felix.getInstance().getVentanaActual().getNroColumna()]);
+					break;
+				case 68: //D voy a la derecha aunque haya obstaculo (tira error)
+					Felix.getInstance().setVentanaActual(Felix.getInstance().getSeccionActual().getVentanas()[Felix.getInstance().getVentanaActual().getNroFila()][Felix.getInstance().getVentanaActual().getNroColumna()+1]);
+					break;
+				case 46:
+					Felix.getInstance().reparar();
+					break;
 				default:
-					System.out.println("otra tecla");
+					System.out.println("otra tecla: " + tecla.getKeyCode());
 					break;
 				}
 			}
@@ -93,6 +102,8 @@ public class FrameJuego extends JFrame {
             pajaro=ImageIO.read(new File("src/grafica/fixitfelixcortado/pajaro/slice08_08.png"));
             pastel=ImageIO.read(new File("src/grafica/fixitfelixcortado/pastel/slice12_12.png"));
             ladrillo=ImageIO.read(new File("src/grafica/fixitfelixcortado/rocas/slice10_10.png"));
+            macetero=ImageIO.read(new File("src/grafica/fixitfelixcortado/obstaculos/macetero.png"));
+            moldura=ImageIO.read(new File("src/grafica/fixitfelixcortado/obstaculos/slice22_22.png"));
 		} catch (IOException ex) {
             ex.printStackTrace();	
         }
@@ -153,16 +164,20 @@ public class FrameJuego extends JFrame {
 					break;
 				case CONHOJASCERRADA:
 					g.drawImage(cerrada, 214+52*i, 100+80*j, cerrada.getWidth(null), cerrada.getHeight(null), null);
+					break;
 				case SEMICIRCULAR:
 					g.drawImage(semicircular, 214+52*i-11, 100+80*j, semicircular.getWidth(null), semicircular.getHeight(null), null);
-					paintPanelesSemicircular(g);
+					//paintPanelesSemicircular(g);
 					break;
 				case PUERTA:
 					g.drawImage(puerta, 214+52*i-11, 100+80*j-25, puerta.getWidth(null), puerta.getHeight(null), null);
-					paintPanelesPuerta(g);
+					//paintPanelesPuerta(g);
 					break;
 				}
-				//g.drawImage(ventanaActual, 214+52*i+modifX, 20+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
+				if (v.tieneMacetero())
+					g.drawImage(macetero, 219+52*i, 144+80*j, macetero.getWidth(null), macetero.getHeight(null), null);
+				if (v.tieneMoldura())
+					g.drawImage(moldura, 213+52*i, 100+80*j, moldura.getWidth(null), moldura.getHeight(null), null);
 			}
 		}
 	}

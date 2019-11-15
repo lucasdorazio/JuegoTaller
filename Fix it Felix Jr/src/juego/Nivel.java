@@ -78,9 +78,9 @@ public class Nivel {
 				}
 	
 				if (esCerrada) {
-					matriz[m][n]= new ConHojas(m, n, macetero, moldura, inferior, superior, false);
+					matriz[m][n]= new ConHojas(m, n, macetero, moldura, EstadoPanel.SANO, EstadoPanel.SANO, false);
 				} else if (Math.random()<=probVentAbierta) {
-					matriz[m][n]= new ConHojas(m, n, macetero, moldura, inferior, superior, true);
+					matriz[m][n]= new ConHojas(m, n, macetero, moldura, EstadoPanel.SANO, EstadoPanel.SANO, true);
 				} else {
 					matriz[m][n]= new Comun(m, n, macetero, moldura, inferior, superior);
 				}
@@ -119,7 +119,7 @@ public class Nivel {
 						moldura = true;
 					}
 					if (Math.random() <= PROB_VENT_CERRADA) {
-						matriz[m][n] = new ConHojas(m, n, macetero, moldura, panel0, panel1, false);
+						matriz[m][n] = new ConHojas(m, n, macetero, moldura, EstadoPanel.SANO, EstadoPanel.SANO, false);
 					} else { // ventana con paneles posiblemente rotos
 						if (Math.random() <= probPanelRoto / 4) {
 							panel0 = EstadoPanel.ROTO;

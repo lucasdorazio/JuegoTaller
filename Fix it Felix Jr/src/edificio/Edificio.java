@@ -1,4 +1,7 @@
 package edificio;
+
+import juego.Nivel;
+
 /**
  * Modela al conjunto de secciones y las administra
  * @author Lucas y Renzo
@@ -45,6 +48,7 @@ public class Edificio {
 	 */
 	public void reiniciarSeccion(int nroSeccion) {
 		secciones[nroSeccion]=seccionesOriginales.clone()[nroSeccion];
+		//Nivel.generarEdificio();
 	}
 	/**
 	 * Reinicia el edificio a su distribucion original
