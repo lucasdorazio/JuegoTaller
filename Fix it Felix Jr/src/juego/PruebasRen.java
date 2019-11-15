@@ -23,6 +23,7 @@ public class PruebasRen {
 		double valor=100;
 		double multiplicador= 1 - (double) 9/10;
 		System.out.println(multiplicador);
+		System.out.println(multiplicador);
 		return (int) (valor * multiplicador);
 	}
 	
