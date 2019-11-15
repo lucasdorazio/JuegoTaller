@@ -27,9 +27,12 @@ public class ConHojas extends Ventana {
 	public ConHojas(int nroFila, int nroCol, boolean tieneMacetero, boolean tieneMoldura,
 			EstadoPanel inferior, EstadoPanel superior, boolean abierta) {
 		super(nroFila, nroCol, tieneMacetero, tieneMoldura);
-		this.abierta=abierta;
-		tipo=TipoVentana.CONHOJAS;
-		paneles[0]= new Panel(inferior);
+		this.abierta = abierta;
+		if (abierta)
+			tipo = TipoVentana.CONHOJAS;
+		else
+			tipo = TipoVentana.CONHOJASCERRADA;
+		paneles[0] = new Panel(inferior);
 		paneles[1]= new Panel(superior);
 	}
 
@@ -94,4 +97,5 @@ public class ConHojas extends Ventana {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 }

@@ -134,7 +134,6 @@ public class FrameJuego extends JFrame {
 	}
 	
 	private void paintVentanas(Graphics g) {
-		Image ventanaActual = null;
 		Ventana[][] m=Edificio.getInstance().getSecciones()[Juego.getInstance().getNroSeccion()].getVentanas();
 		Ventana v;
 		int modifY, modifX;
@@ -146,25 +145,21 @@ public class FrameJuego extends JFrame {
 				v=m[j][i];
 				switch (v.getTipo()) {
 				case COMUN:
-					ventanaActual=ventanaComun;
-					g.drawImage(ventanaActual, 214+52*i+modifX, 100+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
+					g.drawImage(ventanaComun, 214+52*i, 100+80*j, ventanaComun.getWidth(null), ventanaComun.getHeight(null), null);
 					paintPanelesComun(g, v);
 					break;
 				case CONHOJAS:
-					//if
-					ventanaActual=conHojas;
-					g.drawImage(ventanaActual, 214+52*i+modifX, 100+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
+					g.drawImage(conHojas, 214+52*i, 100+80*j, conHojas.getWidth(null), conHojas.getHeight(null), null);
 					break;
+				case CONHOJASCERRADA:
+					g.drawImage(cerrada, 214+52*i, 100+80*j, cerrada.getWidth(null), cerrada.getHeight(null), null);
 				case SEMICIRCULAR:
-					ventanaActual=semicircular;
-					modifX=-11;
-					g.drawImage(ventanaActual, 214+52*i+modifX, 100+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
+					g.drawImage(semicircular, 214+52*i-11, 100+80*j, semicircular.getWidth(null), semicircular.getHeight(null), null);
+					paintPanelesSemicircular(g);
 					break;
 				case PUERTA:
-					modifX=-11;
-					modifY=-25;
-					ventanaActual=puerta;
-					g.drawImage(ventanaActual, 214+52*i+modifX, 100+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
+					g.drawImage(puerta, 214+52*i-11, 100+80*j-25, puerta.getWidth(null), puerta.getHeight(null), null);
+					paintPanelesPuerta(g);
 					break;
 				}
 				//g.drawImage(ventanaActual, 214+52*i+modifX, 20+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
@@ -183,6 +178,13 @@ public class FrameJuego extends JFrame {
 				panelActual = panelSano;
 			if (v.getEstadoPaneles()[i] != EstadoPanel.ROTO) g.drawImage(panelActual, 224+52*m, 51+80*(n+1)-19*i, panelActual.getWidth(null), panelActual.getHeight(null), null);
 		}
+	}
+	
+	private void paintPanelesSemicircular(Graphics g, Ventana v) {
+	}
+	
+	private void paintPanelesPuerta(Graphics g, Ventana v) {
+		
 	}
 	
 	private void paintPastel(Graphics g) {
@@ -210,6 +212,8 @@ public class FrameJuego extends JFrame {
 				g.drawImage(ladrillo, pos.getPosX(), pos.getPosY(), ladrillo.getWidth(null), ladrillo.getHeight(null), null);
 			}
 	 }
+	 
+	 
 	
 	public void paintComponents(Graphics g) {
 		g.drawImage(fondo, 0, 0, this.getWidth(),this.getHeight(),null);
