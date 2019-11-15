@@ -3,6 +3,8 @@ import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -84,6 +86,7 @@ public class Menu extends JFrame {
 		});
 		contentPane.add(botonComoJugar);
 		
+		
 		JButton botonJugar = new JButton("JUGAR");
 		botonJugar.setFont(CambiarFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
 		botonJugar.setBounds(338, 400, 145, 73);
@@ -109,23 +112,24 @@ public class Menu extends JFrame {
 			}
 		});
 		contentPane.add(botonRanking);
-		//try catch?
+	
 		ImageIcon imagenBoton = new ImageIcon("src/grafica/Otros/icon.png");
-		JButton botonConfig = new JButton("Opciones");
-		botonConfig.setFont(CambiarFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
-		botonConfig.setBounds(672, 24, 86, 79);	
-		botonConfig.setIcon(new ImageIcon(imagenBoton.getImage().getScaledInstance(botonConfig.getWidth(), botonConfig.getHeight(), Image.SCALE_SMOOTH)));	
+		JLabel botonConfig= new JLabel("Options");
+		botonConfig.setBounds(672, 24, 86, 79);
+		botonConfig.setIcon(new ImageIcon(imagenBoton.getImage().getScaledInstance(botonConfig.getWidth(), botonConfig.getHeight(), Image.SCALE_SMOOTH)));
 		Configuracion frameConfig= new Configuracion(this);
 		frameConfig.setVisible(false);
-		botonConfig.addActionListener(new ActionListener() {
-			
+		botonConfig.addMouseListener(new MouseAdapter() {
+	
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				frameConfig.setVisible(true);				}
-			});
+			public void mouseClicked(MouseEvent e) {
+				//setVisible(false);
+				frameConfig.setVisible(true);
+			}
+		});
 		contentPane.add(botonConfig);
-		}
+		contentPane.add(botonConfig);
+	}
 		
 	
 	private void crearControladorJuego() {
