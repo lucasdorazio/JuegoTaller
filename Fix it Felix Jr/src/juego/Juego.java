@@ -298,6 +298,8 @@ public class Juego implements Runnable{
 	}
 	//verificar si se puede hacer de otra manera
 	public List<Posicion> getListaPosPajaros(){
+		List<Posicion> posiciones = controladores[2].getListaPosEntidades();
+		
 		return controladores[2].getListaPosEntidades();
 	}
 

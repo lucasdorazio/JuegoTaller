@@ -6,6 +6,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -91,8 +93,8 @@ public class FrameJuego extends JFrame {
 		try {
 			fondo = ImageIO.read(new File("src/grafica/Fondos/background.png"));
             seccion0 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion1.png"));
-            seccion1 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion2.png"));
-            seccion2 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion3.png"));
+            seccion1 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion2.png"));
+            seccion2 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion3.png"));
             felix = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice102_@.png"));
             ralph = ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice146_@.png"));
             ventanaComun= ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice103_@.png"));
@@ -164,7 +166,9 @@ public class FrameJuego extends JFrame {
 		Ventana[][] m=Edificio.getInstance().getSecciones()[Juego.getInstance().getNroSeccion()].getVentanas();
 		Ventana v;
 		for (int i=0; i<5; i++) {
-			g.drawImage(cerrada, 214+52*i, 20, cerrada.getWidth(null), cerrada.getHeight(null), null);
+			if (Juego.getInstance().getNroSeccion()==2) g.drawImage(cerrada, 214+52*i, 30, cerrada.getWidth(null), cerrada.getHeight(null), null);
+			else
+				g.drawImage(cerrada, 214+52*i, 20, cerrada.getWidth(null), cerrada.getHeight(null), null);
 			for (int j=0; j<3; j++) {
 				v=m[j][i];
 				switch (v.getTipo()) {
@@ -319,4 +323,12 @@ public class FrameJuego extends JFrame {
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
 	}
+
+//	flip horizontal (espejo)
+//	public Image rotarImagen(Image i) {
+//	AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+//	tx.translate(-i.getWidth(null), 0);
+//	AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+//	return op.filter(i, null);
+//	}
 }

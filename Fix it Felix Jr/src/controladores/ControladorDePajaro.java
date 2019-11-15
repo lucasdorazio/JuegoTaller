@@ -6,7 +6,9 @@ import java.util.List;
 
 import edificio.Ventana;
 import entidades.Direcciones;
+import entidades.EstadoPajaro;
 import entidades.Felix;
+import entidades.InfoGraficable;
 import entidades.Pajaro;
 import entidades.Posicion;
 import juego.Juego;
@@ -16,7 +18,7 @@ import juego.Juego;
  * @author Lucas y Renzo
  *
  */
-public class ControladorDePajaro extends Controlador{
+public class ControladorDePajaro extends Controlador<EstadoPajaro>{
 
 	private static final int VELOCIDAD = 1;
 	private int tiempoDeSpawneo;
@@ -118,5 +120,35 @@ public class ControladorDePajaro extends Controlador{
 		}
 		return listaPosiciones;
 	}
+	
+	@Override
+	public List<EstadoPajaro> getListaEstadoEntidades() {
+		List<EstadoPajaro> listaEstados = new LinkedList<EstadoPajaro>();
+		Iterator<Pajaro> ite = listaDePajaros.iterator();
+		Pajaro pajaro;
+		while (ite.hasNext()) {
+			pajaro = ite.next();
+			listaEstados.add(pajaro.getEstado());
+		}
+		return listaEstados;
+	}
+
+	@Override
+	public InfoGraficable<EstadoPajaro> getListaInfoGraficable() {
+		InfoGraficable<EstadoPajaro> info = new InfoGraficable<EstadoPajaro>();
+		Iterator<Pajaro> ite = listaDePajaros.iterator();
+		List<EstadoPajaro> listaEstados = new LinkedList<EstadoPajaro>();
+		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
+		Pajaro pajaro;
+		while (ite.hasNext()) {
+			pajaro = ite.next();
+			listaPosiciones.add(pajaro.getPos());
+			listaEstados.add(pajaro.getEstado());
+		}
+		info.setListaEstados(listaEstados);
+		info.setListaPosiciones(listaPosiciones);
+		return info;
+	}
+	
 
 }
