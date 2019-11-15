@@ -31,6 +31,7 @@ public class Comun extends Ventana {
 	public Comun (int nroFila, int nroCol, boolean tieneMacetero, boolean tieneMoldura, 
 			EstadoPanel inferior, EstadoPanel superior) {
 		super(nroFila, nroCol, tieneMacetero, tieneMoldura);
+		tipo= TipoVentana.COMUN;
 		paneles[0]= new Panel(inferior);
 		paneles[1]= new Panel(superior);
 		

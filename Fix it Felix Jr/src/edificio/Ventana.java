@@ -14,6 +14,7 @@ public abstract class Ventana{
 	private int nroColumna;
 	private boolean tieneMacetero;
 	private boolean tieneMoldura;
+	protected TipoVentana tipo;
 	
 	/**
 	 * Constructor de ventana, inicializa sus atributos
@@ -84,6 +85,9 @@ public abstract class Ventana{
 	}
 	
 	public abstract EstadoPanel[] getEstadoPaneles();
-	
+
+	public TipoVentana getTipo() {
+		return tipo;
+	}
 
 }

@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controladores.ControladorDePajaro;
+import edificio.ConHojas;
 import edificio.Edificio;
 import edificio.EstadoPanel;
 import edificio.Ventana;
@@ -143,22 +144,23 @@ public class FrameJuego extends JFrame {
 			for (int j=0; j<3; j++) {
 				modifX=0;
 				v=m[j][i];
-				switch (v.getClass().getName()) {
-				case "edificio.Comun":
+				switch (v.getTipo()) {
+				case COMUN:
 					ventanaActual=ventanaComun;
 					g.drawImage(ventanaActual, 214+52*i+modifX, 100+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
 					paintPanelesComun(g, v);
 					break;
-				case "edificio.ConHojas":
+				case CONHOJAS:
+					//if
 					ventanaActual=conHojas;
 					g.drawImage(ventanaActual, 214+52*i+modifX, 100+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
 					break;
-				case "edificio.SemicircularSuperior":
+				case SEMICIRCULAR:
 					ventanaActual=semicircular;
 					modifX=-11;
 					g.drawImage(ventanaActual, 214+52*i+modifX, 100+80*j+modifY, ventanaActual.getWidth(null), ventanaActual.getHeight(null), null);
 					break;
-				case "edificio.Puerta":
+				case PUERTA:
 					modifX=-11;
 					modifY=-25;
 					ventanaActual=puerta;

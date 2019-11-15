@@ -17,6 +17,7 @@ public class Puerta extends Semicircular {
 	public Puerta(int nroFila, int nroCol, boolean tieneMacetero, boolean tieneMoldura,
 			EstadoPanel panel0, EstadoPanel panel1, EstadoPanel panel2, EstadoPanel panel3) {
 		super(nroFila, nroCol, tieneMacetero, tieneMoldura);
+		tipo=TipoVentana.PUERTA;
 		paneles[0]= new Panel(panel0);
 		paneles[1]= new Panel(panel1);
 		paneles[2]= new Panel(panel2);
