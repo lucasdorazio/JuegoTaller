@@ -132,7 +132,7 @@ public class Nivel {
 							panel1 = EstadoPanel.MEDIO_ROTO;
 						}
 						if (Math.random() <= probVentAbierta) {
-							matriz[m][n] = new ConHojas(m, n, macetero, moldura, panel0, panel1, true);
+							matriz[m][n] = new ConHojas(m, n, macetero, moldura, EstadoPanel.SANO, EstadoPanel.SANO, true);
 						} else {
 							matriz[m][n] = new Comun(m, n, macetero, moldura, panel0, panel1);
 						}
