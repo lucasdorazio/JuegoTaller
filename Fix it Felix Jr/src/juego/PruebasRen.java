@@ -29,6 +29,7 @@ public class PruebasRen {
 			}
 		}
 		System.out.println("Salio del while");
+		System.out.println("Salio del while 2");
 		
 	}
 	
