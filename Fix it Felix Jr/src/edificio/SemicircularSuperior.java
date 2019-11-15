@@ -22,6 +22,7 @@ public class SemicircularSuperior extends Semicircular {
 			EstadoPanel panel0, EstadoPanel panel1, EstadoPanel panel2, EstadoPanel panel3,
 			EstadoPanel panel4, EstadoPanel panel5, EstadoPanel panel6, EstadoPanel panel7){
 		super(nroFila, nroCol, tieneMacetero, tieneMoldura);
+		tipo = TipoVentana.SEMICIRCULAR;
 		paneles[0]= new Panel(panel0);
 		paneles[1]= new Panel(panel1);
 		paneles[2]= new Panel(panel2);

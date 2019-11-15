@@ -28,6 +28,7 @@ public class ConHojas extends Ventana {
 			EstadoPanel inferior, EstadoPanel superior, boolean abierta) {
 		super(nroFila, nroCol, tieneMacetero, tieneMoldura);
 		this.abierta=abierta;
+		tipo=TipoVentana.CONHOJAS;
 		paneles[0]= new Panel(inferior);
 		paneles[1]= new Panel(superior);
 	}
