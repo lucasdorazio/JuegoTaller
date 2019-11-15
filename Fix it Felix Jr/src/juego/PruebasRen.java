@@ -13,49 +13,15 @@ public class PruebasRen {
 		// TODO Auto-generated method stub
 		Marco mimarco= new Marco();
 		mimarco.setVisible(true);
-		Timer timer= new Timer();
-		/*ControladorDePajaro cont= new ControladorDePajaro();
-		TimerTask task= new TimerTask() {
-			
-			@Override
-			public void run() {
-				Pajaro p;
-				int i=0;
-				Iterator<Pajaro> ite= cont.getListaPajaros().iterator();
-				if (!ite.hasNext()) System.out.println("No hay nada en la lista de pajaros"); 
-				while (ite.hasNext()) {
-					p=ite.next();
-					System.out.println("Pajaro "+ i+ " en posicion ("+p.getPos().getPosX()+", "+p.getPos().getPosY()+")");
-					i++;
-				}
-				
-			}
-		};
-		timer.schedule(task, 0, 500);*/
+		System.out.println(obtenerNumero());
 		
-		TimerTask movimiento= new TimerTask() {		
-			@Override
-			public void run() {
-				if (!hiloMovimiento.isAlive() && !hiloGolpeo.isAlive()) {
-					hiloMovimiento= new HiloIndependiente();
-					hiloMovimiento.start();
-				}
-			}
-		};
-		TimerTask golpeo= new TimerTask() {			
-			@Override
-			public void run() {
-				/*if (movimiento.)
-=======
->>>>>>> branch 'master' of https://github.com/lucasdorazio/JuegoTaller.git
-				if (!hiloGolpeo.isAlive() && !hiloMovimiento.isAlive()) {
-					hiloGolpeo= new HiloDependiente(hiloMovimiento);
-					hiloGolpeo.start();
-				}*/
-			}
-		};
-		timer.schedule(movimiento, 0, 1000);
-		timer.schedule(golpeo, 0, 2000);
+	}
+	
+	public static int obtenerNumero() {
+		double valor=100;
+		double multiplicador= 1 - (double) 9/10;
+		System.out.println(multiplicador);
+		return (int) (valor * multiplicador);
 	}
 	
 

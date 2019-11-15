@@ -1,8 +1,5 @@
 package entidades;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import controladores.ControladorDeLadrillos;
 import edificio.Edificio;
 import juego.Juego;
@@ -17,16 +14,13 @@ import taller2.modelo.InformacionDibujable;
 public class Ralph implements Desplazable, Dibujable{
 
 	private static final int LADRILLOS_POR_TIRADA = 3;
-	public final int TIEMPO_ENTRE_LADRILLOS=500;
 	private int ladrillosTotales;
 	private int ladrillosRestantes;
 	private Posicion pos;
 	private int velocidad;	//velocidad= pixeles/seg
-	private int timer;
 	private int pasosRestantes;
 	private Direcciones dirActual;
 	private ControladorDeLadrillos brickController;
-	private Timer timerr;
 	
 	public int getLadrillos() {
 		return ladrillosTotales;
@@ -44,7 +38,6 @@ public class Ralph implements Desplazable, Dibujable{
 		this.ladrillosTotales = 40;	
 		this.pos =new Posicion(260,6);	//Parte superior de la sección, en el centro
 		this.velocidad=150;
-		timerr= new Timer();
 	}
 	
 	/**
@@ -53,17 +46,8 @@ public class Ralph implements Desplazable, Dibujable{
 	 */
 	public void comenzarGolpeo() {
 		ladrillosRestantes=LADRILLOS_POR_TIRADA;
-		this.timer=0;
 		System.out.println("Ralph inicio golpeo");
 		golpearEdif();
-		TimerTask golpear= new TimerTask() {
-			
-			@Override
-			public void run() {
-				if (golpearEdif()) this.cancel();
-			}
-		};
-		timerr.schedule(golpear, 0, TIEMPO_ENTRE_LADRILLOS);
 	}
 
 	/**
@@ -75,7 +59,6 @@ public class Ralph implements Desplazable, Dibujable{
 		pasosRestantes = cantPasos * 46; // Un paso es igual a 46 pixeles
 		dirActual = direccion;
 		System.out.println("Ralph inicio movimiento");
-		this.timer=0;
 		this.avanzar();
 	}
 	
@@ -84,12 +67,9 @@ public class Ralph implements Desplazable, Dibujable{
 	 * @return true cuando no tiene que tirar más ladrillos
 	 */
 	public boolean golpearEdif() {			
-		brickController.generarLadrillo(new Posicion(pos.getPosX()+((LADRILLOS_POR_TIRADA- ladrillosRestantes)*15),100));			//Genero ladrillos a 15, 0 y -15 pixeles de Ralph
+		brickController.generarLadrillo(new Posicion(pos.getPosX()+((LADRILLOS_POR_TIRADA- ladrillosRestantes)*15),100));
 		ladrillosRestantes--;			
-		if (ladrillosRestantes==0) {
-			ladrillosRestantes=LADRILLOS_POR_TIRADA;
-			return true;
-		}else return false;
+		return (ladrillosRestantes==0);
 	}
 
 	

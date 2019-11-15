@@ -8,6 +8,8 @@ import grafica.Menu;
 import juego.Juego;
 
 public class ControladorDeJuego {
+	
+	public static final int ACTUALIZACION=5;
 	private int nivelElegido = 0;
 	private FrameJuego frameJuego;
 	private Timer timer;
@@ -26,16 +28,15 @@ public class ControladorDeJuego {
 	
 	public void jugar() {
 		boolean perdio = false;
+		Juego.getInstance().iniciarNivel(false);
 		TimerTask gameUpdate= new TimerTask() {
 			public void run() {
 				Juego.getInstance().actualizar();
 				frameJuego.repaint();
-				//frameJuego.update(frameJuego.getGraphics());
-				//frameJuego.paint(frameJuego.getGraphics());
 				if (perdio) timer.cancel();
 			}
 		};
-		timer.schedule(gameUpdate, 1, 100);
+		timer.schedule(gameUpdate, 1, ACTUALIZACION);
 //		hiloJuego= new Thread(Juego.getInstance(),"hiloJuego");
 //		hiloJuego.start();
 //		Juego.getInstance().setNroNivel(nivelElegido);

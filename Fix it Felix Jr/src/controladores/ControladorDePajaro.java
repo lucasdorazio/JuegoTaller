@@ -3,14 +3,11 @@ package controladores;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import edificio.Ventana;
 import entidades.Direcciones;
 import entidades.Felix;
-import entidades.Ladrillo;
 import entidades.Pajaro;
 import entidades.Posicion;
 import juego.Juego;
@@ -22,35 +19,22 @@ import juego.Juego;
  */
 public class ControladorDePajaro extends Controlador{
 
-	public static final int VELOCIDAD = 1;
-	private static final int ACTUALIZACION_POSICION= 100; 
+	private static final int VELOCIDAD = 1;
 	private int tiempoDeSpawneo;
+	private int timerGeneracion;
+	private int timerMovimiento;
 	private static List<Pajaro> listaDePajaros;
-	private Timer timer;
 	
 	public List<Pajaro> getListaPajaros(){
 		return listaDePajaros;
 	}
 	
 	public ControladorDePajaro() {
-		this.tiempoDeSpawneo=15000;
-		listaDePajaros = new CopyOnWriteArrayList<Pajaro>();
-		TimerTask generacion= new TimerTask() {
-			@Override
-			public void run() {
-				generarPajaros();
-			}
-		};
-		TimerTask movimiento= new TimerTask() {
-			@Override
-			public void run() {
-				moverPajaros();
-				
-			}
-		};
-		timer= new Timer();
-		timer.schedule(generacion, 0, tiempoDeSpawneo);
-		timer.schedule(movimiento, 0, 10);
+		this.tiempoDeSpawneo=3;
+		listaDePajaros = new LinkedList<Pajaro>();
+		timerGeneracion=0;
+		timerMovimiento=0;
+		
 	}
 	
 	public void actualizar() {
@@ -63,15 +47,17 @@ public class ControladorDePajaro extends Controlador{
 	 */
 	public void generarPajaros() {	
 		Pajaro p;
+		timerGeneracion++;
 		int fila;
 		Direcciones dir;
-		fila = (int) (Math.random() * 3);
-		if ((int) (Math.random() * 2) == 0)
-			dir = Direcciones.DERECHA;
-		else
-			dir = Direcciones.IZQUIERDA;
-		p = crearPajaro(fila, dir);
-		listaDePajaros.add(p);
+		if (timerGeneracion>tiempoDeSpawneo* 1000 /ControladorDeJuego.ACTUALIZACION) {
+			fila= (int) (Math.random()*3);
+			if ((int) (Math.random()*2)==0) dir=Direcciones.DERECHA;
+			else dir=Direcciones.IZQUIERDA;
+			p=crearPajaro(fila,dir);
+			listaDePajaros.add(p);
+			timerGeneracion=0;
+		}
 	}
 	
 	private Pajaro crearPajaro(int fila, Direcciones dir) {
@@ -83,7 +69,7 @@ public class ControladorDePajaro extends Controlador{
 		}
 		if (dir==Direcciones.DERECHA) posX=Juego.LIMITE_IZQUIERDO_MAPA;
 		else posX=Juego.LIMITE_DERECHO_MAPA;
-		System.out.println("Se genero un pajaro en ("+ posX+";"+ posY+")");
+		System.out.println("Se genero un pajaro en ("+ posX+","+ posY+")");
 		return new Pajaro(new Posicion(posX, posY), dir);
 	}
 
@@ -92,23 +78,28 @@ public class ControladorDePajaro extends Controlador{
 	 * los pajaros existentes
 	 */
 	public void moverPajaros() {
+		timerMovimiento++;
 		Pajaro pajaro;
-		boolean impacto = false;
+		boolean impacto=false;
 		Ventana ventanaActualPajaro;
-		Ventana ventanaActualFelix = Felix.getInstance().getVentanaActual();
-		Iterator<Pajaro> ite = listaDePajaros.iterator();
-		while (ite.hasNext() && !impacto) {
-			pajaro = ite.next();
-			if (pajaro.avanzar()) {
-				ite.remove();
-				System.out.println("Se elimino un bird");
-			} else {
-				ventanaActualPajaro = pajaro.devolverVentana();
-				if (ventanaActualPajaro != null && ventanaActualPajaro.equals(ventanaActualFelix)) {
-					Juego.getInstance().pajaroGolpeoAFelix();
-					impacto = true;
+		Ventana ventanaActualFelix=Felix.getInstance().getVentanaActual();
+		if (timerMovimiento >VELOCIDAD * ControladorDeJuego.ACTUALIZACION /1000) {
+			Iterator<Pajaro> ite = listaDePajaros.iterator();
+			while (ite.hasNext() && !impacto) {
+				pajaro = ite.next();
+				if (pajaro.avanzar()) {
+					ite.remove();
+				}
+				else {
+					ventanaActualPajaro=pajaro.devolverVentana();
+					if (ventanaActualPajaro!= null && 
+							ventanaActualPajaro.equals(ventanaActualFelix)) {
+						Juego.getInstance().pajaroGolpeoAFelix();
+						impacto=true;
+					}
 				}
 			}
+			timerMovimiento=0;
 		}
 	}
 	/**

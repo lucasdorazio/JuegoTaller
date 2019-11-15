@@ -2,8 +2,6 @@ package controladores;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import edificio.Edificio;
 import edificio.Ventana;
@@ -19,19 +17,11 @@ public class ControladorDePastel extends Controlador {
 	private int tiempoSpawneo;
 
 	private Pastel pastel;
-	
-	private Timer timer;
+	private int timer;
 
 	public ControladorDePastel() {
 		this.tiempoSpawneo = 5;
-		timer= new Timer();
-		TimerTask generacion= new TimerTask() {			
-			@Override
-			public void run() {
-				generarPastel();
-			}
-		};
-		timer.schedule(generacion, 0, tiempoSpawneo);
+		timer=0;
 	}
 
 	public void actualizar() {
@@ -63,13 +53,15 @@ public class ControladorDePastel extends Controlador {
 	 * Intenta crear un pastel en alguna de las ventanas disponibles para hacerlo
 	 */
 	private void generarPastel() {
-		if (pastel == null) {
-			Ventana v;
+		timer++;
+		Ventana v;
+		if (timer > tiempoSpawneo *1000/5) {
 			v = obtenerVentanaAleatoria();
-			if (v.puedoGenerarPastel() && !(v.equals(Felix.getInstance().getVentanaActual()))) {
+			if (v.puedoGenerarPastel()) {
 				pastel = new Pastel(v);
 				System.out.println("PASTEL GENERADO EN VENTANA [" + v.getNroFila() + "][" + v.getNroColumna() + "]");
 			}
+			timer=0;
 		}
 	}
 

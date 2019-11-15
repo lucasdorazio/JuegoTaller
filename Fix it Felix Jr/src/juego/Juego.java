@@ -80,7 +80,7 @@ public class Juego implements Runnable{
 		jugador= new Jugador("nuevo", 0);
 		puntajePrevio=0;
 		nroNivel=0;
-		this.iniciarNivel(false);
+		//this.iniciarNivel(false);
 		pasarDeNivel=false;
 		pasarDeSeccion=false;
 		reinicioNivel=false;
@@ -143,9 +143,10 @@ public class Juego implements Runnable{
 			else if (pasarDeSeccion)
 				avanzarSeccion();
 			else {
-//				for (int i=0;i<4;i++) {
-//					controladores[i].actualizar();
-//				}
+				for (int i=0;i<4;i++) {
+					if (i!=2)
+					controladores[i].actualizar();
+				}
 				Felix.getInstance().actualizarInvulnerabilidad();
 			}
 		}

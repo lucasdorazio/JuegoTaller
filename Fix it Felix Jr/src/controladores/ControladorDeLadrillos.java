@@ -20,10 +20,9 @@ import juego.Juego;
  */
 public class ControladorDeLadrillos extends Controlador{
 
-	private static final int ACTUALIZACION_POSICION= 1000; 
-	private static List<Ladrillo> listaLadrillos = new CopyOnWriteArrayList<Ladrillo>();
+	private static List<Ladrillo> listaLadrillos = new LinkedList<Ladrillo>();
 	private int velocidad;
-	private Timer timerr;
+	private int timer;
 
 	/**
 	 * 
@@ -32,14 +31,7 @@ public class ControladorDeLadrillos extends Controlador{
 	 */
 	public ControladorDeLadrillos(int velocidad) {
 		this.velocidad = velocidad;
-		timerr= new Timer();
-		TimerTask movimiento= new TimerTask() {			
-			@Override
-			public void run() {
-				actualizar();
-			}
-		};
-		timerr.schedule(movimiento, 0, ACTUALIZACION_POSICION);
+		timer=0;
 	}
 	
 	public List<Ladrillo> getListaLadrillos(){
@@ -60,23 +52,27 @@ public class ControladorDeLadrillos extends Controlador{
 	 * maneja la posicion de cada ladrillo existente en todo momento
 	 */
 	public void actualizar() {
+		timer++;
 		boolean impacto = false;
 		Ventana ventanaActualFelix = Felix.getInstance().getVentanaActual();
 		Ventana ventanaActualLadrillo;
 		Ladrillo ladrillo;
-		Iterator<Ladrillo> ite = listaLadrillos.iterator();
-		while (ite.hasNext() && !impacto) {
-			ladrillo = ite.next();
-			if (ladrillo.avanzar()) {
-				ite.remove();
-			} else {
-				ventanaActualLadrillo = ladrillo.devolverVentana();
-				if (ventanaActualLadrillo != null && ventanaActualLadrillo.equals(ventanaActualFelix)) {
-					Juego.getInstance().ladrilloGolpeoAFelix();
-					Felix.getInstance().recibirImpactoLadrillo();
-					impacto = true;
+		if (timer > 1000 / (velocidad * ControladorDeJuego.ACTUALIZACION)) {
+			Iterator<Ladrillo> ite = listaLadrillos.iterator();
+			while (ite.hasNext() && !impacto) {
+				ladrillo = ite.next();
+				if (ladrillo.avanzar()) {
+					ite.remove();
+				} else {
+					ventanaActualLadrillo = ladrillo.devolverVentana();
+					if (ventanaActualLadrillo != null && ventanaActualLadrillo.equals(ventanaActualFelix)) {
+						Juego.getInstance().ladrilloGolpeoAFelix();
+						Felix.getInstance().recibirImpactoLadrillo();
+						impacto = true;
+					}
 				}
 			}
+			timer = 0;
 		}
 	}
 	/**
