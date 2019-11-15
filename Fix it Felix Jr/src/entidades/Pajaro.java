@@ -42,17 +42,6 @@ public class Pajaro implements Impactable, Desplazable{
 		default:
 			break;
 		}
-		if (posY == 130) {
-			m=0;
-		} else {
-			if (posY>=180 && posY<=240) {
-				m=1;
-			} else {
-				if(posY>=260 && posY<=340) {
-					m=2;
-				}
-			}
-		}
 		if (posX>=214 && posX<=252) {
 			n=0;
 		} else {
