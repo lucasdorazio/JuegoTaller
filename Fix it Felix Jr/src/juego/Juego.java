@@ -226,10 +226,7 @@ public class Juego implements Runnable{
 		String nombre;
 		System.out.println("Felicitaciones, su puntaje esta en el Top5, ingrese su nombre");
 		nombre= teclado.next();
-		//if
-		
-		
-		
+		if (nombre.isEmpty()) throw new ImproperNameException();
 		teclado.close();
 	}
 	
