@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import juego.Juego;
+import juego.Ranking;
 import controladores.ControladorDeJuego;
 
 import javax.imageio.ImageIO;
@@ -104,7 +104,7 @@ public class Menu extends JFrame {
 		//hacer invisible el menu
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TopJugadores framTop = new TopJugadores(Juego.getInstance().mejoresCinco());
+				TopJugadores framTop = new TopJugadores(Ranking.getMejoresCinco());
 				framTop.setVisible(true);
 			}
 		});

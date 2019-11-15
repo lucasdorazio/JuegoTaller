@@ -19,6 +19,7 @@ import entidades.Felix;
  *
  */
 import entidades.Posicion;
+import excepciones.ImproperNameException;
 public class Juego implements Runnable{
 	
 	private static Juego INSTANCE;
@@ -47,7 +48,8 @@ public class Juego implements Runnable{
 	
 	private  int nroSeccion;
 	
-	private int puntajePrevio;
+	private int puntajePrevioNivel;
+	private int puntajePrevioSeccion;
 
 	private int timerTiempo;
 	
@@ -65,7 +67,6 @@ public class Juego implements Runnable{
 	}
 	
 	private Juego() {
-		Scanner teclado= new Scanner(System.in);
 		//System.out.println("Ingrese su nickname");
 		ranking = new Ranking();
 		/*ranking.cargarMejoresJugadores();
@@ -76,8 +77,8 @@ public class Juego implements Runnable{
 		}//era para comprobar que lee y escribe bien*/
 		ranking.leerRanking();
 		//cambie el set por mandarlo al constructor
-		jugador= new Jugador("nuevo", 0);
-		puntajePrevio=0;
+		jugador= new Jugador();
+		puntajePrevioNivel=0;
 		nroNivel=0;
 		//this.iniciarNivel(false);
 		pasarDeNivel=false;
@@ -85,7 +86,6 @@ public class Juego implements Runnable{
 		reinicioNivel=false;
 		reinicioSeccion=false;
 		timerTiempo=0;
-		teclado.close();
 	}
 	/**
 	 * iniciarNivel comienza un nuevo nivel(generando
@@ -101,11 +101,11 @@ public class Juego implements Runnable{
 			for (int i=0;i<4;i++) {
 				controladores[i].avanzarSeccion();
 			}
-			jugador.setPuntaje(puntajePrevio);
+			jugador.setPuntaje(puntajePrevioNivel);
 			reinicioNivel=false;
 		} else {
 			nivel.generarEdificio();
-			puntajePrevio=jugador.getPuntaje();
+			puntajePrevioNivel=jugador.getPuntaje();
 		}
 		controladores= new Controlador[4];
 		brickController= new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
@@ -124,6 +124,7 @@ public class Juego implements Runnable{
 		for (int i=0;i<4;i++) {
 			controladores[i].avanzarSeccion();
 		}
+		jugador.setPuntaje(puntajePrevioSeccion);
 		Edificio.getInstance().reiniciarSeccion(nroSeccion);
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][2]);
@@ -134,32 +135,35 @@ public class Juego implements Runnable{
 	 * e interaccion entre las diferentes entidades del juego
 	 */
 	public void actualizar() {
-		if (reinicioNivel) {
-			iniciarNivel(true);
-			System.out.println("Quedan "+ Felix.getInstance().getSeccionActual().getVentanasRestantes() + " ventanas restantes");
-		}
-		else if (reinicioSeccion) {
-			reiniciarSeccion();
-			System.out.println("Quedan "+ Felix.getInstance().getSeccionActual().getVentanasRestantes() + " ventanas restantes");
-		}
+		if (perdio()) perder();
 		else {
-			timerTiempo++;
-			if (timerTiempo> 1000 / ControladorDeJuego.ACTUALIZACION) {
-				tiempo--;
-				timerTiempo=0;
-				
-			}
-			if (pasarDeNivel)
-				avanzarNivel();
-			else if (pasarDeSeccion)
-				avanzarSeccion();
-			else {
-				for (int i=0;i<4;i++) {
-					if (i==1) continue;
-					//if (i==2) continue;
-					controladores[i].actualizar();
+			if (reinicioNivel) {
+				iniciarNivel(true);
+				System.out.println("Quedan " + Felix.getInstance().getSeccionActual().getVentanasRestantes()
+						+ " ventanas restantes");
+			} else if (reinicioSeccion) {
+				reiniciarSeccion();
+				System.out.println("Quedan " + Felix.getInstance().getSeccionActual().getVentanasRestantes()
+						+ " ventanas restantes");
+			} else {
+				timerTiempo++;
+				if (timerTiempo > 1000 / ControladorDeJuego.ACTUALIZACION) {
+					tiempo--;
+					timerTiempo = 0;
+
 				}
-				Felix.getInstance().actualizarInvulnerabilidad();
+				if (pasarDeNivel)
+					avanzarNivel();
+				else if (pasarDeSeccion)
+					avanzarSeccion();
+				else {
+					for (int i = 0; i < 4; i++) {
+						// if (i==1) continue;
+						// if (i==2) continue;
+						controladores[i].actualizar();
+					}
+					Felix.getInstance().actualizarInvulnerabilidad();
+				}
 			}
 		}
 	}
@@ -186,6 +190,7 @@ public class Juego implements Runnable{
 			controladores[i].avanzarSeccion();
 		}
 		nroSeccion++;
+		puntajePrevioSeccion=jugador.getPuntaje();
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
 		pasarDeSeccion=false;
@@ -210,7 +215,26 @@ public class Juego implements Runnable{
 	}
 	
 	public void ganar() {
-		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
+		if (jugador.getPuntaje() > ranking.getMejoresCinco()[4].getPuntaje()) {
+			pedirNombre();
+		}else 
+			System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
+	}
+	
+	public void pedirNombre() throws ImproperNameException{
+		Scanner teclado= new Scanner(System.in);
+		String nombre;
+		System.out.println("Felicitaciones, su puntaje esta en el Top5, ingrese su nombre");
+		nombre= teclado.next();
+		//if
+		
+		
+		
+		teclado.close();
+	}
+	
+	public void perder() {
+		System.out.println("Perdiste pichon");
 	}
 	
 	
@@ -246,10 +270,6 @@ public class Juego implements Runnable{
 
 	public Jugador getJugador() {
 		return jugador;
-	}
-	
-	public Jugador[] mejoresCinco(){
-		return ranking.getmejoresDiez();
 	}
 	
 	public void setNroNivel (int nroNivel) {

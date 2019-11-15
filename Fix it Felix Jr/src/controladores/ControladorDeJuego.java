@@ -25,12 +25,13 @@ public class ControladorDeJuego {
 	
 	public void jugar() {
 		boolean perdio = false;
+		boolean gano=false;
 		Juego.getInstance().iniciarNivel(false);
 		TimerTask gameUpdate= new TimerTask() {
 			public void run() {
 				Juego.getInstance().actualizar();
 				frameJuego.repaint();
-				if (perdio) timer.cancel();
+				if (perdio || gano) timer.cancel();
 			}
 		};
 		timer.schedule(gameUpdate, 1, ACTUALIZACION);

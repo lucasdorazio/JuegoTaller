@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
  */
 public class Ranking{
 	
-	private Jugador[] mejoresCinco;
+	private static Jugador[] mejoresCinco;
 	
 	public Ranking() {
 		 mejoresCinco = new Jugador[5];
@@ -78,7 +78,7 @@ public class Ranking{
 		
 	}
 	
-	public Jugador[] getmejoresDiez() {
+	public static Jugador[] getMejoresCinco() {
 		return mejoresCinco;
 	}
 	// para probar stream

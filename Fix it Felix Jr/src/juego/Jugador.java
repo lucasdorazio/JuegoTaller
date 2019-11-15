@@ -14,10 +14,16 @@ public class Jugador implements Serializable{
 	
 	private int puntaje;
 
+	public Jugador() {
+		this.nick="Nombre vacio";
+		this.puntaje=0;
+	}
+	
 	public Jugador(String nick, int puntaje) {
 		this.nick=nick;
 		this.puntaje=puntaje;
 	}
+	
 	public String getNick() {
 		return nick;
 	}

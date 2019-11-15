@@ -1,7 +1,5 @@
 package edificio;
 
-import juego.Nivel;
-
 /**
  * Modela al conjunto de secciones y las administra
  * @author Lucas y Renzo
