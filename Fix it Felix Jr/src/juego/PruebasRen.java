@@ -1,10 +1,14 @@
 package juego;
 
+import java.awt.Graphics;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
+import entidades.Posicion;
 import excepciones.ImproperNameException;
 
 public class PruebasRen {
@@ -113,3 +117,25 @@ class Hilo implements Runnable{
 	}
 	
 }
+
+/*
+private void paintPastel(Graphics g) {
+Posicion pos = Juego.getInstance().getPosPastel();
+if ( pos != null) {
+	g.drawImage(pastel, pos.getPosX(), pos.getPosY(), pastel.getWidth(null), pastel.getHeight(null), null);
+}
+}
+
+public Posicion getPosPastel() {
+return controladores[3].getListaPosEntidades().get(0);
+}
+
+
+@Override
+public List<Posicion> getListaPosEntidades() {
+	List<Posicion> lista = new LinkedList<Posicion>();
+	lista.add(getPosPastel());
+	return lista;
+}
+
+*/
