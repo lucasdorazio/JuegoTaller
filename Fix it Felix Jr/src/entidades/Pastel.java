@@ -18,7 +18,7 @@ public class Pastel implements Impactable {
 	 * @param v ubicación del pastel
 	 */
 	public Pastel(Ventana v) {
-		this.ventanaActual=v;
+		this.ventanaActual= v;
 		this.tiempoDeVida=15;	//Un pastel se mantendrá en una ventana por 15 segundos
 	}
 	
