@@ -69,6 +69,7 @@ public class Felix {
 			if (!sanaAntes && ventanaActual.estoySana()) {
 				reparada = true;
 				Juego.getInstance().getJugador().sumarPuntaje(100);
+				System.out.println("Puntaje actual= "+ Juego.getInstance().getJugador().getPuntaje());
 				seccionActual.disminuirVentanasRestantes();
 				Juego.getInstance().comprobarSeccionLimpia(seccionActual);
 			}
@@ -84,6 +85,7 @@ public class Felix {
 		estado= EstadoFelix.INVULNERABLE;
 		vulnerable = false;
 		Juego.getInstance().getJugador().sumarPuntaje(500);
+		System.out.println("Puntaje actual= "+ Juego.getInstance().getJugador().getPuntaje());
 	}
 
 	public void recibirImpactoLadrillo() {
@@ -231,6 +233,10 @@ public class Felix {
 		info.setListaEstados(estado);
 		info.setListaPosiciones(pos);
 		return info;
+	}
+
+	public void reiniciarVidas() {
+		this.vidas=3;
 	}
 
 }
