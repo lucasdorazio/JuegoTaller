@@ -1,7 +1,9 @@
 package grafica;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -150,12 +152,13 @@ public class FrameJuego extends JFrame {
 				paintRalph(g);
 			};
 		};
-//		contentPane.setBounds(100,100,675,370);
-//		contentPane.setVisible(true);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		setBounds(100, 100, Juego.LIMITE_DERECHO_MAPA, Juego.LIMITE_INFERIOR_MAPA);
+		Dimension tamañoPantalla= Toolkit.getDefaultToolkit().getScreenSize();
+		int ancho= Juego.LIMITE_DERECHO_MAPA;
+		int alto=Juego.LIMITE_INFERIOR_MAPA;
+		setBounds((tamañoPantalla.width-ancho)/2,(tamañoPantalla.height-alto)/2, ancho, alto);
 	}
 	
 	private void paintSeccion(Graphics g) {

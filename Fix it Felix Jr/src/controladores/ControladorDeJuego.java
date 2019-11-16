@@ -6,6 +6,8 @@ import java.util.TimerTask;
 import grafica.FrameJuego;
 import grafica.Menu;
 import juego.Juego;
+import juego.Jugador;
+import juego.Ranking;
 
 public class ControladorDeJuego {
 	
@@ -14,6 +16,7 @@ public class ControladorDeJuego {
 	private Timer timer;
 	public static boolean perdio = false;
 	public static boolean gano=false;
+	private Ranking ranking;
 	
 	public FrameJuego getFrameJuego() {
 		return frameJuego;
@@ -21,11 +24,14 @@ public class ControladorDeJuego {
 
 	public ControladorDeJuego(Menu m) {
 		frameJuego= new FrameJuego(m);
-		frameJuego.setVisible(true);
 		timer= new Timer();
+		ranking= new Ranking();
+		ranking.leerRankingNuevo();
+//		ranking.cargarMejoresJugadores();
 	}
 	
 	public void jugar() {
+		frameJuego.setVisible(true);
 		Juego.getInstance().iniciarNivel(false);
 		TimerTask gameUpdate= new TimerTask() {
 			public void run() {
@@ -39,5 +45,9 @@ public class ControladorDeJuego {
 //		hiloJuego.start();
 //		Juego.getInstance().setNroNivel(nivelElegido);
 //		Juego.getInstance().iniciarNivel(false);
+	}
+	
+	public Ranking getMejoresJugadores() {
+		return ranking;
 	}
 }

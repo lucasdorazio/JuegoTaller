@@ -82,12 +82,9 @@ public class Juego {
 		} catch (Exception e) {
 			System.out.println("No se pudo escribir");
 		}//era para comprobar que lee y escribe bien*/
-		ranking.leerRanking();
-		//cambie el set por mandarlo al constructor
 		jugador= new Jugador();
 		puntajePrevioNivel=0;
 		nroNivel=0;
-		//this.iniciarNivel(false);
 		pasarDeNivel=false;
 		pasarDeSeccion=false;
 		reinicioNivel=false;
@@ -163,8 +160,8 @@ public class Juego {
 					avanzarSeccion();
 				else {
 					for (int i = 0; i < 4; i++) {
-						// if (i==1) continue;
-						// if (i==2) continue;
+						if (i==1) continue;
+						if (i==2) continue;
 						controladores[i].actualizar();
 					}
 					Felix.getInstance().actualizarInvulnerabilidad();
@@ -193,7 +190,7 @@ public class Juego {
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
 		pasarDeSeccion=false;
-		System.out.println("Avanzaste a la seccion "+ nroSeccion);
+		System.out.println("Avanzaste a la seccion "+ (nroSeccion+1));
 	}
 	/**
 	 * iniciara un nuevo nivel desde cero 
@@ -251,7 +248,7 @@ public class Juego {
 					pedirNombre();
 					nombreCorrecto = true;
 				} catch (ImproperNameException e) {
-					System.out.println("ERROR: " + e.toString());
+					System.err.println("ERROR: " + e.toString());
 				}
 			}
 			ranking.actualizarRanking(jugador);

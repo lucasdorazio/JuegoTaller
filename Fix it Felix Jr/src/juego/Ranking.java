@@ -1,8 +1,10 @@
 package juego;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,10 +16,16 @@ import java.io.ObjectOutputStream;
  */
 public class Ranking{
 	
-	private static Jugador[] mejoresCinco;
+	private Jugador[] mejoresCinco;
+	private int dimL;
 	
 	public Ranking() {
 		 mejoresCinco = new Jugador[5];
+		 dimL=0;
+	}
+	
+	public int getCantJugadores() {
+		return dimL;
 	}
 	
 	/**
@@ -54,36 +62,37 @@ public class Ranking{
 		salida.close();
 	}
 	
-	public void leerRanking() {
-		//Object[] jugadores = new Object[5];
-		//tira error invalid stream header
-		ObjectInputStream entrada = null;
+	public void leerRankingNuevo() {
+		BufferedReader br;
+		String linea, nombre;
+		int puntaje, espacio;
 		try {
-			entrada = new ObjectInputStream(new FileInputStream("src/datos/archivo.obj"));
-		} catch (IOException e) {
-			System.out.println("Archivo ranking.TXT no encontrado vez 1");
+			br= new BufferedReader(new FileReader("src/datos/top_5.txt"));
+			linea= br.readLine();
+			while (linea != null) {
+				espacio= linea.indexOf(" ");
+				nombre= linea.substring(0, espacio);
+				puntaje= Integer.parseInt(linea.substring(espacio+1, linea.length()));
+				mejoresCinco[dimL]= new Jugador(nombre, puntaje);
+				dimL++;
+				linea= br.readLine();
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} 
-		for (int i = 0; i < 5; i++) {
-			try {
-				mejoresCinco[i]=(Jugador) entrada.readObject();
-			} catch (ClassNotFoundException e) {
-				System.out.println("De alguna forma, la clase no fue encontrada (preguntar)");
-				e.printStackTrace();
-			} catch (IOException e) {
-				System.out.println("Archivo ranking.TXT no encontrado vez 2");
-				e.printStackTrace();
-			} 
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
-	public static Jugador[] getMejoresCinco() {
+	public Jugador[] getMejoresCinco() {
 		if (mejoresCinco== null) cargarMejoresJugadores();
 		return mejoresCinco;
 	}
 	// para probar stream
-	public static void cargarMejoresJugadores() {
+	public void cargarMejoresJugadores() {
 		mejoresCinco= new Jugador[5];
+		dimL=5;
 		mejoresCinco[0]= new Jugador("Manuel", 500);
 		mejoresCinco[1]= new Jugador("juan", 400);
 		mejoresCinco[2]= new Jugador("ricky", 300);
