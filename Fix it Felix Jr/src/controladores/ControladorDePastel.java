@@ -21,7 +21,7 @@ public class ControladorDePastel extends Controlador<EstadoPastel> {
 	private int timer;
 
 	public ControladorDePastel() {
-		this.tiempoSpawneo = 4;
+		this.tiempoSpawneo = 1;
 		timer=0;
 	}
 

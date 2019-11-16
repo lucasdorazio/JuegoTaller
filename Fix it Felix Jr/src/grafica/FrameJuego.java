@@ -141,6 +141,7 @@ public class FrameJuego extends JFrame {
 				paintPajaros(g);
 				paintPastel(g);
 				paintLadrillos(g);
+				paintRalph(g);
 				//g.drawImage(felix, Felix.getInstance().getPos().getPosX(), Felix.getInstance().getPos().getPosY(), felix.getWidth(null), felix.getHeight(null), null);
 				//g.drawImage(ralph, Juego.getInstance().getPosRalph().getPosX(), Juego.getInstance().getPosRalph().getPosY(), ralph.getWidth(null), ralph.getHeight(null),null);
 			};
@@ -294,16 +295,10 @@ public class FrameJuego extends JFrame {
 		Image imagen = null;
 		InfoGraficable<EstadoPastel> info = Juego.getInstance().getInfoGraficablePastel();
 		Posicion pos = info.getListaPosiciones().get(0);
-<<<<<<< HEAD
 		EstadoPastel estado;
-=======
->>>>>>> branch 'master' of https://github.com/lucasdorazio/JuegoTaller.git
 		if ( pos != null) {
-<<<<<<< HEAD
 			 estado = info.getListaEstados().get(0);
-=======
-			EstadoPastel estado = info.getListaEstados().get(0);
->>>>>>> branch 'master' of https://github.com/lucasdorazio/JuegoTaller.git
+			estado = info.getListaEstados().get(0);
 			if (estado == EstadoPastel.NORMAL1)
 				imagen = pastel1;
 			else
@@ -356,15 +351,7 @@ public class FrameJuego extends JFrame {
 		InfoGraficable<EstadosRalph> info = Juego.getInstance().getInfoGraficableRalph();
 		Posicion pos = info.getListaPosiciones().get(0);
 		EstadosRalph estado = info.getListaEstados().get(0);
-//		switch (estado) {
-//		case NORMAL1:
-//	
-//			break;
-//
-//		default:
-//			break;
-//		}
-		g.drawImage(ralph, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
+		g.drawImage(ralph, pos.getPosX(), pos.getPosY(), ralph.getWidth(null), ralph.getHeight(null), null);
 
 	}
 	
