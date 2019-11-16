@@ -34,7 +34,7 @@ public class ControladorDePastel extends Controlador<EstadoPastel> {
 				pastel = null;
 			} else {
 				timer++;
-				if (timer > tiempoSpawneo * 1000 / ControladorDeJuego.ACTUALIZACION) {
+				if (timer > 500 / ControladorDeJuego.ACTUALIZACION) {
 					if (pastel.getEstado() == EstadoPastel.NORMAL1)
 						pastel.setEstado(EstadoPastel.NORMAL2);
 					else

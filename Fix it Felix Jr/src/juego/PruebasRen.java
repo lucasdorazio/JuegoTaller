@@ -1,16 +1,7 @@
 package juego;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.swing.JFrame;
-
-import excepciones.ImproperNameException;
-import grafica.TopJugadores;
+import javax.swing.JOptionPane;
 
 public class PruebasRen {
 
@@ -30,35 +21,14 @@ public class PruebasRen {
 //		TopJugadores ranking = new TopJugadores();
 //		ranking.setVisible(true);
 //		ranking.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		try {
-			Jugador[] ranking= new Jugador[5];
-			int dimL=0;
-			
-			BufferedReader br= new BufferedReader(new FileReader("dondeEstoy.txt"));
-			
-			String s=br.readLine();
-			String nombre;
-			int puntaje,espacio;
-			Jugador j;
-			while (s!=null) {
-				espacio= s.indexOf(" ");
-				nombre=s.substring(0, espacio);
-				puntaje= Integer.parseInt(s.substring(espacio+1, s.length()));
-				System.out.println(nombre + puntaje);
-				j= new Jugador(nombre, puntaje);
-				ranking[dimL]=j;
-				dimL++;
-				s=br.readLine();
-			}
-			br.close();
-			System.out.println("salio");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		PedirNombre();
+		System.out.println("Que raro es esto che");
+		
+	}
+	
+	public static String PedirNombre () {
+		String nya= JOptionPane.showInputDialog("Ingrese su nombre");
+		return nya;
 	}
 
 	

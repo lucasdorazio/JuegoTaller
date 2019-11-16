@@ -59,6 +59,8 @@ public class Juego {
 	
 	private int tiempo;
 	
+	private EstadoJuego estado;
+	
 	public static Juego getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new Juego();
@@ -92,6 +94,7 @@ public class Juego {
 		ControladorDeLadrillos brickController;
 		nroSeccion=0;
 		nivel = new Nivel(nroNivel);
+		estado= EstadoJuego.NORMAL;
 		if (reinicio) {
 			Edificio.getInstance().reiniciarEdificio();
 			for (int i=0;i<4;i++) {
@@ -152,7 +155,6 @@ public class Juego {
 //					if (i == 2) continue;
 					controladores[i].actualizar();
 				}
-//				Felix.getInstance().actualizarInvulnerabilidad();
 				Felix.getInstance().actualizar();
 			}
 		}
@@ -257,5 +259,13 @@ public class Juego {
 	@SuppressWarnings("unchecked")
 	public InfoGraficable<EstadoRalph> getInfoGraficableRalph() {
 		return controladores[1].getListaInfoGraficable();
+	}
+	
+	public void setEstado(EstadoJuego estado) {
+		this.estado=estado;
+	}
+	
+	public EstadoJuego getEstado() {
+		return estado;
 	}
 }

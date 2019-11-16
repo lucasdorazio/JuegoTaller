@@ -4,12 +4,15 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JOptionPane;
+
 import excepciones.ImproperNameException;
 import excepciones.InvalidCharacterNameException;
 import excepciones.TooLongNameException;
 import excepciones.TooShortNameException;
 import grafica.FrameJuego;
 import grafica.Menu;
+import juego.EstadoJuego;
 import juego.Juego;
 import juego.Jugador;
 import juego.Ranking;
@@ -19,8 +22,6 @@ public class ControladorDeJuego {
 	public static final int ACTUALIZACION=5;
 	private FrameJuego frameJuego;
 	private Timer timer;
-	public static boolean perdio = false;
-	public static boolean gano=false;
 	private Ranking ranking;
 	
 	public FrameJuego getFrameJuego() {
@@ -41,29 +42,32 @@ public class ControladorDeJuego {
 			public void run() {
 				Juego.getInstance().actualizar();
 				if (Juego.getInstance().perdio()) {
+					Juego.getInstance().setEstado(EstadoJuego.PERDER);
 					perder(Juego.getInstance().getJugador());
 					this.cancel();
 					frameJuego.dispose();
 				}
 				if (Juego.getInstance().gano()) {
+					Juego.getInstance().setEstado(EstadoJuego.GANAR);
 					ganar(Juego.getInstance().getJugador());
 					this.cancel();
 					frameJuego.dispose();
 				}
-//				else System.out.println("No entro al if de ganar");
 			}
 		};
 		TimerTask viewUpdate= new TimerTask() {
 			public void run() {
-				frameJuego.repaint();
+				switch (Juego.getInstance().getEstado()) {
+				case NORMAL:
+					frameJuego.repaint();
+					break;
+				default: 
+					break;
+				}
 			}
 		};
 		timer.schedule(gameUpdate, 0, ACTUALIZACION);
 		timer.schedule(viewUpdate, 0, ACTUALIZACION);
-//		hiloJuego= new Thread(Juego.getInstance(),"hiloJuego");
-//		hiloJuego.start();
-//		Juego.getInstance().setNroNivel(nivelElegido);
-//		Juego.getInstance().iniciarNivel(false);
 	}
 	
 	public void ganar(Jugador jugador) {
@@ -72,7 +76,7 @@ public class ControladorDeJuego {
 		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
 			while (!nombreCorrecto) {
 				try {
-					String nombre= pedirNombre();
+					String nombre= pedirNombre2();
 					nombreCorrecto = true;
 					jugador.setNick(nombre);
 				} catch (ImproperNameException e) {
@@ -84,13 +88,12 @@ public class ControladorDeJuego {
 	}
 	
 	public void perder(Jugador jugador) {
-		ControladorDeJuego.perdio=true;
 		boolean nombreCorrecto=false;
 		System.out.println("Lo lamento, has perdido. Tu punteaje fue: "+ jugador.getPuntaje());
 		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
 			while (!nombreCorrecto) {
 				try {
-					String nombre= pedirNombre();
+					String nombre= pedirNombre2();
 					nombreCorrecto = true;
 					jugador.setNick(nombre);
 				} catch (ImproperNameException e) {
@@ -107,6 +110,14 @@ public class ControladorDeJuego {
 		System.out.println("Ingrese su nombre");
 		nombre= teclado.next();
 		teclado.close();
+		if (nombre.length() < 2) throw new TooShortNameException();
+		if (nombre.length() > 20) throw new TooLongNameException();
+		if (nombre.contains(" ")) throw new InvalidCharacterNameException();
+		return nombre;
+	}
+	
+	public String pedirNombre2() throws ImproperNameException{
+		String nombre= JOptionPane.showInputDialog("Ingrese su nombre");
 		if (nombre.length() < 2) throw new TooShortNameException();
 		if (nombre.length() > 20) throw new TooLongNameException();
 		if (nombre.contains(" ")) throw new InvalidCharacterNameException();

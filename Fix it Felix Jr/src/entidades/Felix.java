@@ -84,7 +84,6 @@ public class Felix {
 		estado= EstadoFelix.INVULNERABLE;
 		vulnerable = false;
 		Juego.getInstance().getJugador().sumarPuntaje(500);
-		System.out.println("Felix se comió un pastel y ahora es invulnerable!");
 	}
 
 	public void recibirImpactoLadrillo() {
@@ -189,16 +188,6 @@ public class Felix {
 		}
 		return seMovio;
 	}
-
-	public void actualizarInvulnerabilidad() {
-		if (this.vulnerable == false) {
-			timerInvulnerabilidad++;
-			if (timerInvulnerabilidad > tiempoInvulnerabilidad * 1000 / ControladorDeJuego.ACTUALIZACION) {
-				this.vulnerable = true;
-				timerInvulnerabilidad = 0;
-			}
-		}
-	}
 	
 	public void actualizar() {
 		if (estaMuriendose) {
@@ -216,7 +205,6 @@ public class Felix {
 				estado= EstadoFelix.NORMAL;
 				vulnerable = true;
 				timerInvulnerabilidad = 0;
-				System.out.println("Perdio invulnerabilidad");
 			}
 		}
 		if (estaReparando) {
