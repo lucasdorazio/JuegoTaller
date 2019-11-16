@@ -93,13 +93,14 @@ public List<Posicion> getListaPosEntidades() {
 
 */
 
-
-/*		FileWriter archivo;
-		PrintWriter pw;
-		try {
+//definir archivo, pw y j
+/*		try {
 			archivo= new FileWriter("dondeEstoy.txt",false);
 			pw= new PrintWriter(archivo);
-			pw.println("hola2");
+			for (int i=0;i<3;i++) {
+				j= new Jugador("Nombre", (i+1)*50);
+				pw.println(j.getNick()+ " "+ j.getPuntaje());
+			}
 			pw.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

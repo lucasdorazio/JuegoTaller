@@ -1,2 +1,5 @@
-juan 4
-renzitoel+kpo 10
+Renzo 2900
+Manuel 500
+juan 400
+ricky 300
+sofia 200

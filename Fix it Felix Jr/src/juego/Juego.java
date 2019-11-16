@@ -1,5 +1,4 @@
 package juego;
-import java.util.Scanner;
 
 import controladores.Controlador;
 import controladores.ControladorDeJuego;
@@ -22,10 +21,6 @@ import entidades.InfoGraficable;
  *
  */
 import entidades.Posicion;
-import excepciones.ImproperNameException;
-import excepciones.InvalidCharacterNameException;
-import excepciones.TooLongNameException;
-import excepciones.TooShortNameException;
 public class Juego {
 	
 	private static Juego INSTANCE;
@@ -64,8 +59,6 @@ public class Juego {
 	
 	private int tiempo;
 	
-	private Ranking ranking;
-	
 	public static Juego getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new Juego();
@@ -75,7 +68,6 @@ public class Juego {
 	
 	private Juego() {
 		//System.out.println("Ingrese su nickname");
-		ranking = new Ranking();
 		/*ranking.cargarMejoresJugadores();
 		try{
 			ranking.escribirRanking();
@@ -139,33 +131,29 @@ public class Juego {
 	 * e interaccion entre las diferentes entidades del juego
 	 */
 	public void actualizar() {
-		if (perdio()) perder();
-		else {
-			if (reinicioNivel) {
-				iniciarNivel(true);
-				System.out.println("NIVEL REINICIADO");
-			} else if (reinicioSeccion) {
-				reiniciarSeccion();
-				System.out.println("SECCION REINICIADA");
-			} else {
-				timerTiempo++;
-				if (timerTiempo > 1000 / ControladorDeJuego.ACTUALIZACION) {
-					tiempo--;
-					timerTiempo = 0;
-
+		if (reinicioNivel) {
+			iniciarNivel(true);
+			System.out.println("NIVEL REINICIADO");
+		} else if (reinicioSeccion) {
+			reiniciarSeccion();
+			System.out.println("SECCION REINICIADA");
+		} else {
+			timerTiempo++;
+			if (timerTiempo > 1000 / ControladorDeJuego.ACTUALIZACION) {
+				tiempo--;
+				timerTiempo = 0;
+			}
+			if (pasarDeNivel)
+				avanzarNivel();
+			else if (pasarDeSeccion)
+				avanzarSeccion();
+			else {
+				for (int i = 0; i < 4; i++) {
+					//if (i == 1) continue;
+					if (i == 2) continue;
+					controladores[i].actualizar();
 				}
-				if (pasarDeNivel)
-					avanzarNivel();
-				else if (pasarDeSeccion)
-					avanzarSeccion();
-				else {
-					for (int i = 0; i < 4; i++) {
-						if (i==1) continue;
-						if (i==2) continue;
-						controladores[i].actualizar();
-					}
-					Felix.getInstance().actualizarInvulnerabilidad();
-				}
+				Felix.getInstance().actualizarInvulnerabilidad();
 			}
 		}
 	}
@@ -175,6 +163,12 @@ public class Juego {
 	 */
 	public boolean perdio() {
 		return (Felix.getInstance().getVidas()==0 || tiempo<=0);
+	}
+	
+	public boolean gano() {
+		if ((nroNivel == 9) && (nroSeccion == 2) && (Edificio.getInstance().getSecciones()[nroSeccion].getVentanasRestantes() == 0))
+			return true;
+		else return false;
 	}
 	
 	
@@ -208,53 +202,7 @@ public class Juego {
 	
 	public int getNroSeccion() {
 		return nroSeccion;
-	}
-	
-	public void ganar() {
-		boolean nombreCorrecto=false;
-		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
-		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
-			while (!nombreCorrecto) {
-				try {
-					pedirNombre();
-					nombreCorrecto = true;
-				} catch (ImproperNameException e) {
-					System.out.println("ERROR: " + e.toString());
-				}
-			}
-			ranking.actualizarRanking(jugador);
-		}
-	}
-	
-	public void pedirNombre() throws ImproperNameException{
-		Scanner teclado= new Scanner(System.in);
-		String nombre;
-		System.out.println("Ingrese su nombre");
-		nombre= teclado.next();
-		teclado.close();
-		if (nombre.length() < 2) throw new TooShortNameException();
-		if (nombre.length() > 20) throw new TooLongNameException();
-		if (nombre.contains(" ")) throw new InvalidCharacterNameException();
-		jugador.setNick(nombre);
-	}
-	
-	public void perder() {
-		ControladorDeJuego.perdio=true;
-		boolean nombreCorrecto=false;
-		System.out.println("Lo lamento, has perdido. Tu punteaje fue: "+ jugador.getPuntaje());
-		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
-			while (!nombreCorrecto) {
-				try {
-					pedirNombre();
-					nombreCorrecto = true;
-				} catch (ImproperNameException e) {
-					System.err.println("ERROR: " + e.toString());
-				}
-			}
-			ranking.actualizarRanking(jugador);
-		}
-	}
-	
+	}	
 	
 	/**
 	 * Analiza si la seccion actual (recibida por parametro) tiene todas sus 
@@ -264,17 +212,12 @@ public class Juego {
 	public void comprobarSeccionLimpia(Seccion seccion){
 		if (seccion.getVentanasRestantes()==0) {
 			if (nroSeccion == 2) {
-				if (nroNivel ==9) {
-					ganar();
-				} else {
-					pasarDeNivel=true;
-				}
+				if (nroNivel!=9) pasarDeNivel=true;
 			} else {
 				pasarDeSeccion=true;
 			}
 		}
 	}
-
 
 	public void ladrilloGolpeoAFelix() {
 		reinicioNivel=true;

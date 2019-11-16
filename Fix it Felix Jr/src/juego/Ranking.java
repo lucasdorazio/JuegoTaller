@@ -1,13 +1,13 @@
 package juego;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 
 /**
  * Clase que modela el almacenamiento y posición de los jugadores con mejores puntajes
@@ -54,6 +54,22 @@ public class Ranking{
 		}
 	}
 	
+	public void actualizarRankingNuevo(Jugador jugador) {
+		int pos;
+		if (dimL < 5) {
+			mejoresCinco[dimL] = jugador;
+			dimL++;
+		} else {
+			pos = 0;
+			while (pos < dimL && jugador.getPuntaje() <= mejoresCinco[pos].getPuntaje())
+				pos++;
+			for (int i=4;i>pos;i--)
+				mejoresCinco[i]= mejoresCinco[i-1];
+			mejoresCinco[pos]=jugador;
+		}
+		escribirRankingNuevo();
+	}
+	
 	public void escribirRanking() throws FileNotFoundException, IOException {
 		ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("src/datos/archivo.obj"));
 		for (int i = 0; i < 5; i++) {
@@ -62,7 +78,24 @@ public class Ranking{
 		salida.close();
 	}
 	
-	public void leerRankingNuevo() {
+	public void escribirRankingNuevo() {
+		FileWriter archivo;
+		PrintWriter pw;
+		Jugador j;
+		try {
+			archivo= new FileWriter("src/datos/top_5.txt");
+			pw= new PrintWriter(archivo);
+			for (int i=0; i<dimL;i++) {
+				j= mejoresCinco[i];
+				pw.println(j.getNick() + " " + j.getPuntaje());
+			}
+			pw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void leerRanking() {
 		BufferedReader br;
 		String linea, nombre;
 		int puntaje, espacio;
@@ -102,7 +135,8 @@ public class Ranking{
 		}
 
 	public boolean estaEntreLosMejoresCinco(int puntaje) {
-		return (puntaje > mejoresCinco[4].getPuntaje());
+		if (dimL<5) return true;
+		else return (puntaje > mejoresCinco[dimL-1].getPuntaje());
 	}
 		
 }

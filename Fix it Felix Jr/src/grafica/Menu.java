@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import juego.Ranking;
 import controladores.ControladorDeJuego;
 
 import javax.imageio.ImageIO;
