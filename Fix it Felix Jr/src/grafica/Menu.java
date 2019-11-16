@@ -21,6 +21,8 @@ import java.util.logging.Logger;
 public class Menu extends JFrame {
 	private Image fondo;
 	private JPanel contentPane;
+	private JLabel lblFixItFelix, botonConfig;
+	private JButton botonRanking, botonJugar, botonComoJugar;
 	private ControladorDeJuego gameController;
 
 	/**
@@ -65,29 +67,14 @@ public class Menu extends JFrame {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-		JLabel lblFixItFelix = new JLabel("FIX IT \n FELIX JR!");
+		lblFixItFelix = new JLabel("FIX IT \n FELIX JR!");
 		lblFixItFelix.setFont(crearFuente("src/grafica/Fuentes/ka1.ttf ", 60));
 		lblFixItFelix.setForeground(Color.RED);
 		lblFixItFelix.setBounds(76, 132, 682, 172);
 		contentPane.add(lblFixItFelix);
 		
-		JButton botonComoJugar = new JButton("COMO JUGAR");
-		botonComoJugar.setFont(crearFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
-		botonComoJugar.setBounds(100, 400, 145, 73);
-		ComoJugar frameComojugar = new ComoJugar(this);
-		frameComojugar.setVisible(false);
-		botonComoJugar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				frameComojugar.setVisible(true);
-			}
-		});
-		contentPane.add(botonComoJugar);
-		
 		gameController= new ControladorDeJuego(this);
-		JButton botonRanking = new JButton("RANKING");
+		botonRanking = new JButton("RANKING");
 		TopJugadores framTop = new TopJugadores(gameController.getMejoresJugadores());
 		botonRanking.setFont(crearFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
 		botonRanking.setBounds(570, 400, 145, 73);
@@ -102,7 +89,7 @@ public class Menu extends JFrame {
 		
 	
 		ImageIcon imagenBoton = new ImageIcon("src/grafica/Otros/icon.png");
-		JLabel botonConfig= new JLabel("Options");
+		botonConfig= new JLabel("Options");
 		botonConfig.setBounds(672, 24, 86, 79);
 		botonConfig.setIcon(new ImageIcon(imagenBoton.getImage().getScaledInstance(botonConfig.getWidth(), botonConfig.getHeight(), Image.SCALE_SMOOTH)));
 		Configuracion frameConfig= new Configuracion(this);
@@ -117,19 +104,37 @@ public class Menu extends JFrame {
 		});
 		contentPane.add(botonConfig);
 		
-		JButton botonJugar = new JButton("JUGAR");
+		botonJugar = new JButton("JUGAR");
 		botonJugar.setFont(crearFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
 		botonJugar.setBounds(338, 400, 145, 73);
 		botonJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				frameComojugar.setVisible(false);
 				framTop.setVisible(false);
 				frameConfig.setVisible(false);
 				gameController.jugar();
 			}
 		});
 		contentPane.add(botonJugar);
+		botonComoJugar = new JButton("COMO JUGAR");
+		botonComoJugar.setFont(crearFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
+		botonComoJugar.setBounds(100, 400, 145, 73);
+		ComoJugar panelComoJugar = new ComoJugar(this);
+		panelComoJugar.setVisible(false);
+		contentPane.add(panelComoJugar);
+		botonComoJugar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				botonComoJugar.setVisible(false);
+				botonRanking.setVisible(false);
+				botonConfig.setVisible(false);
+				botonJugar.setVisible(false);
+				lblFixItFelix.setVisible(false);
+				panelComoJugar.setVisible(true);
+			}
+		});
+		contentPane.add(botonComoJugar);
 	}
 	
 	public static Font crearFuente(String ruta, int escala){
@@ -147,6 +152,13 @@ public class Menu extends JFrame {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		ge.registerFont(fuente);
 	    return fuente;
-	    
-   }
+	}
+	
+	public void visibilizarBotones() {
+		botonComoJugar.setVisible(true);
+		botonRanking.setVisible(true);
+		botonConfig.setVisible(true);
+		botonJugar.setVisible(true);
+		lblFixItFelix.setVisible(true);
+	}
 }
