@@ -1,6 +1,7 @@
 package edificio;
 
 import entidades.Direcciones;
+import excepciones.NotAllowedMovementException;
 
 /**
  * La clase Ventana será de la extienden todas los tipos de ventanas del edificio
@@ -50,7 +51,7 @@ public abstract class Ventana implements Cloneable{
 	 * @param dir
 	 * @return si una ventana puede atravesarse en una determinada direccion, es necesario para el movimiento de Felix
 	 */
-	public abstract boolean puedePasar (Direcciones dir);
+	public abstract void puedePasar (Direcciones dir) throws NotAllowedMovementException;
 	
 	/**
 	 * Determino si una ventana es o no igual a la otra ventana @param v

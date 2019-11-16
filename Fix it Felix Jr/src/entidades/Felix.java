@@ -141,52 +141,39 @@ public class Felix {
 		this.seccionActual = seccionActual;
 	}
 
-	public boolean mover(Direcciones dir) throws NotAllowedMovementException {
+	public void mover(Direcciones dir) throws NotAllowedMovementException {
 		Ventana proximaVentana;
-		boolean seMovio = false;
 		if (!estaHaciendoAlgo()) {
-			if (ventanaActual.puedePasar(dir)) {
-				switch (dir) {
-				case DERECHA:
-					proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual
-							.getNroColumna() + 1];
-					if (proximaVentana.puedePasar(Direcciones.IZQUIERDA)) {
-						ventanaActual = proximaVentana;
-						seMovio = true;
-					}
-					break;
-				case IZQUIERDA:
-					proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual
-							.getNroColumna() - 1];
-					if (proximaVentana.puedePasar(Direcciones.DERECHA)) {
-						ventanaActual = proximaVentana;
-						seMovio = true;
-					}
-					break;
-				case ARRIBA:
-					proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila() - 1][ventanaActual
-							.getNroColumna()];
-					if (proximaVentana.puedePasar(Direcciones.ABAJO)) {
-						ventanaActual = proximaVentana;
-						seMovio = true;
-					}
-					break;
-				case ABAJO:
-					proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila() + 1][ventanaActual
-							.getNroColumna()];
-					if (proximaVentana.puedePasar(Direcciones.ARRIBA)) {
-						ventanaActual = proximaVentana;
-						seMovio = true;
-					}
-					break;
-				}
+			ventanaActual.puedePasar(dir);
+			switch (dir) {
+			case DERECHA:
+				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()
+						+ 1];
+				proximaVentana.puedePasar(Direcciones.IZQUIERDA);
+				ventanaActual = proximaVentana;
+				break;
+			case IZQUIERDA:
+				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()
+						- 1];
+				proximaVentana.puedePasar(Direcciones.DERECHA);
+				ventanaActual = proximaVentana;
+				break;
+			case ARRIBA:
+				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila() - 1][ventanaActual
+						.getNroColumna()];
+				proximaVentana.puedePasar(Direcciones.ABAJO);
+				ventanaActual = proximaVentana;
+				break;
+			case ABAJO:
+				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila() + 1][ventanaActual
+						.getNroColumna()];
+				proximaVentana.puedePasar(Direcciones.ARRIBA);
+				ventanaActual = proximaVentana;
+				break;
 			}
+			estaMoviendose = true;
+			estado = EstadoFelix.MOVIENDOSE;
 		}
-		if (seMovio) {
-			estaMoviendose=true;
-			estado=EstadoFelix.MOVIENDOSE;
-		}
-		return seMovio;
 	}
 	
 	public void actualizar() {

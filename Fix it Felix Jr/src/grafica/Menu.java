@@ -66,7 +66,7 @@ public class Menu extends JFrame {
 			ex.printStackTrace();
 		}
 		JLabel lblFixItFelix = new JLabel("FIX IT \n FELIX JR!");
-		lblFixItFelix.setFont(crearFuente("src/grafica/Fuentes/ka1.ttf", 60));
+		lblFixItFelix.setFont(crearFuente("src/grafica/Fuentes/ka1.ttf ", 60));
 		lblFixItFelix.setForeground(Color.RED);
 		lblFixItFelix.setBounds(76, 132, 682, 172);
 		contentPane.add(lblFixItFelix);
@@ -87,17 +87,6 @@ public class Menu extends JFrame {
 		contentPane.add(botonComoJugar);
 		
 		gameController= new ControladorDeJuego(this);
-		JButton botonJugar = new JButton("JUGAR");
-		botonJugar.setFont(crearFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
-		botonJugar.setBounds(338, 400, 145, 73);
-		botonJugar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				gameController.jugar();
-			}
-		});
-		contentPane.add(botonJugar);
-		
 		JButton botonRanking = new JButton("RANKING");
 		TopJugadores framTop = new TopJugadores(gameController.getMejoresJugadores());
 		botonRanking.setFont(crearFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
@@ -110,6 +99,7 @@ public class Menu extends JFrame {
 			}
 		});
 		contentPane.add(botonRanking);
+		
 	
 		ImageIcon imagenBoton = new ImageIcon("src/grafica/Otros/icon.png");
 		JLabel botonConfig= new JLabel("Options");
@@ -126,6 +116,20 @@ public class Menu extends JFrame {
 			}
 		});
 		contentPane.add(botonConfig);
+		
+		JButton botonJugar = new JButton("JUGAR");
+		botonJugar.setFont(crearFuente("src/grafica/Fuentes/ARCADE_I.TTF", 11));
+		botonJugar.setBounds(338, 400, 145, 73);
+		botonJugar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				frameComojugar.setVisible(false);
+				framTop.setVisible(false);
+				frameConfig.setVisible(false);
+				gameController.jugar();
+			}
+		});
+		contentPane.add(botonJugar);
 	}
 	
 	public static Font crearFuente(String ruta, int escala){

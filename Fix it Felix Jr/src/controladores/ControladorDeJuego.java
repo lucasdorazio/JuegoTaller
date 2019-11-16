@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import javax.swing.JOptionPane;
 
+import excepciones.EmptyNameException;
 import excepciones.ImproperNameException;
 import excepciones.InvalidCharacterNameException;
 import excepciones.TooLongNameException;
@@ -117,7 +118,9 @@ public class ControladorDeJuego {
 	}
 	
 	public String pedirNombre2() throws ImproperNameException{
-		String nombre= JOptionPane.showInputDialog("Ingrese su nombre");
+		String nombre=null;
+		nombre= JOptionPane.showInputDialog("Ingrese su nombre");
+		if (nombre == null || nombre.isEmpty()) throw new EmptyNameException();
 		if (nombre.length() < 2) throw new TooShortNameException();
 		if (nombre.length() > 20) throw new TooLongNameException();
 		if (nombre.contains(" ")) throw new InvalidCharacterNameException();
