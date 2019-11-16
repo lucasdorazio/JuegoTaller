@@ -115,6 +115,5 @@ public class ControladorDePastel extends Controlador<EstadoPastel> {
 		info.setListaPosiciones(listaPos);
 		return info;
 	}
-	//ahre
 
 }

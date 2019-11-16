@@ -1,5 +1,4 @@
 package juego;
-import java.util.List;
 import java.util.Scanner;
 
 import controladores.Controlador;
@@ -12,7 +11,7 @@ import edificio.Edificio;
 import edificio.Seccion;
 import entidades.EstadoPajaro;
 import entidades.EstadoPastel;
-import entidades.EstadosRalph;
+import entidades.EstadoRalph;
 import entidades.Felix;
 import entidades.InfoGraficable;
 /**
@@ -27,7 +26,7 @@ import excepciones.ImproperNameException;
 import excepciones.InvalidCharacterNameException;
 import excepciones.TooLongNameException;
 import excepciones.TooShortNameException;
-public class Juego implements Runnable{
+public class Juego {
 	
 	private static Juego INSTANCE;
 	
@@ -60,6 +59,7 @@ public class Juego implements Runnable{
 
 	private int timerTiempo;
 	
+	@SuppressWarnings("rawtypes")
 	private Controlador controladores[];
 	
 	private int tiempo;
@@ -171,12 +171,6 @@ public class Juego implements Runnable{
 				}
 			}
 		}
-	}
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
 	}
 	/**
 	 * 
@@ -301,6 +295,11 @@ public class Juego implements Runnable{
 		this.nroNivel=nroNivel;
 	}
 	
+	public Posicion getPosRalph() {
+		ControladorDeRalph ralphController= (ControladorDeRalph) controladores[1];
+		return ralphController.getPosRalph();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public InfoGraficable<EstadoPajaro> getInfoGraficablePajaros(){
 		return controladores[2].getListaInfoGraficable();
@@ -316,7 +315,7 @@ public class Juego implements Runnable{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public InfoGraficable<EstadosRalph> getInfoGraficableRalph() {
+	public InfoGraficable<EstadoRalph> getInfoGraficableRalph() {
 		return controladores[1].getListaInfoGraficable();
 	}
 }

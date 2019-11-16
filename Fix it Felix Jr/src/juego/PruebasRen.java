@@ -1,14 +1,10 @@
 package juego;
 
-import java.awt.Graphics;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
-import entidades.Posicion;
 import excepciones.ImproperNameException;
 
 public class PruebasRen {

@@ -16,8 +16,7 @@ import juego.Juego;
  * @author Lucas y Renzo
  *
  */
-@SuppressWarnings("rawtypes")
-public class ControladorDeLadrillos extends Controlador{
+public class ControladorDeLadrillos extends Controlador<Ladrillo>{
 
 	private static List<Ladrillo> listaLadrillos = new LinkedList<Ladrillo>();
 	private int velocidad;
@@ -99,8 +98,8 @@ public class ControladorDeLadrillos extends Controlador{
 //	}
 
 	@Override
-	public InfoGraficable<?> getListaInfoGraficable() {
-		InfoGraficable<?> info = new InfoGraficable<>();
+	public InfoGraficable<Ladrillo> getListaInfoGraficable() {
+		InfoGraficable<Ladrillo> info = new InfoGraficable<>();
 		Iterator<Ladrillo> ite = listaLadrillos.iterator();
 		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
 		Ladrillo ladrillo;
