@@ -15,8 +15,7 @@ import entidades.Ralph;
  * @author Lucas y Renzo
  * @version 1.0
  */
-@SuppressWarnings("rawtypes")
-public class ControladorDeRalph extends Controlador{
+public class ControladorDeRalph extends Controlador<EstadoRalph>{
 	private int tiempoDeGolpeo; // Cada cuantos segundos Ralph golpea
 	private int tiempoDeDesplazamiento; // Cada cuantos segundos Ralph se mueve
 	private static final int CANT_PASOS_MIN = 3;
@@ -126,14 +125,9 @@ public class ControladorDeRalph extends Controlador{
 
 	public void avanzarSeccion() {
 	}
-//	@Override
-//	public List<Posicion> getListaPosEntidades() {
-//		List<Posicion> lista = new LinkedList<Posicion>();
-//		lista.add(ralph.getPos());
-//		return lista;
-//	}
+
 	@Override
-	public InfoGraficable getListaInfoGraficable() {
+	public InfoGraficable<EstadoRalph> getListaInfoGraficable() {
 		InfoGraficable<EstadoRalph> info = new InfoGraficable<EstadoRalph>();
 		List<Posicion> pos = new LinkedList<Posicion>();
 		pos.add(ralph.getPos());

@@ -6,46 +6,57 @@ import java.awt.event.KeyEvent;
 
 import entidades.Direcciones;
 import entidades.Felix;
+import excepciones.NotAllowedMovementException;
 import juego.Juego;
 
+@SuppressWarnings("deprecation")
 public class KeyGameAdapter extends KeyAdapter {
 	
-	private AudioClip sonidoP, direccionInvalida, golpe, felixGolpeado1, felixGolpeado2, ventanaReparada;
+	private AudioClip sonidoP, direccionInvalida, ventanaReparada;
 	
 	public KeyGameAdapter() {
 		sonidoP= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/notaA.wav"));
 		direccionInvalida= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/direccionNoPermitida.wav"));
-		golpe= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/golpe.wav"));
-		felixGolpeado1= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/felixGolpeado1.wav"));
-		felixGolpeado2= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/felixGolpeado2.wav"));
-		ventanaReparada= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/ventanaReparada1.wav"));
+		ventanaReparada= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/ventanaReparada3.wav"));
 	}
 	
 	public void keyPressed(KeyEvent tecla) {
 		switch (tecla.getKeyCode()) {
 		case 37:
-			Felix.getInstance().mover(Direcciones.IZQUIERDA);
-			direccionInvalida.play();
+			try {
+				Felix.getInstance().mover(Direcciones.IZQUIERDA);
+			}catch (NotAllowedMovementException e){
+				direccionInvalida.play();
+			}
 			break;
 		case 38:
-			Felix.getInstance().mover(Direcciones.ARRIBA);
-			golpe.play();
+			try {
+				Felix.getInstance().mover(Direcciones.ARRIBA);
+			}catch (NotAllowedMovementException e){
+				direccionInvalida.play();
+			}
 			break;
 		case 39:
-			Felix.getInstance().mover(Direcciones.DERECHA);
-			felixGolpeado1.play();
+			try {
+				Felix.getInstance().mover(Direcciones.DERECHA);
+			}catch (NotAllowedMovementException e){
+				direccionInvalida.play();
+			}
 			break;
 		case 40:
-			Felix.getInstance().mover(Direcciones.ABAJO);
-			felixGolpeado2.play();
+			try {
+				Felix.getInstance().mover(Direcciones.ABAJO);
+			}catch (NotAllowedMovementException e){
+				direccionInvalida.play();
+			}
 			break;
 		case 80:
 			System.out.println("Se apreto la p");
 			sonidoP.play();
 			break;
 		case 32:
-			Felix.getInstance().reparar();
-			ventanaReparada.play();
+			if (Felix.getInstance().reparar())
+				ventanaReparada.play();
 			break;
 		case 72: //H= hack para pasar de seccion si no hay ventanas rotas
 			Juego.getInstance().comprobarSeccionLimpia(Felix.getInstance().getSeccionActual());

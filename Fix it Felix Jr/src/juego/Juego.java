@@ -154,6 +154,7 @@ public class Juego {
 					controladores[i].actualizar();
 				}
 				Felix.getInstance().actualizarInvulnerabilidad();
+				Felix.getInstance().actualizar();
 			}
 		}
 	}

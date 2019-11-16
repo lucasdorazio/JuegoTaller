@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
@@ -25,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 import edificio.Edificio;
 import edificio.EstadoPanel;
 import edificio.Ventana;
-import entidades.Direcciones;
+import entidades.EstadoFelix;
 import entidades.EstadoPajaro;
 import entidades.EstadoPastel;
 import entidades.EstadoRalph;
@@ -34,13 +32,17 @@ import entidades.InfoGraficable;
 import entidades.Posicion;
 import juego.Juego;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "deprecation" })
 public class FrameJuego extends JFrame {
 
 	private JPanel contentPane; 
-	private Image  fondo, seccion0, seccion1, seccion2, felix, ralph, ralphGolpeando1, ralphGolpeando2, ralphDerecha1, ralphDerecha2,
-	ventanaComun, conHojas, cerrada, semicircular, panelSemiRoto, panelSano, pajaro1, pajaro2, pajaro3, pajaro4, pastel1, pastel2,
-	ladrillo, semi1, semi2, semi3, semi4, semi5, semi6, semi7, semi8,  macetero, moldura, puerta0, puerta1, puerta2, puerta3, puerta4;
+	private Image  fondo, seccion0, seccion1, seccion2, macetero, moldura,
+	felix, felixReparando, felixMoviendose, 
+	ralph, ralphGolpeando1, ralphGolpeando2, ralphDerecha1, ralphDerecha2,
+	ventanaComun, conHojas, cerrada, semicircular, panelSemiRoto, panelSano,
+	pajaro1, pajaro2, pajaro3, pajaro4, pastel1, pastel2, ladrillo,
+	semi1, semi2, semi3, semi4, semi5, semi6, semi7, semi8, puerta0, puerta1, puerta2, puerta3, puerta4;
+	private AudioClip pajaroGolpeoFelix, ladrilloGolpeoFelix, golpeRalph;
 
 	public FrameJuego(Menu m) {
 		addKeyListener(new KeyGameAdapter());
@@ -58,6 +60,8 @@ public class FrameJuego extends JFrame {
             seccion1 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion2.png"));
             seccion2 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion3.png"));
             felix = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice102_@.png"));
+            felixReparando = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice135_@.png"));
+            felixMoviendose= ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice103_@.png"));
             ralph = ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice146_@.png"));
             ralphGolpeando1= ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice168_@.png"));
             ralphGolpeando2= ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice167_@.png"));
@@ -105,7 +109,8 @@ public class FrameJuego extends JFrame {
 				paintPajaros(g);
 				paintPastel(g);
 				paintLadrillos(g);
-				g.drawImage(felix, Felix.getInstance().getPos().getPosX(), Felix.getInstance().getPos().getPosY(), felix.getWidth(null), felix.getHeight(null), null);
+//				g.drawImage(felix, Felix.getInstance().getPos().getPosX(), Felix.getInstance().getPos().getPosY(), felix.getWidth(null), felix.getHeight(null), null);
+				paintFelix(g);
 				paintRalph(g);
 			};
 		};
@@ -338,7 +343,29 @@ public class FrameJuego extends JFrame {
 			break;
 		}
 		g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
-
+	}
+	
+	private void paintFelix(Graphics g) {
+		Image imagen= null;
+		InfoGraficable<EstadoFelix> info= Felix.getInstance().getInfoGraficable();
+		Posicion pos= info.getListaPosiciones().get(0);
+		EstadoFelix estado= info.getListaEstados().get(0);
+		switch (estado) {
+			case NORMAL:
+				imagen=felix;
+				break;
+			case REPARANDO:
+				imagen=felixReparando;
+				break;
+			case MOVIENDOSE:
+				imagen=felixMoviendose;
+				break;
+			default:
+				System.out.println("no deberia entrar aca");
+				imagen=pajaro1;
+				break;
+		}
+		g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
 	}
 	
 	public void paintComponents(Graphics g) {

@@ -1,6 +1,7 @@
 package edificio;
 
 import entidades.Direcciones;
+import excepciones.NotAllowedMovementException;
 
 /**
  * La clase comun representa a las ventanas corrientes del edificio
@@ -61,11 +62,12 @@ public class Comun extends Ventana {
 	}
 	
 	@Override
-	public boolean puedePasar(Direcciones dir) {
+	public boolean puedePasar(Direcciones dir) throws NotAllowedMovementException{
 		boolean puede=false;
 		switch (dir) {
 		case DERECHA:
 			if (getNroColumna() != 4) puede=true;
+			else throw new NotAllowedMovementException(true);
 			break;
 		case IZQUIERDA:
 			if (getNroColumna() != 0) puede=true;
