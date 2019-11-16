@@ -17,7 +17,7 @@ import juego.Juego;
  */
 public class Felix {
 
-	private static final int tiempoInvulnerabilidad = 2;
+	private static final int tiempoInvulnerabilidad = 3;
 
 	private int vidas;
 	private int timerInvulnerabilidad, timerReparacion, timerMovimiento;
@@ -27,6 +27,8 @@ public class Felix {
 	private Ventana ventanaActual;
 	private EstadoFelix estado;
 	private Seccion seccionActual;
+
+	private int timerMuerte;
 
 	private static Felix INSTANCE;
 
@@ -79,6 +81,7 @@ public class Felix {
 	}
 
 	public void recibirImpactoPastel() {
+		estado= EstadoFelix.INVULNERABLE;
 		vulnerable = false;
 		Juego.getInstance().getJugador().sumarPuntaje(500);
 		System.out.println("Felix se comió un pastel y ahora es invulnerable!");
@@ -87,6 +90,23 @@ public class Felix {
 	public void recibirImpactoLadrillo() {
 		if (vulnerable) {
 			vidas--;
+			estaMoviendose=false;
+			estaReparando=false;
+			estaMuriendose=true;
+			estado= EstadoFelix.MUERTO;
+			timerReparacion=0;
+			timerMovimiento=0;
+		}
+	}
+	
+	public void recibirImpactoPajaro() {
+		if (vulnerable) {
+			estaMoviendose = false;
+			estaReparando = false;
+			estaMuriendose = true;
+			estado = EstadoFelix.MUERTO;
+			timerReparacion = 0;
+			timerMovimiento = 0;
 		}
 	}
 
@@ -182,11 +202,28 @@ public class Felix {
 	
 	public void actualizar() {
 		if (estaMuriendose) {
+			timerMuerte++;
+			if (timerMuerte> 600 / ControladorDeJuego.ACTUALIZACION) {
+				estado = EstadoFelix.NORMAL;
+				timerMuerte= 0;
+				estaMuriendose= false;
+				ventanaActual= seccionActual.getVentanas()[2][2];
+			}
+		}
+		if (!vulnerable) {
+			timerInvulnerabilidad++;
+			if (timerInvulnerabilidad > tiempoInvulnerabilidad * 1000 / ControladorDeJuego.ACTUALIZACION) {
+				estado= EstadoFelix.NORMAL;
+				vulnerable = true;
+				timerInvulnerabilidad = 0;
+				System.out.println("Perdio invulnerabilidad");
+			}
 		}
 		if (estaReparando) {
 			timerReparacion++;
 			if (timerReparacion > 200 / ControladorDeJuego.ACTUALIZACION) {
-				estado = EstadoFelix.NORMAL;
+				if (!vulnerable) estado=EstadoFelix.INVULNERABLE;
+				else estado= EstadoFelix.NORMAL;
 				timerReparacion = 0;
 				estaReparando = false;
 			}
@@ -194,7 +231,8 @@ public class Felix {
 		if (estaMoviendose) {
 			timerMovimiento++;
 			if (timerMovimiento> 200 / ControladorDeJuego.ACTUALIZACION) {
-				estado= EstadoFelix.NORMAL;
+				if (!vulnerable) estado=EstadoFelix.INVULNERABLE;
+				else estado= EstadoFelix.NORMAL;
 				timerMovimiento=0;
 				estaMoviendose=false;
 			}

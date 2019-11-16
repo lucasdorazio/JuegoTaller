@@ -37,7 +37,7 @@ public class FrameJuego extends JFrame {
 
 	private JPanel contentPane; 
 	private Image  fondo, seccion0, seccion1, seccion2, macetero, moldura,
-	felix, felixReparando, felixMoviendose, 
+	felix, felixReparando, felixMoviendose, felixGolpeado, felixInvulnerable,
 	ralph, ralphGolpeando1, ralphGolpeando2, ralphDerecha1, ralphDerecha2,
 	ventanaComun, conHojas, cerrada, semicircular, panelSemiRoto, panelSano,
 	pajaro1, pajaro2, pajaro3, pajaro4, pastel1, pastel2, ladrillo,
@@ -62,6 +62,8 @@ public class FrameJuego extends JFrame {
             felix = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice102_@.png"));
             felixReparando = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice135_@.png"));
             felixMoviendose= ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice103_@.png"));
+            felixGolpeado= ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice293_@.png"));
+            felixInvulnerable= ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice101_@.png"));
             ralph = ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice146_@.png"));
             ralphGolpeando1= ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice168_@.png"));
             ralphGolpeando2= ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice167_@.png"));
@@ -109,7 +111,6 @@ public class FrameJuego extends JFrame {
 				paintPajaros(g);
 				paintPastel(g);
 				paintLadrillos(g);
-//				g.drawImage(felix, Felix.getInstance().getPos().getPosX(), Felix.getInstance().getPos().getPosY(), felix.getWidth(null), felix.getHeight(null), null);
 				paintFelix(g);
 				paintRalph(g);
 			};
@@ -360,9 +361,11 @@ public class FrameJuego extends JFrame {
 			case MOVIENDOSE:
 				imagen=felixMoviendose;
 				break;
-			default:
-				System.out.println("no deberia entrar aca");
-				imagen=pajaro1;
+			case MUERTO:
+				imagen= felixGolpeado;
+				break;
+			case INVULNERABLE:
+				imagen= felixInvulnerable;
 				break;
 		}
 		g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);

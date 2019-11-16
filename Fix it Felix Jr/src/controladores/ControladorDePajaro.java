@@ -120,8 +120,11 @@ public class ControladorDePajaro extends Controlador<EstadoPajaro>{
 					ventanaActualPajaro=pajaro.devolverVentana();
 					if (ventanaActualPajaro!= null && 
 							ventanaActualPajaro.equals(ventanaActualFelix)) {
-						Juego.getInstance().pajaroGolpeoAFelix();
-						impacto=true;
+						Felix.getInstance().recibirImpactoPajaro();
+						if (Felix.getInstance().isVulnerable()) {
+							Juego.getInstance().pajaroGolpeoAFelix();
+							impacto=true;
+						}
 					}
 				}
 			}

@@ -5,5 +5,5 @@ public enum EstadoFelix {
 	INVULNERABLE,
 	REPARANDO,
 	MOVIENDOSE,
-	GOLPEADO
+	MUERTO
 }

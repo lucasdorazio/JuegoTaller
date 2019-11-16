@@ -102,6 +102,7 @@ public class Juego {
 		} else {
 			nivel.generarEdificio();
 			puntajePrevioNivel=jugador.getPuntaje();
+			Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		}
 		controladores= new Controlador[4];
 		brickController= new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
@@ -110,7 +111,6 @@ public class Juego {
 		controladores[2]= new ControladorDePajaro();
 		controladores[3]= new ControladorDePastel();	
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
-		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		tiempo=nivel.getTiempoMax();
 	}
 	/**
@@ -123,7 +123,6 @@ public class Juego {
 		jugador.setPuntaje(puntajePrevioSeccion);
 		Edificio.getInstance().reiniciarSeccion(nroSeccion);
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
-		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][2]);
 		reinicioSeccion=false;
 	}
 	/**
@@ -149,11 +148,11 @@ public class Juego {
 				avanzarSeccion();
 			else {
 				for (int i = 0; i < 4; i++) {
-					//if (i == 1) continue;
-					if (i == 2) continue;
+//					if (i == 1) continue;
+//					if (i == 2) continue;
 					controladores[i].actualizar();
 				}
-				Felix.getInstance().actualizarInvulnerabilidad();
+//				Felix.getInstance().actualizarInvulnerabilidad();
 				Felix.getInstance().actualizar();
 			}
 		}

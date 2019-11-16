@@ -48,7 +48,6 @@ public class Ralph implements Desplazable, Dibujable{
 	public void comenzarGolpeo() {
 		this.estado= EstadoRalph.GOLPEANDO1;
 		ladrillosRestantes=LADRILLOS_POR_TIRADA;
-		System.out.println("Ralph inicio golpeo");
 		//golpearEdif();
 	}
 

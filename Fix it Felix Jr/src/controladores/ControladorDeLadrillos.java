@@ -64,9 +64,11 @@ public class ControladorDeLadrillos extends Controlador<Ladrillo>{
 				} else {
 					ventanaActualLadrillo = ladrillo.devolverVentana();
 					if (ventanaActualLadrillo != null && ventanaActualLadrillo.equals(ventanaActualFelix)) {
-						Juego.getInstance().ladrilloGolpeoAFelix();
 						Felix.getInstance().recibirImpactoLadrillo();
-						impacto = true;
+						if (Felix.getInstance().isVulnerable()) {
+							Juego.getInstance().ladrilloGolpeoAFelix();
+							impacto = true;
+						}
 					}
 				}
 			}
