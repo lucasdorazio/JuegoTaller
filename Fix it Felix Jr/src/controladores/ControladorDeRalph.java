@@ -1,5 +1,6 @@
 package controladores;
 
+import java.applet.AudioClip;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class ControladorDeRalph extends Controlador<EstadoRalph>{
 	private int timerGolpear;
 	private int timerSwapCaminata;
 	private Ralph ralph;
+	private AudioClip golpeRalph;
 
 	/**
 	 * 
@@ -44,6 +46,7 @@ public class ControladorDeRalph extends Controlador<EstadoRalph>{
 		timerIntervaloMovimiento = 0;
 		estaMoviendose=false;
 		estaGolpeando=false;
+		golpeRalph= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/golpe3.wav"));
 	}
 	/**
 	 * 
@@ -94,6 +97,7 @@ public class ControladorDeRalph extends Controlador<EstadoRalph>{
 		} else if (estaGolpeando) {
 			timerGolpear++;
 			if (timerGolpear > TIEMPO_ENTRE_LADRILLOS* 1000 / ControladorDeJuego.ACTUALIZACION) {
+				golpeRalph.play();
 				if (ralph.getEstado() == EstadoRalph.GOLPEANDO1) ralph.setEstado(EstadoRalph.GOLPEANDO2);
 				else ralph.setEstado(EstadoRalph.GOLPEANDO1);
 				if (ralph.golpearEdif()) {

@@ -14,10 +14,9 @@ import juego.Juego;
 @SuppressWarnings("deprecation")
 public class KeyGameAdapter extends KeyAdapter {
 	
-	private AudioClip sonidoP, direccionInvalida, ventanaReparada;
+	private AudioClip direccionInvalida, ventanaReparada;
 	
 	public KeyGameAdapter() {
-		sonidoP= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/notaA.wav"));
 		direccionInvalida= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/direccionNoPermitida.wav"));
 		ventanaReparada= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/ventanaReparada3.wav"));
 	}
