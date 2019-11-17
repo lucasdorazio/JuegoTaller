@@ -3,3 +3,7 @@ Probando 7400
 ToyKansao 6500
 Renzo 2900
 Manuel 500
+<<<<<<< HEAD
+=======
+juan 400
+>>>>>>> branch 'master' of https://github.com/lucasdorazio/JuegoTaller.git

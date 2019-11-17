@@ -1,6 +1,5 @@
 package controladores;
 
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,7 +37,7 @@ public class ControladorDeJuego {
 		ranking.leerRanking();
 		gameUpdate= new TimerTask() {
 			public void run() {
-				if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA) {
+				if ((Juego.getInstance().getEstado() != EstadoJuego.PAUSA) && (Juego.getInstance().getEstado() != EstadoJuego.SIN_INICIAR)) {
 					Juego.getInstance().actualizar();
 					if (Juego.getInstance().perdio()) {
 						Juego.getInstance().setEstado(EstadoJuego.PERDER);
@@ -61,12 +60,15 @@ public class ControladorDeJuego {
 				case NORMAL:
 					frameJuego.repaint();
 					break;
+				case PAUSA:
+					frameJuego.mostrarPausa();
+					break;
 				default: 
 					break;
 				}
 			}
 		};
-		Juego.getInstance().setEstado(EstadoJuego.PAUSA);
+		Juego.getInstance().setEstado(EstadoJuego.SIN_INICIAR);
 		timer.schedule(gameUpdate, 0, ACTUALIZACION);
 		timer.schedule(viewUpdate, 0, ACTUALIZACION);
 	}
@@ -83,7 +85,7 @@ public class ControladorDeJuego {
 		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
 			while (!nombreCorrecto) {
 				try {
-					String nombre= pedirNombre2();
+					String nombre= pedirNombre();
 					nombreCorrecto = true;
 					jugador.setNick(nombre);
 				} catch (ImproperNameException e) {
@@ -100,7 +102,7 @@ public class ControladorDeJuego {
 		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
 			while (!nombreCorrecto) {
 				try {
-					String nombre= pedirNombre2();
+					String nombre= pedirNombre();
 					nombreCorrecto = true;
 					jugador.setNick(nombre);
 				} catch (ImproperNameException e) {
@@ -112,18 +114,6 @@ public class ControladorDeJuego {
 	}
 	
 	public String pedirNombre() throws ImproperNameException{
-		Scanner teclado= new Scanner(System.in);
-		String nombre;
-		System.out.println("Ingrese su nombre");
-		nombre= teclado.next();
-		teclado.close();
-		if (nombre.length() < 2) throw new TooShortNameException();
-		if (nombre.length() > 20) throw new TooLongNameException();
-		if (nombre.contains(" ")) throw new InvalidCharacterNameException();
-		return nombre;
-	}
-	
-	public String pedirNombre2() throws ImproperNameException{
 		String nombre=null;
 		nombre= JOptionPane.showInputDialog("Ingrese su nombre");
 		if (nombre == null || nombre.isEmpty()) throw new EmptyNameException();

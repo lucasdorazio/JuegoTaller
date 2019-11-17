@@ -48,7 +48,7 @@ public class FrameJuego extends JFrame {
 
 	private JLabel lblPuntaje, lblTiempo, lblScore, lblHighScore, lblPuntajeMasAlto;
 	private JPanel contentPane; 
-	private Image  fondo, seccion0, seccion1, seccion2, macetero, moldura,
+	private Image  fondo, seccion0, seccion1, seccion2, macetero, moldura, pausa,
 	felix, felixReparando, felixMoviendose, felixGolpeado, felixInvulnerable,
 	ralph, ralphGolpeando1, ralphGolpeando2, ralphDerecha1, ralphDerecha2,
 	ventanaComun, conHojas, cerrada, semicircular, panelSemiRoto, panelSano,
@@ -64,10 +64,11 @@ public class FrameJuego extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				
+				m.pausarJuego();
 				if (JOptionPane.showConfirmDialog(null, "¿Realmente desea salir del juego", "Confirmar salida", JOptionPane.YES_NO_OPTION, 
 						JOptionPane.QUESTION_MESSAGE) == 0) 
 					m.juegoCerrado();
+				else m.reanudarJuego();
 			}
 		});
 		try {
@@ -75,6 +76,7 @@ public class FrameJuego extends JFrame {
             seccion0 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion1.png"));
             seccion1 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion2.png"));
             seccion2 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion3.png"));
+            pausa= ImageIO.read(new File ("src/grafica/Otros/pausa.png"));
             felix = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice102_@.png"));
             felixReparando = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice135_@.png"));
             felixMoviendose= ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice103_@.png"));
@@ -129,8 +131,6 @@ public class FrameJuego extends JFrame {
 				paintPastel(g);
 				paintLadrillos(g);
 				paintRalph(g);
-				//g.drawImage(felix, Felix.getInstance().getPos().getPosX(), Felix.getInstance().getPos().getPosY(), felix.getWidth(null), felix.getHeight(null), null);
-				//g.drawImage(ralph, Juego.getInstance().getPosRalph().getPosX(), Juego.getInstance().getPosRalph().getPosY(), ralph.getWidth(null), ralph.getHeight(null),null);
 				paintFelix(g);
 				paintRalph(g);
 			};
@@ -405,6 +405,7 @@ public class FrameJuego extends JFrame {
 		}
 		g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
 	}
+<<<<<<< HEAD
 	
 	public void paintComponents(Graphics g) {
 		g.drawImage(fondo, 0, 0, this.getWidth(),this.getHeight(),null);
@@ -421,6 +422,8 @@ public class FrameJuego extends JFrame {
 		lblPuntaje.setText(puntaje);
 		lblTiempo.setText("TIME " + tiempo);
 	}
+=======
+>>>>>>> branch 'master' of https://github.com/lucasdorazio/JuegoTaller.git
 
 //	flip horizontal (espejo)
 	public Image rotarImagen(Image image) {
@@ -430,6 +433,7 @@ public class FrameJuego extends JFrame {
 		return op.filter((BufferedImage) image, null);
 	}
 	
+<<<<<<< HEAD
 	public static Font crearFuente(String ruta, int escala){
         Font fuente = null; 
         InputStream myStream = null;
@@ -445,5 +449,9 @@ public class FrameJuego extends JFrame {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		ge.registerFont(fuente);
 	    return fuente;
+=======
+	public void mostrarPausa() {
+		contentPane.getGraphics().drawImage(pausa, Edificio.getLimiteIzquierdaEdificio(), (Juego.LIMITE_INFERIOR_MAPA-pausa.getHeight(null))/2, 315, 90, null);
+>>>>>>> branch 'master' of https://github.com/lucasdorazio/JuegoTaller.git
 	}
 }
