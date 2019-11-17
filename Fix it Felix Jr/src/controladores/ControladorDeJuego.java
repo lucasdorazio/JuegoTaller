@@ -138,5 +138,6 @@ public class ControladorDeJuego {
 	
 	public void terminarJuego() {
 		Juego.getInstance().limpiarEntidades();
+		frameJuego.setVisible(false);
 	}
 }

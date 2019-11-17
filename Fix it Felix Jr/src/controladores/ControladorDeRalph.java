@@ -16,6 +16,7 @@ import entidades.Ralph;
  * @author Lucas y Renzo
  * @version 1.0
  */
+@SuppressWarnings("deprecation")
 public class ControladorDeRalph extends Controlador<EstadoRalph>{
 	private int tiempoDeGolpeo; // Cada cuantos segundos Ralph golpea
 	private int tiempoDeDesplazamiento; // Cada cuantos segundos Ralph se mueve
@@ -46,7 +47,7 @@ public class ControladorDeRalph extends Controlador<EstadoRalph>{
 		timerIntervaloMovimiento = 0;
 		estaMoviendose=false;
 		estaGolpeando=false;
-		golpeRalph= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/golpe3.wav"));
+		golpeRalph= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/golpe.wav"));
 	}
 	/**
 	 * 
@@ -97,6 +98,7 @@ public class ControladorDeRalph extends Controlador<EstadoRalph>{
 		} else if (estaGolpeando) {
 			timerGolpear++;
 			if (timerGolpear > TIEMPO_ENTRE_LADRILLOS* 1000 / ControladorDeJuego.ACTUALIZACION) {
+				golpeRalph.stop();
 				golpeRalph.play();
 				if (ralph.getEstado() == EstadoRalph.GOLPEANDO1) ralph.setEstado(EstadoRalph.GOLPEANDO2);
 				else ralph.setEstado(EstadoRalph.GOLPEANDO1);

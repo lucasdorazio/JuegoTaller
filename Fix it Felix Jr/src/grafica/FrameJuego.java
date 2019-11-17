@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.applet.AudioClip;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -54,7 +53,6 @@ public class FrameJuego extends JFrame {
 	ventanaComun, conHojas, cerrada, semicircular, panelSemiRoto, panelSano,
 	pajaro1, pajaro2, pajaro3, pajaro4, pastel1, pastel2, ladrillo,
 	semi1, semi2, semi3, semi4, semi5, semi6, semi7, semi8, puerta0, puerta1, puerta2, puerta3, puerta4, corazon;
-	private AudioClip pajaroGolpeoFelix, ladrilloGolpeoFelix, golpeRalph;
 
 	public FrameJuego(Menu m) {
 		addKeyListener(new KeyGameAdapter());
@@ -405,15 +403,6 @@ public class FrameJuego extends JFrame {
 		}
 		g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
 	}
-<<<<<<< HEAD
-	
-	public void paintComponents(Graphics g) {
-		g.drawImage(fondo, 0, 0, this.getWidth(),this.getHeight(),null);
-		paintSeccion(g);
-		paintVentanas(g);
-		paintPajaros(g);
-		paintPastel(g);
-	}
 	
 	public void paintInfo(Graphics g) {
 		//int vidas = Felix.getInstance().getVidas();
@@ -422,8 +411,6 @@ public class FrameJuego extends JFrame {
 		lblPuntaje.setText(puntaje);
 		lblTiempo.setText("TIME " + tiempo);
 	}
-=======
->>>>>>> branch 'master' of https://github.com/lucasdorazio/JuegoTaller.git
 
 //	flip horizontal (espejo)
 	public Image rotarImagen(Image image) {
@@ -433,7 +420,6 @@ public class FrameJuego extends JFrame {
 		return op.filter((BufferedImage) image, null);
 	}
 	
-<<<<<<< HEAD
 	public static Font crearFuente(String ruta, int escala){
         Font fuente = null; 
         InputStream myStream = null;
@@ -449,9 +435,8 @@ public class FrameJuego extends JFrame {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		ge.registerFont(fuente);
 	    return fuente;
-=======
+}
 	public void mostrarPausa() {
 		contentPane.getGraphics().drawImage(pausa, Edificio.getLimiteIzquierdaEdificio(), (Juego.LIMITE_INFERIOR_MAPA-pausa.getHeight(null))/2, 315, 90, null);
->>>>>>> branch 'master' of https://github.com/lucasdorazio/JuegoTaller.git
 	}
 }

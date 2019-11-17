@@ -15,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import juego.Jugador;
 import juego.Ranking;
 
 import javax.swing.JLabel;

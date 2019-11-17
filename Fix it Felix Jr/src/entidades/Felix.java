@@ -1,5 +1,6 @@
 package entidades;
 
+import java.applet.AudioClip;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import juego.Juego;
  * @author Lucas y Renzo
  *
  */
+@SuppressWarnings("deprecation")
 public class Felix {
 
 	private static final int tiempoInvulnerabilidad = 3;
@@ -31,6 +33,7 @@ public class Felix {
 	private int timerMuerte;
 
 	private static Felix INSTANCE;
+	private AudioClip pajaroGolpeoFelix, ladrilloGolpeoFelix,mover;
 
 	private Felix() {
 		this.vidas = 3;
@@ -42,6 +45,9 @@ public class Felix {
 		estaMuriendose=false;
 		estaReparando=false;
 		estado=EstadoFelix.NORMAL;
+		pajaroGolpeoFelix= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/felixGolpeado2.wav"));
+		ladrilloGolpeoFelix= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/felixGolpeado1.wav"));
+		mover= java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/mover.wav"));
 	}
 
 	/**
@@ -69,7 +75,6 @@ public class Felix {
 			if (!sanaAntes && ventanaActual.estoySana()) {
 				reparada = true;
 				Juego.getInstance().getJugador().sumarPuntaje(100);
-				System.out.println("Puntaje actual= "+ Juego.getInstance().getJugador().getPuntaje());
 				seccionActual.disminuirVentanasRestantes();
 				Juego.getInstance().comprobarSeccionLimpia(seccionActual);
 			}
@@ -91,6 +96,7 @@ public class Felix {
 	public void recibirImpactoLadrillo() {
 		if (vulnerable) {
 			vidas--;
+			ladrilloGolpeoFelix.play();
 			estaMoviendose=false;
 			estaReparando=false;
 			estaMuriendose=true;
@@ -102,6 +108,7 @@ public class Felix {
 	
 	public void recibirImpactoPajaro() {
 		if (vulnerable) {
+			pajaroGolpeoFelix.play();
 			estaMoviendose = false;
 			estaReparando = false;
 			estaMuriendose = true;
@@ -173,6 +180,7 @@ public class Felix {
 				ventanaActual = proximaVentana;
 				break;
 			}
+			mover.play();
 			estaMoviendose = true;
 			estado = EstadoFelix.MOVIENDOSE;
 		}

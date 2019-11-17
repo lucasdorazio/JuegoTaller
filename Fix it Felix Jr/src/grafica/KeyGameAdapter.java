@@ -94,7 +94,6 @@ public class KeyGameAdapter extends KeyAdapter {
 			Felix.getInstance().setVidas(0);
 			break;
 		default:
-			System.out.println("otra tecla: " + tecla.getKeyCode());
 			break;
 		}
 	}

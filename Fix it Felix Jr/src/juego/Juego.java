@@ -134,10 +134,8 @@ public class Juego {
 	public void actualizar() {
 		if (reinicioNivel) {
 			iniciarNivel(true);
-			System.out.println("NIVEL REINICIADO");
 		} else if (reinicioSeccion) {
-			reiniciarSeccion();
-			System.out.println("SECCION REINICIADA");
+			reiniciarSeccion(); 
 		} else {
 			timerTiempo++;
 			if (timerTiempo > 1000 / ControladorDeJuego.ACTUALIZACION) {
@@ -151,7 +149,7 @@ public class Juego {
 			else {
 				for (int i = 0; i < 4; i++) {
 //					if (i == 1) continue;
-					if (i == 2) continue;
+//					if (i == 2) continue;
 					controladores[i].actualizar();
 				}
 				Felix.getInstance().actualizar();

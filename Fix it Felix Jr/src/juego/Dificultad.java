@@ -9,7 +9,7 @@ public class Dificultad {
 	
 	private static final double PROB_PANEL_ROTO=0.3;
 	private static final int VELOCIDAD_LADRILLOS=130;
-	private static final int FRECUENCIA_GOLPEO=8;
+	private static final int FRECUENCIA_GOLPEO=6;
 	private static final double PROB_OBSTACULO=0.03;			
 	private static final double PROB_VENTANA_ABIERTA=0.1;
 	private static final int TIEMPO=400;
@@ -21,7 +21,7 @@ public class Dificultad {
 		return (int) (VELOCIDAD_LADRILLOS * ((double) nivel/10 + 1));
 	}
 	public static int getFrecuenciaGolpeo(int nivel) {
-		return (int) (FRECUENCIA_GOLPEO* (1 - (double) nivel/10));
+		return (int) (FRECUENCIA_GOLPEO + ((FRECUENCIA_GOLPEO/2)* (1 - (double) nivel/10)));
 	}
 	public static double getProbObstaculos(int nivel) {
 		return (PROB_OBSTACULO * ((double) nivel/10 + 1));
