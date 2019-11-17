@@ -26,45 +26,46 @@ public class KeyGameAdapter extends KeyAdapter {
 		switch (tecla.getKeyCode()) {
 		case 37:
 			try {
-				Felix.getInstance().mover(Direcciones.IZQUIERDA);
-			}catch (NotAllowedMovementException e){
+				if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA)
+					Felix.getInstance().mover(Direcciones.IZQUIERDA);
+			} catch (NotAllowedMovementException e) {
 				direccionInvalida.play();
 			}
 			break;
 		case 38:
 			try {
-				Felix.getInstance().mover(Direcciones.ARRIBA);
-			}catch (NotAllowedMovementException e){
+				if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA)
+					Felix.getInstance().mover(Direcciones.ARRIBA);
+			} catch (NotAllowedMovementException e) {
 				direccionInvalida.play();
 			}
 			break;
 		case 39:
 			try {
-				Felix.getInstance().mover(Direcciones.DERECHA);
-			}catch (NotAllowedMovementException e){
+				if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA)
+					Felix.getInstance().mover(Direcciones.DERECHA);
+			} catch (NotAllowedMovementException e) {
 				direccionInvalida.play();
 			}
 			break;
 		case 40:
 			try {
-				Felix.getInstance().mover(Direcciones.ABAJO);
-			}catch (NotAllowedMovementException e){
+				if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA)
+					Felix.getInstance().mover(Direcciones.ABAJO);
+			} catch (NotAllowedMovementException e) {
 				direccionInvalida.play();
 			}
 			break;
 		case 80:
-			if (Juego.getInstance().getEstado()!= EstadoJuego.PAUSA) {
+			if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA) {
 				Juego.getInstance().setEstado(EstadoJuego.PAUSA);
-				System.out.println("PAUSA");
-			}else {
+			} else
 				Juego.getInstance().setEstado(EstadoJuego.NORMAL);
-				System.out.println("REANUDAR");
-			}
-			sonidoP.play();
 			break;
 		case 32:
-			if (Felix.getInstance().reparar())
-				ventanaReparada.play();
+			if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA)
+				if (Felix.getInstance().reparar())
+					ventanaReparada.play();
 			break;
 		case 72: //H= hack para pasar de seccion si no hay ventanas rotas
 			Juego.getInstance().comprobarSeccionLimpia(Felix.getInstance().getSeccionActual());

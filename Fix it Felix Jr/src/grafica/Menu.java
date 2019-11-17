@@ -166,4 +166,12 @@ public class Menu extends JFrame {
 		this.setVisible(true);
 		gameController.terminarJuego();
 	}
+	
+	public void pausarJuego() {
+		gameController.pausarJuego();
+	}
+	
+	public void reanudarJuego() {
+		gameController.reanudarJuego();
+	}
 }

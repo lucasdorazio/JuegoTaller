@@ -1,6 +1,7 @@
 package juego;
 
 public enum EstadoJuego {
+	SIN_INICIAR,
 	NORMAL,
 	PAUSA,
 	AVANCE_SECCION,
