@@ -31,7 +31,7 @@ public class PruebasRen {
 //		ranking.setVisible(true);
 //		ranking.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Marco marco= new Marco();
-		marco.setVisible(true);
+		marco.setVisible(false);
 		
 	}
 	
