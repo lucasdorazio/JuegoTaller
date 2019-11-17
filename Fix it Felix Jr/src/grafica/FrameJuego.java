@@ -17,6 +17,7 @@ import java.applet.AudioClip;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -47,11 +48,14 @@ public class FrameJuego extends JFrame {
 	public FrameJuego(Menu m) {
 		addKeyListener(new KeyGameAdapter());
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosed(WindowEvent e) {
-				m.setVisible(true);
+			public void windowClosing(WindowEvent e) {
+				
+				if (JOptionPane.showConfirmDialog(null, "¿Realmente desea salir del juego", "Confirmar salida", JOptionPane.YES_NO_OPTION, 
+						JOptionPane.QUESTION_MESSAGE) == 0) 
+					m.juegoCerrado();
 			}
 		});
 		try {

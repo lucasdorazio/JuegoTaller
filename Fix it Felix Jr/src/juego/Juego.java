@@ -94,7 +94,6 @@ public class Juego {
 		ControladorDeLadrillos brickController;
 		nroSeccion=0;
 		nivel = new Nivel(nroNivel);
-		estado= EstadoJuego.NORMAL;
 		if (reinicio) {
 			Edificio.getInstance().reiniciarEdificio();
 			for (int i=0;i<4;i++) {
@@ -152,7 +151,7 @@ public class Juego {
 			else {
 				for (int i = 0; i < 4; i++) {
 //					if (i == 1) continue;
-//					if (i == 2) continue;
+					if (i == 2) continue;
 					controladores[i].actualizar();
 				}
 				Felix.getInstance().actualizar();
@@ -178,28 +177,30 @@ public class Juego {
 	 * carga la siguiente seccion del edificio 
 	 */
 	public void avanzarSeccion() {
-		for (int i=0;i<4;i++) {
-			controladores[i].avanzarSeccion();
-		}
+		limpiarEntidades();
 		nroSeccion++;
 		puntajePrevioSeccion=jugador.getPuntaje();
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
 		pasarDeSeccion=false;
-		System.out.println("Avanzaste a la seccion "+ (nroSeccion+1));
+		System.out.println("Avanzaste a la seccion "+ (nroSeccion+1) + "del nivel "+ nroNivel);
 	}
 	/**
 	 * iniciara un nuevo nivel desde cero 
 	 */
 	public void avanzarNivel() {
-		for (int i=0;i<4;i++) {
-			controladores[i].avanzarSeccion();
-		}
+		limpiarEntidades();
 		nroNivel++;
 		iniciarNivel(false);
 		pasarDeSeccion=false;
 		pasarDeNivel=false;
 		System.out.println("Victoria!! Avanzas al nivel " + (nroNivel+1));//nroNivel va de 0 a 9
+	}
+	
+	public void limpiarEntidades() {
+		for (int i=0;i<4;i++) {
+			controladores[i].avanzarSeccion();
+		}
 	}
 	
 	public int getNroSeccion() {
@@ -219,6 +220,13 @@ public class Juego {
 				pasarDeSeccion=true;
 			}
 		}
+	}
+	
+	public void comenzarJuego(int nivel) {
+		this.nroNivel=nivel;
+		Juego.getInstance().iniciarNivel(false);
+		Felix.getInstance().reiniciarVidas();
+		jugador= new Jugador();
 	}
 
 	public void ladrilloGolpeoAFelix() {

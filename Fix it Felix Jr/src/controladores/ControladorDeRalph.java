@@ -37,7 +37,7 @@ public class ControladorDeRalph extends Controlador<EstadoRalph>{
 	 */
 	public ControladorDeRalph(int tiempoDeGolpeo, ControladorDeLadrillos brickController) {
 		this.tiempoDeGolpeo=tiempoDeGolpeo;
-		this.tiempoDeDesplazamiento= 12;
+		this.tiempoDeDesplazamiento= 6;
 		this.velocidad=150;
 		ralph= new Ralph(brickController);
 		timerIntervaloGolpeo = 1000;

@@ -5,12 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JOptionPane;
-
-import excepciones.EmptyNameException;
-import excepciones.ImproperNameException;
-import excepciones.InvalidCharacterNameException;
-import excepciones.TooLongNameException;
-import excepciones.TooShortNameException;
+import excepciones.*;
 import grafica.FrameJuego;
 import grafica.Menu;
 import juego.EstadoJuego;
@@ -24,39 +19,43 @@ public class ControladorDeJuego {
 	private FrameJuego frameJuego;
 	private Timer timer;
 	private Ranking ranking;
+	private int nivelElegido;
+
+	private TimerTask gameUpdate, viewUpdate;
+	
+	public void setNivelElegido(int nivel) {
+		this.nivelElegido=nivel;
+	}
 	
 	public FrameJuego getFrameJuego() {
 		return frameJuego;
 	}
 
 	public ControladorDeJuego(Menu m) {
-		frameJuego= new FrameJuego(m);
 		timer= new Timer();
+		frameJuego= new FrameJuego(m);
 		ranking= new Ranking();
 		ranking.leerRanking();
-	}
-	
-	public void jugar() {
-		frameJuego.setVisible(true);
-		Juego.getInstance().iniciarNivel(false);
-		TimerTask gameUpdate= new TimerTask() {
+		gameUpdate= new TimerTask() {
 			public void run() {
-				Juego.getInstance().actualizar();
-				if (Juego.getInstance().perdio()) {
-					Juego.getInstance().setEstado(EstadoJuego.PERDER);
-					perder(Juego.getInstance().getJugador());
-					this.cancel();
-					frameJuego.dispose();
-				}
-				if (Juego.getInstance().gano()) {
-					Juego.getInstance().setEstado(EstadoJuego.GANAR);
-					ganar(Juego.getInstance().getJugador());
-					this.cancel();
-					frameJuego.dispose();
+				if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA) {
+					Juego.getInstance().actualizar();
+					if (Juego.getInstance().perdio()) {
+						Juego.getInstance().setEstado(EstadoJuego.PERDER);
+						perder(Juego.getInstance().getJugador());
+						this.cancel();
+						frameJuego.dispose();
+					}
+					if (Juego.getInstance().gano()) {
+						Juego.getInstance().setEstado(EstadoJuego.GANAR);
+						ganar(Juego.getInstance().getJugador());
+						this.cancel();
+						frameJuego.dispose();
+					}
 				}
 			}
 		};
-		TimerTask viewUpdate= new TimerTask() {
+		viewUpdate= new TimerTask() {
 			public void run() {
 				switch (Juego.getInstance().getEstado()) {
 				case NORMAL:
@@ -67,8 +66,15 @@ public class ControladorDeJuego {
 				}
 			}
 		};
+		Juego.getInstance().setEstado(EstadoJuego.PAUSA);
 		timer.schedule(gameUpdate, 0, ACTUALIZACION);
 		timer.schedule(viewUpdate, 0, ACTUALIZACION);
+	}
+	
+	public void jugar() {
+		frameJuego.setVisible(true);
+		Juego.getInstance().comenzarJuego(nivelElegido);
+		Juego.getInstance().setEstado(EstadoJuego.NORMAL);
 	}
 	
 	public void ganar(Jugador jugador) {
@@ -130,5 +136,17 @@ public class ControladorDeJuego {
 	
 	public Ranking getMejoresJugadores() {
 		return ranking;
+	}
+	
+	public void pausarJuego() {
+		Juego.getInstance().setEstado(EstadoJuego.PAUSA);
+	}
+	
+	public void reanudarJuego() {
+		Juego.getInstance().setEstado(EstadoJuego.NORMAL);
+	}
+	
+	public void terminarJuego() {
+		Juego.getInstance().limpiarEntidades();
 	}
 }

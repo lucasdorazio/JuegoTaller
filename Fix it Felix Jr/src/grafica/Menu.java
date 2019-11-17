@@ -92,7 +92,7 @@ public class Menu extends JFrame {
 		botonConfig= new JLabel("Options");
 		botonConfig.setBounds(672, 24, 86, 79);
 		botonConfig.setIcon(new ImageIcon(imagenBoton.getImage().getScaledInstance(botonConfig.getWidth(), botonConfig.getHeight(), Image.SCALE_SMOOTH)));
-		Configuracion frameConfig= new Configuracion(this);
+		Configuracion frameConfig= new Configuracion(this, gameController);
 		frameConfig.setVisible(false);
 		botonConfig.addMouseListener(new MouseAdapter() {
 	
@@ -160,5 +160,10 @@ public class Menu extends JFrame {
 		botonConfig.setVisible(true);
 		botonJugar.setVisible(true);
 		lblFixItFelix.setVisible(true);
+	}
+	
+	public void juegoCerrado() {
+		this.setVisible(true);
+		gameController.terminarJuego();
 	}
 }

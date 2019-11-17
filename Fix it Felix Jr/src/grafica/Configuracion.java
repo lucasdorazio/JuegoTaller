@@ -9,8 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import juego.Juego;
-
+import controladores.ControladorDeJuego;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -24,7 +23,7 @@ public class Configuracion extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Configuracion(Menu m) {
+	public Configuracion(Menu m, ControladorDeJuego controller) {
 		
 		//String[] niveles = {"Nivel 1","Nivel 2","Nivel 3","Nivel 4","Nivel 5",
 		//		"Nivel 6","Nivel 7","Nivel 8","Nivel 9","Nivel 10"};
@@ -60,7 +59,7 @@ public class Configuracion extends JFrame {
 		contentPane.add(btnAplicar);
 		btnAplicar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Juego.getInstance().setNroNivel(cmbNiveles.getSelectedIndex());
+				controller.setNivelElegido(cmbNiveles.getSelectedIndex());
 				actionCerrar(e);
 			}
 		});

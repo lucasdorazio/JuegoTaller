@@ -4,9 +4,11 @@ import java.applet.AudioClip;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import edificio.Ventana;
 import entidades.Direcciones;
 import entidades.Felix;
 import excepciones.NotAllowedMovementException;
+import juego.EstadoJuego;
 import juego.Juego;
 
 @SuppressWarnings("deprecation")
@@ -51,7 +53,13 @@ public class KeyGameAdapter extends KeyAdapter {
 			}
 			break;
 		case 80:
-			System.out.println("Se apreto la p");
+			if (Juego.getInstance().getEstado()!= EstadoJuego.PAUSA) {
+				Juego.getInstance().setEstado(EstadoJuego.PAUSA);
+				System.out.println("PAUSA");
+			}else {
+				Juego.getInstance().setEstado(EstadoJuego.NORMAL);
+				System.out.println("REANUDAR");
+			}
 			sonidoP.play();
 			break;
 		case 32:
@@ -74,7 +82,16 @@ public class KeyGameAdapter extends KeyAdapter {
 			Felix.getInstance().setVentanaActual(Felix.getInstance().getSeccionActual().getVentanas()[Felix.getInstance().getVentanaActual().getNroFila()][Felix.getInstance().getVentanaActual().getNroColumna()+1]);
 			break;
 		case 46:
-			Felix.getInstance().reparar();
+			Ventana v= Felix.getInstance().getVentanaActual();
+			if (!v.estoySana()) {
+			while (!v.estoySana()) v.repararse();
+			Juego.getInstance().getJugador().sumarPuntaje(100);
+			Felix.getInstance().getSeccionActual().disminuirVentanasRestantes();
+			Juego.getInstance().comprobarSeccionLimpia(Felix.getInstance().getSeccionActual());
+			}
+			break;
+		case 76:
+			Felix.getInstance().setVidas(0);
 			break;
 		default:
 			System.out.println("otra tecla: " + tecla.getKeyCode());
