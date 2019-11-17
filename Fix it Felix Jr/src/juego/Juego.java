@@ -276,4 +276,12 @@ public class Juego {
 	public EstadoJuego getEstado() {
 		return estado;
 	}
+	
+	public int getPuntaje() {
+		return jugador.getPuntaje();
+	}
+	
+	public int getTime() {
+		return tiempo;
+	}
 }

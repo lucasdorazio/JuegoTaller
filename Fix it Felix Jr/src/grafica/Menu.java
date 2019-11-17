@@ -40,7 +40,6 @@ public class Menu extends JFrame {
 				}
 			}
 		});
-		
 	}
 
 	/**
@@ -87,7 +86,7 @@ public class Menu extends JFrame {
 		});
 		contentPane.add(botonRanking);
 		
-	
+		
 		ImageIcon imagenBoton = new ImageIcon("src/grafica/Otros/icon.png");
 		botonConfig= new JLabel("Options");
 		botonConfig.setBounds(672, 24, 86, 79);
