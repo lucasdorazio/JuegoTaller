@@ -45,7 +45,7 @@ import juego.Juego;
 @SuppressWarnings({ "serial" })
 public class FrameJuego extends JFrame {
 
-	private JLabel lblPuntaje, lblTiempo, lblScore, lblHighScore, lblPuntajeMasAlto;
+	private JLabel lblPuntaje, lblTiempo, lblScore;
 	private JPanel contentPane; 
 	private Image  fondo, seccion0, seccion1, seccion2, macetero, moldura, pausa,
 	felix, felixReparando, felixMoviendose, felixGolpeado, felixInvulnerable,
@@ -405,11 +405,15 @@ public class FrameJuego extends JFrame {
 	}
 	
 	public void paintInfo(Graphics g) {
-		//int vidas = Felix.getInstance().getVidas();
+		int vidas = Felix.getInstance().getVidas();
 		String tiempo =((Integer) Juego.getInstance().getTime()).toString();
 		String puntaje =  String.format("%06d", Juego.getInstance().getPuntaje());
 		lblPuntaje.setText(puntaje);
 		lblTiempo.setText("TIME " + tiempo);
+		for (int i = 0; i <vidas; i++) {
+			g.drawImage(corazon, 0+30*i, 80, 40, 40, null);
+			
+		}
 	}
 
 //	flip horizontal (espejo)

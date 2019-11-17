@@ -282,4 +282,5 @@ public class Juego {
 	public int getTime() {
 		return tiempo;
 	}
+	
 }

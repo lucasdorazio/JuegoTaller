@@ -98,7 +98,7 @@ public class ControladorDeJuego {
 	
 	public void perder(Jugador jugador) {
 		boolean nombreCorrecto=false;
-		System.out.println("Lo lamento, has perdido. Tu punteaje fue: "+ jugador.getPuntaje());
+		JOptionPane.showMessageDialog(null, "Lo lamento, has perdido. Tu puntaje fue: " + jugador.getPuntaje());
 		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
 			while (!nombreCorrecto) {
 				try {
