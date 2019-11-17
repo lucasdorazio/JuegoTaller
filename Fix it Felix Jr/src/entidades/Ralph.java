@@ -18,7 +18,7 @@ public class Ralph implements Desplazable, Dibujable{
 	private Posicion pos;
 	private int velocidad;	//velocidad= pixeles/seg
 	private int pasosRestantes;
-	private EstadosRalph estado;
+	private EstadoRalph estado;
 	private Direcciones dirActual;
 	private ControladorDeLadrillos brickController;
 	
@@ -38,7 +38,7 @@ public class Ralph implements Desplazable, Dibujable{
 		this.ladrillosTotales = 40;	
 		this.pos =new Posicion(260,6);	//Parte superior de la sección, en el centro
 		this.velocidad=150;
-		this.setEstado(EstadosRalph.NORMAL1);
+		this.estado=EstadoRalph.NORMAL1;
 	}
 	
 	/**
@@ -46,9 +46,9 @@ public class Ralph implements Desplazable, Dibujable{
 	 * Permite independizar la etapa de inicio de la de ejecución
 	 */
 	public void comenzarGolpeo() {
+		this.estado= EstadoRalph.GOLPEANDO1;
 		ladrillosRestantes=LADRILLOS_POR_TIRADA;
-		System.out.println("Ralph inicio golpeo");
-		golpearEdif();
+		//golpearEdif();
 	}
 
 	/**
@@ -59,6 +59,9 @@ public class Ralph implements Desplazable, Dibujable{
 	public void comenzarMovimiento(int cantPasos, Direcciones direccion) {
 		pasosRestantes = cantPasos * 46; // Un paso es igual a 46 pixeles
 		dirActual = direccion;
+		if (dirActual == Direcciones.DERECHA)
+			estado=EstadoRalph.CAMINANDO_DERECHA1;
+		else estado=EstadoRalph.CAMINANDO_IZQUIERDA1;
 		this.avanzar();
 	}
 	
@@ -82,11 +85,13 @@ public class Ralph implements Desplazable, Dibujable{
 			if (dirActual == Direcciones.DERECHA) {
 				if (pos.getPosX() + 1 > Edificio.getLimiteDerechoEdificio()) {
 					dirActual = Direcciones.IZQUIERDA;
+					estado= EstadoRalph.CAMINANDO_IZQUIERDA1;
 					pos.disminuirPosX();
 				} else
 					pos.aumentarPosX();
 			} else if (pos.getPosX()-1 < Edificio.getLimiteIzquierdaEdificio()) {
 				dirActual = Direcciones.DERECHA;
+				estado=EstadoRalph.CAMINANDO_DERECHA1;
 				pos.aumentarPosX();
 			} else
 				pos.disminuirPosX();
@@ -114,11 +119,11 @@ public class Ralph implements Desplazable, Dibujable{
 		return new InformacionDibujable(pos.getPosX(), pos.getPosY(), 'R');
 	}
 
-	public EstadosRalph getEstado() {
+	public EstadoRalph getEstado() {
 		return estado;
 	}
 
-	public void setEstado(EstadosRalph estado) {
+	public void setEstado(EstadoRalph estado) {
 		this.estado = estado;
 	}
 

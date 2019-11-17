@@ -1,6 +1,4 @@
 package juego;
-import java.util.List;
-import java.util.Scanner;
 
 import controladores.Controlador;
 import controladores.ControladorDeJuego;
@@ -12,7 +10,7 @@ import edificio.Edificio;
 import edificio.Seccion;
 import entidades.EstadoPajaro;
 import entidades.EstadoPastel;
-import entidades.EstadosRalph;
+import entidades.EstadoRalph;
 import entidades.Felix;
 import entidades.InfoGraficable;
 /**
@@ -23,11 +21,7 @@ import entidades.InfoGraficable;
  *
  */
 import entidades.Posicion;
-import excepciones.ImproperNameException;
-import excepciones.InvalidCharacterNameException;
-import excepciones.TooLongNameException;
-import excepciones.TooShortNameException;
-public class Juego implements Runnable{
+public class Juego {
 	
 	private static Juego INSTANCE;
 	
@@ -60,11 +54,12 @@ public class Juego implements Runnable{
 
 	private int timerTiempo;
 	
+	@SuppressWarnings("rawtypes")
 	private Controlador controladores[];
 	
 	private int tiempo;
 	
-	private Ranking ranking;
+	private EstadoJuego estado;
 	
 	public static Juego getInstance() {
 		if (INSTANCE == null) {
@@ -75,19 +70,15 @@ public class Juego implements Runnable{
 	
 	private Juego() {
 		//System.out.println("Ingrese su nickname");
-		ranking = new Ranking();
 		/*ranking.cargarMejoresJugadores();
 		try{
 			ranking.escribirRanking();
 		} catch (Exception e) {
 			System.out.println("No se pudo escribir");
 		}//era para comprobar que lee y escribe bien*/
-		ranking.leerRanking();
-		//cambie el set por mandarlo al constructor
 		jugador= new Jugador();
 		puntajePrevioNivel=0;
 		nroNivel=0;
-		//this.iniciarNivel(false);
 		pasarDeNivel=false;
 		pasarDeSeccion=false;
 		reinicioNivel=false;
@@ -103,6 +94,7 @@ public class Juego implements Runnable{
 		ControladorDeLadrillos brickController;
 		nroSeccion=0;
 		nivel = new Nivel(nroNivel);
+		estado= EstadoJuego.NORMAL;
 		if (reinicio) {
 			Edificio.getInstance().reiniciarEdificio();
 			for (int i=0;i<4;i++) {
@@ -113,6 +105,7 @@ public class Juego implements Runnable{
 		} else {
 			nivel.generarEdificio();
 			puntajePrevioNivel=jugador.getPuntaje();
+			Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		}
 		controladores= new Controlador[4];
 		brickController= new ControladorDeLadrillos(Dificultad.getVelocidadLadrillos(nroNivel));
@@ -121,7 +114,6 @@ public class Juego implements Runnable{
 		controladores[2]= new ControladorDePajaro();
 		controladores[3]= new ControladorDePastel();	
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[0]);
-		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		tiempo=nivel.getTiempoMax();
 	}
 	/**
@@ -134,7 +126,6 @@ public class Juego implements Runnable{
 		jugador.setPuntaje(puntajePrevioSeccion);
 		Edificio.getInstance().reiniciarSeccion(nroSeccion);
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
-		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][2]);
 		reinicioSeccion=false;
 	}
 	/**
@@ -142,41 +133,31 @@ public class Juego implements Runnable{
 	 * e interaccion entre las diferentes entidades del juego
 	 */
 	public void actualizar() {
-		if (perdio()) perder();
-		else {
-			if (reinicioNivel) {
-				iniciarNivel(true);
-				System.out.println("NIVEL REINICIADO");
-			} else if (reinicioSeccion) {
-				reiniciarSeccion();
-				System.out.println("SECCION REINICIADA");
-			} else {
-				timerTiempo++;
-				if (timerTiempo > 1000 / ControladorDeJuego.ACTUALIZACION) {
-					tiempo--;
-					timerTiempo = 0;
-
+		if (reinicioNivel) {
+			iniciarNivel(true);
+			System.out.println("NIVEL REINICIADO");
+		} else if (reinicioSeccion) {
+			reiniciarSeccion();
+			System.out.println("SECCION REINICIADA");
+		} else {
+			timerTiempo++;
+			if (timerTiempo > 1000 / ControladorDeJuego.ACTUALIZACION) {
+				tiempo--;
+				timerTiempo = 0;
+			}
+			if (pasarDeNivel)
+				avanzarNivel();
+			else if (pasarDeSeccion)
+				avanzarSeccion();
+			else {
+				for (int i = 0; i < 4; i++) {
+//					if (i == 1) continue;
+//					if (i == 2) continue;
+					controladores[i].actualizar();
 				}
-				if (pasarDeNivel)
-					avanzarNivel();
-				else if (pasarDeSeccion)
-					avanzarSeccion();
-				else {
-					for (int i = 0; i < 4; i++) {
-						// if (i==1) continue;
-						// if (i==2) continue;
-						controladores[i].actualizar();
-					}
-					Felix.getInstance().actualizarInvulnerabilidad();
-				}
+				Felix.getInstance().actualizar();
 			}
 		}
-	}
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
 	}
 	/**
 	 * 
@@ -184,6 +165,12 @@ public class Juego implements Runnable{
 	 */
 	public boolean perdio() {
 		return (Felix.getInstance().getVidas()==0 || tiempo<=0);
+	}
+	
+	public boolean gano() {
+		if ((nroNivel == 9) && (nroSeccion == 2) && (Edificio.getInstance().getSecciones()[nroSeccion].getVentanasRestantes() == 0))
+			return true;
+		else return false;
 	}
 	
 	
@@ -199,7 +186,7 @@ public class Juego implements Runnable{
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
 		pasarDeSeccion=false;
-		System.out.println("Avanzaste a la seccion "+ nroSeccion);
+		System.out.println("Avanzaste a la seccion "+ (nroSeccion+1));
 	}
 	/**
 	 * iniciara un nuevo nivel desde cero 
@@ -217,53 +204,7 @@ public class Juego implements Runnable{
 	
 	public int getNroSeccion() {
 		return nroSeccion;
-	}
-	
-	public void ganar() {
-		boolean nombreCorrecto=false;
-		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
-		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
-			while (!nombreCorrecto) {
-				try {
-					pedirNombre();
-					nombreCorrecto = true;
-				} catch (ImproperNameException e) {
-					System.out.println("ERROR: " + e.toString());
-				}
-			}
-			ranking.actualizarRanking(jugador);
-		}
-	}
-	
-	public void pedirNombre() throws ImproperNameException{
-		Scanner teclado= new Scanner(System.in);
-		String nombre;
-		System.out.println("Ingrese su nombre");
-		nombre= teclado.next();
-		teclado.close();
-		if (nombre.length() < 2) throw new TooShortNameException();
-		if (nombre.length() > 20) throw new TooLongNameException();
-		if (nombre.contains(" ")) throw new InvalidCharacterNameException();
-		jugador.setNick(nombre);
-	}
-	
-	public void perder() {
-		ControladorDeJuego.perdio=true;
-		boolean nombreCorrecto=false;
-		System.out.println("Lo lamento, has perdido. Tu punteaje fue: "+ jugador.getPuntaje());
-		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
-			while (!nombreCorrecto) {
-				try {
-					pedirNombre();
-					nombreCorrecto = true;
-				} catch (ImproperNameException e) {
-					System.out.println("ERROR: " + e.toString());
-				}
-			}
-			ranking.actualizarRanking(jugador);
-		}
-	}
-	
+	}	
 	
 	/**
 	 * Analiza si la seccion actual (recibida por parametro) tiene todas sus 
@@ -273,17 +214,12 @@ public class Juego implements Runnable{
 	public void comprobarSeccionLimpia(Seccion seccion){
 		if (seccion.getVentanasRestantes()==0) {
 			if (nroSeccion == 2) {
-				if (nroNivel ==9) {
-					ganar();
-				} else {
-					pasarDeNivel=true;
-				}
+				if (nroNivel!=9) pasarDeNivel=true;
 			} else {
 				pasarDeSeccion=true;
 			}
 		}
 	}
-
 
 	public void ladrilloGolpeoAFelix() {
 		reinicioNivel=true;
@@ -301,6 +237,11 @@ public class Juego implements Runnable{
 		this.nroNivel=nroNivel;
 	}
 	
+	public Posicion getPosRalph() {
+		ControladorDeRalph ralphController= (ControladorDeRalph) controladores[1];
+		return ralphController.getPosRalph();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public InfoGraficable<EstadoPajaro> getInfoGraficablePajaros(){
 		return controladores[2].getListaInfoGraficable();
@@ -316,7 +257,15 @@ public class Juego implements Runnable{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public InfoGraficable<EstadosRalph> getInfoGraficableRalph() {
+	public InfoGraficable<EstadoRalph> getInfoGraficableRalph() {
 		return controladores[1].getListaInfoGraficable();
+	}
+	
+	public void setEstado(EstadoJuego estado) {
+		this.estado=estado;
+	}
+	
+	public EstadoJuego getEstado() {
+		return estado;
 	}
 }

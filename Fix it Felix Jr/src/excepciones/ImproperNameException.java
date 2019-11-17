@@ -5,7 +5,7 @@ public class ImproperNameException extends RuntimeException {
 	
 	protected String error;
 	
-	public String toString() {
+	public String getMessage() {
 		return error;
 	}
 

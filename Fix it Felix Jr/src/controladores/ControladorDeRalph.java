@@ -4,8 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import entidades.Direcciones;
-import entidades.EstadoPastel;
-import entidades.EstadosRalph;
+import entidades.EstadoRalph;
 import entidades.InfoGraficable;
 import entidades.Posicion;
 import entidades.Ralph;
@@ -16,8 +15,7 @@ import entidades.Ralph;
  * @author Lucas y Renzo
  * @version 1.0
  */
-@SuppressWarnings("rawtypes")
-public class ControladorDeRalph extends Controlador{
+public class ControladorDeRalph extends Controlador<EstadoRalph>{
 	private int tiempoDeGolpeo; // Cada cuantos segundos Ralph golpea
 	private int tiempoDeDesplazamiento; // Cada cuantos segundos Ralph se mueve
 	private static final int CANT_PASOS_MIN = 3;
@@ -30,6 +28,7 @@ public class ControladorDeRalph extends Controlador{
 	private int timerIntervaloMovimiento;
 	private int timerMover;
 	private int timerGolpear;
+	private int timerSwapCaminata;
 	private Ralph ralph;
 
 	/**
@@ -65,7 +64,28 @@ public class ControladorDeRalph extends Controlador{
 		if (estaMoviendose) {
 			timerMover++;
 			if (timerMover > 1000 / (velocidad * ControladorDeJuego.ACTUALIZACION)) {
+				timerSwapCaminata++;
+				if (timerSwapCaminata == 20) {
+					switch (ralph.getEstado()) {
+					case CAMINANDO_DERECHA1:
+						ralph.setEstado(EstadoRalph.CAMINANDO_DERECHA2);
+						break;
+					case CAMINANDO_DERECHA2:
+						ralph.setEstado(EstadoRalph.CAMINANDO_DERECHA1);
+						break;
+					case CAMINANDO_IZQUIERDA1:
+						ralph.setEstado(EstadoRalph.CAMINANDO_IZQUIERDA2);
+						break;
+					case CAMINANDO_IZQUIERDA2:
+						ralph.setEstado(EstadoRalph.CAMINANDO_IZQUIERDA1);
+						break;
+					default:
+						break;
+					}
+					timerSwapCaminata=0;
+				}
 				if (ralph.avanzar()) {
+					ralph.setEstado(EstadoRalph.NORMAL1);
 					estaMoviendose = false;
 					timerIntervaloMovimiento = 0;
 				}
@@ -74,13 +94,17 @@ public class ControladorDeRalph extends Controlador{
 		} else if (estaGolpeando) {
 			timerGolpear++;
 			if (timerGolpear > TIEMPO_ENTRE_LADRILLOS* 1000 / ControladorDeJuego.ACTUALIZACION) {
+				if (ralph.getEstado() == EstadoRalph.GOLPEANDO1) ralph.setEstado(EstadoRalph.GOLPEANDO2);
+				else ralph.setEstado(EstadoRalph.GOLPEANDO1);
 				if (ralph.golpearEdif()) {
+					ralph.setEstado(EstadoRalph.NORMAL1);
 					estaGolpeando = false;
 					timerIntervaloGolpeo = 0;
 				}
 				timerGolpear=0;
 			}
 		} else {
+//			ralph.setEstado(EstadosRalph.NORMAL1);
 			timerIntervaloMovimiento++;
 			timerIntervaloGolpeo++;
 			if (timerIntervaloMovimiento > (tiempoDeDesplazamiento * 1000 / ControladorDeJuego.ACTUALIZACION)) {
@@ -88,7 +112,7 @@ public class ControladorDeRalph extends Controlador{
 					dir = Direcciones.DERECHA;
 				else
 					dir = Direcciones.IZQUIERDA;
-				ralph.comenzarMovimiento(calcularCantPasos(), dir);
+				ralph.comenzarMovimiento(8, dir);
 				timerMover = 0;
 				estaMoviendose = true;
 			} else if (timerIntervaloGolpeo > (tiempoDeGolpeo * 1000 / ControladorDeJuego.ACTUALIZACION)) {
@@ -101,21 +125,20 @@ public class ControladorDeRalph extends Controlador{
 
 	public void avanzarSeccion() {
 	}
-//	@Override
-//	public List<Posicion> getListaPosEntidades() {
-//		List<Posicion> lista = new LinkedList<Posicion>();
-//		lista.add(ralph.getPos());
-//		return lista;
-//	}
+
 	@Override
-	public InfoGraficable getListaInfoGraficable() {
-		InfoGraficable<EstadosRalph> info = new InfoGraficable<EstadosRalph>();
+	public InfoGraficable<EstadoRalph> getListaInfoGraficable() {
+		InfoGraficable<EstadoRalph> info = new InfoGraficable<EstadoRalph>();
 		List<Posicion> pos = new LinkedList<Posicion>();
 		pos.add(ralph.getPos());
-		List<EstadosRalph> estado = new LinkedList<EstadosRalph>();
+		List<EstadoRalph> estado = new LinkedList<EstadoRalph>();
 		estado.add(ralph.getEstado());
 		info.setListaEstados(estado);
 		info.setListaPosiciones(pos);
 		return info;
+	}
+	
+	public Posicion getPosRalph() {
+		return ralph.getPos();
 	}
 }

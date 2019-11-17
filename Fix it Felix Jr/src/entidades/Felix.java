@@ -1,8 +1,12 @@
 package entidades;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import controladores.ControladorDeJuego;
 import edificio.Seccion;
 import edificio.Ventana;
+import excepciones.NotAllowedMovementException;
 import juego.Juego;
 
 /**
@@ -13,15 +17,18 @@ import juego.Juego;
  */
 public class Felix {
 
-	private static final int tiempoInvulnerabilidad = 2;
+	private static final int tiempoInvulnerabilidad = 3;
 
 	private int vidas;
+	private int timerInvulnerabilidad, timerReparacion, timerMovimiento;
 	private boolean vulnerable;
-	private int timerInvulnerabilidad;
+	private boolean estaMoviendose, estaReparando, estaMuriendose;
 
 	private Ventana ventanaActual;
-
+	private EstadoFelix estado;
 	private Seccion seccionActual;
+
+	private int timerMuerte;
 
 	private static Felix INSTANCE;
 
@@ -29,6 +36,12 @@ public class Felix {
 		this.vidas = 3;
 		this.vulnerable = true;
 		this.timerInvulnerabilidad = 0;
+		timerReparacion=0;
+		timerMovimiento=0;
+		estaMoviendose=false;
+		estaMuriendose=false;
+		estaReparando=false;
+		estado=EstadoFelix.NORMAL;
 	}
 
 	/**
@@ -46,25 +59,53 @@ public class Felix {
 	 * Repara (intenta cambiar el estado de los paneles a SANO) la ventana sobre la
 	 * cual se encuentra posicionado
 	 */
-	public void reparar() {
-		boolean sanaAntes = ventanaActual.estoySana();
-		ventanaActual.repararse();
-		if (!sanaAntes && ventanaActual.estoySana()) {
-			Juego.getInstance().getJugador().sumarPuntaje(100);
-			seccionActual.disminuirVentanasRestantes();
-			Juego.getInstance().comprobarSeccionLimpia(seccionActual);
+	public boolean reparar() {
+		boolean reparada= false;
+		if (!estaHaciendoAlgo()) {
+			estado = EstadoFelix.REPARANDO;
+			estaReparando = true;
+			boolean sanaAntes = ventanaActual.estoySana();
+			ventanaActual.repararse();
+			if (!sanaAntes && ventanaActual.estoySana()) {
+				reparada = true;
+				Juego.getInstance().getJugador().sumarPuntaje(100);
+				seccionActual.disminuirVentanasRestantes();
+				Juego.getInstance().comprobarSeccionLimpia(seccionActual);
+			}
 		}
+		return reparada;
+	}
+	
+	public boolean estaHaciendoAlgo() {
+		return (estaReparando || estaMoviendose || estaMuriendose);
 	}
 
 	public void recibirImpactoPastel() {
+		estado= EstadoFelix.INVULNERABLE;
 		vulnerable = false;
 		Juego.getInstance().getJugador().sumarPuntaje(500);
-		System.out.println("Felix se comió un pastel y ahora es invulnerable!");
 	}
 
 	public void recibirImpactoLadrillo() {
 		if (vulnerable) {
 			vidas--;
+			estaMoviendose=false;
+			estaReparando=false;
+			estaMuriendose=true;
+			estado= EstadoFelix.MUERTO;
+			timerReparacion=0;
+			timerMovimiento=0;
+		}
+	}
+	
+	public void recibirImpactoPajaro() {
+		if (vulnerable) {
+			estaMoviendose = false;
+			estaReparando = false;
+			estaMuriendose = true;
+			estado = EstadoFelix.MUERTO;
+			timerReparacion = 0;
+			timerMovimiento = 0;
 		}
 	}
 
@@ -100,80 +141,75 @@ public class Felix {
 		this.seccionActual = seccionActual;
 	}
 
-	/*
-	 * public void moverViejo(Direcciones dir) { switch (dir) { case ARRIBA: if
-	 * ((!ventanaActual.tieneMoldura()) && (ventanaActual.getNroFila()!=0) &&
-	 * !(seccionActual.getVentanas()[ventanaActual.getNroFila()-1][ventanaActual.
-	 * getNroColumna()].tieneMacetero()))
-	 * this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()-1][
-	 * ventanaActual.getNroColumna()];
-	 * System.out.println("Felix se desplaza hacia arriba y queda en la ventana ["
-	 * +ventanaActual.getNroFila()+"]["+ventanaActual.getNroColumna()+"]"); break;
-	 * case ABAJO: if ((!ventanaActual.tieneMacetero()) &&
-	 * (ventanaActual.getNroFila()!=2) &&
-	 * !(seccionActual.getVentanas()[ventanaActual.getNroFila()+1][ventanaActual.
-	 * getNroColumna()].tieneMoldura()))
-	 * this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()+1][
-	 * ventanaActual.getNroColumna()];
-	 * System.out.println("Felix se desplaza hacia abajo y queda en la ventana ["
-	 * +ventanaActual.getNroFila()+"]["+ventanaActual.getNroColumna()+"]"); break;
-	 * case IZQUIERDA: if ((ventanaActual.puedeAtravesarseLateralmente())
-	 * &&(ventanaActual.getNroColumna()!=0) &&
-	 * (seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.
-	 * getNroColumna()-1].puedeAtravesarseLateralmente()))
-	 * this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()][
-	 * ventanaActual.getNroColumna()-1]; System.out.
-	 * println("Felix se desplaza hacia la izquierda y queda en la ventana ["
-	 * +ventanaActual.getNroFila()+"]["+ventanaActual.getNroColumna()+"]"); break;
-	 * case DERECHA: if ((ventanaActual.puedeAtravesarseLateralmente()) &&
-	 * (ventanaActual.getNroColumna()!=4) &&
-	 * (seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.
-	 * getNroColumna()+1].puedeAtravesarseLateralmente()))
-	 * this.ventanaActual=seccionActual.getVentanas()[ventanaActual.getNroFila()][
-	 * ventanaActual.getNroColumna()+1]; System.out.
-	 * println("Felix se desplaza hacia la derecha y queda en la ventana ["
-	 * +ventanaActual.getNroFila()+"]["+ventanaActual.getNroColumna()+"]"); break; }
-	 * }
-	 */
-
-	public void mover(Direcciones dir) {
+	public void mover(Direcciones dir) throws NotAllowedMovementException {
 		Ventana proximaVentana;
-		if (ventanaActual.puedePasar(dir)) {
+		if (!estaHaciendoAlgo()) {
+			ventanaActual.puedePasar(dir);
 			switch (dir) {
 			case DERECHA:
 				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()
 						+ 1];
-				if (proximaVentana.puedePasar(Direcciones.IZQUIERDA))
-					ventanaActual = proximaVentana;
+				proximaVentana.puedePasar(Direcciones.IZQUIERDA);
+				ventanaActual = proximaVentana;
 				break;
 			case IZQUIERDA:
 				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila()][ventanaActual.getNroColumna()
 						- 1];
-				if (proximaVentana.puedePasar(Direcciones.DERECHA))
-					ventanaActual = proximaVentana;
+				proximaVentana.puedePasar(Direcciones.DERECHA);
+				ventanaActual = proximaVentana;
 				break;
 			case ARRIBA:
 				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila() - 1][ventanaActual
 						.getNroColumna()];
-				if (proximaVentana.puedePasar(Direcciones.ABAJO))
-					ventanaActual = proximaVentana;
+				proximaVentana.puedePasar(Direcciones.ABAJO);
+				ventanaActual = proximaVentana;
 				break;
 			case ABAJO:
 				proximaVentana = seccionActual.getVentanas()[ventanaActual.getNroFila() + 1][ventanaActual
 						.getNroColumna()];
-				if (proximaVentana.puedePasar(Direcciones.ARRIBA))
-					ventanaActual = proximaVentana;
+				proximaVentana.puedePasar(Direcciones.ARRIBA);
+				ventanaActual = proximaVentana;
 				break;
 			}
+			estaMoviendose = true;
+			estado = EstadoFelix.MOVIENDOSE;
 		}
 	}
-
-	public void actualizarInvulnerabilidad() {
-		if (this.vulnerable == false) {
+	
+	public void actualizar() {
+		if (estaMuriendose) {
+			timerMuerte++;
+			if (timerMuerte> 600 / ControladorDeJuego.ACTUALIZACION) {
+				estado = EstadoFelix.NORMAL;
+				timerMuerte= 0;
+				estaMuriendose= false;
+				ventanaActual= seccionActual.getVentanas()[2][2];
+			}
+		}
+		if (!vulnerable) {
 			timerInvulnerabilidad++;
 			if (timerInvulnerabilidad > tiempoInvulnerabilidad * 1000 / ControladorDeJuego.ACTUALIZACION) {
-				this.vulnerable = true;
+				estado= EstadoFelix.NORMAL;
+				vulnerable = true;
 				timerInvulnerabilidad = 0;
+			}
+		}
+		if (estaReparando) {
+			timerReparacion++;
+			if (timerReparacion > 200 / ControladorDeJuego.ACTUALIZACION) {
+				if (!vulnerable) estado=EstadoFelix.INVULNERABLE;
+				else estado= EstadoFelix.NORMAL;
+				timerReparacion = 0;
+				estaReparando = false;
+			}
+		}
+		if (estaMoviendose) {
+			timerMovimiento++;
+			if (timerMovimiento> 200 / ControladorDeJuego.ACTUALIZACION) {
+				if (!vulnerable) estado=EstadoFelix.INVULNERABLE;
+				else estado= EstadoFelix.NORMAL;
+				timerMovimiento=0;
+				estaMoviendose=false;
 			}
 		}
 	}
@@ -184,6 +220,17 @@ public class Felix {
 		posX = 224 + 52 * ventanaActual.getNroColumna();
 		posY = 98 + 80 * ventanaActual.getNroFila();
 		return (new Posicion(posX, posY));
+	}
+	
+	public InfoGraficable<EstadoFelix> getInfoGraficable(){
+		InfoGraficable<EstadoFelix> info= new InfoGraficable<EstadoFelix>();
+		List<Posicion> pos= new LinkedList<Posicion>();
+		pos.add(getPos());
+		List<EstadoFelix> estado= new LinkedList<EstadoFelix>();
+		estado.add(this.estado);
+		info.setListaEstados(estado);
+		info.setListaPosiciones(pos);
+		return info;
 	}
 
 }

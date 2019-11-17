@@ -60,7 +60,7 @@ public class Configuracion extends JFrame {
 		contentPane.add(btnAplicar);
 		btnAplicar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Juego.getInstance().setNroNivel(cmbNiveles.getSelectedIndex()-1);
+				Juego.getInstance().setNroNivel(cmbNiveles.getSelectedIndex());
 				actionCerrar(e);
 			}
 		});

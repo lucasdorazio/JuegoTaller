@@ -1,6 +1,7 @@
 package edificio;
 
 import entidades.Direcciones;
+import excepciones.NotAllowedMovementException;
 
 /**
  * La clase ConHojas representa las ventanas de dos paneles con hojas 
@@ -73,23 +74,25 @@ public class ConHojas extends Ventana {
 	}
 
 	@Override
-	public boolean puedePasar(Direcciones dir) {
-		boolean puede=false;
+	public void puedePasar(Direcciones dir) {
 		switch (dir) {
 		case DERECHA:
-			if ((getNroColumna() != 4) && (!abierta)) puede=true;
+			if (getNroColumna() == 4) throw new NotAllowedMovementException(true);
+			else if (abierta) throw new NotAllowedMovementException(false);
 			break;
 		case IZQUIERDA:
-			if ((getNroColumna() != 0) && (!abierta))puede=true;
+			if (getNroColumna() == 0) throw new NotAllowedMovementException(true);
+			else if (abierta) throw new NotAllowedMovementException(false);
 			break;
 		case ARRIBA:
-			if ((getNroFila() != 0) && (!tieneMoldura())) puede=true;
+			if (getNroFila()== 0) throw new NotAllowedMovementException(true);
+			else if (tieneMoldura()) throw new NotAllowedMovementException(false);
 			break;
 		case ABAJO:
-			if ((getNroFila() != 2) && (!tieneMacetero())) puede=true;
+			if (getNroFila()== 2) throw new NotAllowedMovementException(true);
+			else if (tieneMacetero()) throw new NotAllowedMovementException(false);
 			break;
 		}
-		return puede;
 	}
 
 	@Override

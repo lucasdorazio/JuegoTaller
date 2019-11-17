@@ -1,15 +1,19 @@
 package grafica;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.applet.AudioClip;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -18,72 +22,30 @@ import javax.swing.border.EmptyBorder;
 
 import edificio.Edificio;
 import edificio.EstadoPanel;
-import edificio.Panel;
 import edificio.Ventana;
-import entidades.Direcciones;
+import entidades.EstadoFelix;
 import entidades.EstadoPajaro;
 import entidades.EstadoPastel;
-import entidades.EstadosRalph;
+import entidades.EstadoRalph;
 import entidades.Felix;
 import entidades.InfoGraficable;
 import entidades.Posicion;
 import juego.Juego;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial" })
 public class FrameJuego extends JFrame {
 
 	private JPanel contentPane; 
-	private Image  fondo, seccion0, seccion1, seccion2, felix, ralph, ventanaComun, conHojas, cerrada,
-	semicircular, panelSemiRoto, panelSano, pajaro1, pajaro2, pajaro3, pajaro4, pastel1, pastel2, ladrillo, semi1, semi2, semi3, semi4, semi5, semi6,
-	semi7, semi8,  macetero, moldura, puerta0, puerta1, puerta2, puerta3, puerta4;
+	private Image  fondo, seccion0, seccion1, seccion2, macetero, moldura,
+	felix, felixReparando, felixMoviendose, felixGolpeado, felixInvulnerable,
+	ralph, ralphGolpeando1, ralphGolpeando2, ralphDerecha1, ralphDerecha2,
+	ventanaComun, conHojas, cerrada, semicircular, panelSemiRoto, panelSano,
+	pajaro1, pajaro2, pajaro3, pajaro4, pastel1, pastel2, ladrillo,
+	semi1, semi2, semi3, semi4, semi5, semi6, semi7, semi8, puerta0, puerta1, puerta2, puerta3, puerta4;
+	private AudioClip pajaroGolpeoFelix, ladrilloGolpeoFelix, golpeRalph;
 
 	public FrameJuego(Menu m) {
-		addKeyListener(new KeyAdapter() {
-			@SuppressWarnings("deprecation")
-			public void keyPressed(KeyEvent tecla) {
-				switch (tecla.getKeyCode()) {
-				case 37:
-					Felix.getInstance().mover(Direcciones.IZQUIERDA);
-					break;
-				case 38:
-					Felix.getInstance().mover(Direcciones.ARRIBA);
-					break;
-				case 39:
-					Felix.getInstance().mover(Direcciones.DERECHA);
-					break;
-				case 40:
-					Felix.getInstance().mover(Direcciones.ABAJO);
-					break;
-				case 80:
-					System.out.println("Se apreto la p");
-					break;
-				case 32:
-					Felix.getInstance().reparar();
-					break;
-				case 72: //H= hack para pasar de seccion si no hay ventanas rotas
-					Juego.getInstance().comprobarSeccionLimpia(Felix.getInstance().getSeccionActual());
-					break;
-				case 87: //w voy arriba aunque haya obstaculo (tira error)
-					Felix.getInstance().setVentanaActual(Felix.getInstance().getSeccionActual().getVentanas()[Felix.getInstance().getVentanaActual().getNroFila()-1][Felix.getInstance().getVentanaActual().getNroColumna()]);
-					break;
-				case 65: //A voy a la izquierda aunque haya obstaculo (tira error)
-					Felix.getInstance().setVentanaActual(Felix.getInstance().getSeccionActual().getVentanas()[Felix.getInstance().getVentanaActual().getNroFila()][Felix.getInstance().getVentanaActual().getNroColumna()-1]);
-					break;
-				case 83: //S voy abajo aunque haya obstaculo (tira error)
-					Felix.getInstance().setVentanaActual(Felix.getInstance().getSeccionActual().getVentanas()[Felix.getInstance().getVentanaActual().getNroFila()+1][Felix.getInstance().getVentanaActual().getNroColumna()]);
-					break;
-				case 68: //D voy a la derecha aunque haya obstaculo (tira error)
-					Felix.getInstance().setVentanaActual(Felix.getInstance().getSeccionActual().getVentanas()[Felix.getInstance().getVentanaActual().getNroFila()][Felix.getInstance().getVentanaActual().getNroColumna()+1]);
-					break;
-				case 46:
-					Felix.getInstance().reparar();
-					break;
-				default:
-					System.out.println("otra tecla: " + tecla.getKeyCode());
-					break;
-				}
-			}
-		});
+		addKeyListener(new KeyGameAdapter());
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -93,12 +55,20 @@ public class FrameJuego extends JFrame {
 			}
 		});
 		try {
-			fondo = ImageIO.read(new File("src/grafica/Fondos/background.png"));
+			fondo = ImageIO.read(new File("src/grafica/Fondos/newBackground.png"));
             seccion0 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion1.png"));
             seccion1 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion2.png"));
             seccion2 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion3.png"));
             felix = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice102_@.png"));
+            felixReparando = ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice135_@.png"));
+            felixMoviendose= ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice103_@.png"));
+            felixGolpeado= ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice293_@.png"));
+            felixInvulnerable= ImageIO.read(new File("src/grafica/fixitfelixcortado/Felix/slice101_@.png"));
             ralph = ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice146_@.png"));
+            ralphGolpeando1= ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice168_@.png"));
+            ralphGolpeando2= ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice167_@.png"));
+            ralphDerecha1= ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice147_@.png"));
+            ralphDerecha2= ImageIO.read(new File("src/grafica/fixitfelixcortado/ralph/slice148_@.png"));
             ventanaComun= ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice103_@.png"));
             conHojas=ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice106_@.png"));
             cerrada=ImageIO.read(new File("src/grafica/fixitfelixcortado/ventanas_y_panel/slice105_@.png"));
@@ -135,7 +105,7 @@ public class FrameJuego extends JFrame {
 		contentPane = new JPanel(){
 			protected void paintComponent(Graphics g) {
 				//super.paintComponent(g);
-				g.drawImage(fondo, 0, 0, this.getWidth(),this.getHeight(),null);
+				g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(),null);
 				paintSeccion(g);
 				paintVentanas(g);
 				paintPajaros(g);
@@ -144,14 +114,18 @@ public class FrameJuego extends JFrame {
 				paintRalph(g);
 				//g.drawImage(felix, Felix.getInstance().getPos().getPosX(), Felix.getInstance().getPos().getPosY(), felix.getWidth(null), felix.getHeight(null), null);
 				//g.drawImage(ralph, Juego.getInstance().getPosRalph().getPosX(), Juego.getInstance().getPosRalph().getPosY(), ralph.getWidth(null), ralph.getHeight(null),null);
+				paintFelix(g);
+				paintRalph(g);
 			};
 		};
-//		contentPane.setBounds(100,100,675,370);
-//		contentPane.setVisible(true);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		setBounds(100, 100, Juego.LIMITE_DERECHO_MAPA, Juego.LIMITE_INFERIOR_MAPA);
+		Dimension tamañoPantalla= Toolkit.getDefaultToolkit().getScreenSize();
+		int ancho= Juego.LIMITE_DERECHO_MAPA;
+		int alto=Juego.LIMITE_INFERIOR_MAPA;
+		setBounds((tamañoPantalla.width-ancho)/2,(tamañoPantalla.height-alto)/2, ancho, alto);
+		System.out.println("Ancho" + ancho + "alto " + alto);
 	}
 	
 	private void paintSeccion(Graphics g) {
@@ -298,7 +272,6 @@ public class FrameJuego extends JFrame {
 		EstadoPastel estado;
 		if ( pos != null) {
 			 estado = info.getListaEstados().get(0);
-			estado = info.getListaEstados().get(0);
 			if (estado == EstadoPastel.NORMAL1)
 				imagen = pastel1;
 			else
@@ -348,11 +321,58 @@ public class FrameJuego extends JFrame {
 	 
 	private void paintRalph(Graphics g) {
 		Image imagen = null;
-		InfoGraficable<EstadosRalph> info = Juego.getInstance().getInfoGraficableRalph();
+		InfoGraficable<EstadoRalph> info = Juego.getInstance().getInfoGraficableRalph();
 		Posicion pos = info.getListaPosiciones().get(0);
-		EstadosRalph estado = info.getListaEstados().get(0);
-		g.drawImage(ralph, pos.getPosX(), pos.getPosY(), ralph.getWidth(null), ralph.getHeight(null), null);
-
+		EstadoRalph estado = info.getListaEstados().get(0);
+		switch (estado) {
+		case NORMAL1:
+			imagen= ralph;
+			break;
+		case GOLPEANDO1:
+			imagen= ralphGolpeando1;
+			break;
+		case GOLPEANDO2:
+			imagen= ralphGolpeando2;
+			break;
+		case CAMINANDO_DERECHA1:
+			imagen= ralphDerecha1;
+			break;
+		case CAMINANDO_DERECHA2:
+			imagen= ralphDerecha2;
+			break;
+		case CAMINANDO_IZQUIERDA1:
+			imagen= rotarImagen(ralphDerecha1);
+			break;
+		case CAMINANDO_IZQUIERDA2:
+			imagen= rotarImagen(ralphDerecha2);
+			break;
+		}
+		g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
+	}
+	
+	private void paintFelix(Graphics g) {
+		Image imagen= null;
+		InfoGraficable<EstadoFelix> info= Felix.getInstance().getInfoGraficable();
+		Posicion pos= info.getListaPosiciones().get(0);
+		EstadoFelix estado= info.getListaEstados().get(0);
+		switch (estado) {
+			case NORMAL:
+				imagen=felix;
+				break;
+			case REPARANDO:
+				imagen=felixReparando;
+				break;
+			case MOVIENDOSE:
+				imagen=felixMoviendose;
+				break;
+			case MUERTO:
+				imagen= felixGolpeado;
+				break;
+			case INVULNERABLE:
+				imagen= felixInvulnerable;
+				break;
+		}
+		g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
 	}
 	
 	public void paintComponents(Graphics g) {
@@ -362,16 +382,12 @@ public class FrameJuego extends JFrame {
 		paintPajaros(g);
 		paintPastel(g);
 	}
-	
-	public void paintComponent(Graphics g) {
-		super.paintComponents(g);
-	}
 
 //	flip horizontal (espejo)
-//	public Image rotarImagen(Image i) {
-//	AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
-//	tx.translate(-i.getWidth(null), 0);
-//	AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-//	return op.filter(i, null);
-//	}
+	public Image rotarImagen(Image image) {
+		AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+		tx.translate(-image.getWidth(null), 0);
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+		return op.filter((BufferedImage) image, null);
+	}
 }

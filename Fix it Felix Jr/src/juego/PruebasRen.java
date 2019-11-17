@@ -1,122 +1,85 @@
 package juego;
 
+import java.awt.Color;
 import java.awt.Graphics;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import entidades.Posicion;
-import excepciones.ImproperNameException;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class PruebasRen {
-	static HiloIndependiente  hiloMovimiento= new HiloIndependiente();
-	static HiloDependiente hiloGolpeo= new HiloDependiente(hiloMovimiento);
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-//		Marco mimarco= new Marco();
-//		mimarco.setVisible(true);
-		boolean nombreCorrecto=false;
-		while (!nombreCorrecto) {
-			try {
-				Juego.getInstance().pedirNombre();
-				nombreCorrecto = true;
-			} catch (ImproperNameException e) {
-				System.out.println("ERROR: " + e.toString());
-			}
-		}
-		System.out.println("Salio del while");
-		System.out.println("Salio del while 2");
+//		boolean nombreCorrecto=false;
+//		while (!nombreCorrecto) {
+//			try {
+//				Juego.getInstance().pedirNombre();
+//				nombreCorrecto = true;
+//			} catch (ImproperNameException e) {
+//				System.out.println("ERROR: " + e.toString());
+//			}
+//		}
+//		System.out.println("Salio del while");
+//		System.out.println("Salio del while x2");
+		
+//		TopJugadores ranking = new TopJugadores();
+//		ranking.setVisible(true);
+//		ranking.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Marco marco= new Marco();
+		marco.setVisible(true);
 		
 	}
 	
-	public static int obtenerNumero() {
-		double valor=100;
-		double multiplicador= 1 - (double) 9/10;
-		System.out.println(multiplicador);
-		System.out.println(multiplicador);
-		return (int) (valor * multiplicador);
+	public static String PedirNombre () {
+		String nya= JOptionPane.showInputDialog("Ingrese su nombre");
+		return nya;
 	}
-	
 
 	
 }
 @SuppressWarnings("serial")
 class Marco extends JFrame {
-	public Marco() {
-		setBounds(100, 100, 200, 200);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-}
-
-class HiloDependiente extends Thread {
-	Thread t;
-	int i=0;
-	public HiloDependiente (Thread t) {
-		this.t=t;
-	}
+	JPanel panel1,panel2,contentPane;
+	JButton boton;
+	Image fondoPanel1, fondoPanel2;
 	
-	public void run() {
+	public Marco() {
+		setBounds(500, 100, 600, 800);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		contentPane= new JPanel();
+		contentPane.setBackground(Color.GREEN);
+		contentPane.setLayout(null);
+		setContentPane(contentPane);
+		
 		try {
-			t.join();
-		} catch (InterruptedException e) {
+			fondoPanel1= ImageIO.read(new File("src/grafica/Fondos/background.png"));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		boolean termino=false;
-		while (!termino) {
-			System.out.println("dependiente="+i);
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			i++;
-			if (i==10) termino=true;
-		}
-		System.out.println("termino exitosamente");
-	}
-}
-class HiloIndependiente extends Thread{
-	public void run() {
-		int i=0;
-		boolean termino=false;
-		while (!termino) {
-			System.out.println("solari="+i);
-			try {
-				Thread.sleep(200);	//(int) (1000/ralph.velocidad())
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			i++;
-			if (i==10) termino=true;
-		}
-		System.out.println("termino exitosamente");
 		
-	}
-}
-
-class Hilo implements Runnable{
-	int k=4;
-	@Override
-	public void run() {
-		Timer timer= new Timer();
-		TimerTask reducirEnteros= new TimerTask() {
-			
-			@Override
-			public void run() {
-				System.out.println("K=" +k);
-				k--;
-				if (k == 0) this.cancel();
+		panel1= new JPanel() {
+			public void paintComponent(Graphics g) {
+//				super.paintComponent(g);
+				g.drawImage(fondoPanel1, 0, 0, fondoPanel1.getWidth(null), fondoPanel1.getHeight(null), null);
 			}
 		};
-		timer.schedule(reducirEnteros, 0, 1000);
+		panel1.setBackground(Color.RED);
+		panel1.setBounds(0, 0, 300, 400);
+		panel1.setVisible(true);
+		contentPane.add(panel1);
+		
+		panel2= new JPanel();
+		panel2.setBackground(Color.blue);
+		panel2.setBounds(300, 400, 300, 400);
+		panel2.setVisible(true);
+		contentPane.add(panel2);
 	}
-	
 }
 
 /*
@@ -140,3 +103,21 @@ public List<Posicion> getListaPosEntidades() {
 }
 
 */
+
+//definir archivo, pw y j
+/*		try {
+			archivo= new FileWriter("dondeEstoy.txt",false);
+			pw= new PrintWriter(archivo);
+			for (int i=0;i<3;i++) {
+				j= new Jugador("Nombre", (i+1)*50);
+				pw.println(j.getNick()+ " "+ j.getPuntaje());
+			}
+			pw.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/

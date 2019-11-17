@@ -1,11 +1,13 @@
 package juego;
 
-import java.io.FileInputStream;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 
 /**
  * Clase que modela el almacenamiento y posición de los jugadores con mejores puntajes
@@ -14,10 +16,16 @@ import java.io.ObjectOutputStream;
  */
 public class Ranking{
 	
-	private static Jugador[] mejoresCinco;
+	private Jugador[] mejoresCinco;
+	private int dimL;
 	
 	public Ranking() {
 		 mejoresCinco = new Jugador[5];
+		 dimL=0;
+	}
+	
+	public int getCantJugadores() {
+		return dimL;
 	}
 	
 	/**
@@ -46,6 +54,22 @@ public class Ranking{
 		}
 	}
 	
+	public void actualizarRankingNuevo(Jugador jugador) {
+		int pos;
+		if (dimL < 5) {
+			mejoresCinco[dimL] = jugador;
+			dimL++;
+		} else {
+			pos = 0;
+			while (pos < dimL && jugador.getPuntaje() <= mejoresCinco[pos].getPuntaje())
+				pos++;
+			for (int i=4;i>pos;i--)
+				mejoresCinco[i]= mejoresCinco[i-1];
+			mejoresCinco[pos]=jugador;
+		}
+		escribirRankingNuevo();
+	}
+	
 	public void escribirRanking() throws FileNotFoundException, IOException {
 		ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("src/datos/archivo.obj"));
 		for (int i = 0; i < 5; i++) {
@@ -54,36 +78,54 @@ public class Ranking{
 		salida.close();
 	}
 	
-	public void leerRanking() {
-		//Object[] jugadores = new Object[5];
-		//tira error invalid stream header
-		ObjectInputStream entrada = null;
+	public void escribirRankingNuevo() {
+		FileWriter archivo;
+		PrintWriter pw;
+		Jugador j;
 		try {
-			entrada = new ObjectInputStream(new FileInputStream("src/datos/archivo.obj"));
+			archivo= new FileWriter("src/datos/top_5.txt");
+			pw= new PrintWriter(archivo);
+			for (int i=0; i<dimL;i++) {
+				j= mejoresCinco[i];
+				pw.println(j.getNick() + " " + j.getPuntaje());
+			}
+			pw.close();
 		} catch (IOException e) {
-			System.out.println("Archivo ranking.TXT no encontrado vez 1");
 			e.printStackTrace();
-		} 
-		for (int i = 0; i < 5; i++) {
-			try {
-				mejoresCinco[i]=(Jugador) entrada.readObject();
-			} catch (ClassNotFoundException e) {
-				System.out.println("De alguna forma, la clase no fue encontrada (preguntar)");
-				e.printStackTrace();
-			} catch (IOException e) {
-				System.out.println("Archivo ranking.TXT no encontrado vez 2");
-				e.printStackTrace();
-			} 
 		}
 	}
 	
-	public static Jugador[] getMejoresCinco() {
+	public void leerRanking() {
+		BufferedReader br;
+		String linea, nombre;
+		int puntaje, espacio;
+		try {
+			br= new BufferedReader(new FileReader("src/datos/top_5.txt"));
+			linea= br.readLine();
+			while (linea != null) {
+				espacio= linea.indexOf(" ");
+				nombre= linea.substring(0, espacio);
+				puntaje= Integer.parseInt(linea.substring(espacio+1, linea.length()));
+				mejoresCinco[dimL]= new Jugador(nombre, puntaje);
+				dimL++;
+				linea= br.readLine();
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Jugador[] getMejoresCinco() {
 		if (mejoresCinco== null) cargarMejoresJugadores();
 		return mejoresCinco;
 	}
 	// para probar stream
-	public static void cargarMejoresJugadores() {
+	public void cargarMejoresJugadores() {
 		mejoresCinco= new Jugador[5];
+		dimL=5;
 		mejoresCinco[0]= new Jugador("Manuel", 500);
 		mejoresCinco[1]= new Jugador("juan", 400);
 		mejoresCinco[2]= new Jugador("ricky", 300);
@@ -93,7 +135,8 @@ public class Ranking{
 		}
 
 	public boolean estaEntreLosMejoresCinco(int puntaje) {
-		return (puntaje > mejoresCinco[4].getPuntaje());
+		if (dimL<5) return true;
+		else return (puntaje > mejoresCinco[dimL-1].getPuntaje());
 	}
 		
 }
