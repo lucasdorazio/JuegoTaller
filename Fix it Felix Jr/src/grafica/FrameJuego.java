@@ -1,7 +1,11 @@
 package grafica;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -9,14 +13,20 @@ import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.applet.AudioClip;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -36,19 +46,21 @@ import juego.Juego;
 @SuppressWarnings({ "serial" })
 public class FrameJuego extends JFrame {
 
+	private JLabel lblPuntaje, lblTiempo, lblScore, lblHighScore, lblPuntajeMasAlto;
 	private JPanel contentPane; 
 	private Image  fondo, seccion0, seccion1, seccion2, macetero, moldura,
 	felix, felixReparando, felixMoviendose, felixGolpeado, felixInvulnerable,
 	ralph, ralphGolpeando1, ralphGolpeando2, ralphDerecha1, ralphDerecha2,
 	ventanaComun, conHojas, cerrada, semicircular, panelSemiRoto, panelSano,
 	pajaro1, pajaro2, pajaro3, pajaro4, pastel1, pastel2, ladrillo,
-	semi1, semi2, semi3, semi4, semi5, semi6, semi7, semi8, puerta0, puerta1, puerta2, puerta3, puerta4;
+	semi1, semi2, semi3, semi4, semi5, semi6, semi7, semi8, puerta0, puerta1, puerta2, puerta3, puerta4, corazon;
 	private AudioClip pajaroGolpeoFelix, ladrilloGolpeoFelix, golpeRalph;
 
 	public FrameJuego(Menu m) {
 		addKeyListener(new KeyGameAdapter());
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -59,7 +71,7 @@ public class FrameJuego extends JFrame {
 			}
 		});
 		try {
-			fondo = ImageIO.read(new File("src/grafica/Fondos/newBackground.png"));
+			fondo = ImageIO.read(new File("src/grafica/Fondos/fondoDefinitivo.png"));
             seccion0 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion1.png"));
             seccion1 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion2.png"));
             seccion2 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion3.png"));
@@ -101,7 +113,7 @@ public class FrameJuego extends JFrame {
             puerta2=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice596_@.png"));
             puerta3=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice592_@.png"));
             puerta4=ImageIO.read(new File("src/grafica/fixitfelixcortado/semicirculares/slice594_4@.png"));
-            
+            corazon=ImageIO.read(new File("src/grafica/Otros/corazon.png"));
 		} catch (IOException ex) {
             ex.printStackTrace();	
         }
@@ -110,6 +122,7 @@ public class FrameJuego extends JFrame {
 			protected void paintComponent(Graphics g) {
 				//super.paintComponent(g);
 				g.drawImage(fondo, 0, 0, this.getWidth(), this.getHeight(),null);
+				paintInfo(g);
 				paintSeccion(g);
 				paintVentanas(g);
 				paintPajaros(g);
@@ -122,6 +135,21 @@ public class FrameJuego extends JFrame {
 				paintRalph(g);
 			};
 		};
+		lblScore = new JLabel("SCORE");
+		lblScore.setFont(crearFuente("src/grafica/Fuentes/ARCADE_N.TTF", 20));
+		lblScore.setForeground(Color.WHITE);
+		lblScore.setBounds(0, 0, 100, 20);
+		lblPuntaje = new JLabel("000000");
+		lblPuntaje.setFont(crearFuente("src/grafica/Fuentes/ARCADE_N.TTF", 20));
+		lblPuntaje.setForeground(Color.WHITE);
+		lblPuntaje.setBounds(0, 30, 200, 20);
+		lblTiempo = new JLabel();
+		lblTiempo.setFont(crearFuente("src/grafica/Fuentes/ARCADE_N.TTF", 20));
+		lblTiempo.setForeground(Color.WHITE);
+		lblTiempo.setBounds(0, 60, 200, 20);
+		contentPane.add(lblPuntaje);
+		contentPane.add(lblTiempo);
+		contentPane.add(lblScore);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
@@ -129,7 +157,6 @@ public class FrameJuego extends JFrame {
 		int ancho= Juego.LIMITE_DERECHO_MAPA;
 		int alto=Juego.LIMITE_INFERIOR_MAPA;
 		setBounds((tamañoPantalla.width-ancho)/2,(tamañoPantalla.height-alto)/2, ancho, alto);
-		System.out.println("Ancho" + ancho + "alto " + alto);
 	}
 	
 	private void paintSeccion(Graphics g) {
@@ -386,6 +413,14 @@ public class FrameJuego extends JFrame {
 		paintPajaros(g);
 		paintPastel(g);
 	}
+	
+	public void paintInfo(Graphics g) {
+		//int vidas = Felix.getInstance().getVidas();
+		String tiempo =((Integer) Juego.getInstance().getTime()).toString();
+		String puntaje =  String.format("%06d", Juego.getInstance().getPuntaje());
+		lblPuntaje.setText(puntaje);
+		lblTiempo.setText("TIME " + tiempo);
+	}
 
 //	flip horizontal (espejo)
 	public Image rotarImagen(Image image) {
@@ -393,5 +428,22 @@ public class FrameJuego extends JFrame {
 		tx.translate(-image.getWidth(null), 0);
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 		return op.filter((BufferedImage) image, null);
+	}
+	
+	public static Font crearFuente(String ruta, int escala){
+        Font fuente = null; 
+        InputStream myStream = null;
+       try {
+			myStream = new BufferedInputStream(new FileInputStream(ruta));
+			fuente = Font.createFont(Font.TRUETYPE_FONT, myStream);
+			fuente = fuente.deriveFont(Font.PLAIN, escala);
+		} catch (FontFormatException ex) {
+			Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		ge.registerFont(fuente);
+	    return fuente;
 	}
 }
