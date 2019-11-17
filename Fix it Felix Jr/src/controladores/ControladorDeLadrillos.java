@@ -18,7 +18,7 @@ import juego.Juego;
  */
 public class ControladorDeLadrillos extends Controlador<Ladrillo>{
 
-	private static List<Ladrillo> listaLadrillos = new LinkedList<Ladrillo>();
+	private  List<Ladrillo> listaLadrillos = new LinkedList<Ladrillo>();
 	private int velocidad;
 	private int timer;
 
@@ -81,23 +81,6 @@ public class ControladorDeLadrillos extends Controlador<Ladrillo>{
 	public void avanzarSeccion() {
 		listaLadrillos.clear();
 	}
-
-//	@Override
-//	public List<Posicion> getListaPosEntidades() {
-//		List<Posicion> listaPosiciones = new LinkedList<Posicion>();
-//		Iterator<Ladrillo> ite = listaLadrillos.iterator();
-//		Ladrillo ladrillo;
-//		while (ite.hasNext()) {
-//			ladrillo = ite.next();
-//			listaPosiciones.add(ladrillo.getPos());
-//		}
-//		return listaPosiciones;
-//	}
-
-//	@Override
-//	public List<?> getListaEstadoEntidades() {
-//		return null;
-//	}
 
 	@Override
 	public InfoGraficable<Ladrillo> getListaInfoGraficable() {

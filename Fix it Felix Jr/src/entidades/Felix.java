@@ -16,7 +16,6 @@ import juego.Juego;
  * @author Lucas y Renzo
  *
  */
-@SuppressWarnings("deprecation")
 public class Felix {
 
 	private static final int tiempoInvulnerabilidad = 3;

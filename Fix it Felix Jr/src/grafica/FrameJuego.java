@@ -308,7 +308,6 @@ public class FrameJuego extends JFrame {
 			g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
 		}
 	}
-	//seria mejor que juego me de un getListaPosiciones?
 	private void paintPajaros(Graphics g) {
 		int i=0;
 		Image imagen = null;

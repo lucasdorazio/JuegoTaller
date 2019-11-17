@@ -16,7 +16,6 @@ import entidades.Ralph;
  * @author Lucas y Renzo
  * @version 1.0
  */
-@SuppressWarnings("deprecation")
 public class ControladorDeRalph extends Controlador<EstadoRalph>{
 	private int tiempoDeGolpeo; // Cada cuantos segundos Ralph golpea
 	private int tiempoDeDesplazamiento; // Cada cuantos segundos Ralph se mueve
@@ -110,7 +109,6 @@ public class ControladorDeRalph extends Controlador<EstadoRalph>{
 				timerGolpear=0;
 			}
 		} else {
-//			ralph.setEstado(EstadosRalph.NORMAL1);
 			timerIntervaloMovimiento++;
 			timerIntervaloGolpeo++;
 			if (timerIntervaloMovimiento > (tiempoDeDesplazamiento * 1000 / ControladorDeJuego.ACTUALIZACION)) {

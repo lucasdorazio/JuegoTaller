@@ -148,8 +148,6 @@ public class Juego {
 				avanzarSeccion();
 			else {
 				for (int i = 0; i < 4; i++) {
-//					if (i == 1) continue;
-//					if (i == 2) continue;
 					controladores[i].actualizar();
 				}
 				Felix.getInstance().actualizar();

@@ -25,7 +25,7 @@ public class ControladorDePajaro extends Controlador<EstadoPajaro>{
 	private int timerGeneracion;
 	private int timerMovimiento;
 	private int timerSwap;
-	private static List<Pajaro> listaDePajaros;
+	private  List<Pajaro> listaDePajaros;
 	
 	public List<Pajaro> getListaPajaros(){
 		return listaDePajaros;
