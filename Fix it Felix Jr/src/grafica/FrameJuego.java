@@ -70,7 +70,7 @@ public class FrameJuego extends JFrame {
 			}
 		});
 		try {
-			fondo = ImageIO.read(new File("src/grafica/Fondos/fondoDefinitivo.png"));
+			fondo = ImageIO.read(this.getClass().getClassLoader().getResource("grafica/Fondos/fondoDefinitivo.png"));
             seccion0 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/edificio_150_seccion1.png"));
             seccion1 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion2.png"));
             seccion2 = ImageIO.read(new File ("src/grafica/fixitfelixcortado/edificio/seccion3.png"));

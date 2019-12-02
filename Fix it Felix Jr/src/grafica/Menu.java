@@ -24,7 +24,7 @@ public class Menu extends JFrame {
 	private JLabel lblFixItFelix, botonConfig;
 	private JButton botonRanking, botonJugar, botonComoJugar;
 	private ControladorDeJuego gameController;
-
+	
 	/**
 	 * Create the frame.
 	 */
