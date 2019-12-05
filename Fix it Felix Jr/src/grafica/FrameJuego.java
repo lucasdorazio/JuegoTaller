@@ -442,4 +442,16 @@ public class FrameJuego extends JFrame {
 	public void mostrarPausa() {
 		contentPane.getGraphics().drawImage(pausa, Edificio.getLimiteIzquierdaEdificio(), (Juego.LIMITE_INFERIOR_MAPA-pausa.getHeight(null))/2, 315, 90, null);
 	}
+	
+	public void pintar() {
+		repaint();
+	}
+	
+	public void cerrarVentana() {
+		dispose();
+	}
+	
+	public void hacerVisible(boolean b) {
+		setVisible(b);
+	}
 }

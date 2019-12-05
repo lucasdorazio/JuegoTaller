@@ -49,9 +49,8 @@ public class Juego {
 	
 	private  int nroSeccion;
 	
-	private int puntajePrevioNivel;
-	private int puntajePrevioSeccion;
-
+	//private int puntaje;
+	
 	private int timerTiempo;
 	
 	@SuppressWarnings("rawtypes")
@@ -77,7 +76,7 @@ public class Juego {
 			System.out.println("No se pudo escribir");
 		}//era para comprobar que lee y escribe bien*/
 		jugador= new Jugador();
-		puntajePrevioNivel=0;
+		//puntaje=0;
 		nroNivel=0;
 		pasarDeNivel=false;
 		pasarDeSeccion=false;
@@ -99,11 +98,10 @@ public class Juego {
 			for (int i=0;i<4;i++) {
 				controladores[i].avanzarSeccion();
 			}
-			jugador.setPuntaje(puntajePrevioNivel);
 			reinicioNivel=false;
 		} else {
 			nivel.generarEdificio();
-			puntajePrevioNivel=jugador.getPuntaje();
+		//	puntajePrevioNivel=jugador.getPuntaje();
 			Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		}
 		controladores= new Controlador[4];
@@ -122,7 +120,6 @@ public class Juego {
 		for (int i=0;i<4;i++) {
 			controladores[i].avanzarSeccion();
 		}
-		jugador.setPuntaje(puntajePrevioSeccion);
 		Edificio.getInstance().reiniciarSeccion(nroSeccion);
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		reinicioSeccion=false;
@@ -175,7 +172,7 @@ public class Juego {
 	public void avanzarSeccion() {
 		limpiarEntidades();
 		nroSeccion++;
-		puntajePrevioSeccion=jugador.getPuntaje();
+		//puntajePrevioSeccion=jugador.getPuntaje();
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
 		pasarDeSeccion=false;
@@ -281,5 +278,11 @@ public class Juego {
 		return tiempo;
 	}
 	
+	public void alternarPausa() {
+		if (getEstado() != EstadoJuego.PAUSA) {
+			setEstado(EstadoJuego.PAUSA);
+		} else
+			Juego.getInstance().setEstado(EstadoJuego.NORMAL);
+	}
 	
 }

@@ -43,13 +43,11 @@ public class ControladorDeJuego {
 						Juego.getInstance().setEstado(EstadoJuego.PERDER);
 						perder(Juego.getInstance().getJugador());
 						this.cancel();
-						frameJuego.dispose();
 					}
 					if (Juego.getInstance().gano()) {
 						Juego.getInstance().setEstado(EstadoJuego.GANAR);
 						ganar(Juego.getInstance().getJugador());
 						this.cancel();
-						frameJuego.dispose();
 					}
 				}
 			}
@@ -58,7 +56,9 @@ public class ControladorDeJuego {
 			public void run() {
 				switch (Juego.getInstance().getEstado()) {
 				case NORMAL:
-					frameJuego.repaint();
+					if (Juego.getInstance().perdio() || Juego.getInstance().gano())
+						frameJuego.cerrarVentana();
+					frameJuego.pintar();;
 					break;
 				case PAUSA:
 					frameJuego.mostrarPausa();
@@ -74,7 +74,7 @@ public class ControladorDeJuego {
 	}
 	
 	public void jugar() {
-		frameJuego.setVisible(true);
+		frameJuego.hacerVisible(true);
 		Juego.getInstance().comenzarJuego(nivelElegido);
 		Juego.getInstance().setEstado(EstadoJuego.NORMAL);
 	}
@@ -138,6 +138,6 @@ public class ControladorDeJuego {
 	
 	public void terminarJuego() {
 		Juego.getInstance().limpiarEntidades();
-		frameJuego.setVisible(false);
+		frameJuego.hacerVisible(false);
 	}
 }

@@ -20,7 +20,7 @@ public class KeyGameAdapter extends KeyAdapter {
 	
 	public void keyPressed(KeyEvent tecla) {
 		switch (tecla.getKeyCode()) {
-		case 37:
+		case KeyEvent.VK_LEFT:
 			try {
 				if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA)
 					Felix.getInstance().mover(Direcciones.IZQUIERDA);
@@ -28,7 +28,7 @@ public class KeyGameAdapter extends KeyAdapter {
 				direccionInvalida.play();
 			}
 			break;
-		case 38:
+		case KeyEvent.VK_UP:
 			try {
 				if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA)
 					Felix.getInstance().mover(Direcciones.ARRIBA);
@@ -36,7 +36,7 @@ public class KeyGameAdapter extends KeyAdapter {
 				direccionInvalida.play();
 			}
 			break;
-		case 39:
+		case KeyEvent.VK_RIGHT:
 			try {
 				if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA)
 					Felix.getInstance().mover(Direcciones.DERECHA);
@@ -44,7 +44,7 @@ public class KeyGameAdapter extends KeyAdapter {
 				direccionInvalida.play();
 			}
 			break;
-		case 40:
+		case KeyEvent.VK_DOWN:
 			try {
 				if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA)
 					Felix.getInstance().mover(Direcciones.ABAJO);
@@ -52,13 +52,10 @@ public class KeyGameAdapter extends KeyAdapter {
 				direccionInvalida.play();
 			}
 			break;
-		case 80:
-			if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA) {
-				Juego.getInstance().setEstado(EstadoJuego.PAUSA);
-			} else
-				Juego.getInstance().setEstado(EstadoJuego.NORMAL);
+		case KeyEvent.VK_P:
+			Juego.getInstance().alternarPausa();
 			break;
-		case 32:
+		case KeyEvent.VK_SPACE:
 			if (Juego.getInstance().getEstado() != EstadoJuego.PAUSA)
 				if (Felix.getInstance().reparar())
 					ventanaReparada.play();
