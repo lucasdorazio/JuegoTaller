@@ -84,7 +84,7 @@ public class ControladorDeJuego {
 	
 	public void ganar(Jugador jugador) {
 		boolean nombreCorrecto=false;
-		System.out.println("Ganaste, congratuleishon, tu punteaje fue:"+ jugador.getPuntaje());
+		JOptionPane.showMessageDialog(null,"Ganaste, enhorabuena, tu puntaje fue:"+ jugador.getPuntaje());
 		if (ranking.estaEntreLosMejoresCinco(jugador.getPuntaje())) {
 			while (!nombreCorrecto) {
 				try {
@@ -92,7 +92,7 @@ public class ControladorDeJuego {
 					nombreCorrecto = true;
 					jugador.setNick(nombre);
 				} catch (ImproperNameException e) {
-					System.out.println("ERROR: " + e.getMessage());
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			ranking.actualizarRankingNuevo(jugador);
@@ -109,7 +109,7 @@ public class ControladorDeJuego {
 					nombreCorrecto = true;
 					jugador.setNick(nombre);
 				} catch (ImproperNameException e) {
-					System.err.println("ERROR: " + e.getMessage());
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			ranking.actualizarRankingNuevo(jugador);

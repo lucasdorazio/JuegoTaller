@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
+import javax.swing.JOptionPane;
+
 /**
  * Clase que modela el almacenamiento y posición de los jugadores con mejores puntajes
  * @author Lucas Dorazio & Renzo Quaggia
@@ -47,7 +49,7 @@ public class Ranking{
 			escribirRanking();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println("El archivo archivo.obj no se ha encontrado");
+			JOptionPane.showMessageDialog(null, "El archivo archivo.obj no se ha encontrado", "Error!", JOptionPane.ERROR_MESSAGE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

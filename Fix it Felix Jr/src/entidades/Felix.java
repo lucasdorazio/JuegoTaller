@@ -89,7 +89,6 @@ public class Felix {
 		estado= EstadoFelix.INVULNERABLE;
 		vulnerable = false;
 		Juego.getInstance().getJugador().sumarPuntaje(500);
-		System.out.println("Puntaje actual= "+ Juego.getInstance().getJugador().getPuntaje());
 	}
 
 	public void recibirImpactoLadrillo() {

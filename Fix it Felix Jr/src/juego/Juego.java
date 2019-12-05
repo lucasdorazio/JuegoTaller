@@ -1,5 +1,7 @@
 package juego;
 
+import javax.swing.JOptionPane;
+
 import controladores.Controlador;
 import controladores.ControladorDeJuego;
 import controladores.ControladorDeLadrillos;
@@ -171,7 +173,6 @@ public class Juego {
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
 		pasarDeSeccion=false;
-		System.out.println("Avanzaste a la seccion "+ (nroSeccion+1) + "del nivel "+ nroNivel);
 	}
 	/**
 	 * iniciara un nuevo nivel desde cero 
@@ -182,7 +183,7 @@ public class Juego {
 		iniciarNivel(false);
 		pasarDeSeccion=false;
 		pasarDeNivel=false;
-		System.out.println("Victoria!! Avanzas al nivel " + (nroNivel+1));//nroNivel va de 0 a 9
+		JOptionPane.showMessageDialog(null, "Victoria!! Avanzas al nivel " + (nroNivel+1), "Felicidades!", JOptionPane.DEFAULT_OPTION);
 	}
 	
 	public void limpiarEntidades() {

@@ -1,5 +1,7 @@
 package edificio;
 
+import javax.swing.JOptionPane;
+
 import entidades.Direcciones;
 import excepciones.NotAllowedMovementException;
 
@@ -113,7 +115,6 @@ public abstract class Ventana implements Cloneable{
 					getEstadoPaneles()[6], getEstadoPaneles()[7]);
 			break;
 		default:
-			System.out.println("FATAL ERROR EN LA CLONACION DE VENTANAS");
 			v=null;
 			break;
 		}
