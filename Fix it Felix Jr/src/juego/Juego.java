@@ -49,8 +49,6 @@ public class Juego {
 	
 	private  int nroSeccion;
 	
-	//private int puntaje;
-	
 	private int timerTiempo;
 	
 	@SuppressWarnings("rawtypes")
@@ -76,7 +74,6 @@ public class Juego {
 			System.out.println("No se pudo escribir");
 		}//era para comprobar que lee y escribe bien*/
 		jugador= new Jugador();
-		//puntaje=0;
 		nroNivel=0;
 		pasarDeNivel=false;
 		pasarDeSeccion=false;
@@ -101,7 +98,6 @@ public class Juego {
 			reinicioNivel=false;
 		} else {
 			nivel.generarEdificio();
-		//	puntajePrevioNivel=jugador.getPuntaje();
 			Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[0].getVentanas()[2][2]);
 		}
 		controladores= new Controlador[4];
@@ -172,7 +168,6 @@ public class Juego {
 	public void avanzarSeccion() {
 		limpiarEntidades();
 		nroSeccion++;
-		//puntajePrevioSeccion=jugador.getPuntaje();
 		Felix.getInstance().setSeccionActual(Edificio.getInstance().getSecciones()[nroSeccion]);
 		Felix.getInstance().setVentanaActual(Edificio.getInstance().getSecciones()[nroSeccion].getVentanas()[2][Felix.getInstance().getVentanaActual().getNroColumna()]);
 		pasarDeSeccion=false;

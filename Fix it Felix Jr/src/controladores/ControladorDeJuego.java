@@ -43,6 +43,7 @@ public class ControladorDeJuego {
 						Juego.getInstance().setEstado(EstadoJuego.PERDER);
 						perder(Juego.getInstance().getJugador());
 						this.cancel();
+						
 					}
 					if (Juego.getInstance().gano()) {
 						Juego.getInstance().setEstado(EstadoJuego.GANAR);
@@ -56,16 +57,18 @@ public class ControladorDeJuego {
 			public void run() {
 				switch (Juego.getInstance().getEstado()) {
 				case NORMAL:
-					if (Juego.getInstance().perdio() || Juego.getInstance().gano())
-						frameJuego.cerrarVentana();
 					frameJuego.pintar();;
 					break;
 				case PAUSA:
 					frameJuego.mostrarPausa();
 					break;
+				case GANAR:
+				case PERDER:
+					frameJuego.cerrarVentana();
 				default: 
 					break;
 				}
+				
 			}
 		};
 		Juego.getInstance().setEstado(EstadoJuego.SIN_INICIAR);
