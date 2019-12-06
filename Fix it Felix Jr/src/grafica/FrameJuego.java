@@ -48,9 +48,10 @@ public class FrameJuego extends JFrame {
 
 	private JLabel lblPuntaje, lblTiempo, lblScore;
 	private JPanel contentPane; 
-	private Image  fondo, seccion0, seccion1, seccion2, macetero, moldura, pausa,
-	felix, felixReparando, felixMoviendose, felixGolpeado, felixInvulnerable,
-	ralph, ralphGolpeando1, ralphGolpeando2, ralphDerecha1, ralphDerecha2,
+	private HashMap<EstadoFelix,Image> felix;
+	private HashMap<EstadoRalph,Image> ralph;
+	private HashMap<Integer, Image> seccion;
+	private Image  fondo, macetero, moldura, pausa,
 	ventanaComun, conHojas, cerrada, semicircular, panelSemiRoto, panelSano,
 	pajaro1, pajaro2, pajaro3, pajaro4, pastel1, pastel2, ladrillo,
 	semi1, semi2, semi3, semi4, semi5, semi6, semi7, semi8, puerta0, puerta1, puerta2, puerta3, puerta4, corazon;
@@ -71,21 +72,28 @@ public class FrameJuego extends JFrame {
 			}
 		});
 		try {
+			felix = new HashMap<EstadoFelix, Image>();
+			ralph = new HashMap<EstadoRalph, Image>();
+			seccion = new HashMap<Integer, Image>();
+			felix.put(EstadoFelix.NORMAL,  ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/Felix/slice102_@.png")));
+			felix.put(EstadoFelix.REPARANDO, ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/Felix/slice135_@.png")));
+            felix.put(EstadoFelix.MOVIENDOSE,  ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/Felix/slice103_@.png")));
+            felix.put(EstadoFelix.MUERTO, ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/Felix/slice293_@.png")));
+            felix.put(EstadoFelix.INVULNERABLE, ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/Felix/slice101_@.png")));
+            ralph.put(EstadoRalph.GOLPEANDO1, ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice168_@.png")));
+			ralph.put(EstadoRalph.NORMAL1, ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice146_@.png")));
+			ralph.put(EstadoRalph.GOLPEANDO2, ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice167_@.png")));
+			ralph.put(EstadoRalph.CAMINANDO_DERECHA1, ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice147_@.png")));
+			ralph.put(EstadoRalph.CAMINANDO_DERECHA2, ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice148_@.png")));
+			ralph.put(EstadoRalph.CAMINANDO_IZQUIERDA1, rotarImagen(ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice147_@.png"))));
+			ralph.put(EstadoRalph.CAMINANDO_IZQUIERDA2, rotarImagen(ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice148_@.png"))));
 			fondo = ImageIO.read(this.getClass().getClassLoader().getResource("grafica/Fondos/fondoDefinitivo.png"));
-            seccion0 = ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/edificio/edificio_150_seccion1.png"));
-            seccion1 = ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/edificio/seccion2.png"));
-            seccion2 = ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/edificio/seccion3.png"));
+			seccion.put(0, ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/edificio/edificio_150_seccion1.png")));
+			seccion.put(1, ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/edificio/seccion2.png")));
+			seccion.put(3, ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/edificio/seccion3.png")));
             pausa= ImageIO.read(this.getClass().getClassLoader().getResource("grafica/Otros/pausa.png"));
-            felix = ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/Felix/slice102_@.png"));
-            felixReparando = ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/Felix/slice135_@.png"));
-            felixMoviendose= ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/Felix/slice103_@.png"));
-            felixGolpeado= ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/Felix/slice293_@.png"));
-            felixInvulnerable= ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/Felix/slice101_@.png"));
-            ralph = ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice146_@.png"));
-            ralphGolpeando1= ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice168_@.png"));
-            ralphGolpeando2= ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice167_@.png"));
-            ralphDerecha1= ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice147_@.png"));
-            ralphDerecha2= ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ralph/slice148_@.png"));
+
+        
             ventanaComun= ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ventanas_y_panel/slice103_@.png"));
             conHojas=ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ventanas_y_panel/slice106_@.png"));
             cerrada=ImageIO.read(this.getClass().getClassLoader().getResource("grafica/fixitfelixcortado/ventanas_y_panel/slice105_@.png"));
@@ -159,17 +167,7 @@ public class FrameJuego extends JFrame {
 	}
 	
 	private void paintSeccion(Graphics g) {
-		Image seccionAct = null;
-		switch (Juego.getInstance().getNroSeccion()) {
-		case 0:
-			seccionAct=seccion0;
-			break;
-		case 1:
-			seccionAct=seccion1;
-			break;
-		case 2:
-			seccionAct=seccion2;
-		}
+		Image seccionAct =seccion.get(Juego.getInstance().getNroSeccion());
 		g.drawImage(seccionAct, 180, 0, seccionAct.getWidth(null), seccionAct.getHeight(null), null);
 	}
 	
@@ -349,58 +347,19 @@ public class FrameJuego extends JFrame {
 	 }
 	 
 	private void paintRalph(Graphics g) {
-		Image imagen = null;
 		InfoGraficable<EstadoRalph> info = Juego.getInstance().getInfoGraficableRalph();
 		Posicion pos = info.getListaPosiciones().get(0);
 		EstadoRalph estado = info.getListaEstados().get(0);
-		switch (estado) {
-		case NORMAL1:
-			imagen= ralph;
-			break;
-		case GOLPEANDO1:
-			imagen= ralphGolpeando1;
-			break;
-		case GOLPEANDO2:
-			imagen= ralphGolpeando2;
-			break;
-		case CAMINANDO_DERECHA1:
-			imagen= ralphDerecha1;
-			break;
-		case CAMINANDO_DERECHA2:
-			imagen= ralphDerecha2;
-			break;
-		case CAMINANDO_IZQUIERDA1:
-			imagen= rotarImagen(ralphDerecha1);
-			break;
-		case CAMINANDO_IZQUIERDA2:
-			imagen= rotarImagen(ralphDerecha2);
-			break;
-		}
+		Image imagen = ralph.get(estado);
 		g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
 	}
 	
 	private void paintFelix(Graphics g) {
-		Image imagen= null;
+		
 		InfoGraficable<EstadoFelix> info= Felix.getInstance().getInfoGraficable();
 		Posicion pos= info.getListaPosiciones().get(0);
 		EstadoFelix estado= info.getListaEstados().get(0);
-		switch (estado) {
-			case NORMAL:
-				imagen=felix;
-				break;
-			case REPARANDO:
-				imagen=felixReparando;
-				break;
-			case MOVIENDOSE:
-				imagen=felixMoviendose;
-				break;
-			case MUERTO:
-				imagen= felixGolpeado;
-				break;
-			case INVULNERABLE:
-				imagen= felixInvulnerable;
-				break;
-		}
+		Image imagen= felix.get(estado);
 		g.drawImage(imagen, pos.getPosX(), pos.getPosY(), imagen.getWidth(null), imagen.getHeight(null), null);
 	}
 	

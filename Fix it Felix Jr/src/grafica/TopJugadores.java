@@ -25,11 +25,11 @@ public class TopJugadores extends JFrame {
 		String[] columnas = {"Posicion", "Jugador", "Puntaje"};
 		Object[][] datos= new String[5][3];
 		for (int i = 0; i < ranking.getCantJugadores(); i++) {
-//			datos[i][0]=String.valueOf(i+1);
-			datos[i][0]=i+1;
+			datos[i][0]=String.valueOf(i+1);
+//			datos[i][0]=i+1;
 			datos[i][1]=ranking.getMejoresCinco()[i].getNick();
-//			datos[i][2]=String.valueOf(ranking.getMejoresCinco()[i].getPuntaje());
-			datos[i][2]=ranking.getMejoresCinco()[i].getPuntaje();
+			datos[i][2]=String.valueOf(ranking.getMejoresCinco()[i].getPuntaje());
+//			datos[i][2]=ranking.getMejoresCinco()[i].getPuntaje();
 		}
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
